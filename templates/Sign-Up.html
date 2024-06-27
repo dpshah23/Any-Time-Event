@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Login {% endblock title %}
+{% block body %}
+
+<link rel="stylesheet" href="../static/css/Log-In.css">
+
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+<section class="container forms">
+    <div class="form login">
+        <div class="form-content">
+            <header>Sign-Up</header>
+
+            <form action="#">
+                <div class="field input-field">
+                    <input type="text" placeholder="Name" class="input">
+                </div>
+
+                <div class="field input-field">
+                    <input type="number" placeholder="Phone No." class="input">
+                </div>
+
+                <div class="field input-field">
+                    <input type="email" placeholder="Email" class="input">
+                </div>
+
+                <div class="field input-field">
+                    <input type="password" placeholder="Password" class="password" id="password">
+                    <i class='bx bx-hide eye-icon' onclick="togglePassword('password', this)"></i>
+                </div>
+
+                <div class="field input-field">
+                    <input type="password" placeholder="Confirm Password" class="password" id="confirm-password">
+                    <i class='bx bx-hide eye-icon' onclick="togglePassword('confirm-password', this)"></i>
+                </div>
+
+                <div class="field button-field">
+                    <button>Signup</button>
+                </div>
+            </form>
+
+            <div class="form-link">
+                <span>Already have an Account ?</span> <a href="" class="signup-link">Login
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+<script src="../static/js/Sign-up.js"></script>
+{% endblock body %}
