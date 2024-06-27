@@ -1,0 +1,32 @@
+<!--display volunteers of the event -->
+
+<!DOCTYPE html>
+<html lang="en">.
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href=""> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Volunteers list</title>
+</head>
+<body>
+    <div class="container">
+        <div class="post-container">
+            {% for post in posts %}
+              <div class="containe">
+                
+                <a  class="post" href="{{ url_for('profile', user_name=post['UserName']) }}" target="_blank">{{ post['UserName'] }}</a>
+                <h2>{{ post['title'] }}</h2>
+                <p>{{ post['description'] }}</p>
+                <img src="data:image/png;base64,{{post['img']}}" class="card-img-top" alt="Display Picture" style="height: 200px;width: 200px;border-radius: 50%;overflow: hidden;"><br><br>
+            </div>
+            {% endfor %}
+          </div>
+        </form>
+    </div>
+    </div>
+</body>
+</html>
+
+
