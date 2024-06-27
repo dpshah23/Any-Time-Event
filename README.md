@@ -8,5 +8,5 @@ docker-compose build
 <h2>Run </h2>
 
 '''sh
-
+docker-compose up
 '''
