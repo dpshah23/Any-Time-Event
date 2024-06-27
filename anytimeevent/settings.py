@@ -74,13 +74,28 @@ WSGI_APPLICATION = 'anytimeevent.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+import os
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'defaultdb',      # Replace with your database name
+        'USER': 'avnadmin',      # Replace with your database user
+        'PASSWORD': os.getenv('PASSWORD'),  # Replace with your database password
+        'HOST': os.getenv('HOST'),               # Or the IP address of your MySQL server
+        'PORT': os.getenv('PORT'),                    # The default MySQL port
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
