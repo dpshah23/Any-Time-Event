@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: sans-serif;
+    background-color: #f0ece2;
+  }
+  
+  nav {
+    background: #dfd3c3;
+    height: 80px;
+    width: 100%;
+    border-bottom: 3.2px solid black;
+  }
+  
+  label.logo {
+    color: #000000;
+    font-size: 37px;
+    line-height: 80px;
+    padding: 0 100px;
+    font-weight: bold;
+  }
+  
+  label.logo:hover {
+    text-decoration: underline;
+  }
+  
+  nav ul {
+    float: right;
+    margin-right: 20px;
+  }
+  
+  nav ul li {
+    display: inline-block;
+    line-height: 80px;
+    margin: 0 5px;
+  }
+  
+  nav ul li a {
+    color: #000000;
+    font-size: 18px;
+    text-transform: uppercase;
+    padding: 7px 13px;
+    font-weight: 550;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+    transition: 0.1s ease-in;
+  }
+  
+  .checkbtn {
+    float: right;
+    line-height: 80px;
+    margin-right: 40px;
+    margin-top: 7px;
+    cursor: pointer;
+    display: none;
+  }
+  
+  #check {
+    display: none;
+  }
+  
+  .menu {
+    height: 2rem;
+    width: 2rem;
+  }
+  
+  .log-butt {
+    height: 2.5rem;
+    width: 5rem;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 5rem;
+    border-radius: 8px;
+    border: 2px solid black;
+    background-color: #BCCCC0;
+    color: #000000;
+    overflow: hidden;
+  }
+  
+  .log-butt a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  @media (max-width: 952px) {
+    label.logo {
+      font-size: 30px;
+      padding-left: 50px;
+    }
+  
+    nav ul li a {
+      font-size: 16px;
+    }
+  
+    .log-butt {
+      height: 2rem;
+      width: 4.2rem;
+      font-size: 18px;
+    }
+  }
+  
+  @media (max-width: 858px) {
+    .checkbtn {
+      display: block;
+    }
+  
+    ul {
+      position: fixed;
+      width: 15rem;
+      height: 100vh;
+      background-color: #f0f0f0;
+      top: 80px;
+      left: -100%;
+      text-align: center;
+      transition: 0.5s all;
+    }
+  
+    nav ul li {
+      display: block;
+      margin: 50px 0;
+      line-height: 30px;
+    }
+  
+    nav ul li a {
+      font-size: 20px;
+    }
+  
+    a:hover,
+    a.check {
+      background: none;
+      color: black;
+    }
+  
+    #check:checked ~ ul {
+      left: 0;
+    }
+  
+    .log-butt {
+      margin-left: 0rem;
+      height: 3rem;
+      width: 5rem;
+      font-weight: bold;
+      font-size: 21px;
+      background-color: #639bc6;
+    }
+  }

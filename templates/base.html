@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}{% endblock title %} | Any Time Event </title>
+  <link rel="stylesheet" href=../static/css/navbar.css />
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css" />
+</head>
+
+<body>
+  <nav>
+    <input type="checkbox" id="check" />
+    <label for="check" class="checkbtn">
+      <img class="menu" src="../static/img/bars.svg" alt="Bars" />
+    </label>
+    <label class="logo">Logo</label>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+      <button class="log-butt"><a href="#">Login</a></button>
+    </ul>
+  </nav>
+  {% block body %}{% endblock body %}
+</body>
+
+</html>
