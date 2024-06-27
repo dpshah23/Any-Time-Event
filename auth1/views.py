@@ -112,9 +112,10 @@ def login(request):
                         return redirect('/validate')
                 else:
                     if user.role=="volunteer":
-                        return redirect('/volunteer')
+                        # return redirect('/volunteer')
+                        return HttpResponse("Volunteer")
                     elif user.role=="company":
-                        return redirect('/company')
+                        return HttpResponse("Company")
                     else:
                         redirect('/')
 
