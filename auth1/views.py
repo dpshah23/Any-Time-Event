@@ -1,5 +1,8 @@
 from django.shortcuts import render
 
 # Create your views here.
-def index(request):
-    return render(request, 'home.html')
+
+def login(request):
+    if 'email' and 'role' in request.session:
+        pass
+    return render(request, 'Log-In.html')

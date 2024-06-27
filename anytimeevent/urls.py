@@ -19,5 +19,6 @@ from django.urls import path,include
 
 urlpatterns = [
     path('dj-admin/', admin.site.urls),
-    path('',include('auth1.urls'))
+    path('auth/',include('auth1.urls')),
+    path('',include('redirection.urls'))
 ]
