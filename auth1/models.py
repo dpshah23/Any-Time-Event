@@ -11,3 +11,10 @@ class users(models.Model):
     def __str__(self):
         return self.email
     
+class otps(models.Model):
+    email=models.EmailField(max_length=100)
+    otp=models.IntegerField()
+    usage=models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.email
