@@ -22,6 +22,7 @@
     padding: 30px;
     border-radius: 6px;
     background-color: #ffffff;
+    border: 2px solid black;
 }
 
 header {
