@@ -1,0 +1,220 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #639bc6;
+}
+
+.form {
+  max-width: 430px;
+  width: 200%;
+  padding: 30px;
+  border-radius: 6px;
+  background-color: #ffffff;
+}
+
+header {
+  font-size: 28px;
+  font-weight: 600;
+  color: #232836;
+  text-align: center;
+}
+
+form {
+  margin-top: 30px;
+}
+
+.form .field {
+  height: 50px;
+  width: 100%;
+  margin-top: 20px;
+  position: relative;
+  border-radius: 6px;
+}
+
+.field input,
+.field button ,
+.form-content textarea{
+  height: 100%;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  border: none;
+  border-radius: 6px;
+}
+
+.field input {
+  padding: 0 15px;
+  border: 1px solid #cacaca;
+  outline: none;
+}
+
+.field input:focus {
+  border-bottom-width: 2px;
+}
+
+.eye-icon {
+  font-size: 18px;
+  color: #8b8b8b;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  padding: 5px;
+}
+
+.field button {
+  background-color: #0171d3;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.field button:hover {
+  background-color: #016dcb;
+}
+
+.form-link {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.form-link span:hover {
+  text-decoration: underline;
+}
+
+.form-link span,
+.form-link a {
+  font-size: 14px;
+  font-weight: 400;
+  color: #232836;
+}
+
+.form a {
+  color: #0171d3;
+  text-decoration: none;
+}
+
+.form-content a:hover {
+  text-decoration: underline;
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  position: relative;
+  background-color: #d4d4d4;
+  margin: 36px 0;
+}
+
+.line::before {
+  content: "Or";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  color: #232836;
+  padding: 0 15px;
+}
+
+.media-options a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+a.facebook {
+  background-color: #4267b2;
+  color: #ffffff;
+}
+
+a.facebook .facebook-icon {
+  height: 28px;
+  width: 28px;
+  background-color: #ffffff;
+  color: #0171d3;
+  font-size: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.facebook-icon,
+img.google-img {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+}
+
+img.google-img {
+  height: 20px;
+  width: 20px;
+  object-fit: cover;
+}
+
+a.google {
+  border: 1px solid #cacaca;
+}
+
+a.google span {
+  color: #232836;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    height: auto;
+    padding: 20px;
+  }
+
+  .form {
+    max-width: 100%;
+  }
+
+  header {
+    font-size: 24px;
+  }
+
+  .field input,
+  .field button,
+  #Address {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .form {
+    padding: 20px;
+  }
+
+  header {
+    font-size: 20px;
+  }
+
+  .field input,
+  .field button,
+  #Address {
+    font-size: 12px;
+  }
+
+  .field.button-field button {
+    font-size: 14px;
+  }
+}
