@@ -147,6 +147,10 @@ def signup (request):
             encrypted_password = base64.b64encode(encrypt).decode('utf-8')
             key_str = base64.b64encode(key1).decode('utf-8')
 
+            def set_cookie(request):
+                response = HttpResponse("Cookie Set")
+                response.set_cookie('email', email, max_age=3600) 
+                return response
             user1 = users(email=email,password=encrypted_password,key=key_str,role=role)
             user1.save()
             
@@ -165,15 +169,25 @@ def signup (request):
 
 def companyinfo(request):
     if request.method == 'POST':
+        email1 = request.COOKIES.get('email')
         address = request.POST.get('address')
         website = request.POST.get('website')
         card = request.POST.get('card')
         phone2 = request.POST.get('phone2')
         description= request.POST.get('description')
         logo = request.POST.get('logo')
+
+        obj1=company.objects.all(email=email1)
+        obj1.address = address
+        obj1.website = website
+        obj1.card = card
+        obj1.phone2 = phone2
+        obj1.description = description
+        obj1.logo = logo
             
 def volunteerinfo(request):
     if request.method == 'POST':
+        email1 = request.COOKIES.get('email')
         dob = request.POST.get('dob')
         timestamp = request.POST.get('timestamp')
         experience = request.POST.get('experience')
@@ -184,6 +198,22 @@ def volunteerinfo(request):
         id_proof = request.POST.get('id_proof')
         upi = request.POST.get('upi')
         description = request.POST.get('de4scription')
+
+        obj1=volunteer.objects.all(email=email1)
+        obj1.email=email1
+        obj1.dob = dob
+        obj1.timestamp = timestamp
+        obj1.experience = experience
+        obj1.skills = skills
+        obj1.qualification = qualification
+        obj1.emergency_contact = emergency_contact
+        obj1.profile_pic = profile_pic
+        obj1.id_proof = id_proof
+        obj1.upi = upi
+        obj1.description = description
+
+
+
 
 def logout(request):
     if 'email' and 'role' in request.session:
