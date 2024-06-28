@@ -184,6 +184,7 @@ def companyinfo(request):
         obj1.phone2 = phone2
         obj1.description = description
         obj1.logo = logo
+    return render(request, 'Sign-Up.html')
             
 def volunteerinfo(request):
     if request.method == 'POST':
@@ -211,8 +212,7 @@ def volunteerinfo(request):
         obj1.id_proof = id_proof
         obj1.upi = upi
         obj1.description = description
-
-
+    return render(request, 'Sign-Up.html')
 
 
 def logout(request):
