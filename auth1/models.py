@@ -25,7 +25,7 @@ class company(models.Model):
     password=models.CharField(max_length=200)
     phone1=models.CharField(max_length=100)
     address=models.TextField()
-    website = models.CharField() #not 
+    website = models.CharField(max_length=100) #not 
     phone2=models.CharField(max_length=100) #not
     card = models.ImageField()
     description = models.TextField() #not
@@ -41,7 +41,7 @@ class volunteer(models.Model):
     phone=models.CharField(max_length=100)
     dob = models.DateField()
     timestamp = models.DateTimeField()
-    exp = models.CharField(max_length=200) #not
+    experience = models.CharField(max_length=200) #not
     skills = models.CharField(max_length=200) #not 
     qualification = models.CharField(max_length=100) #dropdown menu
     upi = models.CharField(max_length=100)
