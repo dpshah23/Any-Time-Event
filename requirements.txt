@@ -3,3 +3,4 @@ python-dotenv
 mysqlclient
 django-unfold
 cryptography
+pillow

@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,HttpResponse
-from .models import users,otps
+from .models import *
 from cryptography.fernet import Fernet
 import base64
 from django.contrib import messages
@@ -127,19 +127,63 @@ def login(request):
 
     return render(request, 'Log-In.html')
 
+def key():
+    
+    return Fernet.generate_key()
+
 def signup (request):
     if request.method == 'POST':
         if users.objects.all (email!=email) :
+
             email = request.POST.get('email')
             password = request.POST.get('password')
             name = request.POST.get('name')
             phone = request.POST.get('phone')
-            user = users.objects.create_user(email=email, password=password, name=name, phone=phone)
+            role = request.POST.get('role')
+            
+            key1=key()
+            f=Fernet(key1)
+            encrypt=f.encrypt(password.encode())
+            encrypted_password = base64.b64encode(encrypt).decode('utf-8')
+            key_str = base64.b64encode(key1).decode('utf-8')
+
+            user1 = users(email=email,password=encrypted_password,key=key_str,role=role)
+            user1.save()
+            
+            if role == "company":
+                c1=company(email=email,password=encrypted_password,key=key_str,role=role)
+                return redirect('/companyinfo')
+            else :
+                v1 = volunteer(email=email,password=encrypted_password,key=key_str,role=role)
+                return redirect('/volunteerinfo')
+       
         else : 
             messages.error(request, 'Email Already Exist')
             return render(request, 'Sign-Up.html')
         return redirect('/')
     return render(request, 'Sign-Up.html')
+
+def companyinfo(request):
+    if request.method == 'POST':
+        address = request.POST.get('address')
+        website = request.POST.get('website')
+        card = request.POST.get('card')
+        phone2 = request.POST.get('phone2')
+        description= request.POST.get('description')
+        logo = request.POST.get('logo')
+            
+def volunteerinfo(request):
+    if request.method == 'POST':
+        dob = request.POST.get('dob')
+        timestamp = request.POST.get('timestamp')
+        experience = request.POST.get('experience')
+        skills = request.POST.get('skills')
+        qualification = request.POST.get('qualification')
+        emergency_contact = request.POST.get('emergency_contact')
+        profile_pic = request.POST.get('profile_pic')
+        id_proof = request.POST.get('id_proof')
+        upi = request.POST.get('upi')
+        description = request.POST.get('de4scription')
 
 def logout(request):
     if 'email' and 'role' in request.session:

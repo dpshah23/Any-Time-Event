@@ -10,3 +10,9 @@ urlpatterns = [
 urlpatterns = [
     path('signup', signup, name='signup'),
 ]
+urlpatterns = [
+    path('companyinfo', companyinfo, name='companyinfo'),
+]
+urlpatterns = [
+    path('volunteerinfo', volunteerinfo, name='volunteerinfo'),
+]
