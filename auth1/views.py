@@ -8,7 +8,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
-import random
+import random,string
 import os
 
 
@@ -193,3 +193,62 @@ def logout(request):
 
         return redirect('/')
     return redirect('/')
+
+
+def reset(request):
+    if request.method=="POST":
+        email=request.POST.get('email')
+        user=users.objects.get(email=email)
+        load_dotenv()
+        if user.length==0:
+            return redirect('/auth/login')
+
+        from_email=os.getenv('EMAIL')
+        password=os.getenv('PASSWORD')
+
+        email=user.email
+        subject="Reset Password"
+        length=8
+        x = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(32))
+        resetpass1=resetpass(email=email,keys=x,usage=False)
+        resetpass1.save()
+        final_str_link="http://http://127.0.0.1:8000/auth/resetpass?email="+email+"&key="+x
+
+        body=f"""
+        <h1 style="text-align:center">One Time Password For Sign-in</h1>
+
+                    <p>Thank you for registering on our website again but you need to confirm your device because it has been over 15 days since you last logged in .<br>
+                    To complete the registration process, please use the following One-Time Password (OTP) </p>
+
+                    <h2>Your OTP : {final_str_link}</h2>
+
+                    <p>
+                    Please enter this OTP on the registration page to verify your identity and activate your account.
+
+                    If you did not initiate this registration, please ignore this message.
+                
+                    </p>
+
+                    Thank you,
+                    <br>
+                    Any Time Event.
+
+                    """
+        msg = MIMEMultipart()
+        msg['Subject'] = subject
+        msg['From'] = from_email
+        msg['To'] = email
+        msg.attach(MIMEText(body, 'html'))
+   
+
+        with smtplib.SMTP('smtp.gmail.com', 587) as server:
+            server.starttls()
+            server.login(from_email, password)
+            server.sendmail(from_email, email, msg.as_string())
+                
+    return render(request, 'reset.html')
+
+def resetpass(request):
+    
+    password=request.POST.get('password')
+    key=request.POST.get('key')
