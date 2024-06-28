@@ -10,6 +10,24 @@
 </head>
 
 <body>
+  <nav>
+    <input type="checkbox" id="check" />
+    <label for="check" class="checkbtn">
+      <img class="menu" src="../static/img/bars.svg" alt="Bars" />
+    </label>
+    <label class="logo"><img src="../static/img/Any-Time-Event-Logo.png" alt="Logo"></label>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+      {% if 'email' not in request.session and 'role' in request.session %}
+        <button class="log-butt"><a href="/auth/login">Login</a></button>
+      {% else %}
+        <button class="log-butt"><a href="/auth/logout">Logout</a></button>
+      {% endif %}
+    </ul>
+  </nav>
  
   {% block body %}{% endblock body %}
 </body>
