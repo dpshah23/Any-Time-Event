@@ -13,3 +13,8 @@ def index(request):
         else:
             redirect('/')
     return render(request,'home.html')
+
+def contact(request):
+    if request.method=="POST":
+        pass
+    return render(request,'Contact-us.html')
