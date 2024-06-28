@@ -250,5 +250,13 @@ def reset(request):
 
 def resetpass(request):
     
-    password=request.POST.get('password')
-    key=request.POST.get('key')
+    email=request.GET.get('email')
+    key=request.GET.get('key')
+
+    user=resetpass.objects.get(email=email,keys=key)
+
+    if user.usage==True:
+        return redirect('/auth/login')
+    
+    else:
+        return render(request, 'resetpass.html')
