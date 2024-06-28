@@ -127,7 +127,6 @@ def login(request):
 
     return render(request, 'Log-In.html')
 
-<<<<<<< HEAD
 def signup (request):
     if request.method == 'POST':
         if users.objects.all (email!=email) :
@@ -141,11 +140,12 @@ def signup (request):
             return render(request, 'Sign-Up.html')
         return redirect('/')
     return render(request, 'Sign-Up.html')
-=======
-
 
 def logout(request):
-    del request.session['email']
-    del request.session['role']
+    if 'email' and 'role' in request.session:
+        request.session.pop('email')
+        request.session.pop('role') 
+        request.session.flush()
+
+        return redirect('/')
     return redirect('/')
->>>>>>> fe3b45a4a26717b82e5ef658dbdc816f270eedae
