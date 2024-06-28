@@ -136,6 +136,11 @@ def signup (request):
         if users.objects.all (email!=email) :
 
             email = request.POST.get('email')
+
+            if users.objects.filter(email=email).exists():
+                messages.error(request, 'Email Already Exist')
+                return render(request, 'Sign-Up.html')
+        
             password = request.POST.get('password')
             name = request.POST.get('name')
             phone = request.POST.get('phone')
