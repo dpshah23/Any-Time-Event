@@ -52,3 +52,12 @@ class volunteer(models.Model):
     key=models.TextField()
     def __str__(self):
         return self.name
+    
+
+class resetpass(models.Model):
+    email=models.EmailField(max_length=100)
+    keys=models.TextField()
+    usage=models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.email
