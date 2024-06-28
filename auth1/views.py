@@ -53,7 +53,7 @@ def decrypt_password(password,key):
 
 def login(request):
     if 'email' and 'role' in request.session:
-        pass
+        return redirect('/')
     if request.method=="POST":
         email=request.POST.get('email')
         password=request.POST.get('password')
@@ -147,18 +147,20 @@ def signup (request):
             encrypted_password = base64.b64encode(encrypt).decode('utf-8')
             key_str = base64.b64encode(key1).decode('utf-8')
 
-            def set_cookie(request):
-                response = HttpResponse("Cookie Set")
-                response.set_cookie('email', email, max_age=3600) 
-                return response
+         
+            response = HttpResponse("Cookie Set")
+            response.set_cookie('email', email, max_age=3600) 
+        
             user1 = users(email=email,password=encrypted_password,key=key_str,role=role)
             user1.save()
             
             if role == "company":
-                c1=company(email=email,password=encrypted_password,key=key_str,role=role)
+                c1=company(name=name,email=email,phone1=phone,address=None,website=None , phone2=None ,card=None , description=None , logo=None )
+                c1.save()
                 return redirect('/companyinfo')
             else :
-                v1 = volunteer(email=email,password=encrypted_password,key=key_str,role=role)
+                v1 = volunteer(name=name ,email=email,phone=phone ,dob=None , timestamp=None ,experience=None , skills=None , qualification=None , upi=None,emergency_contact=None,profile_pic=None,card=None,description=None )
+                v1.save()
                 return redirect('/volunteerinfo')
        
         else : 

@@ -22,7 +22,6 @@ class otps(models.Model):
 class company(models.Model):
     name=models.CharField(max_length=100)
     email=models.EmailField(max_length=100)
-    password=models.CharField(max_length=200)
     phone1=models.CharField(max_length=100)
     address=models.TextField()
     website = models.CharField(max_length=100) #not 
@@ -37,7 +36,6 @@ class company(models.Model):
 class volunteer(models.Model):
     name=models.CharField(max_length=100)
     email=models.EmailField(max_length=100)
-    password=models.CharField(max_length=200)
     phone=models.CharField(max_length=100)
     dob = models.DateField()
     timestamp = models.DateTimeField()
@@ -49,7 +47,7 @@ class volunteer(models.Model):
     profile_pic = models.ImageField()
     card = models.ImageField()
     description = models.TextField()
-    key=models.TextField()
+
     def __str__(self):
         return self.name
     
