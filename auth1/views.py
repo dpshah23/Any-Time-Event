@@ -127,3 +127,16 @@ def login(request):
 
     return render(request, 'Log-In.html')
 
+def signup (request):
+    if request.method == 'POST':
+        if users.objects.all (email!=email) :
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+            name = request.POST.get('name')
+            phone = request.POST.get('phone')
+            user = users.objects.create_user(email=email, password=password, name=name, phone=phone)
+        else : 
+            messages.error(request, 'Email Already Exist')
+            return render(request, 'Sign-Up.html')
+        return redirect('/')
+    return render(request, 'Sign-Up.html')
