@@ -145,7 +145,8 @@ def signup (request):
 
 
 def logout(request):
-    del request.session['email']
-    del request.session['role']
-    return redirect('/')
+    if 'email' in request.session:
+        request.session.pop('role')
+        request.session.pop('email')
+        return redirect('/login')
 >>>>>>> fe3b45a4a26717b82e5ef658dbdc816f270eedae
