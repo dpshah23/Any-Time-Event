@@ -19,7 +19,6 @@
                 <div class="field input-field">
                     <input type="number" placeholder="Phone No." class="input" required>
                 </div>
-
                 <div class="field input-field">
                     <input type="email" placeholder="Email" class="input" required>
                 </div>
@@ -33,14 +32,21 @@
                     <input type="password" placeholder="Confirm Password" class="password" id="confirm-password" required>
                     <i class='bx bx-hide eye-icon' onclick="togglePassword('confirm-password', this)"></i>
                 </div>
-
+                <div class="field input-field"> 
+                    <label for="role">Role:</label>
+                    <select name="role" id="role" required>
+                        <option value="company">Company</option>
+                        <option value="volunteer">Paid Volunteer</option>
+                    </select>
+                    </div>
+                    
                 <div class="field button-field">
-                    <button>Signup</button>
+                    <button>Next</button>
                 </div>
             </form>
 
             <div class="form-link">
-                <span>Already have an Account ?</span> <a href="" class="signup-link">Login
+                <span>Already have an Account ?</span> <a href="../templates/Log-In.html" class="signup-link">Login
             </div>
         </div>
         
