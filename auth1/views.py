@@ -247,15 +247,13 @@ def reset(request):
         body=f"""
         <h1 style="text-align:center">One Time Password For Sign-in</h1>
 
-                    <p>Thank you for registering on our website again but you need to confirm your device because it has been over 15 days since you last logged in .<br>
-                    To complete the registration process, please use the following One-Time Password (OTP) </p>
+                    <p>We're sorry to hear that you're having trouble with logging in to Any Time Event. We've received a message that you've forgotten your password. <br>
+                    If this was you, you can reset your password now using this link . </p>
 
-                    <h2>Your OTP : {final_str_link}</h2>
+                    <h2>Your Link : {final_str_link}</h2>
 
                     <p>
-                    Please enter this OTP on the registration page to verify your identity and activate your account.
-
-                    If you did not initiate this registration, please ignore this message.
+                    If you didn't request password reset link, you can ignore this message
                 
                     </p>
 
