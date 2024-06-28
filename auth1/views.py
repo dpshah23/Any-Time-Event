@@ -127,3 +127,9 @@ def login(request):
 
     return render(request, 'Log-In.html')
 
+
+
+def logout(request):
+    del request.session['email']
+    del request.session['role']
+    return redirect('/')
