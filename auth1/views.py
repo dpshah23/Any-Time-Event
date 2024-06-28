@@ -119,7 +119,9 @@ def login(request):
                     else:
                         redirect('/')
 
-                
+            else:
+                messages.error(request, 'Invalid Credentials')
+                return render(request, 'Log-In.html')
 
         except:
             messages.error(request, 'Invalid Credentials')

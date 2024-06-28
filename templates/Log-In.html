@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 {% block title %}Login {% endblock title %}
 {% block body %}
+{% if messages %}
+  {% for message in messages %}
+    <div class="custom-alert custom-alert-{{ message.tags }}">
+      {{ message }}
+      <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+    </div>
+  {% endfor %}
+{% endif %}
+
 
 <link rel="stylesheet" href="../static/css/Log-In.css">
 
@@ -12,6 +21,7 @@
             <header>Login</header>
 
             <form action="" method="post">
+                {% csrf_token %}
                 <div class="field input-field">
                     <input type="email" placeholder="Email" class="input" name="email" required>
                 </div>
