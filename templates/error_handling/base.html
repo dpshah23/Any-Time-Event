@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}{% endblock title %} | Any Time Event </title>
+  <link rel="stylesheet" href=../static/css/navbar.css/>
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css" />
+</head>
+
+<body>
+  <nav>
+    <input type="checkbox" id="check" />
+    <label for="check" class="checkbtn">
+      <img class="menu" src="../static/img/bars.svg" alt="Bars" />
+    </label>
+    <label class="logo"><img src="../static/img/Any-Time-Event-Logo.png" alt="Logo"></label>
+    <ul>
+
+      <li><a href="/">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="/contact-us">Contact</a></li>
+      {% if 'email' not in request.session  %}
+        <button class="log-butt"><a href="/auth/login">Login</a></button>
+      {% else %}
+        <button class="log-butt"><a href="/auth/logout">Logout</a></button>
+      {% endif %}
+    </ul>
+  </nav>
+ 
+  {% block body %}{% endblock body %}
+</body>
+
+</html>

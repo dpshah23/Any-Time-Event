@@ -10,10 +10,12 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 import random,string
 import os
+from django_ratelimit.decorators import ratelimit
 
 
 # Create your views here.
 
+@ratelimit(key='ip', rate='10/m')
 def validate(request):
     if request.method=="POST":
         otp=request.POST.get('otp')
@@ -50,7 +52,7 @@ def decrypt_password(password,key):
     
     return decrypted_password.decode()
 
-
+@ratelimit(key='ip', rate='10/m')
 def login(request):
     if 'email' and 'role' in request.session:
         return redirect('/')
@@ -133,6 +135,8 @@ def key():
     
     return Fernet.generate_key()
 
+
+@ratelimit(key='ip', rate='10/m')
 def signup (request):
     if request.method == 'POST':
         if users.objects.all (email!=email) :
@@ -176,6 +180,7 @@ def signup (request):
         return redirect('/')
     return render(request, 'Sign-Up.html')
 
+@ratelimit(key='ip', rate='10/m')
 def companyinfo(request):
     if request.method == 'POST':
         email1 = request.COOKIES.get('email')
@@ -197,6 +202,7 @@ def companyinfo(request):
         return redirect('/')
     return render(request, 'Sign-Up.html')
             
+@ratelimit(key='ip', rate='10/m')
 def volunteerinfo(request):
     if request.method == 'POST':
         email1 = request.COOKIES.get('email')
@@ -227,7 +233,7 @@ def volunteerinfo(request):
         return redirect('/')
     return render(request, 'Sign-Up.html')
 
-
+@ratelimit(key='ip', rate='10/m')
 def logout(request):
     if 'email' and 'role' in request.session:
         request.session.pop('email')
@@ -238,6 +244,7 @@ def logout(request):
     return redirect('/')
 
 
+@ratelimit(key='ip', rate='10/m')
 def reset(request):
     if request.method=="POST":
         email=request.POST.get('email')
@@ -289,6 +296,7 @@ def reset(request):
                 
     return render(request, 'reset.html')
 
+@ratelimit(key='ip', rate='10/m')
 def resetpass(request):
     
     email=request.GET.get('email')

@@ -1,8 +1,10 @@
 from django.shortcuts import render,redirect,HttpResponse
 from .models import *
 from django.contrib import messages
+from django_ratelimit.decorators import ratelimit
 
 # Create your views here.
+@ratelimit(key='ip', rate='10/m')
 def index(request):
     if 'email' and 'role' in request.session:
         email=request.session['email']
@@ -16,6 +18,7 @@ def index(request):
             redirect('/')
     return render(request,'home.html')
 
+@ratelimit(key='ip', rate='10/m')
 def contact(request):
     if request.method=="POST":
         name=request.POST.get('name')
