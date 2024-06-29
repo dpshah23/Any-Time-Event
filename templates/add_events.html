@@ -1,55 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename = 'addpost.css') }}"> 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <title>Add Event</title>
-</head>
-<body>
-    <div class="container">
-    <div class="post-container">
-        <h1>Add Event</h1>
-        <form method="POST" action="#">
-            <div class="field input-field">Company Name
-                <input type="text" name="company_name" class="input" required >
-            </div><br>
-            
-            <div class="field input-field">Location
-                <textarea   name="location" class="input" required ></textarea>
-            </div><br>
-            <div class="field input-field">Date of Event
-                <input type="date" name="date_of_event" class="input" required >
-            </div><br>
-
-            <div class="field input-field">Time of Event
-                <input type="time" name="time_of_event" class="input" required >
-            </div><br>
-
-            <div class="field input-field">Event Description
-                <textarea   name="event_info" class="input" required ></textarea>
-            </div><br>
-            <div class="field input-field">Rate Per Person
-                <input type="number" name="rate" class="input" required >
-            </div><br>
-
-            <div class="field input-field">Required number of volunteers
-                <input type="number" name="no_of_volunteers" class="input" required >
-            </div><br>
-           Company Representative
-            <div class="field input-field">Name
-                <input type="text" name="name_of_cr" class="input" required ><br>Contact no.
-                <input type="number" name="no_of_cr" class="input" required >
-            </div><br>
-
-
-            <button type="submit">Add Event</button>
-        </form>
+{% extends "base.html" %}
+{% block title %}Add Events {% endblock title %}
+{% block body %}
+{% if messages %}
+  {% for message in messages %}
+    <div class="custom-alert custom-alert-{{ message.tags }}">
+      {{ message }}
+      <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
     </div>
-    </div>
-</body>
-</html>
+  {% endfor %}
+{% endif %}
 
 
+<link rel="stylesheet" href="../static/css/Add_Events.css">
+
+
+<div class="form-container">
+    <h3>Add Events</h3>
+    <form id="eventForm">
+        <div class="left-side">
+            <label for="companyName">Company Name:</label>
+            <input type="text" id="companyName" name="companyName" required>
+
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="time">Time:</label>
+            <input type="time" id="time" name="time" required>
+
+            <label for="eventDescription">Event Description:</label>
+            <textarea id="eventDescription" name="eventDescription" required></textarea>
+        </div>
+        <div class="right-side">
+            <label for="ratePerPerson">Rate per Person:</label>
+            <input type="number" id="ratePerPerson" name="ratePerPerson" required>
+
+            <label for="requiredVolunteers">Required Number of Volunteers:</label>
+            <input type="number" id="requiredVolunteers" name="requiredVolunteers" required>
+
+            <label for="companyRep">Company Representative Name:</label>
+            <input type="text" id="companyRep" name="companyRep" required>
+
+            <label for="contactNo">Contact No:</label>
+            <input type="tel" id="contactNo" name="contactNo" required>
+        </div>
+        <div class="full-width">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+
+<script src="../static/js/Add_Events.js"></script>
+{% endblock body %}
