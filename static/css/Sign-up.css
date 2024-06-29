@@ -72,6 +72,7 @@ form {
   transform: translateY(-50%);
   cursor: pointer;
   padding: 5px;
+  margin-top: 24px;
 }
 
 .field button {
