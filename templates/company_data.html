@@ -1,51 +1,48 @@
 {% extends "base.html" %}
-{% block title %}Login {% endblock title %}
+{% block title %}Company Data {% endblock title %}
 {% block body %}
 
-<link rel="stylesheet" href="../static/css/company_data.css">
-
-<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<link rel="stylesheet" href="../static/css/Company_Data.css">
 
 <section class="container forms">
     <div class="form login">
         <div class="form-content">
-            <header>Sign-Up</header>
+            <header>Company Data</header>
 
             <form action="#">
                 <div class="field input-field">Website
-                    <input type="text"  class="input" >
+                    <input type="text" class="input">
                 </div><br>
                 <div class="field input-field">Alternate contact no
-                    <input type="number"  class="input" >
+                    <input type="number" class="input">
                 </div><br>
 
                 <div class="field input-field">Company Address
-                    <textarea  class="input" required style=" border: 1px solid #d2d4dc;"></textarea>
-                </div><br>
-     
-                <div class="field input-field">Description
-                    <textarea  class="input" required style="  border: 1px solid #d2d4dc;"></textarea>
+                    <textarea class="input" required style=" border: 1px solid #d2d4dc;"></textarea>
                 </div><br>
 
-                <div class="field input-field">Company Card 
-                    <input type="file"  class="input" required >
+                <div class="field input-field">Description
+                    <textarea class="input" required style="  border: 1px solid #d2d4dc;"></textarea>
+                </div><br>
+
+                <div class="field input-field">Company Card
+                    <input type="file" class="input" required>
                 </div><br>
 
                 <div class="field input-field">Company Logo
-                    <input type="file"  class="input" required >
+                    <input type="file" class="input" required>
                 </div>
-                
+
                 <br>
-                    
+
                 <div class="field button-field">
                     <button>Signup</button>
                 </div>
             </form>
 
         </div>
-        
+
     </div>
 </section>
 
-<script src="../static/js/Sign-up.js"></script>
 {% endblock body %}
