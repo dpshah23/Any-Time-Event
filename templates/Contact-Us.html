@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Contact us {% endblock title %}
 {% block body %}
+
 {% if messages %}
       {% for message in messages  %}
       <div class="alert alert-{{message.tags}} alert-dismissible fade show my-0 py-2" role="alert">
@@ -8,7 +9,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       {% endfor %}
-     {% endif %}
+{% endif %}
 
 <link rel="stylesheet" href="../static/css/Contact-Us.css">
 
