@@ -61,7 +61,7 @@ LOGGING = {
 # Application definition
 
 INSTALLED_APPS = [
-
+    'error_handling',
     'auth1',
     'company',
     'redirection',

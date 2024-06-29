@@ -4,3 +4,4 @@ mysqlclient
 django-unfold
 cryptography
 pillow
+django-ratelimit

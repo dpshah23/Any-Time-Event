@@ -20,7 +20,8 @@ from django.urls import path,include
 urlpatterns = [
     path('dj-admin/', admin.site.urls),
     path('auth/',include('auth1.urls')),
-    path('',include('redirection.urls'))
+    path('',include('redirection.urls')),
+    path('',include('error_handling.urls')),
 ]
 
 admin.site.site_header = "Anytime Event Admin Portal"

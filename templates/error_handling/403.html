@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}403! Forbidden{% endblock title %}
+{% block body %}
+<style>
+    .error-page {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .error-page h1 {
+        font-size: 36px;
+        color: #ff0000;
+    }
+
+    .error-page p {
+        font-size: 18px;
+        color: #333333;
+    }
+</style>
+<div class="error-page">
+    <h1>403 - Forbidden</h1>
+    <p>Sorry, you don't have permission to access this page.</p>
+</div>
+
+{% endblock body %}
