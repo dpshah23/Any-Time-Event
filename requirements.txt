@@ -5,3 +5,4 @@ django-unfold
 cryptography
 pillow
 django-ratelimit
+requests
