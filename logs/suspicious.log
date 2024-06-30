@@ -22,3 +22,14 @@ Traceback (most recent call last):
     raise TemplateDoesNotExist(template_name, chain=chain)
 django.template.exceptions.TemplateDoesNotExist: reset.html
 "GET /auth/reset HTTP/1.1" 500 88053
+Internal Server Error: /logs-redirect-43782912342243589bxhscdujujmiainduxjea
+Traceback (most recent call last):
+  File "C:\Users\dpsha\AppData\Roaming\Python\Python312\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\dpsha\AppData\Roaming\Python\Python312\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    self.check_response(response, callback)
+  File "C:\Users\dpsha\AppData\Roaming\Python\Python312\site-packages\django\core\handlers\base.py", line 332, in check_response
+    raise ValueError(
+ValueError: The view redirection.views.logs didn't return an HttpResponse object. It returned None instead.
+"GET /logs-redirect-43782912342243589bxhscdujujmiainduxjea HTTP/1.1" 500 70823

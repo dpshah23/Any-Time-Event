@@ -1,0 +1,40 @@
+<!-- templates/logs.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Logs</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Log Data</h1>
+    <div id="log-container"></div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            function fetchLogs() {
+                $.ajax({
+                    url: '{% url "get_logs" %}',
+                    method: 'GET',
+                    success: function(data) {
+                        if (data.logs) {
+                            let logs = data.logs.join('<br>');
+                            $('#log-container').html(logs);
+                        } else {
+                            $('#log-container').html('<p>No logs found</p>');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        $('#log-container').html('<p>Error loading logs</p>');
+                    }
+                });
+            }
+
+            // Fetch logs initially
+            fetchLogs();
+
+            // Set interval to fetch logs every 5 seconds (5000 milliseconds)
+            setInterval(fetchLogs, 5000);
+        });
+    </script>
+</body>
+</html>
