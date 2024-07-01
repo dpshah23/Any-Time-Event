@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 {% block title %}Login {% endblock title %}
 {% block body %}
+{% if messages %}
+      {% for message in messages  %}
+      <div class="alert alert-{{message.tags}} alert-dismissible fade show my-0 py-2" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endfor %}
+{% endif %}
 
 <link rel="stylesheet" href="../static/css/user_data.css">
 
@@ -14,14 +22,14 @@
             <form action="#">
                 <div class="field input-field">Date of Birth
                     <input type="date" name="dob" class="input" >
-                </div><br>
+                </div>
                 <div class="field input-field">Experience
                     <textarea  class="input" name="experience" required style=" border: 1px solid #d2d4dc;"></textarea>
-                </div><br>
+                </div>
 
                 <div class="field input-field">Skills
                     <textarea  class="input" name="skills" required style=" border: 1px solid #d2d4dc;"></textarea>
-                </div><br>
+                </div>
      
                 <div class="field input-field">Qualification
                     <div class="field input-field"> 
@@ -33,11 +41,27 @@
                         </select>
                         </div>
                     </div><br>
-                   
+               </div> 
+
+               <div class="field input-field">Emergency Contact no.
+                <input type="number" name="emergency_no" class="input" required >
+            </div>
+
+        <div class="field input-field">Profile Picture
+            <input type="file" name="profile_picture" enctype="multipath\form-data" class="input" required >
+        </div>
+
+        <div class="field input-field">Identity Proof
+            <input type="file" name="identity_proof"  enctype="multipath\form-data" class="input" required >
+        </div>
+         
+
+         <div class="field input-field">UPI ID
+            <input type="text" name="upi_id" class="input" required >
+            </div><br>
+<p>*Image should be of .png , .jpg , .jpeg only</p>
                 <div class="field button-field">
-                    <a href="../templates/user_data2.html" style="font-size: 27px;"> Next <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
-                      </svg></a>
+                   <button value="submit" name="submit_user_data">Sign Up </button>
                 </div>
             </form>
 
