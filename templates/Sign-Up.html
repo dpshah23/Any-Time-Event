@@ -12,6 +12,7 @@
             <header>Sign-Up</header>
 
             <form action="" method="post">
+                {% csrf_token %}
                 <div class="field input-field">Name
                     <input type="text" name="name"  class="input" required>
                 </div><br>
