@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 {% block title %}Company Data {% endblock title %}
 {% block body %}
+{% if messages %}
+      {% for message in messages  %}
+      <div class="alert alert-{{message.tags}} alert-dismissible fade show my-0 py-2" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endfor %}
+{% endif %}
 
 <link rel="stylesheet" href="../static/css/Company_Data.css">
 
@@ -26,15 +34,15 @@
                 </div><br>
 
                 <div class="field input-field">Company Card
-                    <input type="file" name="company_card" class="input" required>
+                    <input type="file" enctype="multipath\form-data" name="company_card" class="input" required>
                 </div><br>
 
                 <div class="field input-field">Company Logo
-                    <input type="file" name="company_logo" class="input" required>
+                    <input type="file" enctype="multipath\form-data" name="company_logo" class="input" required>
                 </div>
 
                 <br>
-
+                <p>*Image should be of .png , .jpg , .jpeg only</p>
                 <div class="field button-field">
                     <button>Signup</button>
                 </div>
