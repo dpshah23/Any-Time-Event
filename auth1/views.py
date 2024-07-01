@@ -61,71 +61,79 @@ def login(request):
         password=request.POST.get('password')
 
         try:
-            print(1)
+            # print(1)
             user=users.objects.get(email=email)
-            print(user)
+            role=user.role
+            # print(user)
             decrypted_pass=decrypt_password(user.password,user.key)
-            print(decrypted_pass)
+            # print(decrypted_pass)
             if user.email==email and int(decrypted_pass)==int(password):
-                    print(True)
+                if role=="volunteer":
+                       
+                    return HttpResponse("Volunteer")
+                elif role=="company":
+                    return HttpResponse("Company")
+                else:
+                    redirect('/')
+                    # print(True)
                 
-                    load_dotenv()
-                    from_email=os.getenv('EMAIL1')
-                    password=os.getenv('PASSWORD1')
+                    # load_dotenv()
+                    # from_email=os.getenv('EMAIL1')
+                    # password=os.getenv('PASSWORD1')
 
-                    print(from_email,password)
+                    # print(from_email,password)
 
 
-                    subject="One Time Password For Admin "
-                    length=8
-                    otp=random.randint(000000,999999)
-                    body=f"""
+                    # subject="One Time Password For Admin "
+                    # length=8
+                    # otp=random.randint(000000,999999)
+                    # body=f"""
 
-                    <h1 style="text-align:center">One Time Password For Sign-in</h1>
+                    # <h1 style="text-align:center">One Time Password For Sign-in</h1>
 
-                    <p>Thank you for registering on our website again but you need to confirm your device because it has been over 15 days since you last logged in .<br>
-                    To complete the registration process, please use the following One-Time Password (OTP) </p>
+                    # <p>Thank you for registering on our website again but you need to confirm your device because it has been over 15 days since you last logged in .<br>
+                    # To complete the registration process, please use the following One-Time Password (OTP) </p>
 
-                    <h2>Your OTP : {otp}</h2>
+                    # <h2>Your OTP : {otp}</h2>
 
-                    <p>
-                    Please enter this OTP on the registration page to verify your identity and activate your account.
+                    # <p>
+                    # Please enter this OTP on the registration page to verify your identity and activate your account.
 
-                    If you did not initiate this registration, please ignore this message.
+                    # If you did not initiate this registration, please ignore this message.
                 
-                    </p>
+                    # </p>
 
-                    Thank you,
-                    <br>
-                    Any Time Event.
+                    # Thank you,
+                    # <br>
+                    # Any Time Event.
 
-                    """
-                    msg = MIMEMultipart()
-                    msg['Subject'] = subject
-                    msg['From'] = from_email
-                    msg['To'] = email
-                    msg.attach(MIMEText(body, 'html'))
-                    expiry_duration = timedelta(minutes=5)  # Set OTP validity duration
-                    expires_at = timezone.now() + expiry_duration
-                    user1=otps(email=email,otp=otp, expires_at=expires_at)
-                    user1.save()
-                    print(user1.otp)
-                    request.session['email12']=email
+                    # """
+                    # msg = MIMEMultipart()
+                    # msg['Subject'] = subject
+                    # msg['From'] = from_email
+                    # msg['To'] = email
+                    # msg.attach(MIMEText(body, 'html'))
+                    # expiry_duration = timedelta(minutes=5)  # Set OTP validity duration
+                    # expires_at = timezone.now() + expiry_duration
+                    # user1=otps(email=email,otp=otp, expires_at=expires_at)
+                    # user1.save()
+                    # print(user1.otp)
+                    # request.session['email12']=email
 
-                    print(True)
-                    with smtplib.SMTP('smtp.gmail.com', 587) as server:
-                        server.starttls()
-                        server.login(from_email, password)
-                        server.sendmail(from_email, email, msg.as_string())
-                        print("OTP Send Successfully")
+                    # print(True)
+                    # with smtplib.SMTP('smtp.gmail.com', 587) as server:
+                    #     server.starttls()
+                    #     server.login(from_email, password)
+                    #     server.sendmail(from_email, email, msg.as_string())
+                    #     print("OTP Send Successfully")
 
-                        print("mail sent")
+                    #     print("mail sent")
                         
                         
-                        return redirect('/validate')
+                    #     return redirect('/validate')
                 
 
-            else:
+        #   else:
                 messages.error(request, 'Invalid Credentials')
                 return render(request, 'Log-In.html')
 
