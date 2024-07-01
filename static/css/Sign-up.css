@@ -181,7 +181,7 @@ a.google span {
 
 @media only screen and (max-width: 768px) {
   .container {
-    height: auto;
+    height: 100%;
     padding: 20px;
   }
 
