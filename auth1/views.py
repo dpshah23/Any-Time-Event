@@ -161,6 +161,10 @@ def signup (request):
          
             response = HttpResponse("Cookie Set")
             response.set_cookie('email', email, max_age=3600) 
+            response = HttpResponse("Cookie Set")
+            response.set_cookie('name', name, max_age=3600) 
+            response = HttpResponse("Cookie Set")
+            response.set_cookie('phone', phone, max_age=3600) 
         
             user1 = users(email=email,password=encrypted_password,key=key_str,role=role)
             user1.save()
@@ -184,6 +188,8 @@ def signup (request):
 def companyinfo(request):
     if request.method == 'POST':
         email1 = request.COOKIES.get('email')
+        name = request.COOKIES.get('name')
+        phone = request.COOKIES.get('phone')
         address = request.POST.get('address')
         website = request.POST.get('website')
         card = request.POST.get('card')
@@ -206,6 +212,8 @@ def companyinfo(request):
 def volunteerinfo(request):
     if request.method == 'POST':
         email1 = request.COOKIES.get('email')
+        name = request.COOKIES.get('name')
+        phone = request.COOKIES.get('phone')
         dob = request.POST.get('dob')
         timestamp = request.POST.get('timestamp')
         experience = request.POST.get('experience')
