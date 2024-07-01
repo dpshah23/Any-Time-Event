@@ -26,12 +26,15 @@ def validate(request):
         if user.otp==int(otp) and not user.is_expired():   
             request.session['email']=email
             request.session['role']=users.objects.get(email=email).role
+            
+            response = HttpResponse("Cookie Set")
+            response.set_cookie('time', 1 , max_age=1296000) 
             if users.objects.get(email=email).role=="volunteer":
                 user.delete()
-                return redirect('/volunteer')
+                return HttpResponse('/')
             elif users.objects.get(email=email).role=="company":
                 user.delete()
-                return redirect('/company')
+                return redirect('/')
             else:
                 user.delete()
                 return redirect('/')
@@ -189,6 +192,15 @@ def signup (request):
 @ratelimit(key='ip', rate='10/m')
 def companyinfo(request):
     if request.method == 'POST':
+        image = request.FILES(image_name)
+        image1 = request.FILES(image_name1)
+        file_name = image.name
+        file_name1 = image1.name
+        extension = file_name.split('.')[-1]
+        extension1 = file_name1.split('.')[-1]
+        if extension not in ['jpg', 'png', 'jpeg','heic'] or extension1 not in ['jpg', 'png', 'jpeg','heic']:
+            messages.error(request, 'Invalid Image')
+            return render(request,'company_data.html')
         email1 = request.COOKIES.get('email')
         name = request.COOKIES.get('name')
         phone = request.COOKIES.get('phone')
@@ -223,6 +235,15 @@ def companyinfo(request):
 @ratelimit(key='ip', rate='10/m')
 def volunteerinfo(request):
     if request.method == 'POST' and request.FILES['image']:
+        image = request.FILES(image_name)
+        image1 = request.FILES(image_name1)
+        file_name = image.name
+        file_name1 = image1.name
+        extension = file_name.split('.')[-1]
+        extension1 = file_name1.split('.')[-1]
+        if extension not in ['jpg', 'png', 'jpeg','heic'] or extension1 not in ['jpg', 'png', 'jpeg','heic']:
+            messages.error(request, 'Invalid Image')
+            return render(request,'user_data.html')
         email1 = request.COOKIES.get('email')
         name = request.COOKIES.get('name')
         phone = request.COOKIES.get('phone')
