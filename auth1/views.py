@@ -193,10 +193,15 @@ def companyinfo(request):
         phone = request.COOKIES.get('phone')
         address = request.POST.get('address')
         website = request.POST.get('website')
-        card = request.POST.get('card')
+        image_file = request.FILES['image']
+        alphanumeric_characters = string.ascii_letters + string.digits
+        image_name =''.join(random.choice(alphanumeric_characters) for _ in range(10))
+        card = image_file.read()
         phone2 = request.POST.get('phone2')
         description= request.POST.get('description')
-        logo = request.POST.get('logo')
+        image_file1 = request.FILES['image']
+        image_name1 =''.join(random.choice(alphanumeric_characters) for _ in range(10))
+        logo = image_file1.read()
 
         obj1=company.objects.all(email=email1)
         obj1.email = email1
@@ -204,9 +209,11 @@ def companyinfo(request):
         obj1.phone = phone
         obj1.address = address
         obj1.website = website
+        obj1.image_name = image_name
         obj1.card = card
         obj1.phone2 = phone2
         obj1.description = description
+        obj1.image_name1 = image_name1
         obj1.logo = logo
         
         return redirect('/')
