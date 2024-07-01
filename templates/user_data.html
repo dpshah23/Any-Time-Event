@@ -19,7 +19,7 @@
         <div class="form-content">
             <header>Sign-Up</header>
 
-            <form action="#">
+            <form action="{% url "volunteerinfo" %}" method='post' enctype='multipart/form-data'>
                 <div class="field input-field">Date of Birth
                     <input type="date" name="dob" class="input" >
                 </div>

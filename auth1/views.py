@@ -26,12 +26,15 @@ def validate(request):
         if user.otp==int(otp) and not user.is_expired():   
             request.session['email']=email
             request.session['role']=users.objects.get(email=email).role
+            
+            response = HttpResponse("Cookie Set")
+            response.set_cookie('time', 1 , max_age=1296000) 
             if users.objects.get(email=email).role=="volunteer":
                 user.delete()
-                return redirect('/volunteer')
+                return HttpResponse('/')
             elif users.objects.get(email=email).role=="company":
                 user.delete()
-                return redirect('/company')
+                return redirect('/')
             else:
                 user.delete()
                 return redirect('/')
