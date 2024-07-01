@@ -172,11 +172,11 @@ def signup (request):
             user1.save()
             
             if role == "company":
-                c1=company(name=name,email=email,phone1=phone,address=None,website=None , phone2=None ,card=None , description=None , logo=None )
+                c1=company(name=name,email=email,phone1=phone)
                 c1.save()
                 return redirect('/companyinfo')
             else :
-                v1 = volunteer(name=name ,email=email,phone=phone ,dob=None , timestamp=None ,experience=None , skills=None , qualification=None , upi=None,emergency_contact=None,profile_pic=None,card=None,description=None )
+                v1 = volunteer(name=name ,email=email,phone=phone )
                 v1.save()
                 return redirect('/volunteerinfo')
        
