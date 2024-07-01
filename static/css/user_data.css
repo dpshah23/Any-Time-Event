@@ -9,16 +9,17 @@
 }
 
 .container {
-  height: 100vh;
+  height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #639bc6;
+  gap: 10px;  
 }
 
 .form {
-  max-width: 430px;
+  max-width: 500px;
   width: 200%;
   padding: 30px;
   border-radius: 6px;
@@ -36,6 +37,7 @@ header {
 
 form {
   margin-top: 30px;
+  /* overflow: hidden; */
 }
 
 .form .field {
@@ -44,6 +46,8 @@ form {
   margin-top: 20px;
   position: relative;
   border-radius: 6px;
+  flex-direction: column;
+  display: flex;
 }
 
 .field input,
@@ -180,7 +184,7 @@ a.google span {
   opacity: 0.9;
 }
 
-@media only screen and (max-width: 768px) {
+/* @media only screen and (max-width: 768px) {
   .container {
     height: auto;
     padding: 20px;
@@ -199,9 +203,9 @@ a.google span {
   #Address {
     font-size: 14px;
   }
-}
+} */
 
-@media only screen and (max-width: 480px) {
+/* @media only screen and (max-width: 480px) {
   .form {
     padding: 20px;
   }
@@ -219,4 +223,4 @@ a.google span {
   .field.button-field button {
     font-size: 14px;
   }
-}
+} */
