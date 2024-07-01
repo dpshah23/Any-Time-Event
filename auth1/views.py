@@ -370,6 +370,9 @@ def reset(request):
                 server.starttls()
                 server.login(from_email, password)
                 server.sendmail(from_email, email, msg.as_string())
+
+            messages.success(request, 'Reset link sent to your email')
+            return redirect('/auth/login')
         except users.DoesNotExist:
             messages.error(request, 'Invalid Email')
             return render(request, 'reset.html')
@@ -388,11 +391,11 @@ def reset_pass(request):
     if request.method == "GET":
         email = request.GET.get('email')
         key = request.GET.get('key')
-        print(f"Received email: {email}, key: {key}")  # Debugging
+        # print(f"Received email: {email}, key: {key}")  # Debugging
 
         try:
             user_reset = resetpass.objects.get(email=email, keys=key)
-            print(f"Reset entry found: {user_reset}")  # Debugging
+            # print(f"Reset entry found: {user_reset}")  # Debugging
 
             if user_reset.usage or user_reset.is_expired():
                 print("Invalid Link: Link is either used or expired")  # Debugging
@@ -408,11 +411,11 @@ def reset_pass(request):
         new_pass = request.POST.get('password')
         email = request.POST.get('email')
         key=request.POST.get('key')
-        print(f"New password received for email {email}: {new_pass}")  # Debugging
+        # print(f"New password received for email {email}: {new_pass}")  # Debugging
 
         try:
             user = users.objects.get(email=email)
-            print(f"User found: {user}")  # Debugging
+            # print(f"User found: {user}")  # Debugging
             user_reset = resetpass.objects.get(email=email, keys=key)
             # Generate a new encryption key and encrypt the new password
             key1 = Fernet.generate_key()
@@ -433,12 +436,12 @@ def reset_pass(request):
             return redirect('/auth/login')
         
         except users.DoesNotExist:
-            print(f"User with email {email} does not exist.")  # Debugging
+            # print(f"User with email {email} does not exist.")  # Debugging
             messages.error(request, 'User does not exist')
             return render(request, 'Reset_Password.html', {'email': email})
         
         except Exception as e:
-            print(f"Error resetting password: {str(e)}")  # Debugging
+            # print(f"Error resetting password: {str(e)}")  # Debugging
             messages.error(request, 'Error resetting password. Please try again.')
             return render(request, 'Reset_Password.html', {'email': email})
 
