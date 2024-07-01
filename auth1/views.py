@@ -148,7 +148,7 @@ def signup (request):
         
         password = request.POST.get('password')
         name = request.POST.get('name')
-        phone = request.POST.get('phone')
+        phone = request.POST.get('contact_no')
         role = request.POST.get('role')
             
         key1=key()
@@ -158,117 +158,143 @@ def signup (request):
         key_str = base64.b64encode(key1).decode('utf-8')
 
          
-        response = HttpResponse("User Registered")
-        response.set_cookie('email', email, max_age=15*24*60*60)
-        response.set_cookie('name', name, max_age=15*24*60*60)
-        response.set_cookie('phone', phone, max_age=15*24*60*60)
+        # response = HttpResponse("User Registered")
+        # response.set_cookie('email', email, max_age=15*24*60*60)
+        # response.set_cookie('name', name, max_age=15*24*60*60)
+        # response.set_cookie('phone', phone, max_age=15*24*60*60)
+        
+        request.session['email123'] = email
+        request.session['name123'] = name
+        request.session['phone123'] = phone
         
         user1 = users(email=email,password=encrypted_password,key=key_str,role=role)
         user1.save()
-            
+        print("hello")
         if role == "company":
+            print("in company")
             c1=company(name=name,email=email,phone1=phone)
             c1.save()
-            return redirect('/companyinfo')
-        else :
+            return redirect('/auth/companyinfo')
+        else:
+            print("in volunterr")
             v1 = volunteer(name=name ,email=email,phone=phone )
             v1.save()
-            return redirect('/volunteerinfo')
+            return redirect('/auth/volunteerinfo')
        
         
     return render(request, 'Sign-Up.html')
 
+
 @ratelimit(key='ip', rate='10/m')
 def companyinfo(request):
     if request.method == 'POST':
-        image = request.FILES(image_name)
-        image1 = request.FILES(image_name1)
-        file_name = image.name
-        file_name1 = image1.name
-        extension = file_name.split('.')[-1]
-        extension1 = file_name1.split('.')[-1]
-        if extension not in ['jpg', 'png', 'jpeg','heic'] or extension1 not in ['jpg', 'png', 'jpeg','heic']:
-            messages.error(request, 'Invalid Image')
-            return render(request,'company_data.html')
-        email1 = request.COOKIES.get('email')
-        name = request.COOKIES.get('name')
-        phone = request.COOKIES.get('phone')
-        address = request.POST.get('address')
-        website = request.POST.get('website')
-        image_file = request.FILES['image']
+        image_file = request.FILES.get('company_card')
+        image_file1 = request.FILES.get('company_logo')
+        
+        # Validate file extensions
+        valid_extensions = ['jpg', 'png', 'jpeg', 'heic']
+        if not all(image.name.split('.')[-1].lower() in valid_extensions for image in [image_file, image_file1]):
+            messages.error(request, 'Invalid Image format. Only JPG, PNG, JPEG, and HEIC are allowed.')
+            return render(request, 'company_data.html')
+        
+        email1 = request.session.get('email123')
+        name = request.session.get('name123')
+        phone = request.session.get('phone123')
+        address = request.POST.get('company_address')
+        website = request.POST.get('website_company')
+        
+        # Generate random image names
         alphanumeric_characters = string.ascii_letters + string.digits
-        image_name =''.join(random.choice(alphanumeric_characters) for _ in range(10))
+        image_name = ''.join(random.choice(alphanumeric_characters) for _ in range(10))
+        image_name1 = ''.join(random.choice(alphanumeric_characters) for _ in range(10))
+        
+        # Read image files
         card = image_file.read()
-        phone2 = request.POST.get('phone2')
-        description= request.POST.get('description')
-        image_file1 = request.FILES['image']
-        image_name1 =''.join(random.choice(alphanumeric_characters) for _ in range(10))
         logo = image_file1.read()
-
-        obj1=company.objects.all(email=email1)
-        obj1.email = email1
-        obj1.name = name
-        obj1.phone = phone
-        obj1.address = address
-        obj1.website = website
-        obj1.image_name = image_name
-        obj1.card = card
-        obj1.phone2 = phone2
-        obj1.description = description
-        obj1.image_name1 = image_name1
-        obj1.logo = logo
+        
+        # Create or update company object
+        obj, created = company.objects.update_or_create(
+            email=email1,
+            defaults={
+                'name': name,
+                'phone': phone,
+                'address': address,
+                'website': website,
+                'image_name': image_name,
+                'card': card,
+                'phone2': request.POST.get('contact_no_2'),
+                'description': request.POST.get('company_description'),
+                'image_name1': image_name1,
+                'logo': logo,
+            }
+        )
         
         return redirect('/')
-    return render(request, 'Sign-Up.html')
+    
+    return render(request, 'company_data.html')
+
             
+
 @ratelimit(key='ip', rate='10/m')
 def volunteerinfo(request):
-    if request.method == 'POST' and request.FILES['image']:
-        image = request.FILES(image_name)
-        image1 = request.FILES(image_name1)
-        file_name = image.name
-        file_name1 = image1.name
-        extension = file_name.split('.')[-1]
-        extension1 = file_name1.split('.')[-1]
-        if extension not in ['jpg', 'png', 'jpeg','heic'] or extension1 not in ['jpg', 'png', 'jpeg','heic']:
-            messages.error(request, 'Invalid Image')
-            return render(request,'user_data.html')
-        email1 = request.COOKIES.get('email')
-        name = request.COOKIES.get('name')
-        phone = request.COOKIES.get('phone')
+    if request.method == 'POST':
+        # Check if both images are uploaded
+        if 'profile_picture' not in request.FILES or 'identity_proof' not in request.FILES:
+            messages.error(request, 'Both profile picture and identity proof are required')
+            return render(request, 'user_data.html')
+
+        image_file = request.FILES['profile_picture']
+        image_file1 = request.FILES['identity_proof']
+        
+        # Validate file extensions
+        valid_extensions = ['jpg', 'png', 'jpeg', 'heic']
+        if not all(image.name.split('.')[-1].lower() in valid_extensions for image in [image_file, image_file1]):
+            messages.error(request, 'Invalid Image format. Only JPG, PNG, JPEG, and HEIC are allowed.')
+            return render(request, 'user_data.html')
+        
+        email1 = request.session.get('email123')
+        name = request.session.get('name123')
+        phone = request.session.get('phone123')
         dob = request.POST.get('dob')
         timestamp = date.today()
         experience = request.POST.get('experience')
         skills = request.POST.get('skills')
         qualification = request.POST.get('qualification')
-        emergency_contact = request.POST.get('emergency_contact')
-        image_file = request.FILES['image']
+        emergency_contact = request.POST.get('emergency_no')
+        upi = request.POST.get('upi_id')
+        
+        # Generate random image names
         alphanumeric_characters = string.ascii_letters + string.digits
-        image_name =''.join(random.choice(alphanumeric_characters) for _ in range(10))
+        image_name = ''.join(random.choice(alphanumeric_characters) for _ in range(10))
+        image_name1 = ''.join(random.choice(alphanumeric_characters) for _ in range(10))
+        
+        # Read image files
         profile_pic = image_file.read()
-        image_file1 = request.FILES['image']
-        image_name1 =''.join(random.choice(alphanumeric_characters) for _ in range(10))
         id_proof = image_file1.read()
-        upi = request.POST.get('upi')
-
-        obj1=volunteer.objects.all(email=email1)
-        obj1.email=email1
-        obj1.name=name
-        obj1.phone=phone
-        obj1.dob = dob
-        obj1.timestamp = timestamp
-        obj1.experience = experience
-        obj1.skills = skills
-        obj1.qualification = qualification
-        obj1.emergency_contact = emergency_contact
-        obj1.image_name = image_name
-        obj1.profile_pic = profile_pic
-        obj1.image_name1 = image_name1
-        obj1.card = id_proof
-        obj1.upi = upi
+        
+        # Create or update volunteer object
+        obj, created = volunteer.objects.update_or_create(
+            email=email1,
+            defaults={
+                'name': name,
+                'phone': phone,
+                'dob': dob,
+                'timestamp': timestamp,
+                'experience': experience,
+                'skills': skills,
+                'qualification': qualification,
+                'emergency_contact': emergency_contact,
+                'image_name': image_name,
+                'profile_pic': profile_pic,
+                'image_name1': image_name1,
+                'card': id_proof,
+                'upi': upi,
+            }
+        )
         
         return redirect('/')
-    return render(request, 'Sign-Up.html')
+    
+    return render(request, 'user_data.html')
 
 @ratelimit(key='ip', rate='10/m')
 def logout(request):

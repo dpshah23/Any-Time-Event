@@ -17,7 +17,8 @@
         <div class="form-content">
             <header>Company Data</header>
 
-            <form action="{% url "companyinfo" %}" method="post">
+            <form action="{% url "companyinfo" %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
                 <div class="field input-field">Website
                     <input type="text" name="website_company" class="input">
                 </div><br>
@@ -34,11 +35,11 @@
                 </div><br>
 
                 <div class="field input-field">Company Card
-                    <input type="file" enctype="multipath\form-data" name="company_card" class="input" required>
+                    <input type="file"  name="company_card" enctype="multipath\form-data" class="input" required>
                 </div><br>
 
                 <div class="field input-field">Company Logo
-                    <input type="file" enctype="multipath\form-data" name="company_logo" class="input" required>
+                    <input type="file"  name="company_logo" enctype="multipath\form-data" class="input" required>
                 </div>
 
                 <br>

@@ -14,7 +14,7 @@ class users(models.Model):
     email=models.EmailField(max_length=100)
     password=models.CharField(max_length=200)
     key=models.TextField()
-    role=models.CharField(max_length=20)
+    role=models.CharField(max_length=20,default=None)
 
     def __str__(self):
         return self.email
@@ -31,42 +31,80 @@ class otps(models.Model):
     def __str__(self):
         return self.email
     
+# class company(models.Model):
+#     name=models.CharField(max_length=100,default=None)
+#     email=models.EmailField(max_length=100,default=None)
+#     phone1=models.CharField(max_length=100,default=None)
+#     address=models.TextField(default=None)
+#     website = models.CharField(max_length=100,default=None) #not 
+#     phone2=models.CharField(max_length=100,default=None) #not
+#     image_name = models.CharField(max_length=255,default=None)
+#     card = models.BinaryField(default=None)
+#     description = models.TextField(default=None) #not
+#     image_name1 = models.CharField(max_length=255,default=None)
+#     logo = models.BinaryField(default=None)
+#     key=models.TextField(default=None)
+#     def __str__(self):
+#         return self.name
+
+# class volunteer(models.Model):
+#     name=models.CharField(max_length=100,default=None)
+#     email=models.EmailField(max_length=100,default=None)
+#     phone=models.CharField(max_length=100,default=None)
+#     dob = models.CharField(max_length=150,default=None)
+#     timestamp = models.CharField(max_length=250,default=None)
+#     experience = models.CharField(max_length=200,default=None) #not
+#     skills = models.CharField(max_length=200,default=None) #not 
+#     qualification = models.CharField(max_length=100,default=None) #dropdown menu
+#     upi = models.CharField(max_length=100,default=None)
+#     emergency_contact = models.CharField(max_length=100,default=None)
+#     image_name = models.CharField(max_length=255,default=None)
+#     profile_pic = models.BinaryField(default=None)
+#     image_name1 = models.CharField(max_length=255,default=None)
+#     card = models.BinaryField(default=None)
+#     description = models.TextField(default=None)
+
+#     def __str__(self):
+#         return self.name
+    
+
+
 class company(models.Model):
-    name=models.CharField(max_length=100,default=None)
-    email=models.EmailField(max_length=100,default=None)
-    phone1=models.CharField(max_length=100,default=None)
-    address=models.TextField(default=None)
-    website = models.CharField(max_length=100,default=None) #not 
-    phone2=models.CharField(max_length=100,default=None) #not
-    image_name = models.CharField(max_length=255,default=None)
-    card = models.BinaryField(default=None)
-    description = models.TextField(default=None) #not
-    image_name1 = models.CharField(max_length=255,default=None)
-    logo = models.BinaryField(default=None)
-    key=models.TextField(default=None)
+    name = models.CharField(max_length=100, default=None, null=True)
+    email = models.EmailField(max_length=100, default=None)
+    phone1 = models.CharField(max_length=100, default=None, null=True)
+    address = models.TextField(default=None, null=True)
+    website = models.CharField(max_length=100, default=None, null=True)
+    phone2 = models.CharField(max_length=100, default=None, null=True)
+    image_name = models.CharField(max_length=255, default=None, null=True)
+    card = models.BinaryField(default=None, null=True)
+    description = models.TextField(default=None, null=True)
+    image_name1 = models.CharField(max_length=255, default=None, null=True)
+    logo = models.BinaryField(default=None, null=True)
+    key = models.TextField(default=None, null=True)
+
     def __str__(self):
         return self.name
 
 class volunteer(models.Model):
-    name=models.CharField(max_length=100,default=None)
-    email=models.EmailField(max_length=100,default=None)
-    phone=models.CharField(max_length=100,default=None)
-    dob = models.DateField(default=None)
-    timestamp = models.DateTimeField(default=None)
-    experience = models.CharField(max_length=200,default=None) #not
-    skills = models.CharField(max_length=200,default=None) #not 
-    qualification = models.CharField(max_length=100,default=None) #dropdown menu
-    upi = models.CharField(max_length=100,default=None)
-    emergency_contact = models.CharField(max_length=100,default=None)
-    image_name = models.CharField(max_length=255,default=None)
-    profile_pic = models.BinaryField(default=None)
-    image_name1 = models.CharField(max_length=255,default=None)
-    card = models.BinaryField(default=None)
-    description = models.TextField(default=None)
+    name = models.CharField(max_length=100, default=None, null=True)
+    email = models.EmailField(max_length=100, default=None, null=True)
+    phone = models.CharField(max_length=100, default=None, null=True)
+    dob = models.CharField(max_length=150, default=None, null=True)
+    timestamp = models.CharField(max_length=250, default=None, null=True)
+    experience = models.CharField(max_length=200, default=None, null=True)
+    skills = models.CharField(max_length=200, default=None, null=True)
+    qualification = models.CharField(max_length=100, default=None, null=True)
+    upi = models.CharField(max_length=100, default=None, null=True)
+    emergency_contact = models.CharField(max_length=100, default=None, null=True)
+    image_name = models.CharField(max_length=255, default=None,null=True)
+    profile_pic = models.BinaryField(default=None, null=True)
+    image_name1 = models.CharField(max_length=255, default=None, null=True)
+    card = models.BinaryField(default=None, null=True)
+    description = models.TextField(default=None, null=True)
 
     def __str__(self):
         return self.name
-    
 
 class resetpass(models.Model):
     email=models.EmailField(max_length=100)
