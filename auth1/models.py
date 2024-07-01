@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 
 class Visit(models.Model):
     page_visited = models.CharField(max_length=255, unique=True)
@@ -21,7 +21,11 @@ class users(models.Model):
 class otps(models.Model):
     email=models.EmailField(max_length=100)
     otp=models.IntegerField()
-    usage=models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
+
+    def is_expired(self):
+        return timezone.now() > self.expires_at
 
     def __str__(self):
         return self.email
@@ -67,6 +71,11 @@ class resetpass(models.Model):
     email=models.EmailField(max_length=100)
     keys=models.TextField()
     usage=models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
+
+    def is_expired(self):
+        return timezone.now() > self.expires_at
 
     def __str__(self):
         return self.email
