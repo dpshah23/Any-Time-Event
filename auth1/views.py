@@ -11,6 +11,7 @@ from email.mime.application import MIMEApplication
 import random,string
 import os
 from django_ratelimit.decorators import ratelimit
+from datetime import date
 from datetime import timedelta
 
 
@@ -199,6 +200,9 @@ def companyinfo(request):
         logo = request.POST.get('logo')
 
         obj1=company.objects.all(email=email1)
+        obj1.email = email1
+        obj1.name = name
+        obj1.phone = phone
         obj1.address = address
         obj1.website = website
         obj1.card = card
@@ -211,33 +215,40 @@ def companyinfo(request):
             
 @ratelimit(key='ip', rate='10/m')
 def volunteerinfo(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.FILES['image']:
         email1 = request.COOKIES.get('email')
         name = request.COOKIES.get('name')
         phone = request.COOKIES.get('phone')
         dob = request.POST.get('dob')
-        timestamp = request.POST.get('timestamp')
+        timestamp = date.today()
         experience = request.POST.get('experience')
         skills = request.POST.get('skills')
         qualification = request.POST.get('qualification')
         emergency_contact = request.POST.get('emergency_contact')
-        profile_pic = request.POST.get('profile_pic')
-        id_proof = request.POST.get('id_proof')
+        image_file = request.FILES['image']
+        alphanumeric_characters = string.ascii_letters + string.digits
+        image_name =''.join(random.choice(alphanumeric_characters) for _ in range(10))
+        profile_pic = image_file.read()
+        image_file1 = request.FILES['image']
+        image_name1 =''.join(random.choice(alphanumeric_characters) for _ in range(10))
+        id_proof = image_file1.read()
         upi = request.POST.get('upi')
-        description = request.POST.get('de4scription')
 
         obj1=volunteer.objects.all(email=email1)
         obj1.email=email1
+        obj1.name=name
+        obj1.phone=phone
         obj1.dob = dob
         obj1.timestamp = timestamp
         obj1.experience = experience
         obj1.skills = skills
         obj1.qualification = qualification
         obj1.emergency_contact = emergency_contact
+        obj1.image_name = image_name
         obj1.profile_pic = profile_pic
-        obj1.id_proof = id_proof
+        obj1.image_name1 = image_name1
+        obj1.card = id_proof
         obj1.upi = upi
-        obj1.description = description
         
         return redirect('/')
     return render(request, 'Sign-Up.html')

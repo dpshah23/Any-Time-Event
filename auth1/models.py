@@ -37,9 +37,11 @@ class company(models.Model):
     address=models.TextField()
     website = models.CharField(max_length=100) #not 
     phone2=models.CharField(max_length=100) #not
-    card = models.ImageField()
+    image_name = models.CharField(max_length=255)
+    card = models.BinaryField()
     description = models.TextField() #not
-    logo = models.ImageField()
+    image_name1 = models.CharField(max_length=255)
+    logo = models.BinaryField()
     key=models.TextField()
     def __str__(self):
         return self.name
@@ -55,8 +57,10 @@ class volunteer(models.Model):
     qualification = models.CharField(max_length=100) #dropdown menu
     upi = models.CharField(max_length=100)
     emergency_contact = models.CharField(max_length=100)
-    profile_pic = models.ImageField()
-    card = models.ImageField()
+    image_name = models.CharField(max_length=255)
+    profile_pic = models.BinaryField()
+    image_name1 = models.CharField(max_length=255)
+    card = models.BinaryField()
     description = models.TextField()
 
     def __str__(self):
