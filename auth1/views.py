@@ -21,7 +21,7 @@ from datetime import timedelta
 def validate(request):
     if request.method=="POST":
         otp=request.POST.get('otp')
-        email=request.COOKIES.get('email')
+        email=request.session.get('email12')
         user=otps.objects.get(email=email)
         if user.otp==int(otp) and not user.is_expired():   
             request.session['email']=email
@@ -61,13 +61,20 @@ def login(request):
         password=request.POST.get('password')
 
         try:
-            user=users.objects.all(email=email)
+            print(1)
+            user=users.objects.get(email=email)
+            print(user)
             decrypted_pass=decrypt_password(user.password,user.key)
-            if user.email==email and decrypted_pass==password:
-                if request.COOKIES.get('time'):
+            print(decrypted_pass)
+            if user.email==email and int(decrypted_pass)==int(password):
+                    print(True)
+                
                     load_dotenv()
-                    from_email=os.getenv('EMAIL')
-                    password=os.getenv('PASSWORD')
+                    from_email=os.getenv('EMAIL1')
+                    password=os.getenv('PASSWORD1')
+
+                    print(from_email,password)
+
 
                     subject="One Time Password For Admin "
                     length=8
@@ -102,32 +109,28 @@ def login(request):
                     expires_at = timezone.now() + expiry_duration
                     user1=otps(email=email,otp=otp, expires_at=expires_at)
                     user1.save()
-                    response = HttpResponse('')
-                    response.set_cookie('email', email)
+                    print(user1.otp)
+                    request.session['email12']=email
 
-
+                    print(True)
                     with smtplib.SMTP('smtp.gmail.com', 587) as server:
                         server.starttls()
                         server.login(from_email, password)
                         server.sendmail(from_email, email, msg.as_string())
                         print("OTP Send Successfully")
+
+                        print("mail sent")
                         
                         
                         return redirect('/validate')
-                else:
-                    if user.role=="volunteer":
-                        # return redirect('/volunteer')
-                        return HttpResponse("Volunteer")
-                    elif user.role=="company":
-                        return HttpResponse("Company")
-                    else:
-                        redirect('/')
+                
 
             else:
                 messages.error(request, 'Invalid Credentials')
                 return render(request, 'Log-In.html')
 
-        except:
+        except Exception as e:
+            print(e)
             messages.error(request, 'Invalid Credentials')
             return render(request, 'Log-In.html')
 
