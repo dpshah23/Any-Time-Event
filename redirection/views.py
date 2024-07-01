@@ -43,11 +43,7 @@ def logs(request):
     try:
         if not request.user.is_authenticated:
             return render(request,'err.html')
-        else:
-            if request.user.is_superuser:
-                return render(request,'logs.html')
-            else:
-                return render(request,'err.html')
+        return render(request,'logs.html')
     except Exception as e:
         return HttpResponse(e)
     
