@@ -347,4 +347,23 @@ def resetpass(request):
         return redirect('/auth/login')
     
     else:
-        return render(request, 'resetpass.html')
+        if request.method=="POST":
+            new_pass=request.POST.get('password')
+
+            user=users.objects.get(email=email)
+
+            key=user.key
+            f=Fernet(key)
+            new_encrypt_pass=f.encrypt(new_pass.encode())
+            encrypted_password = base64.b64encode(new_encrypt_pass).decode('utf-8')
+            
+            user.password=encrypted_password
+
+            user.save()
+
+
+            return redirect('auth/login')
+
+
+
+        return render(request, 'Reset_Password.html')
