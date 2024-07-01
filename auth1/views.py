@@ -67,12 +67,15 @@ def login(request):
             # print(user)
             decrypted_pass=decrypt_password(user.password,user.key)
             # print(decrypted_pass)
-            if user.email==email and int(decrypted_pass)==int(password):
+    
+            if user.email==email and decrypted_pass==password:
+                request.session['email']=email
+                request.session['role']=users.objects.get(email=email).role
                 if role=="volunteer":
                        
-                    return HttpResponse("Volunteer")
+                    return redirect('/')
                 elif role=="company":
-                    return HttpResponse("Company")
+                    return redirect('/')
                 else:
                     redirect('/')
                     # print(True)
@@ -320,87 +323,123 @@ def logout(request):
 
 @ratelimit(key='ip', rate='10/m')
 def reset(request):
-    if request.method=="POST":
-        email=request.POST.get('email')
-        user=users.objects.get(email=email)
-        load_dotenv()
-        if user.length==0:
-            return redirect('/auth/login')
+    if request.method == "POST":
+        email = request.POST.get('email')
+        try:
 
-        from_email=os.getenv('EMAIL')
-        password=os.getenv('PASSWORD')
+            user = users.objects.filter(email=email)
+            print(email)
+            print(user)
+            load_dotenv()
 
-        email=user.email
-        subject="Reset Password"
-        length=8
-        x = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(32))
-        expiry_duration = timedelta(minutes=5)  # Set OTP validity duration
-        expires_at = timezone.now() + expiry_duration
-        resetpass1=resetpass(email=email,keys=x,usage=False,expires_at=expires_at)
-        resetpass1.save()
-        final_str_link="http://http://127.0.0.1:8000/auth/resetpass?email="+email+"&key="+x
+            from_email = os.getenv('EMAIL')
+            password = os.getenv('PASSWORD1')
 
-        body=f"""
-        <h1 style="text-align:center">One Time Password For Sign-in</h1>
+            subject = "Reset Password"
+            length = 8
+            x = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(32))
+            expiry_duration = timedelta(minutes=5)  # Set OTP validity duration
+            expires_at = timezone.now() + expiry_duration
+            resetpass1 = resetpass(email=email, keys=x, usage=False, expires_at=expires_at)
+            resetpass1.save()
+            final_str_link = "http://127.0.0.1:8000/auth/resetpass?email=" + email + "&key=" + x
 
-                    <p>We're sorry to hear that you're having trouble with logging in to Any Time Event. We've received a message that you've forgotten your password. <br>
-                    If this was you, you can reset your password now using this link . </p>
+            body = f"""
+            <h1 style="text-align:center">One Time Password For Sign-in</h1>
 
-                    <h2>Your Link : {final_str_link}</h2>
+            <p>We're sorry to hear that you're having trouble with logging in to Any Time Event. We've received a message that you've forgotten your password. <br>
+            If this was you, you can reset your password now using this link . </p>
 
-                    <p>
-                    If you didn't request password reset link, you can ignore this message
-                
-                    </p>
+            <h2>Your Link : {final_str_link}</h2>
 
-                    Thank you,
-                    <br>
-                    Any Time Event.
+            <p>
+            If you didn't request password reset link, you can ignore this message
+            </p>
 
-                    """
-        msg = MIMEMultipart()
-        msg['Subject'] = subject
-        msg['From'] = from_email
-        msg['To'] = email
-        msg.attach(MIMEText(body, 'html'))
-   
+            Thank you,
+            <br>
+            Any Time Event.
+            """
+            msg = MIMEMultipart()
+            msg['Subject'] = subject
+            msg['From'] = from_email
+            msg['To'] = email
+            msg.attach(MIMEText(body, 'html'))
 
-        with smtplib.SMTP('smtp.gmail.com', 587) as server:
-            server.starttls()
-            server.login(from_email, password)
-            server.sendmail(from_email, email, msg.as_string())
-                
+            with smtplib.SMTP('smtp.gmail.com', 587) as server:
+                server.starttls()
+                server.login(from_email, password)
+                server.sendmail(from_email, email, msg.as_string())
+        except users.DoesNotExist:
+            messages.error(request, 'Invalid Email')
+            return render(request, 'reset.html')
+        
+        except Exception as e:
+            print(e)
+            messages.error(request, 'Invalid Email')
+            return render(request, 'reset.html')
+
     return render(request, 'reset.html')
 
+
+
 @ratelimit(key='ip', rate='10/m')
-def resetpass(request):
-    
-    email=request.GET.get('email')
-    key=request.GET.get('key')
+def reset_pass(request):
+    if request.method == "GET":
+        email = request.GET.get('email')
+        key = request.GET.get('key')
+        print(f"Received email: {email}, key: {key}")  # Debugging
 
-    user=resetpass.objects.get(email=email,keys=key)
+        try:
+            user_reset = resetpass.objects.get(email=email, keys=key)
+            print(f"Reset entry found: {user_reset}")  # Debugging
 
-    if user.usage==True or user.is_expired():
-        return redirect('/auth/login')
-    
-    else:
-        if request.method=="POST":
-            new_pass=request.POST.get('password')
-
-            user=users.objects.get(email=email)
-
-            key=user.key
-            f=Fernet(key)
-            new_encrypt_pass=f.encrypt(new_pass.encode())
-            encrypted_password = base64.b64encode(new_encrypt_pass).decode('utf-8')
+            if user_reset.usage or user_reset.is_expired():
+                print("Invalid Link: Link is either used or expired")  # Debugging
+                messages.error(request, 'Invalid Link')
+                return redirect('/auth/login')
             
-            user.password=encrypted_password
+        except resetpass.DoesNotExist:
+            print(f"No reset entry found for email: {email} and key: {key}")  # Debugging
+            messages.error(request, 'Invalid reset link')
+            return redirect('/auth/login')
 
+    elif request.method == "POST":
+        new_pass = request.POST.get('password')
+        email = request.POST.get('email')
+        key=request.POST.get('key')
+        print(f"New password received for email {email}: {new_pass}")  # Debugging
+
+        try:
+            user = users.objects.get(email=email)
+            print(f"User found: {user}")  # Debugging
+            user_reset = resetpass.objects.get(email=email, keys=key)
+            # Generate a new encryption key and encrypt the new password
+            key1 = Fernet.generate_key()
+            f = Fernet(key1)
+            new_encrypt_pass = f.encrypt(new_pass.encode())
+            encrypted_password = base64.b64encode(new_encrypt_pass).decode('utf-8')
+            key_str = base64.b64encode(key1).decode('utf-8')
+
+            # Update user's password and key
+            user.password = encrypted_password
+            user.key = key_str
             user.save()
 
+            # Mark the reset pass entry as used
+            user_reset.usage = True
+            user_reset.save()
 
-            return redirect('auth/login')
+            return redirect('/auth/login')
+        
+        except users.DoesNotExist:
+            print(f"User with email {email} does not exist.")  # Debugging
+            messages.error(request, 'User does not exist')
+            return render(request, 'Reset_Password.html', {'email': email})
+        
+        except Exception as e:
+            print(f"Error resetting password: {str(e)}")  # Debugging
+            messages.error(request, 'Error resetting password. Please try again.')
+            return render(request, 'Reset_Password.html', {'email': email})
 
-
-
-        return render(request, 'Reset_Password.html')
+    return render(request, 'Reset_Password.html')

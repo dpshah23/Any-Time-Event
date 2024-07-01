@@ -1,4 +1,5 @@
 document.getElementById('resetForm').addEventListener('submit', function(event) {
+    // Prevent form submission for validation checks
     event.preventDefault();
 
     const newPassword = document.getElementById('newPassword').value;
@@ -12,28 +13,7 @@ document.getElementById('resetForm').addEventListener('submit', function(event) 
         message.style.color = 'red';
         message.textContent = 'Passwords do not match.';
     } else {
-        message.style.color = 'green';
-        message.textContent = 'Password reset successfully!';
-        
+        // Validation passed, allow form submission
+        this.submit();  // Submit the form
     }
 });
-
-document.getElementById('toggleNewPassword').addEventListener('click', function() {
-    const passwordField = document.getElementById('newPassword');
-    togglePasswordVisibility(passwordField, this);
-});
-
-document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
-    const passwordField = document.getElementById('confirmPassword');
-    togglePasswordVisibility(passwordField, this);
-});
-
-function togglePasswordVisibility(passwordField, toggleIcon) {
-    if (passwordField.type === 'password') {
-        passwordField.type = 'text';
-        toggleIcon.classList.replace('bx-hide', 'bx-show');
-    } else {
-        passwordField.type = 'password';
-        toggleIcon.classList.replace('bx-show', 'bx-hide');
-    }
-}

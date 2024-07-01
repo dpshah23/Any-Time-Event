@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Reset Password(Email) {% endblock title %}
+{% block title %}Reset Password {% endblock title %}
 {% block body %}
 {% if messages %}
   {% for message in messages %}
@@ -15,12 +15,13 @@
 
 <div class="container">
     <h2>Reset Email</h2>
-    <form id="resetForm">
+    <form id="resetForm" action="" method="post">
+      {% csrf_token %}
 
         <div class="form-group">
-            <label for="newPassword">New Email</label>
-            <input type="password" id="newPassword" required />
-        </div>
+            <label for="newPassword">Email</label>
+            <input type="email" name="email" id="newPassword" required />
+        </div> 
 
         <button type="submit">Reset Password</button>
     </form>

@@ -10,5 +10,5 @@ urlpatterns = [
     path('companyinfo', companyinfo, name='companyinfo'),
     path('signup', signup, name='signup'),
     path('reset', reset, name='reset'),
-    path('resetpass', resetpass, name='resetpass'),
+    path('resetpass', reset_pass, name='reset_pass'),
 ]

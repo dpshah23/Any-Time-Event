@@ -8,18 +8,12 @@ from django.contrib.auth.decorators import login_required
 import os
 
 # Create your views here.
-@ratelimit(key='ip', rate='10/m')
+# @ratelimit(key='ip', rate='10/m')
 def index(request):
     if 'email' and 'role' in request.session:
         email=request.session['email']
         role=request.session['role']
-        if role=="volunteer":
-                       
-            return HttpResponse("Volunteer")
-        elif role=="company":
-            return HttpResponse("Company")
-        else:
-            redirect('/')
+        
     return render(request,'home.html')
 
 @ratelimit(key='ip', rate='10/m')
