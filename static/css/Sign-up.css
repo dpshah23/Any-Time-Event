@@ -14,9 +14,9 @@
   justify-content: center;
   align-items: center;
   background-color: #639bc6;
-  z-index: 1; /* Ensure it's lower than navbar */
-  position: relative; /* Ensure container is positioned */
-  padding: 20px; /* Add padding for small screen spacing */
+  z-index: 1;
+  position: relative;
+  padding: 20px;
 }
 
 .form {
