@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Reset Password(Email) {% endblock title %}
+{% block body %}
+{% if messages %}
+  {% for message in messages %}
+    <div class="custom-alert custom-alert-{{ message.tags }}">
+      {{ message }}
+      <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+    </div>
+  {% endfor %}
+{% endif %}
+
+
+<link rel="stylesheet" href="../static/css/Reset_Pass(Email).css">
+
+<div class="container">
+    <h2>Reset Email</h2>
+    <form id="resetForm">
+
+        <div class="form-group">
+            <label for="newPassword">New Email</label>
+            <input type="password" id="newPassword" required />
+        </div>
+
+        <button type="submit">Reset Password</button>
+    </form>
+</div>
+
+{% endblock body %}
