@@ -8,14 +8,15 @@
 }
 
 .container {
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #639bc6;
-  z-index: 1;
-  position: relative;
+  z-index: 1; /* Ensure it's lower than navbar */
+  position: relative; /* Ensure container is positioned */
+  padding: 20px; /* Add padding for small screen spacing */
 }
 
 .form {
@@ -24,6 +25,7 @@
   padding: 30px;
   border-radius: 6px;
   background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 header {
@@ -38,7 +40,6 @@ form {
 }
 
 .form .field {
-  height: 50px;
   width: 100%;
   margin-top: 20px;
   position: relative;
@@ -47,7 +48,7 @@ form {
 
 .field input,
 .field button {
-  height: 100%;
+  height: 50px;
   width: 100%;
   font-size: 16px;
   font-weight: 400;
@@ -181,7 +182,7 @@ a.google span {
 
 @media only screen and (max-width: 768px) {
   .container {
-    height: 100%;
+    height: auto;
     padding: 20px;
   }
 
