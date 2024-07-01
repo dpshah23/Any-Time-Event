@@ -11,6 +11,7 @@ from email.mime.application import MIMEApplication
 import random,string
 import os
 from django_ratelimit.decorators import ratelimit
+from datetime import timedelta
 
 
 # Create your views here.
@@ -21,9 +22,7 @@ def validate(request):
         otp=request.POST.get('otp')
         email=request.COOKIES.get('email')
         user=otps.objects.get(email=email)
-        if user.otp==int(otp):
-            user.usage=True
-            user.save()
+        if user.otp==int(otp) and not user.is_expired():   
             request.session['email']=email
             request.session['role']=users.objects.get(email=email).role
             if users.objects.get(email=email).role=="volunteer":
@@ -98,7 +97,9 @@ def login(request):
                     msg['From'] = from_email
                     msg['To'] = email
                     msg.attach(MIMEText(body, 'html'))
-                    user1=otps(email=email,otp=otp,usage=False)
+                    expiry_duration = timedelta(minutes=5)  # Set OTP validity duration
+                    expires_at = timezone.now() + expiry_duration
+                    user1=otps(email=email,otp=otp, expires_at=expires_at)
                     user1.save()
                     response = HttpResponse('')
                     response.set_cookie('email', email)
@@ -268,7 +269,9 @@ def reset(request):
         subject="Reset Password"
         length=8
         x = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(32))
-        resetpass1=resetpass(email=email,keys=x,usage=False)
+        expiry_duration = timedelta(minutes=5)  # Set OTP validity duration
+        expires_at = timezone.now() + expiry_duration
+        resetpass1=resetpass(email=email,keys=x,usage=False,expires_at=expires_at)
         resetpass1.save()
         final_str_link="http://http://127.0.0.1:8000/auth/resetpass?email="+email+"&key="+x
 
@@ -312,7 +315,7 @@ def resetpass(request):
 
     user=resetpass.objects.get(email=email,keys=key)
 
-    if user.usage==True:
+    if user.usage==True or user.is_expired():
         return redirect('/auth/login')
     
     else:
