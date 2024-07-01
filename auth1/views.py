@@ -26,15 +26,12 @@ def validate(request):
         if user.otp==int(otp) and not user.is_expired():   
             request.session['email']=email
             request.session['role']=users.objects.get(email=email).role
-            
-            response = HttpResponse("Cookie Set")
-            response.set_cookie('time', 1 , max_age=1296000) 
             if users.objects.get(email=email).role=="volunteer":
                 user.delete()
-                return HttpResponse('/')
+                return redirect('/volunteer')
             elif users.objects.get(email=email).role=="company":
                 user.delete()
-                return redirect('/')
+                return redirect('/company')
             else:
                 user.delete()
                 return redirect('/')
@@ -144,49 +141,41 @@ def key():
 @ratelimit(key='ip', rate='10/m')
 def signup (request):
     if request.method == 'POST':
-        if users.objects.all (email!=email) :
-
-            email = request.POST.get('email')
-
-            if users.objects.filter(email=email).exists():
-                messages.error(request, 'Email Already Exist')
+        email = request.POST.get('email')
+        if users.objects.filter(email=email).exists():
+                messages.info(request, 'Email already registered')
                 return render(request, 'Sign-Up.html')
         
-            password = request.POST.get('password')
-            name = request.POST.get('name')
-            phone = request.POST.get('phone')
-            role = request.POST.get('role')
+        password = request.POST.get('password')
+        name = request.POST.get('name')
+        phone = request.POST.get('phone')
+        role = request.POST.get('role')
             
-            key1=key()
-            f=Fernet(key1)
-            encrypt=f.encrypt(password.encode())
-            encrypted_password = base64.b64encode(encrypt).decode('utf-8')
-            key_str = base64.b64encode(key1).decode('utf-8')
+        key1=key()
+        f=Fernet(key1)
+        encrypt=f.encrypt(password.encode())
+        encrypted_password = base64.b64encode(encrypt).decode('utf-8')
+        key_str = base64.b64encode(key1).decode('utf-8')
 
          
-            response = HttpResponse("Cookie Set")
-            response.set_cookie('email', email, max_age=3600) 
-            response = HttpResponse("Cookie Set")
-            response.set_cookie('name', name, max_age=3600) 
-            response = HttpResponse("Cookie Set")
-            response.set_cookie('phone', phone, max_age=3600) 
+        response = HttpResponse("User Registered")
+        response.set_cookie('email', email, max_age=15*24*60*60)
+        response.set_cookie('name', name, max_age=15*24*60*60)
+        response.set_cookie('phone', phone, max_age=15*24*60*60)
         
-            user1 = users(email=email,password=encrypted_password,key=key_str,role=role)
-            user1.save()
+        user1 = users(email=email,password=encrypted_password,key=key_str,role=role)
+        user1.save()
             
-            if role == "company":
-                c1=company(name=name,email=email,phone1=phone)
-                c1.save()
-                return redirect('/companyinfo')
-            else :
-                v1 = volunteer(name=name ,email=email,phone=phone )
-                v1.save()
-                return redirect('/volunteerinfo')
+        if role == "company":
+            c1=company(name=name,email=email,phone1=phone)
+            c1.save()
+            return redirect('/companyinfo')
+        else :
+            v1 = volunteer(name=name ,email=email,phone=phone )
+            v1.save()
+            return redirect('/volunteerinfo')
        
-        else : 
-            messages.error(request, 'Email Already Exist')
-            return render(request, 'Sign-Up.html')
-        return redirect('/')
+        
     return render(request, 'Sign-Up.html')
 
 @ratelimit(key='ip', rate='10/m')
