@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django_ratelimit.decorators import ratelimit
 from auth1.models import company
-
+from .models import *
 # Create your views here.
 
 @ratelimit(key='ip', rate='5/m')
@@ -32,3 +32,7 @@ def add_event(request):
 
 def getevent(request,event_name):
     return render (request , )
+    event1 = event(event_company=event_company,event_name=event_name,event_date=event_date,event_time=event_time,event_location=event_location,event_loc_link=event_loc_link,event_description=event_description,event_skills=event_skills,event_rep=event_rep,event_rep_no=event_rep_no,event_mrp=event_mrp,actual_amount=actual_amount)
+    event1.save()
+
+# def get_vol(request):
