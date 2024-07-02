@@ -15,6 +15,7 @@ class users(models.Model):
     password=models.CharField(max_length=200)
     key=models.TextField()
     role=models.CharField(max_length=20,default=None)
+    is_active = models.BooleanField(default=False,null=True)
 
     def __str__(self):
         return self.email
