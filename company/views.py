@@ -5,3 +5,5 @@ from django.http import HttpResponse
 
 def company_home(request):
     return HttpResponse("Welcome to Company Home Page")
+
+# def 
