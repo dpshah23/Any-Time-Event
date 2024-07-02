@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
 
 * {
     margin: 0;
@@ -13,7 +13,8 @@
     justify-content: center;
     align-items: center;
     background-color: #639bc6;
-    height: 89.8vh;
+    min-height: 100vh;
+    padding: 20px;
 }
 
 .form {
@@ -23,6 +24,7 @@
     border-radius: 6px;
     background-color: #ffffff;
     border: 2px solid black;
+    margin: 20px;
 }
 
 header {
@@ -216,47 +218,40 @@ a.google span {
         font-size: 14px;
     }
 }
- 
 
-/* General Alert Styles */
 .custom-alert {
     padding: 15px;
     margin: 10px 0;
     border: 1px solid transparent;
     border-radius: 4px;
     position: relative;
-  }
+}
   
-  /* Success Alert */
-  .custom-alert-success {
+.custom-alert-success {
     color: #155724;
     background-color: #d4edda;
     border-color: #c3e6cb;
-  }
+}
   
-  /* Error Alert */
-  .custom-alert-danger {
+.custom-alert-danger {
     color: #721c24;
     background-color: #f8d7da;
     border-color: #f5c6cb;
-  }
+}
   
-  /* Warning Alert */
-  .custom-alert-warning {
+.custom-alert-warning {
     color: #856404;
     background-color: #fff3cd;
     border-color: #ffeeba;
-  }
+}
   
-  /* Info Alert */
-  .custom-alert-info {
+.custom-alert-info {
     color: #0c5460;
     background-color: #d1ecf1;
     border-color: #bee5eb;
-  }
-  
-  /* Close Button */
-  .close-btn {
+}
+
+.close-btn {
     position: absolute;
     top: 10px;
     right: 15px;
@@ -266,9 +261,8 @@ a.google span {
     cursor: pointer;
     border: none;
     background: transparent;
-  }
+}
   
-  .close-btn:hover {
+.close-btn:hover {
     color: #555;
-  }
-  
+}

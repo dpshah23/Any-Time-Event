@@ -7,8 +7,8 @@
 
 .contact {
     position: relative;
-    min-height: 89.8vh;
-    padding: 50px 100px;
+    min-height: 100vh;
+    padding: 50px 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,18 +39,25 @@
     justify-content: center;
     align-items: center;
     margin-top: 30px;
+    flex-wrap: wrap;
 }
 
 .container .contactInfo {
-    width: 50%;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
 }
 
 .container .contactInfo .box {
     position: relative;
     padding: 20px 0;
     display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    max-width: 600px;
 }
 
 .container .contactInfo .box .icon {
@@ -71,6 +78,7 @@
     color: #ffffff;
     flex-direction: column;
     font-weight: 300;
+    text-align: left;
 }
 
 .container .contactInfo .box .text h3 {
@@ -79,8 +87,9 @@
 }
 
 .contactForm {
-    width: 40%;
-    padding: 40px;
+    width: 100%;
+    max-width: 600px;
+    padding: 40px 20px;
     background: #ffffff;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -90,6 +99,7 @@
     font-size: 30px;
     color: #333;
     font-weight: 500;
+    text-align: center;
 }
 
 .contactForm .inputBox {
@@ -150,8 +160,7 @@
 
 @media (max-width: 991px) {
     .contact {
-        padding: 50px;
-        width: 100%;
+        padding: 50px 20px;
     }
 
     .container {
@@ -159,16 +168,39 @@
     }
 
     .container .contactInfo {
+        width: 100%;
         margin-bottom: 40px; 
     }
 
-    .container .conatctInfo .contactForm {
+    .contactForm {
         width: 100%;
     }
 }
 
-@media (max-width: 990px) {
+@media (max-width: 768px) {
+    .contact .content h2 {
+        font-size: 28px;
+    }
+
     .contactForm {
-        width: 100%;
+        padding: 30px 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .contact {
+        padding: 20px;
+    }
+
+    .contactForm {
+        padding: 20px;
+    }
+
+    .contact .content h2 {
+        font-size: 24px;
+    }
+
+    .contactForm h2 {
+        font-size: 24px;
     }
 }
