@@ -17,7 +17,6 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 60%;
     border: 2.4px solid black;
-
 }
 
 .form-container h3 {
@@ -56,7 +55,7 @@ input, textarea {
 textarea {
     resize: horizontal;
     height: 50px;
-    overflow: auto ;
+    overflow: auto;
 }
 
 .full-width {
@@ -78,6 +77,12 @@ button {
 
 button:hover {
     background-color: #1e7bc2;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    display: none;
 }
 
 @media (max-width: 666px) {

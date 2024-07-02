@@ -18,11 +18,14 @@
     <h3>Add Events</h3>
     <form id="eventForm">
         <div class="left-side">
-            <label for="companyName">Company Name:</label>
-            <input type="text" id="companyName" name="companyName" required>
+            <label for="companyName">Event Name:</label>
+            <input type="text" id="eventName" name="eventName" required>
 
             <label for="location">Location:</label>
             <input type="text" id="location" name="location" required>
+
+            <label for="location">Skills needed :</label>
+            <textarea id="skills_needed" name="skills_needed" required></textarea>
 
             <label for="date">Date:</label>
             <input type="date" id="date" name="date" required>
@@ -39,12 +42,14 @@
 
             <label for="requiredVolunteers">Required Number of Volunteers:</label>
             <input type="number" id="requiredVolunteers" name="requiredVolunteers" required>
+            <span id="volunteerError" class="error-message"></span>
 
             <label for="companyRep">Company Representative Name:</label>
             <input type="text" id="companyRep" name="companyRep" required>
 
             <label for="contactNo">Contact No:</label>
             <input type="tel" id="contactNo" name="contactNo" required>
+            <span id="contactError" class="error-message"></span>
         </div>
         <div class="full-width">
             <button type="submit">Submit</button>
