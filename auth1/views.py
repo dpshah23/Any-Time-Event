@@ -177,7 +177,7 @@ def login(request):
                 
 
             else:
-                messages.error(request, 'Incorrect email or Password')
+                messages.error(request, 'Incorrect E-mail or Password')
                 return render(request, 'Log-In.html')
 
         except users.DoesNotExist:
