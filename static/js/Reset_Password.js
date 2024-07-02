@@ -1,5 +1,4 @@
 document.getElementById('resetForm').addEventListener('submit', function(event) {
-    // Prevent form submission for validation checks
     event.preventDefault();
 
     const newPassword = document.getElementById('newPassword').value;
@@ -13,7 +12,6 @@ document.getElementById('resetForm').addEventListener('submit', function(event) 
         message.style.color = 'red';
         message.textContent = 'Passwords do not match.';
     } else {
-        // Validation passed, allow form submission
-        this.submit();  // Submit the form
+        this.submit();
     }
 });
