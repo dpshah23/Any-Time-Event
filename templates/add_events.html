@@ -34,7 +34,7 @@
             <input type="time" id="time" name="time" required>
 
             <label for="eventDescription">Event Description:</label>
-            <textarea id="eventDescription" name="eventDescription" required></textarea>
+            <textarea id="eventDescription"  placeholder="Event details , Dress Code , Skills required"  name="eventDescription" required></textarea>
         </div>
         <div class="right-side">
             <label for="ratePerPerson">Rate per Person:</label>
@@ -50,6 +50,9 @@
             <label for="contactNo">Contact No:</label>
             <input type="tel" id="contactNo" name="contactNo" required>
             <span id="contactError" class="error-message"></span>
+            
+            <label for="companyRep">Location Link:</label>
+            <input type="text" id="location_link" placeholder="Google Maps Link" name="location_link" required>
         </div>
         <div class="full-width">
             <button type="submit">Submit</button>
