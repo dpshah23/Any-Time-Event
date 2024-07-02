@@ -30,4 +30,5 @@ def add_event(request):
         # event_completed =
         actual_amount = (event_mrp * 25)/100
 
-# def get_vol(request):
+def getevent(request,event_name):
+    return render (request , )
