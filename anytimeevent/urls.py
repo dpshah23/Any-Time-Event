@@ -22,6 +22,8 @@ urlpatterns = [
     path('auth/',include('auth1.urls')),
     path('',include('redirection.urls')),
     path('',include('error_handling.urls')),
+    path('company/',include('company.urls')),
+    path('volunteer/',include('volunteers.urls')),
 ]
 
 admin.site.site_header = "Anytime Event Admin Portal"
