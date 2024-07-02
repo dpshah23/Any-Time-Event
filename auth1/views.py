@@ -85,18 +85,29 @@ def login(request):
             # print(decrypted_pass)
     
             if user.email==email and decrypted_pass==password:
-                request.session['email']=email
-                request.session['role']=users.objects.get(email=email).role
+                
 
                 if  request.COOKIES.get('time'):
+                    request.session['email']=email
+                    request.session['role']=users.objects.get(email=email).role
+                    context={
+
+                    }
+
+                    response=render(request, 'home.html',context) 
+                    response.set_cookie('time', 'true', max_age=15*24*60*60)
+                    response.set_cookie('email', email, max_age=15*24*60*60)
+                    response.set_cookie('Logged_in', 'true', max_age=15*24*60*60)
+
+
                     if role=="volunteer":
                         
-                        return redirect('/')
+                        return response
                     elif role=="company":
-                        return redirect('/')
+                        return response
                     else:
-                        redirect('/')
-                    print(True)
+                        return response
+                    
                 
                 load_dotenv()
                 from_email=os.getenv('EMAIL')
