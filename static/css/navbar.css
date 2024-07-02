@@ -122,7 +122,7 @@ a:hover {
     left: -100%;
     text-align: center;
     transition: 0.5s all;
-    z-index: 10; /* Added z-index */
+    z-index: 10;
   }
 
   nav ul li {
@@ -148,9 +148,9 @@ a:hover {
   .log-butt {
     margin-left: 0rem;
     height: 3rem;
-    width: 5rem;
+    width: 6rem;
     font-weight: bold;
-    font-size: 21px;
+    font-size: 22px;
     background-color: #639bc6;
   }
 }
