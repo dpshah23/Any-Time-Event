@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect,HttpResponse,reverse
 from django.http import HttpResponseRedirect
 from .models import *
 from cryptography.fernet import Fernet
+from django.utils import timezone
 import base64
 from django.contrib import messages
 from dotenv import load_dotenv
@@ -30,51 +31,56 @@ def validate(request):
 
         fianlotp=otp1+otp2+otp3+otp4+otp5+otp6
         email=request.session.get('email12')
-        user=otps.objects.get(email=email)
-        # print(user.otp)
-        # print(otp)
-        # print(email)
-        if user.otp==int(fianlotp) and not user.is_expired():
+        try:
+            user=otps.objects.get(email=email,expires_at__gt=timezone.now())
+            # print(user.otp)
+            # print(otp)
+            # print(email)
+            if user.otp==int(fianlotp) and not user.is_expired():
 
-            if users.objects.get(email=email).role=="volunteer" and users.objects.get(email=email).is_active!= False:
-                context={
+                if users.objects.get(email=email).role=="volunteer" and users.objects.get(email=email).is_active!= False:
+                    context={
 
-                }
+                    }
 
-                response=redirect('/',context) 
-                response.set_cookie('time', 'true', max_age=15*24*60*60)
-                response.set_cookie('email', email, max_age=15*24*60*60)
-                response.set_cookie('Logged_in', 'true', max_age=15*24*60*60)
+                    response=redirect('/',context) 
+                    response.set_cookie('time', 'true', max_age=15*24*60*60)
+                    response.set_cookie('email', email, max_age=15*24*60*60)
+                    response.set_cookie('Logged_in', 'true', max_age=15*24*60*60)
 
-                # print("cookie set")
+                    # print("cookie set")
 
-                request.session['email']=email
-                request.session['role']=users.objects.get(email=email).role
-                user.delete()
-                return response
-            elif users.objects.get(email=email).role=="company" and users.objects.get(email=email).is_active!= False:
+                    request.session['email']=email
+                    request.session['role']=users.objects.get(email=email).role
+                    user.delete()
+                    return response
+                elif users.objects.get(email=email).role=="company" and users.objects.get(email=email).is_active!= False:
                 
-                context={
+                    context={
 
-                }
+                    }
 
-                response=render(request, 'home.html',context) 
-                response.set_cookie('time', 'true', max_age=15*24*60*60)
-                response.set_cookie('email', email, max_age=15*24*60*60)
-                response.set_cookie('Logged_in', 'true', max_age=15*24*60*60)
+                    response=render(request, 'home.html',context) 
+                    response.set_cookie('time', 'true', max_age=15*24*60*60)
+                    response.set_cookie('email', email, max_age=15*24*60*60)
+                    response.set_cookie('Logged_in', 'true', max_age=15*24*60*60)
 
-                # print("cookie set")
+                    # print("cookie set")
 
-                request.session['email']=email
-                request.session['role']=users.objects.get(email=email).role
-                user.delete()
-                return response
+                    request.session['email']=email
+                    request.session['role']=users.objects.get(email=email).role
+                    user.delete()
+                    return response
+                else:
+                    user.delete()
+                    return response
             else:
-                user.delete()
-                return response
-        else:
-            messages.error(request, 'Invalid OTP')
-            return render(request, 'validate.html')
+                messages.error(request, 'Invalid OTP')
+                return render(request, 'OTP.html')
+            
+        except otps.DoesNotExist:
+            messages.error(request,"OTP Expired")
+            return redirect('/auth/login')
         
 
     return render(request, 'OTP.html')
@@ -149,7 +155,7 @@ def login(request):
 
                 subject="One Time Password For Admin "
                 length=8
-                otp=random.randint(000000,999999)
+                otp=random.randint(111111,999999)
                 body=f"""
 
                 <h1 style="text-align:center">One Time Password For Sign-in</h1>
