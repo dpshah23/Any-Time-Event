@@ -181,7 +181,7 @@ def login(request):
                 return render(request, 'Log-In.html')
 
         except users.DoesNotExist:
-            messages.error(request, 'User Does Not Exist')
+            messages.error(request, 'Email Does Not Exist')
             return render(request, 'Log-In.html')
         
         except Exception as e:
