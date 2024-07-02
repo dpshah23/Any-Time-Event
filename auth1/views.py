@@ -23,18 +23,34 @@ def validate(request):
         otp=request.POST.get('otp')
         email=request.session.get('email12')
         user=otps.objects.get(email=email)
-        if user.otp==int(otp) and not user.is_expired():   
+        # print(user.otp)
+        # print(otp)
+        # print(email)
+        if user.otp==int(otp) and not user.is_expired():
+
+            context={
+
+            }
+
+            response=render(request, 'home.html',context) 
+            response.set_cookie('time', 'true', max_age=15*24*60*60)
+            response.set_cookie('email', email, max_age=15*24*60*60)
+            response.set_cookie('Logged_in', 'true', max_age=15*24*60*60)
+
+            # print("cookie set")
+
             request.session['email']=email
             request.session['role']=users.objects.get(email=email).role
+
             if users.objects.get(email=email).role=="volunteer":
                 user.delete()
-                return redirect('/volunteer')
+                return response
             elif users.objects.get(email=email).role=="company":
                 user.delete()
-                return redirect('/company')
+                return response
             else:
                 user.delete()
-                return redirect('/')
+                return response
         else:
             messages.error(request, 'Invalid OTP')
             return render(request, 'validate.html')
@@ -71,69 +87,71 @@ def login(request):
             if user.email==email and decrypted_pass==password:
                 request.session['email']=email
                 request.session['role']=users.objects.get(email=email).role
-                if role=="volunteer":
-                       
-                    return redirect('/')
-                elif role=="company":
-                    return redirect('/')
-                else:
-                    redirect('/')
-                    # print(True)
-                
-                    # load_dotenv()
-                    # from_email=os.getenv('EMAIL1')
-                    # password=os.getenv('PASSWORD1')
 
-                    # print(from_email,password)
-
-
-                    # subject="One Time Password For Admin "
-                    # length=8
-                    # otp=random.randint(000000,999999)
-                    # body=f"""
-
-                    # <h1 style="text-align:center">One Time Password For Sign-in</h1>
-
-                    # <p>Thank you for registering on our website again but you need to confirm your device because it has been over 15 days since you last logged in .<br>
-                    # To complete the registration process, please use the following One-Time Password (OTP) </p>
-
-                    # <h2>Your OTP : {otp}</h2>
-
-                    # <p>
-                    # Please enter this OTP on the registration page to verify your identity and activate your account.
-
-                    # If you did not initiate this registration, please ignore this message.
-                
-                    # </p>
-
-                    # Thank you,
-                    # <br>
-                    # Any Time Event.
-
-                    # """
-                    # msg = MIMEMultipart()
-                    # msg['Subject'] = subject
-                    # msg['From'] = from_email
-                    # msg['To'] = email
-                    # msg.attach(MIMEText(body, 'html'))
-                    # expiry_duration = timedelta(minutes=5)  # Set OTP validity duration
-                    # expires_at = timezone.now() + expiry_duration
-                    # user1=otps(email=email,otp=otp, expires_at=expires_at)
-                    # user1.save()
-                    # print(user1.otp)
-                    # request.session['email12']=email
-
-                    # print(True)
-                    # with smtplib.SMTP('smtp.gmail.com', 587) as server:
-                    #     server.starttls()
-                    #     server.login(from_email, password)
-                    #     server.sendmail(from_email, email, msg.as_string())
-                    #     print("OTP Send Successfully")
-
-                    #     print("mail sent")
+                if  request.COOKIES.get('time'):
+                    if role=="volunteer":
                         
+                        return redirect('/')
+                    elif role=="company":
+                        return redirect('/')
+                    else:
+                        redirect('/')
+                    print(True)
+                
+                load_dotenv()
+                from_email=os.getenv('EMAIL')
+                password=os.getenv('PASSWORD1')
+
+                print(from_email,password)
+
+
+                subject="One Time Password For Admin "
+                length=8
+                otp=random.randint(000000,999999)
+                body=f"""
+
+                <h1 style="text-align:center">One Time Password For Sign-in</h1>
+
+                <p>Thank you for registering on our website again but you need to confirm your device because it has been over 15 days since you last logged in .<br>
+                    To complete the registration process, please use the following One-Time Password (OTP) </p>
+
+                <h2>Your OTP : {otp}</h2>
+
+                <p>
+                Please enter this OTP on the registration page to verify your identity and activate your account.
+
+                If you did not initiate this registration, please ignore this message.
+                
+                </p>
+
+                Thank you,
+                <br>
+                Any Time Event.
+
+                """
+                msg = MIMEMultipart()
+                msg['Subject'] = subject
+                msg['From'] = from_email
+                msg['To'] = email
+                msg.attach(MIMEText(body, 'html'))
+                expiry_duration = timedelta(minutes=5)  # Set OTP validity duration
+                expires_at = timezone.now() + expiry_duration
+                user1=otps(email=email,otp=otp, expires_at=expires_at)
+                user1.save()
+                print(user1.otp)
+                request.session['email12']=email
+
+                print(True)
+                with smtplib.SMTP('smtp.gmail.com', 587) as server:
+                    server.starttls()
+                    server.login(from_email, password)
+                    server.sendmail(from_email, email, msg.as_string())
+                    print("OTP Send Successfully")
+
+                    print("mail sent")
                         
-                    #     return redirect('/validate')
+                    messages.success(request, 'OTP sent to your email')
+                    return redirect('/auth/validate')
                 
 
         #   else:

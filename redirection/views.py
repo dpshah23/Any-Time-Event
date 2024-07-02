@@ -14,6 +14,7 @@ def index(request):
         email=request.session['email']
         role=request.session['role']
         
+    # print(request.COOKIES.get('time'))
     return render(request,'home.html')
 
 @ratelimit(key='ip', rate='10/m')
