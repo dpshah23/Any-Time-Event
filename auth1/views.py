@@ -59,14 +59,19 @@ def validate(request):
     return render(request, 'validate.html')
 
 def decrypt_password(password,key):
-    decoded_key = base64.b64decode(key)
-    decoded_password = base64.b64decode(password)
 
-    f = Fernet(decoded_key)
+    try:
+        decoded_key = base64.b64decode(key)
+        decoded_password = base64.b64decode(password)
+
+        f = Fernet(decoded_key)
    
-    decrypted_password = f.decrypt(decoded_password)
+        decrypted_password = f.decrypt(decoded_password)
     
-    return decrypted_password.decode()
+        return decrypted_password.decode()
+    except Exception as e:
+        print(e)
+        return None
 
 @ratelimit(key='ip', rate='10/m')
 def login(request):
@@ -82,6 +87,9 @@ def login(request):
             role=user.role
             # print(user)
             decrypted_pass=decrypt_password(user.password,user.key)
+            if decrypted_pass==None:
+                messages.error(request, 'Invalid Credentials')
+                return render(request, 'Log-In.html')
             # print(decrypted_pass)
     
             if user.email==email and decrypted_pass==password:
@@ -94,7 +102,7 @@ def login(request):
 
                     }
 
-                    response=render(request, 'home.html',context) 
+                    response=redirect( '/',context) 
                     response.set_cookie('time', 'true', max_age=15*24*60*60)
                     response.set_cookie('email', email, max_age=15*24*60*60)
                     response.set_cookie('Logged_in', 'true', max_age=15*24*60*60)
