@@ -21,22 +21,27 @@ from datetime import timedelta
 @ratelimit(key='ip', rate='10/m')
 def validate(request):
     if request.method=="POST":
-        otp=request.POST.get('otp')
+        otp1=request.POST.get('o1')
+        otp2=request.POST.get('o2')
+        otp3=request.POST.get('o3')
+        otp4=request.POST.get('o4')
+        otp5=request.POST.get('o5')
+        otp6=request.POST.get('o6')
+
+        fianlotp=otp1+otp2+otp3+otp4+otp5+otp6
         email=request.session.get('email12')
         user=otps.objects.get(email=email)
         # print(user.otp)
         # print(otp)
         # print(email)
-        if user.otp==int(otp) and not user.is_expired():
-
-            
+        if user.otp==int(fianlotp) and not user.is_expired():
 
             if users.objects.get(email=email).role=="volunteer" and users.objects.get(email=email).is_active!= False:
                 context={
 
                 }
 
-                response=render(request, 'home.html',context) 
+                response=redirect('/',context) 
                 response.set_cookie('time', 'true', max_age=15*24*60*60)
                 response.set_cookie('email', email, max_age=15*24*60*60)
                 response.set_cookie('Logged_in', 'true', max_age=15*24*60*60)
@@ -72,7 +77,7 @@ def validate(request):
             return render(request, 'validate.html')
         
 
-    return render(request, 'validate.html')
+    return render(request, 'OTP.html')
 
 def decrypt_password(password,key):
 
