@@ -177,7 +177,7 @@ def login(request):
                 
 
             else:
-                messages.error(request, 'Invalid Credentials')
+                messages.error(request, 'Incorrect email or Password')
                 return render(request, 'Log-In.html')
 
         except users.DoesNotExist:
