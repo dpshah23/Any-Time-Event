@@ -1,4 +1,5 @@
-from django.shortcuts import render,redirect,HttpResponse
+from django.shortcuts import render,redirect,HttpResponse,reverse
+from django.http import HttpResponseRedirect
 from .models import *
 from cryptography.fernet import Fernet
 import base64
@@ -354,6 +355,7 @@ def logout(request):
     if 'email' and 'role' in request.session:
         request.session.pop('email')
         request.session.pop('role') 
+    
         request.session.flush()
 
         return redirect('/')
