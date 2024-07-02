@@ -242,7 +242,7 @@ def companyinfo(request):
                 'logo': logo,
             }
         )
-        
+        messages.success(request, 'Company Registered Successfully')
         return redirect('/')
     
     return render(request, 'company_data.html')
@@ -305,6 +305,8 @@ def volunteerinfo(request):
                 'upi': upi,
             }
         )
+
+        messages.success(request, 'Volunteer Registered Successfully')
         
         return redirect('/')
     
