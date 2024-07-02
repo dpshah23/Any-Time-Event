@@ -12,7 +12,6 @@
 {% endif %}
 
 <link rel="stylesheet" href="../static/css/Sign-up.css">
-
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 <section class="container forms">
@@ -20,15 +19,17 @@
         <div class="form-content">
             <header>Sign-Up</header>
 
-            <form action="" method="post">
+            <form id="signupForm" action="" method="post" onsubmit="return validateForm()">
                 {% csrf_token %}
                 <div class="field input-field">Name
-                    <input type="text" name="name"  class="input" required>
+                    <input type="text" name="name" class="input" required>
                 </div><br>
 
                 <div class="field input-field">Contact No.
-                    <input type="number" name="contact_no" class="input" required>
+                    <input type="number" name="contact_no" class="input" id="contact_no" required>
+                    <div class="error-message" id="contactNoError"></div>
                 </div><br>
+
                 <div class="field input-field">Email
                     <input type="email" name="email" class="input" required>
                 </div><br>
@@ -36,30 +37,32 @@
                 <div class="field input-field">Password
                     <input type="password" name="password" class="password" id="password" required>
                     <i class='bx bx-hide eye-icon' onclick="togglePassword('password', this)"></i>
+                    <div class="error-message" id="passwordError"></div>
                 </div><br>
 
                 <div class="field input-field">Confirm Password
                     <input type="password" name="confirm-password" class="password" id="confirm-password" required>
                     <i class='bx bx-hide eye-icon' onclick="togglePassword('confirm-password', this)"></i>
+                    <div class="error-message" id="confirmPasswordError"></div>
                 </div><br>
+
                 <div class="field input-field"> 
                     <label for="role">Role:</label>
                     <select name="role" id="role" required>
                         <option name="role" value="company">Company</option>
                         <option name="role" value="volunteer">Paid Volunteer</option>
                     </select>
-                    </div>
-                    
+                </div>
+                
                 <div class="field button-field">
-                    <button>Next</button>
+                    <button type="submit">Next</button>
                 </div>
             </form>
 
             <div class="form-link">
-                <span>Already have an Account ?</span> <a href="/auth/login" class="signup-link">Login
+                <span>Already have an Account ?</span> <a href="/auth/login" class="signup-link">Login</a>
             </div>
         </div>
-        
     </div>
 </section>
 

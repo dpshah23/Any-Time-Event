@@ -85,6 +85,8 @@ def login(request):
         try:
             # print(1)
             user=users.objects.get(email=email)
+            print(user)
+           
             role=user.role
             # print(user)
             decrypted_pass=decrypt_password(user.password,user.key)
@@ -174,10 +176,14 @@ def login(request):
                     return redirect('/auth/validate')
                 
 
-        #   else:
+            else:
                 messages.error(request, 'Invalid Credentials')
                 return render(request, 'Log-In.html')
 
+        except users.DoesNotExist:
+            messages.error(request, 'Email Does Not Exist')
+            return render(request, 'Log-In.html')
+        
         except Exception as e:
             print(e)
             messages.error(request, 'Invalid Credentials')

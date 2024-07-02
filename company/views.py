@@ -7,3 +7,6 @@ def company_home(request):
     return HttpResponse("Welcome to Company Home Page")
 
 # def 
+
+
+# def get_vol(request):
