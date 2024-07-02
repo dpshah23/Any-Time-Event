@@ -29,24 +29,39 @@ def validate(request):
         # print(email)
         if user.otp==int(otp) and not user.is_expired():
 
-            context={
+            
 
-            }
+            if users.objects.get(email=email).role=="volunteer" and users.objects.get(email=email).is_active!= False:
+                context={
 
-            response=render(request, 'home.html',context) 
-            response.set_cookie('time', 'true', max_age=15*24*60*60)
-            response.set_cookie('email', email, max_age=15*24*60*60)
-            response.set_cookie('Logged_in', 'true', max_age=15*24*60*60)
+                }
 
-            # print("cookie set")
+                response=render(request, 'home.html',context) 
+                response.set_cookie('time', 'true', max_age=15*24*60*60)
+                response.set_cookie('email', email, max_age=15*24*60*60)
+                response.set_cookie('Logged_in', 'true', max_age=15*24*60*60)
 
-            request.session['email']=email
-            request.session['role']=users.objects.get(email=email).role
+                # print("cookie set")
 
-            if users.objects.get(email=email).role=="volunteer":
+                request.session['email']=email
+                request.session['role']=users.objects.get(email=email).role
                 user.delete()
                 return response
-            elif users.objects.get(email=email).role=="company":
+            elif users.objects.get(email=email).role=="company" and users.objects.get(email=email).is_active!= False:
+                
+                context={
+
+                }
+
+                response=render(request, 'home.html',context) 
+                response.set_cookie('time', 'true', max_age=15*24*60*60)
+                response.set_cookie('email', email, max_age=15*24*60*60)
+                response.set_cookie('Logged_in', 'true', max_age=15*24*60*60)
+
+                # print("cookie set")
+
+                request.session['email']=email
+                request.session['role']=users.objects.get(email=email).role
                 user.delete()
                 return response
             else:
@@ -95,7 +110,7 @@ def login(request):
                 return render(request, 'Log-In.html')
             # print(decrypted_pass)
     
-            if user.email==email and decrypted_pass==password:
+            if user.email==email and decrypted_pass==password and users.objects.get(email=email).is_active!= False :
                 
 
                 if  request.COOKIES.get('time'):
@@ -177,7 +192,7 @@ def login(request):
                 
 
             else:
-                messages.error(request, 'Invalid Credentials')
+                messages.error(request, 'Incorrect E-mail or Password')
                 return render(request, 'Log-In.html')
 
         except users.DoesNotExist:
