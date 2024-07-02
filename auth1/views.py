@@ -176,7 +176,7 @@ def login(request):
                     return redirect('/auth/validate')
                 
 
-        #   else:
+            else:
                 messages.error(request, 'Invalid Credentials')
                 return render(request, 'Log-In.html')
 
