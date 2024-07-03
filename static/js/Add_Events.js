@@ -10,11 +10,11 @@ document.getElementById('eventForm').addEventListener('submit', function(event) 
     volunteerError.style.display = 'none';
     contactError.style.display = 'none';
 
-    if (volunteerField.value.length !== 10) {
-        volunteerError.textContent = 'Required number of volunteers must be exactly 10 digits.';
-        volunteerError.style.display = 'block';
-        isValid = false;
-    }
+    // if (volunteerField.value.length !== 1) {
+    //     volunteerError.textContent = 'Required number of volunteers must be exactly 10 digits.';
+    //     volunteerError.style.display = 'block';
+    //     isValid = false;
+    // }
 
     if (contactField.value.length !== 10) {
         contactError.textContent = 'Contact number must be exactly 10 digits.';
