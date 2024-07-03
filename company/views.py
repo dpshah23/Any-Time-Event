@@ -13,7 +13,13 @@ def company_home(request):
 
 @ratelimit(key='ip', rate='5/m')
 def add_event(request):
-    if request.session['role']!= "company" and 'email' not in request.session:
+    # print(request.session['role'])
+    # print(request.session['email'])
+    if 'email' or 'role' not in request.session:
+        messages.error(request,"You are not logged in")
+        return redirect('/')
+    if request.session['role']== "volunteer":
+        messages.error(request,"You are not authorized to view this page")
         return redirect('/')
     if request.method == 'POST':
         email = request.session['email']
