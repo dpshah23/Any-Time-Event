@@ -66,6 +66,9 @@ Week 2
 using HTML,CSS,Java Scripts.
 
 
+---
+
+
 # Documentation
 
   ## Modules
@@ -74,7 +77,7 @@ using HTML,CSS,Java Scripts.
    - Error Handling Module
    - Company Module
    - Paid Volunteer Module
-
+---
 
   ### Authentication Module  
 
