@@ -1,0 +1,27 @@
+{% block title %}About Us {% endblock title %}
+{% block body %}
+{% if messages %}
+  {% for message in messages %}
+    <div class="custom-alert custom-alert-{{ message.tags }}">
+      {{ message }}
+      <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+    </div>
+  {% endfor %}
+{% endif %}
+
+<link rel="stylesheet" href="../static/css/About-Us(Home Page).css">
+
+<div class="container">
+    <h1 class="title">ABOUT US</h1>
+    <div class="content">
+        <img src="../static/img/Any-Time-Event-Logo.png" alt="Image" class="image">
+        <div class="info">
+            <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis.</h2>
+            <p>Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit. Repellendus Alias Dolor Veniam, Hic Eum Architecto, Qui Laudantium Magnam Illo Labore Veritatis Blanditiis Voluptatem Numquam Magni Eaque Atque Reprehenderit Doloribus Totam.</p>
+            <p>Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit. Velit Ad Pariatur Enim Aperiam Quam Animi Earum? Eos Ea Suscipit Dolor?</p>
+            <button>Contact Us</button>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
