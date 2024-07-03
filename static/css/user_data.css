@@ -3,7 +3,7 @@
 
 * {
   margin: 0;
-  padding: 0;
+  padding: 50;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
@@ -16,6 +16,7 @@
   align-items: center;
   background-color: #639bc6;
   gap: 10px;  
+  padding: 15px;
 }
 
 .form {
