@@ -37,39 +37,14 @@ End Date	Tasks to be assigned	Tasks to be completed	Remarks
 	
 # 15 Days Internship Report
 
-Week 1
-	
-27th June 2024
-     to
-4th July 2024	 
 
-=>Learn how to use:
-    •	Django
-    •	Docker	
-
-=>Builded basic demo project using Django and Docker		
-	
-
-Week 2	
-
-4th July 2024
-     To
-11th July 2024	
-
-=>Making templates using:
-    •	HTML
-    •	CSS 
-    •	Java Script
-    •	Docker File	
-
-=>Designed initial pages for the final project 
-using HTML,CSS,Java Scripts.
 
 
 ---
 
 
 # Documentation
+
 
   ## Modules
 
@@ -80,6 +55,20 @@ using HTML,CSS,Java Scripts.
 ---
 
   ### Authentication Module  
+  The validate function processes OTP verification:
+1.	POST Check: Ensures the request is a POST.
+2.	Retrieve OTP: Collects the OTP digits and concatenates them.
+3.	Get Email: Gets the user's email from the session.
+4.	Validate OTP: Checks the OTP in the database and verifies it's not expired.
+5.	User Role Handling:
+    o	Volunteer: Sets cookies, session data, deletes the OTP, and redirects to the home page.
+    o	Company: Sets cookies, session data, deletes the OTP, and renders the home page.
+6.	Invalid OTP: Shows an error and reloads the OTP page if OTP is incorrect.
+7.	Expired OTP: Shows an error and redirects to login if OTP is expired.
+8.	Render OTP Page: Displays the OTP entry page for non-POST requests.
+
+
+
 
 # getting-started
 
@@ -88,6 +77,8 @@ using HTML,CSS,Java Scripts.
     - Python (3.x)
     - Django
     - Docker
+
+
 
 
 ## Installation
