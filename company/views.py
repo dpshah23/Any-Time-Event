@@ -15,7 +15,7 @@ def company_home(request):
 def add_event(request):
     # print(request.session['role'])
     # print(request.session['email'])
-    if 'email' or 'role' not in request.session:
+    if 'email' and 'role' not in request.session:
         messages.error(request,"You are not logged in")
         return redirect('/')
     if request.session['role']== "volunteer":

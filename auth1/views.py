@@ -14,6 +14,7 @@ import random,string
 import os
 from django_ratelimit.decorators import ratelimit
 from datetime import date
+import requests
 from datetime import timedelta
 
 
@@ -112,6 +113,10 @@ def login(request):
             # print(1)
             user=users.objects.get(email=email)
             print(user)
+
+            if user.is_active==False:
+                messages.error(request, 'Account is not activated... We Will Take Time To Activate Your Account. Please Try Again Later.')
+                return render(request, 'Log-In.html')
            
             role=user.role
             # print(user)
@@ -329,7 +334,7 @@ def volunteerinfo(request):
 
         image_file = request.FILES['profile_picture']
         image_file1 = request.FILES['identity_proof']
-        
+
         # Validate file extensions
         valid_extensions = ['jpg', 'png', 'jpeg', 'heic']
         if not all(image.name.split('.')[-1].lower() in valid_extensions for image in [image_file, image_file1]):
