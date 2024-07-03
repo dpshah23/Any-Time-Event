@@ -26,6 +26,13 @@ SECRET_KEY = '))zpcu-bn-@t=#f69ifd49$m--sq8d)_i0v&&61izjo1kg!zk%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+SESSION_COOKIE_SAMESITE = 'Lax' 
+
+SESSION_COOKIE_NAME="USER_KEY"
+
+SESSION_COOKIE_HTTPONLY = True
+
+
 ALLOWED_HOSTS = []
 
 LOG_DIR = os.path.join(BASE_DIR, 'logs')
