@@ -347,6 +347,7 @@ def volunteerinfo(request):
         emergency_contact = request.POST.get('emergency_no')
         upi = request.POST.get('upi_id')
         
+        
         # Generate random image names
         alphanumeric_characters = string.ascii_letters + string.digits
         image_name = ''.join(random.choice(alphanumeric_characters) for _ in range(10))
