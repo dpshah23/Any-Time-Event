@@ -57,7 +57,8 @@ def getevent(request,event_id):
         messages.error(request,"You are not authorized to view this page")
         return redirect('/')
     try:
-        events=event.objects.get(event_id=event_id)
+        email=request.session['email']
+        events=event.objects.get(event_id=event_id,company_email=email)
     except event.DoesNotExist:
         messages.error(request,"Event Not Found")
         return redirect('/company/')
