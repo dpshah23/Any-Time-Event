@@ -103,6 +103,8 @@ class volunteer(models.Model):
     image_name1 = models.CharField(max_length=255, default=None, null=True)
     card = models.BinaryField(default=None, null=True)
     description = models.TextField(default=None, null=True)
+    contact_id = models.CharField(max_length=200 , null=True)
+    fund_id = models.CharField(max_length=200 , null=True)
 
     def __str__(self):
         return self.name
