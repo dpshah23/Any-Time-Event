@@ -16,6 +16,7 @@ from django_ratelimit.decorators import ratelimit
 from datetime import date
 import requests
 from datetime import timedelta
+import json
 
 
 # Create your views here.
@@ -361,7 +362,73 @@ def volunteerinfo(request):
         # Read image files
         profile_pic = image_file.read()
         id_proof = image_file1.read()
+
+        # RAZORPAYX_KEY_ID = os.getenv('RAZORPAYX_KEY_ID')
+        RAZORPAYX_KEY_ID = "rzp_test_WCu36cvoDlKl4S"
+        # RAZORPAYX_KEY_SECRET = os.getenv('RAZORPAYX_KEY_SECRET')
+        RAZORPAYX_KEY_SECRET = "mA6Hd5ZIYa0zHPpIrEkXBgKV"
         
+        if not RAZORPAYX_KEY_ID or not RAZORPAYX_KEY_SECRET:
+            messages.error(request, 'Payment gateway credentials not set. Please contact support.')
+            return render(request, 'user_data.html')
+        
+        contact_url = "https://api.razorpay.com/v1/contacts"
+
+        payload = {
+        "name": name,
+        "email": email1,
+        "contact": phone,
+        "type": "customer",
+        "reference_id": "123",
+        "notes": {
+        "notes_key_1": "123",
+        "notes_key_2": "123"
+        }
+        }
+        
+        payload_json = json.dumps(payload)
+
+        headers = {
+        "Content-Type": "application/json"
+        }
+
+        response = requests.post(contact_url, auth=(RAZORPAYX_KEY_ID, RAZORPAYX_KEY_SECRET), data=payload_json, headers=headers)
+
+        print(response.text)
+
+        if response.status_code == 200:
+            print("Contact Created Successfully")
+            
+            contact_id = response.json()['id']
+        else:
+            print("Error creating contact")
+        
+
+        url_fund = "https://api.razorpay.com/v1/fund_accounts"
+
+        payload_fund = {
+        "contact_id": contact_id,  # Replace with the actual contact_id obtained from the previous step
+        "account_type": "vpa",
+        "vpa": {
+            "address": upi
+        }
+        }
+        
+        payload_json_fund = json.dumps(payload_fund)
+
+        headers = {
+        "Content-Type": "application/json"
+
+        }
+
+        response_fund = requests.post(url_fund, auth=(RAZORPAYX_KEY_ID, RAZORPAYX_KEY_SECRET), data=payload_json_fund, headers=headers)
+
+        if response_fund.status_code == 200:
+            fund_id = response_fund.json()['id']
+        else:
+            messages.error(request, f"Failed to create fund account: {response_fund.json().get('error', {}).get('description', 'Unknown error')}")
+            return render(request, 'user_data.html')
+
         # Create or update volunteer object
         obj, created = volunteer.objects.update_or_create(
             email=email1,
@@ -379,6 +446,8 @@ def volunteerinfo(request):
                 'image_name1': image_name1,
                 'card': id_proof,
                 'upi': upi,
+                'contact_id': contact_id,
+                'fund_id': fund_id
             }
         )
 
