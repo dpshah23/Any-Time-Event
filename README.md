@@ -2,6 +2,17 @@
 
 # Any Time Event
 
+## Table Of Contents
+
+- [Documentation](#Documentation)
+  - [Modules](#modules)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Environment Variables](#environment-variables)
+<!-- - [Usage](#usage) -->
+
+
 This project sets up the necessary environment using Docker and Docker Compose. Follow the instructions below to build and run the project.
 
 
@@ -52,9 +63,31 @@ Week 2
     •	Docker File	
 
 =>Designed initial pages for the final project 
-using HTML,CSS,Java Scripts.		
+using HTML,CSS,Java Scripts.
 
-## Build
+
+# Documentation
+
+  ## Modules
+
+   - Authentication Module
+   - Error Handling Module
+   - Company Module
+   - Paid Volunteer Module
+
+
+  ### Authentication Module  
+
+# getting-started
+
+## prerequisites
+
+    - Python (3.x)
+    - Django
+    - Docker
+
+
+## Installation
 
 To build the Docker images, run the following command:
 
