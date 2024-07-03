@@ -50,9 +50,31 @@ def add_event(request):
     return render(request,"add_events.html")
 
 def getevent(request,event_id):
-    events=event.objects.get(event_id=event_id)
+    if 'email' and 'role' not in request.session:
+        messages.error(request,"You are not logged in")
+        return redirect('/')
+    if request.session['role']== "volunteer":   
+        messages.error(request,"You are not authorized to view this page")
+        return redirect('/')
+    try:
+        events=event.objects.get(event_id=event_id)
+    except event.DoesNotExist:
+        messages.error(request,"Event Not Found")
+        return redirect('/company/')
     
-    return render (request , "events.html",event=events)
+    return render (request , "events.html",{'event':events})
+
+def getallevents(request):
+    if 'email' and 'role' not in request.session:
+        messages.error(request,"You are not logged in")
+        return redirect('/')
+    if request.session['role']== "volunteer":
+        messages.error(request,"You are not authorized to view this page")
+        return redirect('/')
+    
+    email=request.session['email']
+    events = event.objects.filter(company_email=email)
+    return render(request,"all_events.html",{'events':events})
 
     
 

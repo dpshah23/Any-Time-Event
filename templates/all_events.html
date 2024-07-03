@@ -10,14 +10,14 @@
     </head>
     <body>
         <div class="post-container">
-            <!-- {% for post in posts %}
+            {% for post in events %}
               <div class="containe">
                 
-                <a  class="post" href="{{ url_for('profile', user_name=post['UserName']) }}" target="_blank">{{ post['UserName'] }}</a>
-                <h2>{{ post['title'] }}</h2>
-                <p>{{ post['description'] }}</p>
-                <img src="data:image/png;base64,{{post['img']}}" class="card-img-top" alt="Display Picture" style="height: 200px;width: 200px;border-radius: 50%;overflow: hidden;"><br><br>
+                <a  class="post" href="/company/events/{{ post.event_id }}" target="_blank">{{ post.event_name }}</a>
+                <h2>{{ post.event_company }}</h2>
+                <p>{{ post.event_description }}</p>
+
             </div>
-            {% endfor %} -->
+            {% endfor %}
           </div>
     </body>
