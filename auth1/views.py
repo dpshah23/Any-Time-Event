@@ -20,7 +20,30 @@ import json
 
 
 # Create your views here.
+"""
+Function: validate(request)
+---------------------------
 
+Description:
+    This function handles OTP validation and user authentication based on the OTP entered
+    by the user. It verifies the OTP against the stored OTP for the user, checks user role
+    and activation status, sets session variables and cookies upon successful authentication,
+    and deletes the OTP record from the database.
+
+Parameters:
+    request (HttpRequest): The HTTP request object containing POST data.
+
+Returns:
+    HttpResponse: Returns an appropriate HTTP response based on the validation result.
+                  - Redirects to '/' for volunteers upon successful validation.
+                  - Renders 'home.html' for companies upon successful validation.
+                  - Renders 'OTP.html' with error message for invalid OTP.
+                  - Redirects to '/auth/login' if OTP is expired or user does not exist.
+
+Usage:
+    This function is typically used in a Django view to process OTP validation during a
+    user login flow.
+"""
 @ratelimit(key='ip', rate='10/m')
 def validate(request):
     if request.method=="POST":
@@ -87,6 +110,16 @@ def validate(request):
 
     return render(request, 'OTP.html')
 
+"""
+Decrypts a password encoded with Fernet symmetric encryption using the provided key.
+
+Parameters:
+    password (str): Base64 encoded password string to decrypt.
+    key (str): Base64 encoded key used for encryption and decryption.
+
+Returns:
+    str or None: Decrypted password as a string if successful, otherwise None.
+"""
 def decrypt_password(password,key):
 
     try:
@@ -101,7 +134,27 @@ def decrypt_password(password,key):
     except Exception as e:
         print(e)
         return None
+    
+"""
+Handles user login authentication and OTP generation and sending.
 
+If session contains 'email' and 'role', redirects to '/'.
+If request method is POST:
+    - Retrieves email and password from POST data.
+    - Checks if user is active and verifies credentials.
+    - Redirects to '/' with session and cookies set upon successful login.
+    - Generates and sends OTP via email for additional verification if needed.
+
+Parameters:
+    request (HttpRequest): The HTTP request object containing POST data for login.
+
+Returns:
+    HttpResponse: Renders 'Log-In.html' with appropriate error messages or redirects to '/'.
+
+Exceptions:
+    users.DoesNotExist: Raised if the user with the provided email does not exist.
+
+"""
 @ratelimit(key='ip', rate='10/m')
 def login(request):
     if 'email' and 'role' in request.session:
@@ -223,11 +276,35 @@ def login(request):
 
     return render(request, 'Log-In.html')
 
+"""
+
+Function: key()
+
+Description:
+    This function generates a random encryption key using Fernet symmetric encryption.
+    
+"""
 def key():
     
     return Fernet.generate_key()
 
+"""
+Handles user registration process by encrypting password and saving user details.
 
+If request method is POST:
+    - Retrieves email, password, name, phone, and role from POST data.
+    - Encrypts password using Fernet symmetric encryption.
+    - Saves user details in the database based on role ('company' or 'volunteer').
+    - Redirects to '/auth/companyinfo' or '/auth/volunteerinfo' based on role after successful registration.
+
+Parameters:
+    request (HttpRequest): The HTTP request object containing POST data for user registration.
+
+Returns:
+    HttpResponse: Redirects to '/auth/companyinfo' or '/auth/volunteerinfo' after successful registration.
+                  Renders 'Sign-Up.html' with error message if email is already registered.
+
+"""
 @ratelimit(key='ip', rate='10/m')
 def signup (request):
     if request.method == 'POST':
@@ -274,6 +351,27 @@ def signup (request):
         
     return render(request, 'Sign-Up.html')
 
+
+"""
+Handles the registration process for companies, including company profile information and file uploads.
+
+If request method is POST:
+    - Validates and processes uploaded images for company card and logo.
+    - Validates file extensions for JPG, PNG, JPEG, and HEIC formats.
+    - Saves company details and uploaded files to the database.
+    - Redirects to '/' upon successful registration.
+
+Parameters:
+    request (HttpRequest): The HTTP request object containing POST data for company registration.
+
+Returns:
+    HttpResponse: Redirects to '/' after successful registration. Renders 'company_data.html' with error messages
+                  if required fields are missing or if there are validation errors.
+
+Notes:
+    This function assumes the use of Django framework for web development.
+    Handles file uploads and validates file extensions for security.
+"""
 
 @ratelimit(key='ip', rate='10/m')
 def companyinfo(request):
@@ -323,8 +421,28 @@ def companyinfo(request):
     
     return render(request, 'company_data.html')
 
-            
 
+"""
+Handles the registration process for volunteers, including profile information and Razorpay integration.
+
+If request method is POST:
+    - Validates and processes uploaded images for profile picture and identity proof.
+    - Validates file extensions and checks Razorpay credentials.
+    - Creates Razorpay contact and fund account for the volunteer.
+    - Saves volunteer details and uploaded files to the database.
+    - Redirects to '/' upon successful registration.
+
+Parameters:
+    request (HttpRequest): The HTTP request object containing POST data for volunteer registration.
+
+Returns:
+    HttpResponse: Redirects to '/' after successful registration. Renders 'user_data.html' with error messages
+                  if required fields are missing or if there are validation errors.
+
+Notes:
+    This function assumes the use of Django framework for web development.
+    Requires integration with Razorpay for contact and fund account creation.
+"""
 @ratelimit(key='ip', rate='10/m')
 def volunteerinfo(request):
     if request.method == 'POST':
@@ -457,6 +575,19 @@ def volunteerinfo(request):
     
     return render(request, 'user_data.html')
 
+"""
+Handles user logout by clearing session data.
+
+If 'email' and 'role' are in session:
+    - Removes 'email' and 'role' from session.
+    - Flushes the session to clear all session data.
+    - Redirects to '/'.
+
+Returns:
+    HttpResponse: Redirects to '/' after clearing session data.
+
+
+"""
 @ratelimit(key='ip', rate='10/m')
 def logout(request):
     if 'email' and 'role' in request.session:
@@ -469,6 +600,25 @@ def logout(request):
     return redirect('/')
 
 
+"""
+Handles the password reset request process.
+
+If request method is POST:
+    - Retrieves email from POST data.
+    - Generates a unique reset key and saves it with an expiry time.
+    - Sends a reset link to the user's email with the generated key.
+    - Redirects to '/auth/login' upon successful sending of the reset link.
+
+Parameters:
+    request (HttpRequest): The HTTP request object containing POST data for password reset request.
+
+Returns:
+    HttpResponse: Redirects to '/auth/login' after sending the reset link. Renders 'reset.html' with error messages
+                  if the email is invalid or if there are any errors during the process.
+
+Notes:
+    Requires SMTP configuration for sending emails and uses environment variables for email credentials.
+"""
 @ratelimit(key='ip', rate='10/m')
 def reset(request):
     if request.method == "POST":
@@ -533,7 +683,32 @@ def reset(request):
     return render(request, 'reset.html')
 
 
+"""
+Handles password reset process based on email link verification and new password submission.
 
+If request method is GET:
+    - Retrieves email and key parameters from the request query.
+    - Checks if a valid reset entry exists for the provided email and key.
+    - If the reset link is invalid (used or expired), redirects to '/auth/login' with an error message.
+
+If request method is POST:
+    - Retrieves new password, email, and key from the POST data.
+    - Decrypts the existing reset entry to validate and update the user's password.
+    - Generates a new encryption key, encrypts the new password, and updates the user's password and key in the database.
+    - Marks the reset entry as used.
+    - Redirects to '/auth/login' upon successful password reset.
+
+Parameters:
+    request (HttpRequest): The HTTP request object containing GET or POST data for password reset.
+
+Returns:
+    HttpResponse: Redirects to '/auth/login' after successful password reset or renders 'Reset_Password.html' with error messages
+                  if the reset link is invalid or if there are errors during the process.
+
+Notes:
+    This function assumes the use of Django framework for web development.
+    Uses Fernet encryption for securely storing passwords.
+"""
 @ratelimit(key='ip', rate='10/m')
 def reset_pass(request):
     if request.method == "GET":
@@ -594,3 +769,4 @@ def reset_pass(request):
             return render(request, 'Reset_Password.html', {'email': email})
 
     return render(request, 'Reset_Password.html')
+
