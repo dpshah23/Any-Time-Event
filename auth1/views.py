@@ -116,7 +116,7 @@ def login(request):
             print(user)
 
             if user.is_active==False:
-                messages.error(request, 'Account is not activated... We Will Take Time To Activate Your Account. Please Try Again Later.')
+                messages.error(request, 'Account is not activated... We Will Take 2 Working Days To Activate Your Account. Please Try Again Later.')
                 return render(request, 'Log-In.html')
            
             role=user.role
