@@ -212,28 +212,28 @@ def login(request):
                 print(from_email,password)
 
 
-                subject="One Time Password For Admin "
+                subject="One Time Password For Login "
                 length=8
                 otp=random.randint(111111,999999)
                 body=f"""
 
-                <h1 style="text-align:center">One Time Password For Sign-in</h1>
-
-                <p>Thank you for registering on our website again but you need to confirm your device because it has been over 15 days since you last logged in .<br>
-                    To complete the registration process, please use the following One-Time Password (OTP) </p>
-
-                <h2>Your OTP : {otp}</h2>
+                <h1 style="text-align:center">One Time Password for Sign-in</h1>
 
                 <p>
-                Please enter this OTP on the registration page to verify your identity and activate your account.
-
-                If you did not initiate this registration, please ignore this message.
-                
+                Thank you for returning to our website. Since it has been over 15 days since your last login, we need to confirm your device.
+                <br>
+                To complete the login process, please use the following One-Time Password (OTP):
                 </p>
 
-                Thank you,
-                <br>
-                Any Time Event.
+                <h2>Your OTP: {otp}</h2>
+
+                <p>
+                Please enter this OTP on the login page to verify your identity and continue using your account.
+                <br><br>
+                If you did not request this login, please ignore this message.
+                </p>
+
+                <p>Thank you,<br>Any Time Event Team</p>
 
                 """
                 msg = MIMEMultipart()
@@ -643,20 +643,21 @@ def reset(request):
             final_str_link = "http://127.0.0.1:8000/auth/resetpass?email=" + email + "&key=" + x
 
             body = f"""
-            <h1 style="text-align:center">One Time Password For Sign-in</h1>
+            <h1 style="text-align:center">Password Reset Request</h1>
 
-            <p>We're sorry to hear that you're having trouble with logging in to Any Time Event. We've received a message that you've forgotten your password. <br>
-            If this was you, you can reset your password now using this link . </p>
-
-            <h2>Your Link : {final_str_link}</h2>
-
-            <p>
-            If you didn't request password reset link, you can ignore this message
+            <p>We're sorry to hear that you're having trouble logging into Any Time Event. We've received a request to reset your password.
+            <br>
+            If this was you, you can reset your password now using the link below:
             </p>
 
-            Thank you,
-            <br>
-            Any Time Event.
+            <h2>Your Link: <a href="{final_str_link}">{final_str_link}</a></h2>
+
+            <p>
+            If you didn't request a password reset, you can ignore this message.
+            </p>
+
+            <p>Thank you,<br>Any Time Event Team</p>
+            
             """
             msg = MIMEMultipart()
             msg['Subject'] = subject

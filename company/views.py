@@ -50,9 +50,9 @@ def add_event(request):
     return render(request,"add_events.html")
 
 def getevent(request,event_id):
-    event=event.objects.get(event_id=event_id)
+    events=event.objects.get(event_id=event_id)
     
-    return render (request , "events.html",event=event)
+    return render (request , "events.html",event=events)
 
     
 
