@@ -1,6 +1,6 @@
-{% extends "base.html" %}
+<!-- {% extends "base.html" %}
 {% block title %}Add Events {% endblock title %}
-{% block body %}
+{% block body %} -->
 {% if messages %}
   {% for message in messages %}
     <div class="custom-alert custom-alert-{{ message.tags }}">
@@ -31,7 +31,10 @@
             <label for="date">Date:</label>
             <input type="date" id="date" name="date" required>
 
-            <label for="time">Time:</label>
+            <label for="time"> Start Time:</label>
+            <input type="time" id="time" name="time" required>
+
+            <label for="time"> End Time:</label>
             <input type="time" id="time" name="time" required>
 
             <label for="eventDescription">Event Description:</label>
@@ -49,7 +52,7 @@
             <input type="text" id="companyRep" name="companyRep" required>
 
             <label for="contactNo">Contact No:</label>
-            <input type="tel" id="contactNo" name="contactNo" required>
+            <input type="number" id="contactNo" name="contactNo" required>
             <span id="contactError" class="error-message"></span>
             
             <label for="event_city">City:</label>
