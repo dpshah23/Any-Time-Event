@@ -16,7 +16,8 @@
 
 <div class="form-container">
     <h3>Add Events</h3>
-    <form id="eventForm" action ='/company/' method = "post">
+    <form id="eventForm" action ='{% url "add_event" %}' method = "post">
+      {% csrf_token %}
         <div class="left-side">
             <label for="companyName">Event Name:</label>
             <input type="text" id="eventName" name="eventName" required>
@@ -63,5 +64,5 @@
     </form>
 </div>
 
-<script src="../static/js/Add_Events.js"></script>
+<!-- <script src="../static/js/Add_Events.js"></script> -->
 {% endblock body %}

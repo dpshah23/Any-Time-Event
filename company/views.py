@@ -16,7 +16,7 @@ def add_event(request):
     if request.session['role']!= "company" and 'email' not in request.session:
         return redirect('/')
     if request.method == 'POST':
-        email = request.session('email')
+        email = request.session['email']
         event_company = company.objects.get(email=email).name
         event_name = request.POST.get('eventName')
         alphanumeric_characters = string.ascii_letters + string.digits
@@ -33,8 +33,9 @@ def add_event(request):
         event_vol = request.POST.get('requiredVolunteers')
         event_mrp = request.POST.get('ratePerPerson')
         # event_completed =
-        actual_amount = event_mrp - ((event_mrp * 25)/100)
-        event1 = event(company_email = email , event_id=event_id,event_company=event_company,event_name=event_name,event_date=event_date,event_time=event_time,event_location=event_location,event_loc_link=event_loc_link,event_city=event_city,event_description=event_description,event_skills=event_skills,event_rep=event_rep,event_rep_no=event_rep_no,event_mrp=event_mrp,actual_amount=actual_amount)
+        actual_amount = int(event_mrp) - ((int(event_mrp) * 25)/100)
+        print(actual_amount)
+        event1 = event(company_email = email , event_id=event_id,event_company=event_company,event_name=event_name,event_date=event_date,event_time=event_time,event_location=event_location,event_loc_link=event_loc_link,event_city=event_city,event_description=event_description,event_skills=event_skills,event_rep=event_rep,event_rep_no=event_rep_no,event_mrp=event_mrp,event_vol=event_vol,actual_amount=actual_amount)
         event1.save()
         
         messages.success(request,"Event Added Successfully")
