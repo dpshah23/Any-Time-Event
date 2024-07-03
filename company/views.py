@@ -74,7 +74,7 @@ def getallevents(request):
     
     email=request.session['email']
     events = event.objects.filter(company_email=email)
-    return render(request,"all_events.html",{'events':events})
+    return render(request,"all_events.html",{'events':events,'company_name':company.objects.get(email=email).name})
 
     
 
