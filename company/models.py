@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 class event(models.Model):
+    company_email = models.CharField(max_length=150 , null=True)
     event_company = models.CharField(max_length=200,null=True)
     event_name = models.CharField(max_length=200)
     event_id = models.CharField(max_length=100,unique=True , default=False)
@@ -17,13 +18,14 @@ class event(models.Model):
     event_vol = models.IntegerField()
     event_completed = models.BooleanField(default=False)
     event_mrp = models.IntegerField(null=True)
-    actual_amount = models.IntegerField(null=True)       
+    actual_amount = models.IntegerField(null=True)  
+    paid_status = models.BooleanField(default=False)     
     
     def __str__(self):
         return self.event_name
     
 class reg_vol(models.Model):
-    company_name = models.CharField(max_length=200,null=True)
+    company_email = models.CharField(max_length=200,null=True)
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     phone = models.CharField(max_length=100)

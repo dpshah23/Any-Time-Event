@@ -18,7 +18,12 @@
             <p><strong>Location Link:</strong> <span id="phone">{{user1.phone}}</span></p>
             <p><strong>Skills:</strong> <span id="phone">{{user1.phone}}</span></p>
             <p><strong>Company Representative:</strong> <span id="phone">{{user1.phone}}</span></p>
+            {% if 'email' in request.session  %}
+            {% if request.session.role == "Company" %}
+            {% if request.session.email== event.company_email %}
             <p><strong>Number of Volunteers Registered:</strong> <span id="phone">{{user1.phone}}</span></p>
+            {% endif %}
+            {% endif %}
         </div>
 
 </body>
