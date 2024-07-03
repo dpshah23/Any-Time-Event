@@ -59,6 +59,8 @@ def getevent(request,event_id):
     try:
         email=request.session['email']
         events=event.objects.get(event_id=event_id,company_email=email)
+        # num_vol = reg_vol.objects.get(event_id=event_id)
+        # print(num_vol)
     except event.DoesNotExist:
         messages.error(request,"Event Not Found")
         return redirect('/company/')

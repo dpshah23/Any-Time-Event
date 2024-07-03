@@ -20,7 +20,7 @@
             <p><strong>Company Representative:</strong> <span id="phone">{{event.event_rep}}</span></p>
             
             {% if request.session.email and request.session.role == "company" and request.session.email == event.company_email %}
-            <p><strong>Number of Volunteers Registered:</strong> <span id="phone">{{user1.phone}}</span></p>
+            <p><strong>Number of Volunteers Registered:</strong> <span id="phone">{{}}</span></p>
            
             <div class="field button-field">
                 <button type="submit">Registered Volunteers</button>
