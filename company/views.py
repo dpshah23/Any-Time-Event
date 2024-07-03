@@ -4,6 +4,7 @@ from django_ratelimit.decorators import ratelimit
 from auth1.models import company
 from .models import *
 import random , string
+from django.contrib import messages
 # Create your views here.
 
 @ratelimit(key='ip', rate='5/m')
@@ -32,9 +33,14 @@ def add_event(request):
         event_vol = request.POST.get('requiredVolunteers')
         event_mrp = request.POST.get('ratePerPerson')
         # event_completed =
-        actual_amount = (event_mrp * 25)/100
-        event1 = event(event_id=event_id,event_company=event_company,event_name=event_name,event_date=event_date,event_time=event_time,event_location=event_location,event_loc_link=event_loc_link,event_city=event_city,event_description=event_description,event_skills=event_skills,event_rep=event_rep,event_rep_no=event_rep_no,event_mrp=event_mrp,actual_amount=actual_amount)
+        actual_amount = event_mrp - ((event_mrp * 25)/100)
+        event1 = event(company_email = email , event_id=event_id,event_company=event_company,event_name=event_name,event_date=event_date,event_time=event_time,event_location=event_location,event_loc_link=event_loc_link,event_city=event_city,event_description=event_description,event_skills=event_skills,event_rep=event_rep,event_rep_no=event_rep_no,event_mrp=event_mrp,actual_amount=actual_amount)
         event1.save()
+        
+        messages.success(request,"Event Added Successfully")
+        return redirect('/company/')
+        
+    return render(request,"add_events.html")
 
 def getevent(request,event_id):
     event=event.objects.get(event_id=event_id)

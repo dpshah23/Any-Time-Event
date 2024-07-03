@@ -10,15 +10,20 @@
     <div class="profile-container">
         <div class="profile-details">
             <h2>{{Event.event_name}}</h2>
-            <p><strong>Date & Time:</strong> <span id="phone">{{user1.name}}</span></p>
-            <p><strong>Location:</strong> <span id="email">{{user1.email}}</span></p>
-            <p><strong>Description:</strong> <span id="phone">{{user1.phone}}</span></p>
-            <p><strong>Number of Volunteers:</strong> <span id="phone">{{user1.gender}}</span></p>
-            <p><strong>Rate:</strong> <span id="phone">{{user1.age}}</span></p>
-            <p><strong>Location Link:</strong> <span id="phone">{{user1.phone}}</span></p>
-            <p><strong>Skills:</strong> <span id="phone">{{user1.phone}}</span></p>
-            <p><strong>Company Representative:</strong> <span id="phone">{{user1.phone}}</span></p>
+            <p><strong>Date & Time:</strong> <span id="phone">{{event.event_date}}{{event.event_time}}</span></p>
+            <p><strong>Location:</strong> <span id="email">{{event.event_location}}</span></p>
+            <p><strong>Description:</strong> <span id="phone">{{event.event_description}}</span></p>
+            <p><strong>Number of Volunteers:</strong> <span id="phone">{{event.event_vol}}</span></p>
+            <p><strong>Rate:</strong> <span id="phone">{{event.actual_amount}}</span></p>
+            <p><strong>Location Link:</strong> <span id="phone">{{event.event_loc_link}}</span></p>
+            <p><strong>Skills:</strong> <span id="phone">{{event.event_skills}}</span></p>
+            <p><strong>Company Representative:</strong> <span id="phone">{{event.event_rep}}</span></p>
+            {% if 'email' in request.session  %}
+            {% if request.session.role == "Company" %}
+            {% if request.session.email== event.company_email %}
             <p><strong>Number of Volunteers Registered:</strong> <span id="phone">{{user1.phone}}</span></p>
+            {% endif %}
+            {% endif %}
         </div>
 
 </body>
