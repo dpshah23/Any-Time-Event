@@ -35,11 +35,6 @@ Student’s Activity Details:
 Number	Start Date to
 End Date	Tasks to be assigned	Tasks to be completed	Remarks	
 	
-# 15 Days Internship Report
-
-
-
-
 ---
 
 
