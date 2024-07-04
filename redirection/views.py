@@ -6,6 +6,7 @@ from django_ratelimit.decorators import ratelimit
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 import os
+from company.models import Event
 
 # Create your views here.
 # @ratelimit(key='ip', rate='10/m')
@@ -15,7 +16,19 @@ def index(request):
         role=request.session['role']
         
     # print(request.COOKIES.get('time'))
-    return render(request,'home.html')
+    events=Event.objects.filter()
+    events_active = [event for event in events if not event.is_expired()]
+    add=0
+    event=[]
+    for event1 in events_active:
+        if add==5:
+            break
+        add+=1
+        event.append(event1)
+        
+
+    print(event)
+    return render(request,'home.html',{'events':event})
 
 @ratelimit(key='ip', rate='10/m')
 def contact(request):
