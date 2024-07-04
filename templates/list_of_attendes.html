@@ -11,30 +11,13 @@
     <title>Volunteers list</title>
 </head>
 <body>
+  <h1>Total Volunteers : {{length}} / {{event.event_vol}}</h1>
     <div class="container">
         <div class="post-container">
-            <!-- {% for post in posts %}
-              <div class="containe">
-                
-                <a  class="post" href="{{ url_for('profile', user_name=post['UserName']) }}" target="_blank">{{ post['UserName'] }}</a>
-                <h2>{{ post['title'] }}</h2>
-                <p>{{ post['description'] }}</p>
-                <img src="data:image/png;base64,{{post['img']}}" class="card-img-top" alt="Display Picture" style="height: 200px;width: 200px;border-radius: 50%;overflow: hidden;"><br><br>
-            </div> 
-            {% endfor %}
-            -->
-
+          
             <h1>Volunteers list</h1>
-            <form action="{{ url_for('search') }}" method="POST">
-                <div class="form-group">
-                    <input type="text" name="search" class="form-control" placeholder="Search for volunteers">
-                </div>
-
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Search</button> 
-                </div>
-            </form>
-            <table>
+            
+            <table border="1">
                     <th>Volunteer Id</th>
                     <th>Volunteer Name</th>
                     <th>Volunteer Email</th>
