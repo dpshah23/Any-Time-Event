@@ -36,6 +36,7 @@ class RegVol(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     phone = models.CharField(max_length=100)
+    skills = models.CharField(max_length=200 , null=True)
     paid_status = models.BooleanField()
     
     def __str__(self):

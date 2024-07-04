@@ -27,7 +27,7 @@ def index(request):
         event.append(event1)
         
 
-    print(event)
+    # print(event)
     return render(request,'home.html',{'events':event})
 
 @ratelimit(key='ip', rate='10/m')
