@@ -85,8 +85,32 @@ def getallevents(request):
     events_active = [event for event in all_events if not event.is_expired()]
     return render(request,"all_events.html",{'events_ex':events_expired,'events':events_active,'company_name':company.objects.get(email=email).name})
 
-# @ratelimit(key='ip', rate='5/m')
-# def pay (request):
+
+@ratelimit(key='ip', rate='10/m')
+def gettotalvol(request,event_id):
+    if 'email' and 'role' not in request.session:
+        messages.error(request,"You are not logged in")
+        return redirect('/')
+    if request.session['role']== "volunteer":
+        messages.error(request,"You are not authorized to view this page")
+        return redirect('/')
+    email=request.session['email']
+    # events = Event.objects.filter(company_email=email,event_id=event_id)
+    try:
+        events = Event.objects.get(company_email=email,event_id=event_id)
+        volunteers = RegVol.objects.filter(event_id=event_id)
+
+        return render(request,"list_of_attendes.html",{'event':events,'volunteers':volunteers})
+
+    except Event.DoesNotExist:
+        messages.error(request,"Event Not Found")
+        return redirect('/company/')
+    except RegVol.DoesNotExist:
+        messages.error(request,"No Volunteers Registered")
+        return redirect('/company/')
+    
+
+
     
 
 # def get_vol(request):

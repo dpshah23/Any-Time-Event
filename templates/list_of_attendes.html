@@ -20,8 +20,38 @@
                 <h2>{{ post['title'] }}</h2>
                 <p>{{ post['description'] }}</p>
                 <img src="data:image/png;base64,{{post['img']}}" class="card-img-top" alt="Display Picture" style="height: 200px;width: 200px;border-radius: 50%;overflow: hidden;"><br><br>
-            </div> -->
+            </div> 
             {% endfor %}
+            -->
+
+            <h1>Volunteers list</h1>
+            <form action="{{ url_for('search') }}" method="POST">
+                <div class="form-group">
+                    <input type="text" name="search" class="form-control" placeholder="Search for volunteers">
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Search</button> 
+                </div>
+            </form>
+            <table>
+                    <th>Volunteer Id</th>
+                    <th>Volunteer Name</th>
+                    <th>Volunteer Email</th>
+                    <th>Volunteer Phone</th>
+                    <th>Skills</th>
+                
+            
+            {% for volunteer in volunteers %}
+            <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{volunteer.name}}</td>
+            <td>{{volunteer.email}}</td>
+            <td>{{volunteer.phone}}</td>
+            <td>{{volunteer.skills}}</td>
+            </tr>
+            {% endfor %}
+          </table>
           </div>
         </form>
     </div>
