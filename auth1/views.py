@@ -541,9 +541,10 @@ def volunteerinfo(request):
 
         response_fund = requests.post(url_fund, auth=(RAZORPAYX_KEY_ID, RAZORPAYX_KEY_SECRET), data=payload_json_fund, headers=headers)
 
-        if response_fund.status_code == 200:
+        if response_fund.json()['id']:
             fund_id = response_fund.json()['id']
         else:
+            # print(response_fund.json())
             messages.error(request, f"Failed to create fund account: {response_fund.json().get('error', {}).get('description', 'Unknown error')}")
             return render(request, 'user_data.html')
 
