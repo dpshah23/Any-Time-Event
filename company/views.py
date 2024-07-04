@@ -41,7 +41,7 @@ def add_event(request):
         # event_completed =
         actual_amount = int(event_mrp) - ((int(event_mrp) * 25)/100)
         print(actual_amount)
-        event1 = event(company_email = email , event_id=event_id,event_company=event_company,event_name=event_name,event_date=event_date,event_time=event_time,event_location=event_location,event_loc_link=event_loc_link,event_city=event_city,event_description=event_description,event_skills=event_skills,event_rep=event_rep,event_rep_no=event_rep_no,event_mrp=event_mrp,event_vol=event_vol,actual_amount=actual_amount)
+        event1 = Event(company_email = email , event_id=event_id,event_company=event_company,event_name=event_name,event_date=event_date,event_time=event_time,event_location=event_location,event_loc_link=event_loc_link,event_city=event_city,event_description=event_description,event_skills=event_skills,event_rep=event_rep,event_rep_no=event_rep_no,event_mrp=event_mrp,event_vol=event_vol,actual_amount=actual_amount)
         event1.save()
         
         messages.success(request,"Event Added Successfully")
@@ -58,10 +58,10 @@ def getevent(request,event_id):
         return redirect('/')
     try:
         email=request.session['email']
-        events=event.objects.get(event_id=event_id,company_email=email)
+        events=Event.objects.get(event_id=event_id,company_email=email)
         # num_vol = reg_vol.objects.get(event_id=event_id)
         # print(num_vol)
-    except event.DoesNotExist:
+    except Event.DoesNotExist:
         messages.error(request,"Event Not Found")
         return redirect('/company/')
     
@@ -76,7 +76,7 @@ def getallevents(request):
         return redirect('/')
     
     email=request.session['email']
-    events = event.objects.filter(company_email=email)
+    events = Event.objects.filter(company_email=email)
     return render(request,"all_events.html",{'events':events,'company_name':company.objects.get(email=email).name})
 
     
