@@ -18,11 +18,12 @@ def apply (request,event_id):
         messages.error(request,"You can not Apply to Events")
         return redirect('/')
     if request.session['role']== "volunteer":
-        email = request.session['email']
-        if RegVol.objects.get(email=email):
-            messages.error(request,"You have already applied to this event")
-            return redirect('/')
-        else:
+            email = request.session['email']
+        # try:
+            # if RegVol.objects.get(email=email):
+            #     messages.error(request,"You have already applied to this event")
+            #     return redirect('/')
+            # else:
             email = request.session['email']
             company_email = Event.objects.get(event_id=event_id).company_email
             event_id_1 = event_id
