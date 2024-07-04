@@ -7,3 +7,5 @@ pillow
 django-ratelimit
 requests
 razorpay
+psycopg2
+psycopg

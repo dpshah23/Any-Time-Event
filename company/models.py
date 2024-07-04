@@ -8,6 +8,7 @@ class Event(models.Model):
     event_id = models.CharField(max_length=100,unique=True , default=False)
     event_date = models.DateField()
     event_time = models.TimeField()
+    event_end_time = models.TimeField(null=True)
     event_location = models.CharField(max_length=100)
     event_loc_link = models.CharField(max_length=400 , null=True)
     event_city = models.CharField(max_length=100 , null=True)
