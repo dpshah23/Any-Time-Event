@@ -162,6 +162,7 @@
   @media (max-width: 991px) {
     .contact {
       padding: 20px;
+      width: 100%;
     }
   
     .container {
