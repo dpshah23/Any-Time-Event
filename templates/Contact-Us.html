@@ -1,26 +1,28 @@
 {% extends "base.html" %}
-{% block title %}Contact us {% endblock title %}
+{% block title %}Contact us{% endblock title %}
 {% block body %}
 
 {% if messages %}
-      {% for message in messages  %}
-      <div class="alert alert-{{message.tags}} alert-dismissible fade show my-0 py-2" role="alert">
-        {{message}}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-      {% endfor %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}} alert-dismissible fade show my-0 py-2" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
 {% endif %}
 
 <link rel="stylesheet" href="../static/css/Contact-Us.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-crossorigin="anonymous" referrerpolicy="no-referrer" />
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <section class="contact">
     <div class="content">
         <h2>Contact Us</h2>
-        <p>We’re here to help you connect with event organizers and volunteers in your community. Whether you have questions about a specific event,
-             need assistance with your account, or want to learn more about our services, feel free to reach out to us. Your feedback and inquiries are important to us and we aim to respond promptly</p>
+        <p>We’re here to help you connect with event organizers and volunteers in your community. Whether you have
+            questions about a specific event,
+            need assistance with your account, or want to learn more about our services, feel free to reach out to us.
+            Your feedback and inquiries are important to us and we aim to respond promptly</p>
     </div>
     <div class="container">
         <div class="contactInfo">
@@ -31,7 +33,6 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
                     <p>jjjj jjjj jjjj jjjj,<br>viubfiu, nvibhvb,<br>515615</p>
                 </div>
             </div>
-
             <div class="box">
                 <div class="icon"><i class="fa fa-phone" aria-hidden="true"></i></div>
                 <div class="text">
@@ -39,7 +40,6 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
                     <p>9876543210</p>
                 </div>
             </div>
-
             <div class="box">
                 <div class="icon"><i class="fa-solid fa-envelope"></i></div>
                 <div class="text">
@@ -47,9 +47,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
                     <p>abc123@gmail.com</p>
                 </div>
             </div>
-
         </div>
-
         <div class="contactForm">
             <form>
                 <h2>Send Message</h2>
@@ -57,21 +55,17 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
                     <input type="text" name="" required="required">
                     <span>Full Name</span>
                 </div>
-
                 <div class="inputBox">
                     <input type="text" name="" required="required">
                     <span>Email</span>
                 </div>
-
                 <div class="inputBox">
                     <textarea required="required"></textarea>
                     <span>Type your Message...</span>
                 </div>
-
                 <div class="inputBox">
                     <input type="submit" name="" value="Send">
                 </div>
-
             </form>
         </div>
     </div>
