@@ -1,71 +1,46 @@
 
-.navbar-colapse  .nav-link{
-    width: 150px;
-    height: 50px;
-    color: black;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-   margin-left:5px;
-  }
-  
-  
-  .navbar-nav .nav-link {
-    background-color: rgba(48, 181, 92, 0.533);
-    min-width: 8vw;
-    height: 50px;
-    color: black;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 2px;
-  }
-  
-  .navbar-collapse {
-    justify-content: center;
-  }
-  
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    background-color: #639bc6;
+
+}
+
   .container-fluid {
     max-width: 100%;
-  }
-  
-  .navbar {
-    max-height: 4.5rem;
-    background-color:white;
-    z-index: 1000;
-  }
-  
-  .navbar-brand img {
-    width: 50px; 
-    height: 50px;
+
   }
   
   .post {
     text-align: center;
     color: black;
+    /* background-color: white; */
   }
   
   .post-container {
+    background-color: white;
     text-align: center;
     max-width: 700px;
     border-radius: 10px;
-    box-shadow: rgba(12, 9, 9, 0.1);
+    border-width: 10px;
     position: relative;
     top: 4rem; /* Adjust the top value to control the overall position of the post-container */
     margin-top: 5rem; /* Adjust the margin-top value to create space between navbar and post-container */
     left: 50%;
     transform: translateX(-50%);
-    box-shadow: 0 0 1000px rgba(48, 181, 92, 0.533);
   }
   
-  .containe {
+  .container {
     border: 1px solid black;
     margin: 5px;
     border-radius: 5px;
     position: relative; /* Add position relative to allow positioning of individual posts */
-    top: -40px;
+    /* top: -40px; */
+
   }
   
   .posts:hover {
@@ -77,38 +52,3 @@
     margin-top: 2rem;
   }
   
-  .nav-item {
-    padding-bottom: 4px;
-    color: black !important;
-    font-size: 1.2rem;
-  }
-  
-  .navbar-nav {
-    justify-content: center;
-  }
-  
-  .active {
-    background-color: rgba(68, 155, 92, 0.533);
-  }
-  footer {
-    display: flex;
-    justify-content: center;
-    background-color:rgb(56, 175, 116);
-    color: white; 
-    padding: 20px;
-  }
-  
-  .footer-content {
-    display: flex;
-    max-width: 100%;
-    justify-content: space-between;
-  }
-  
-  .icon {
-    margin-left:2%;
-    flex: 1;
-    text-align: center;
-    margin: 0 10px;
-    width: 30px; 
-    height: 30px;
-  }
