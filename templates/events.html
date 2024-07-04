@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{event.event_name}} | Event</title>
     <link rel="stylesheet" href="../static/css/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div class="profile-container">
         <div class="profile-details">
             <h2>{{Event.event_name}}</h2>
-            <p><strong>Date & Time:</strong> <span id="phone">{{event.event_date}} &nbsp;&nbsp;{{event.event_time}}</span></p>
+            <p><strong>Date :</strong> <span id="phone">{{event.event_date}} &nbsp;</span></p>
+            <p><strong> Start Time :</strong> <span id="phone">{{event.event_time}}&nbsp;&nbsp;</span></p>
+            <p><strong>End Time :</strong> <span id="phone">{{event.event_time}}&nbsp;&nbsp;</span></p>
             <p><strong>Location:</strong> <span id="email">{{event.event_location}}</span></p>
             <p><strong>Description:</strong> <span id="phone">{{event.event_description}}</span></p>
             <p><strong>Number of Volunteers:</strong> <span id="phone">{{event.event_vol}}</span></p>
