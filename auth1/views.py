@@ -638,7 +638,7 @@ def reset(request):
             subject = "Reset Password"
             length = 8
             x = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(32))
-            expiry_duration = timedelta(minutes=5)  # Set OTP validity duration
+            expiry_duration = timedelta(hours=1)  # Set OTP validity duration
             expires_at = timezone.now() + expiry_duration
             resetpass1 = resetpass(email=email, keys=x, usage=False, expires_at=expires_at)
             resetpass1.save()
@@ -723,14 +723,17 @@ def reset_pass(request):
             user_reset = resetpass.objects.get(email=email, keys=key)
             # print(f"Reset entry found: {user_reset}")  # Debugging
 
-            if user_reset.usage or user_reset.is_expired():
-                print("Invalid Link: Link is either used or expired")  # Debugging
-                messages.error(request, 'Invalid Link')
+            if user_reset.usage:
+                messages.error(request,"Link Is Already Used")
+                return redirect('/auth/login')
+            elif user_reset.is_expired():
+                print("Invalid Link: Link is Expired")  # Debugging
+                messages.error(request, 'Link is expired')
                 return redirect('/auth/login')
             
         except resetpass.DoesNotExist:
             print(f"No reset entry found for email: {email} and key: {key}")  # Debugging
-            messages.error(request, 'Invalid reset link')
+            messages.error(request, 'Invalid reset link or Link Already Used')
             return redirect('/auth/login')
 
     elif request.method == "POST":
@@ -759,7 +762,14 @@ def reset_pass(request):
             user_reset.usage = True
             user_reset.save()
 
+            user_reset.delete()
+
             return redirect('/auth/login')
+        
+        except resetpass.DoesNotExist:
+            # print(f"Reset entry not found for email: {email}")  # Debugging
+            messages.error(request, 'Invalid reset link')
+            return render(request, 'Reset_Password.html')
         
         except users.DoesNotExist:
             # print(f"User with email {email} does not exist.")  # Debugging
