@@ -85,6 +85,9 @@ def getallevents(request):
     events_active = [event for event in all_events if not event.is_expired()]
     return render(request,"all_events.html",{'events_ex':events_expired,'events':events_active,'company_name':company.objects.get(email=email).name})
 
+# @ratelimit(key='ip', rate='5/m')
+# def pay (request):
     
 
 # def get_vol(request):
+
