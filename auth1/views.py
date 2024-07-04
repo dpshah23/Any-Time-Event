@@ -480,11 +480,11 @@ def volunteerinfo(request):
         # Read image files
         profile_pic = image_file.read()
         id_proof = image_file1.read()
+        load_dotenv()
+        RAZORPAYX_KEY_ID = os.getenv('RAZORPAYX_KEY_ID')
+       
+        RAZORPAYX_KEY_SECRET = os.getenv('RAZORPAYX_KEY_SECRET')
 
-        # RAZORPAYX_KEY_ID = os.getenv('RAZORPAYX_KEY_ID')
-        RAZORPAYX_KEY_ID = "rzp_test_WCu36cvoDlKl4S"
-        # RAZORPAYX_KEY_SECRET = os.getenv('RAZORPAYX_KEY_SECRET')
-        RAZORPAYX_KEY_SECRET = "mA6Hd5ZIYa0zHPpIrEkXBgKV"
         
         if not RAZORPAYX_KEY_ID or not RAZORPAYX_KEY_SECRET:
             messages.error(request, 'Payment gateway credentials not set. Please contact support.')
@@ -514,7 +514,7 @@ def volunteerinfo(request):
 
         print(response.text)
 
-        if response.status_code == 200:
+        if response.json()['id']:
             print("Contact Created Successfully")
             
             contact_id = response.json()['id']
@@ -542,6 +542,7 @@ def volunteerinfo(request):
         response_fund = requests.post(url_fund, auth=(RAZORPAYX_KEY_ID, RAZORPAYX_KEY_SECRET), data=payload_json_fund, headers=headers)
 
         if response_fund.json()['id']:
+            print("Fund Account Created Successfully")  
             fund_id = response_fund.json()['id']
         else:
             # print(response_fund.json())

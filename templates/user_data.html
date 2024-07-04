@@ -22,7 +22,7 @@
             <form action="{% url "volunteerinfo" %}" method='post' enctype='multipart/form-data'>
                 {% csrf_token %}
                 <div class="field input-field">Date of Birth
-                    <input type="date" name="dob" class="input" >
+                    <input type="date" name="dob" class="input" id="birthdate">
                 </div>
                 <div class="field input-field">Experience
                     <textarea  class="input" name="experience" required style=" border: 1px solid #d2d4dc;max-width: 500px;"></textarea>
@@ -70,6 +70,20 @@
         
     </div>
 </section>
+
+<script>
+    document.getElementById('birthdate').addEventListener('change', function() {
+        console.log(this.value);
+        var birthdate = new Date(this.value);
+        var minDate = new Date();
+        minDate.setFullYear(minDate.getFullYear() - 16); // Minimum age of 16 years
+        
+        if (birthdate > minDate) {
+            alert('Please select a birthdate that makes you at least 16 years old.');
+            this.value = ''; // Reset the input value if invalid
+        }
+    });
+    </script>   
 
 <script src="../static/js/Sign-up.js"></script>
 {% endblock body %}
