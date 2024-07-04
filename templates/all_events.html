@@ -3,34 +3,113 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/event_history.css">
+    <style>
+      
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    background-color: #639bc6;
+
+}
+
+  .container-fluid {
+    max-width: 100%;
+
+  }
+  
+  .post {
+    text-align: center;
+    color: black;
+    /* background-color: white; */
+  }
+  
+  .post-container {
+    background-color: white;
+    text-align: center;
+    max-width: 700px;
+    border-radius: 10px;
+    border-width: 10px;
+    position: relative;
+    top: 4rem; /* Adjust the top value to control the overall position of the post-container */
+    margin-top: 5rem; /* Adjust the margin-top value to create space between navbar and post-container */
+    left: 50%;
+    transform: translateX(-50%);
+    
+  }
+  
+  .container {
+    border: 1px solid black;
+    margin: 5px;
+    border-radius: 5px;
+    position: relative; /* Add position relative to allow positioning of individual posts */
+    /* bottom: -40px; */
+
+  }
+  
+  .posts:hover {
+    transition: all 0.4s ease-in-out;
+  }
+  
+  .field button {
+    height: 50px;
+    width: 30%;
+    font-size: 16px;
+    font-weight: 400;
+    border: none;
+    border-radius: 6px;
+    background-color: #016dcb;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-bottom: 30px;
+  }
+
+  .field button:hover {
+    background-color: #639bc6;
+  }
+
+  h1 {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+    </style>
+    <!-- <link rel="stylesheet" href="../static/css/event_history.css"> -->
     <script defer src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
     <title>{{company_name}} | Event history</title>
     </head>
     <body>
         <div class="post-container">
-
           <h1>Upcoming Events</h1>
             {% for p1 in events %}  
               <div class="container">
                 
-                <a  class="post" href="/company/events/{{ p1.event_id }}">{{ p1.event_name }}</a>
-                <h2>{{ p1.event_company }}</h2>
-                <p>{{ p1.event_description }}</p>
-
-            </div>
-            {% endfor %}
-
-            <h1>Past Events</h1>
-            {% for r1 in events_ex %}  
-              <div class="container">
-                
-                <a  class="post" href="/company/events/{{ r1.event_id }}">{{ r1.event_name }}</a>
-                <h2>{{ r1.event_company }}</h2>
-                <p>{{ r1.event_description }}</p>
-
+                <h1><a  class="post" href="/company/events/{{ p1.event_id }}">{{ p1.event_name }}</a></h1>
+                <h4><strong>Company Name:</strong> <span id="event_company">{{ p1.event_company }}</span></h4>
+                <p><strong>Event Description:</strong> <span id="event_company">{{ p1.event_description }}</span></p>
+                <div class="field button-field">  
+                  <!-- <a href="" > <button type="button" >Pay Now </button></a> -->
+              </div>
             </div>
             {% endfor %}
           </div>
+          <div class="post-container">
+            <h1>Expired Events</h1>
+              {% for r1 in events_ex %}  
+                <div class="container">
+                  
+                  <h1><a  class="post" href="/company/events/{{ r1.event_id }}">{{ r1.event_name }}</a></h1>
+                  <h4><strong>Company Name:</strong> <span id="event_company">{{ r1.event_company }}</span></h4>
+                  <p><strong>Event Description:</strong> <span id="event_company">{{ r1.event_description }}</span></p>
+                  <div class="field button-field">
+                    <a href="" > <button type="button" >Pay Now </button></a>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
     </body>
