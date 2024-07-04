@@ -6,4 +6,5 @@ urlpatterns = [
     path('add_event', add_event,name='add_event'),
     path('events/<event_id>/', getevent , name= 'getevent'),
     path('events/',getallevents,name='getallevents'),
+    path('get_volunteers/<event_id>/',gettotalvol,name='gettotalvol'),
 ]
