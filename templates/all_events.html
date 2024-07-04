@@ -92,21 +92,9 @@ body {
                 <h1><a  class="post" href="/company/events/{{ p1.event_id }}">{{ p1.event_name }}</a></h1>
                 <h4><strong>Company Name:</strong> <span id="event_company">{{ p1.event_company }}</span></h4>
                 <p><strong>Event Description:</strong> <span id="event_company">{{ p1.event_description }}</span></p>
-                <div class="field button-field">
-                    
-                  <a href="" > <button type="button" style="padding-bottom: 10px;">Pay Now </button></a>
+                <div class="field button-field">  
+                  <!-- <a href="" > <button type="button" >Pay Now </button></a> -->
               </div>
-            </div>
-            {% endfor %}
-
-            <h1>Past Events</h1>
-            {% for r1 in events_ex %}  
-              <div class="container">
-                
-                <a  class="post" href="/company/events/{{ r1.event_id }}">{{ r1.event_name }}</a>
-                <h2>{{ r1.event_company }}</h2>
-                <p>{{ r1.event_description }}</p>
-
             </div>
             {% endfor %}
           </div>
@@ -119,7 +107,7 @@ body {
                   <h4><strong>Company Name:</strong> <span id="event_company">{{ r1.event_company }}</span></h4>
                   <p><strong>Event Description:</strong> <span id="event_company">{{ r1.event_description }}</span></p>
                   <div class="field button-field">
-                    <a href="" > <button type="button" style="padding-bottom: 10px;">Pay Now </button></a>
+                    <a href="" > <button type="button" >Pay Now </button></a>
                 </div>
               </div>
               {% endfor %}
