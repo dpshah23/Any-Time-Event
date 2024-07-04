@@ -7,16 +7,22 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 import os
 from company.models import Event
+from django.utils import timezone  
 
 # Create your views here.
-# @ratelimit(key='ip', rate='10/m')
+@ratelimit(key='ip', rate='10/m')
 def index(request):
     if 'email' and 'role' in request.session:
         email=request.session['email']
         role=request.session['role']
         
     # print(request.COOKIES.get('time'))
-    events=Event.objects.filter()
+    now=timezone.now().date()
+
+    
+    Event.objects.filter(event_date__lt=now, event_completed=False).update(event_completed=True)
+
+    events=Event.objects.filter().order_by('event_date')
     events_active = [event for event in events if not event.is_expired()]
     add=0
     event=[]
