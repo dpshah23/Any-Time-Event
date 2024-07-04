@@ -15,7 +15,12 @@ def apply (request,event_id):
         messages.error(request,"You are not logged in")
         return redirect('/')
     if request.session['role']== "company":
-        messages.error(request,"You can not Apply to Events")
+        messages.error(request,"You can not Apply to Events because this is a Company account ")
+        return redirect('/')
+    total_vol=RegVol.objects.filter(event_id_1=event_id)
+    req = Event.objects.get(event_id=event_id).event_vol
+    if len(total_vol) >= req :
+        messages.error(request,"Maximum Limit of Volunteers has been reached...")
         return redirect('/')
     if request.session['role']== "volunteer":
             email = request.session['email']
