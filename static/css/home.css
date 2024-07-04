@@ -301,7 +301,7 @@ nav {
 }
 
 .event-image {
-    background: url('./img/Any-Time-Event-Logo.png') center/cover no-repeat;
+    background: url('../img/Any-Time-Event-Logo.png') center/cover no-repeat;
     height: 150px;
     border-radius: 10px;
     width: 210px;

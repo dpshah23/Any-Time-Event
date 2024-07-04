@@ -21,7 +21,7 @@ def index(request):
     add=0
     event=[]
     for event1 in events_active:
-        if add==5:
+        if add==7:
             break
         add+=1
         event.append(event1)
