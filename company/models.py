@@ -25,6 +25,8 @@ class Event(models.Model):
     def is_expired (self):
         return self.event_date < datetime.date.today()
     
+    def is_expired (self):
+        return self.event_date < datetime.date.today()
     def __str__(self):
         return self.event_name
     

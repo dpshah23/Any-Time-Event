@@ -98,6 +98,17 @@ body {
               </div>
             </div>
             {% endfor %}
+
+            <h1>Past Events</h1>
+            {% for r1 in events_ex %}  
+              <div class="container">
+                
+                <a  class="post" href="/company/events/{{ r1.event_id }}">{{ r1.event_name }}</a>
+                <h2>{{ r1.event_company }}</h2>
+                <p>{{ r1.event_description }}</p>
+
+            </div>
+            {% endfor %}
           </div>
           <div class="post-container">
             <h1>Expired Events</h1>
