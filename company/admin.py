@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import *
 
 
-admin.site.register(event)
-admin.site.register(reg_vol)
+admin.site.register(Event)
+admin.site.register(RegVol)
 
 # Register your models here.
