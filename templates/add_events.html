@@ -66,6 +66,24 @@
         </div>
     </form>
 </div>
-
+<script>
+  // Get today's date
+  var today = new Date();
+  // Format today's date as YYYY-MM-DD
+  var formattedToday = today.toISOString().split('T')[0];
+  // Set the minimum date as today
+  document.getElementById('date').min = formattedToday;
+  
+  // Function to handle date change
+  document.getElementById('date').addEventListener('change', function() {
+      var selectedDate = new Date(this.value);
+      // Compare selected date with today
+      if (selectedDate < today) {
+          // Reset the input value or display a message
+          this.value = formattedToday;
+          alert('Please select a date that is today or in the future.');
+      }
+  });
+  </script>
 <!-- <script src="../static/js/Add_Events.js"></script> -->
 {% endblock body %}
