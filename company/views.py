@@ -98,9 +98,9 @@ def gettotalvol(request,event_id):
     # events = Event.objects.filter(company_email=email,event_id=event_id)
     try:
         events = Event.objects.get(company_email=email,event_id=event_id)
-        volunteers = RegVol.objects.filter(event_id=event_id)
+        volunteers = RegVol.objects.filter(event_id_1=event_id)
 
-        return render(request,"list_of_attendes.html",{'event':events,'volunteers':volunteers})
+        return render(request,"list_of_attendes.html",{'event':events,'volunteers':volunteers,'length':len(volunteers)})
 
     except Event.DoesNotExist:
         messages.error(request,"Event Not Found")
