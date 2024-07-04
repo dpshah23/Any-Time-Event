@@ -6,3 +6,4 @@ cryptography
 pillow
 django-ratelimit
 requests
+razorpay
