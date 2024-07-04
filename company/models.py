@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 # Create your models here.
 class Event(models.Model):
@@ -22,6 +23,8 @@ class Event(models.Model):
     actual_amount = models.IntegerField(null=True)  
     paid_status = models.BooleanField(default=False)     
     
+    def is_expired (self):
+        return self.event_date < datetime.date.today()
     def __str__(self):
         return self.event_name
     
