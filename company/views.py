@@ -49,6 +49,7 @@ def add_event(request):
         
     return render(request,"add_events.html")
 
+@ratelimit(key='ip', rate='5/m')
 def getevent(request,event_id):
     if 'email' and 'role' not in request.session:
         messages.error(request,"You are not logged in")
@@ -67,6 +68,7 @@ def getevent(request,event_id):
     
     return render (request , "events.html",{'event':events})
 
+@ratelimit(key='ip', rate='5/m')
 def getallevents(request):
     if 'email' and 'role' not in request.session:
         messages.error(request,"You are not logged in")
