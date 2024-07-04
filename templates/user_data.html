@@ -58,7 +58,7 @@
          
 
          <div class="field input-field">UPI ID
-            <input type="text" name="upi_id" class="input" required >
+            <input type="text" name="upi_id" class="input" placeholder="UserName@Bank" required >
             </div><br>
 <p>*Image should be of .png , .jpg , .jpeg only</p>
                 <div class="field button-field">
@@ -76,11 +76,11 @@
         console.log(this.value);
         var birthdate = new Date(this.value);
         var minDate = new Date();
-        minDate.setFullYear(minDate.getFullYear() - 16); // Minimum age of 16 years
+        minDate.setFullYear(minDate.getFullYear() - 16);
         
         if (birthdate > minDate) {
             alert('Please select a birthdate that makes you at least 16 years old.');
-            this.value = ''; // Reset the input value if invalid
+            this.value = '';
         }
     });
     </script>   
