@@ -1,0 +1,67 @@
+{% extends "./basevol.html" %}
+{% block title %}Events {% endblock title %}
+{% block body %}
+
+<link rel="stylesheet" href="/static/css/home.css" />
+<h3 class="titleupcoming">Upcoming Events</h3>
+
+<!--- Event Card -->
+<div class="container">
+    {% for event in events %}
+   
+    <div class="event-card">
+        <center>
+            <div class="event-image"></div>
+        </center>
+        <div class="event-details">
+            <a href="/volunteer/events/{{event.event_id}}"><h2>{{ event.event_name }}</h2></a>
+            <p>Date & Time: {{event.event_date}}, {{event.event_time}} - {{event.event_end_time}}</p>
+            <p>Location: {{event.event_location}}</p>
+            {% if 'email' in request.session and request.session.role == "volunteer" %}
+            <a href="/volunteer/apply/{{event.event_id}}"><button>Apply Now</button></a>
+            {% else %}
+            {% if 'email' not in request.session %}
+                <a href="/auth/login"><button>Apply Now</button></a>
+            {% else %}
+                {% if request.session.role == "company" %}
+                <a href="#" onclick="alert('Only volunteers can apply. Please log in with a volunteer account.');"><button>Apply Now</button></a>
+               
+            {% else %}
+            <a href="/"><button>Apply Now</button></a>
+        {% endif %}
+        {% endif %}
+            {% endif %}
+        </div>
+        {% empty %}
+        <p>No active events found.</p>
+        {% endfor %}
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+<h3 class="prev-event">Previous Events</h3>
+
+<!--- Event Card -->
+
+<div class="container">
+    {% for events in events_ex %}
+    <div class="event-card">
+        <center>
+            <div class="event-image"></div>
+        </center>
+        <div class="event-details">
+            <a href="/volunteer/events/{{events.event_id}}"><h2>{{ events.event_name }}</h2><
+            <p>Date & Time: {{events.event_date}}, {{events.event_time}} - {{events.event_end_time}}</p>
+            <p>Location: {{events.event_location}}</p>
+            
+            <p>Event Completed</p>
+             
+        </div>
+        {% empty %}
+        <p>No active events found.</p>
+        {% endfor %}
+    </div>
+
+{% endblock body %}

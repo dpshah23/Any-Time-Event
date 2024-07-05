@@ -4,8 +4,10 @@ from django_ratelimit.decorators import ratelimit
 from django.contrib import messages
 from company.models import *
 from auth1.models import *
+from django.core.paginator import Paginator
 
 # Create your views here.
+@ratelimit(key='ip', rate='5/m')
 def volunteer_home(request):
     return HttpResponse("Welcome to Volunteer Home Page")
 
@@ -24,12 +26,13 @@ def apply (request,event_id):
         return redirect('/')
     if request.session['role']== "volunteer":
             email = request.session['email']
-   
-            is_exists=RegVol.objects.get(email=email)
-            if is_exists:
-                messages.error(request,"You have already applied for this event")
+            try:
+                existing_application = RegVol.objects.get(email=email, event_id_1=event_id)
+                messages.error(request, "You have already applied for this event")
                 return redirect('/')
-            
+            except RegVol.DoesNotExist:
+                pass 
+
             email = request.session['email']
             company_email = Event.objects.get(event_id=event_id).company_email
             event_id_1 = event_id
@@ -56,3 +59,41 @@ def applyerr(request):
         messages.error(request,"You can not Apply to Events because this is a Company account ")
         return redirect('/')
     return render(request,"err_not_found.html")
+
+
+@ratelimit(key='ip', rate="10/m")
+def dispevents(request):
+    if 'email' and 'role' not in request.session:
+        messages.error(request,"You are not logged in")
+        return redirect('/')
+    if request.session['role']== "company":
+        messages.error(request,"You can not Apply to Events because this is a Company account ")
+        return redirect('/')
+    
+    email = request.session['email']
+
+    # city=volunteer.objects.get(email=email).city
+    # city=volunteer.objects.get(email=email).city
+    city="ahmedabad"
+
+    events=Event.objects.filter(event_city=city)
+
+    events_expired = [event for event in events if event.is_expired()]  
+    events_active = [event for event in events if not event.is_expired()]
+
+    print(events_active,events_expired)
+    
+    page_number = request.GET.get('page_active',1)
+
+    page_number1= request.GET.get('page_expired',1)
+
+    paginator = Paginator(events_active, 9)
+    paginator1 = Paginator(events_expired, 9)
+
+
+    page_obj_active = paginator.get_page(page_number)
+    page_obj_expired = paginator1.get_page(page_number1)
+
+    print(page_obj_active,page_obj_expired)
+    return render(request,"volunteer/events_disp.html",{'events_ex':page_obj_expired,'events':page_obj_active})
+

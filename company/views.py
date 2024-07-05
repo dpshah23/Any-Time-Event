@@ -80,7 +80,7 @@ def getallevents(request):
         return redirect('/')
     
     email=request.session['email']
-    all_events = Event.objects.filter(company_email=email,)
+    all_events = Event.objects.filter(company_email=email)
     events_expired = [event for event in all_events if event.is_expired()]  
     events_active = [event for event in all_events if not event.is_expired()]
     return render(request,"all_events.html",{'events_ex':events_expired,'events':events_active,'company_name':company.objects.get(email=email).name})
