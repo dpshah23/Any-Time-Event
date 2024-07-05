@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Accept Volunteer</title>
+        <style>
+            .field button {
+    background-color: #0171d3;
+    color: #FFFFFF;
+    transition: all 0.3s ease;
+    cursor: pointer;
+          }
+* {
+    margin: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+.table{
+    border: 10px;
+}
+        </style>
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    </head>
+    <body>
+        <h2><strong>Volunteer</strong></h2>
+        <table border="1">
+            <thead>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Contact No</th>
+            <th>Date Of Birth</th>
+            <th>Experience</th>
+            <th>Skills</th>
+            <th>Qualification</th>
+            <th>Emergency Contact No</th>
+            <th>Profile Picture</th>
+            <th>identity Proof</th>
+            <th>UPI ID</th>
+            <th class="field button-field">Accept</th>
+            </thead>
+            <tbody>
+                {% for volunteer in volunteers %}
+            <tr>
+            <td>{{volunteer.name}}</td>
+            <td>{{volunteer.email}}</td>
+            <td>{{volunteer.phone}}</td>
+            <td>{{volunteer.dob}}</td>
+            <td>{{volunteer.experience}}</td>
+            <td>{{volunteer.skills}}</td>
+            <td>{{volunteer.qualification}}</td>
+            <td>{{volunteer.emergency_contact}}</td>
+            <td><img src=""></td>
+            <td><img src=""></td>
+            <td>{{volunteer.upi}}</td>
+            <td><a  class="field button-field" href=""><button type="button">Accept</button></a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+<br>
+<h2><strong>Company</strong></h2>
+
+        <table border="1">
+            <thead>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Contact No</th>
+            <th>Website</th>
+            <th>Alternate Contact No</th>
+            <th>Company Address</th>
+            <th>Description</th>
+            <th>Company Card</th>
+            <th>Company Logo</th>
+            <th class="field button-field">Accept</th>
+            </thead>
+            <tbody>
+                {% for company in companys %}
+            <tr>
+            <td>{{company.name}}</td>
+            <td>{{company.email}}</td>
+            <td>{{company.phone}}</td>
+            <td>{{company.website}}</td>
+            <td>{{company.phone2}}</td>
+            <td>{{company.address}}</td>
+            <td>{{company.company_description}}</td>
+            <td><img src=""></td>
+            <td><img src=""></td>
+            <td><a class="field button-field" href=""><button type="button">Accept</button></a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>
