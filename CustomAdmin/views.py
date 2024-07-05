@@ -28,7 +28,7 @@ def accept_user(request):
     for comp in comps:
         try:
             compobj = company.objects.get(email=comp.email)
-        
+            
             final_comps.append( compobj)
         except company.DoesNotExist:
             pass
@@ -37,7 +37,7 @@ def accept_user(request):
     for user in vols:
         try:
             volobj = volunteer.objects.get(email=user.email)
-        
+
             final_vols.append( volobj )
 
 
@@ -46,6 +46,8 @@ def accept_user(request):
     
     print(final_vols)
     print(final_comps)
+
+    
     context = {
         'volunteers': final_vols,
         'companys': final_comps
@@ -155,11 +157,10 @@ def acceptno(request,volemail):
     
     if userchange.role=="volunteer":
         volunteer.objects.filter(email=volemail).delete()
-        users.delete(email=volemail)
-        
+        users.objects.filter(email=volemail).delete()        
     else:
         company.objects.filter(email=volemail).delete()
-        users.delete(email=volemail)
+        users.objects.filter(email=volemail).delete()
         
     messages.error(request,"User Rejected")
     return redirect("/admincustom/acceptusers")

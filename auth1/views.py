@@ -336,10 +336,10 @@ def signup (request):
         request.session['phone123'] = phone
         
         if role=="company":
-            user1 = users(email=email,password=encrypted_password,key=key_str,role=role)
+            user1 = users(email=email,password=encrypted_password,key=key_str,role=role,timestamp=date.today())
             user1.save()
         else:
-            user1 = users(email=email,password=encrypted_password,key=key_str,role=role,is_active=True)
+            user1 = users(email=email,password=encrypted_password,key=key_str,role=role,is_active=True,timestamp=date.today())
             user1.save()
             
         print("hello")
@@ -382,8 +382,8 @@ Notes:
 @ratelimit(key='ip', rate='10/m')
 def companyinfo(request):
     if request.method == 'POST':
-        image_file = request.FILES.get('company_card').read()
-        image_file1 = request.FILES.get('company_logo').read()
+        image_file = request.FILES.get('company_card')
+        image_file1 = request.FILES.get('company_logo')
         
         # Validate file extensions
         valid_extensions = ['jpg', 'png', 'jpeg', 'heic']
@@ -480,6 +480,7 @@ def volunteerinfo(request):
         qualification = request.POST.get('qualification')
         emergency_contact = request.POST.get('emergency_no')
         upi = request.POST.get('upi_id')
+        city=request.POST.get('city')
         
         
         # Generate random image names
@@ -487,13 +488,15 @@ def volunteerinfo(request):
         image_name = ''.join(random.choice(alphanumeric_characters) for _ in range(10))
         image_name1 = ''.join(random.choice(alphanumeric_characters) for _ in range(10))
         
-        image_file = request.FILES['profile_picture']
-        image_file1 = request.FILES['identity_proof']
+        image_file = request.FILES['profile_picture'].read()
+        image_file1 = request.FILES['identity_proof'].read()
         # Read image files
         try:    
-            profile_pic = base64.b64encode(image_file.read()).decode('utf-8')
-            id_proof = base64.b64encode(image_file1.read()).decode('utf-8')
+            profile_pic = base64.b64encode(image_file).decode('utf-8')
+            id_proof = base64.b64encode(image_file1).decode('utf-8')
             print(profile_pic)
+            print()
+            print("hello")
             print(id_proof)
         except Exception as e:
             messages.error(request, 'Error processing image files: {}'.format(str(e)))
@@ -589,7 +592,8 @@ def volunteerinfo(request):
                 'card': id_proof,
                 'upi': upi,
                 'contact_id': contact_id,
-                'fund_id': fund_id
+                'fund_id': fund_id,
+                'city':city.lower()
             }
         )
 
