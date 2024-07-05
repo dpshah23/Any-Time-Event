@@ -11,26 +11,31 @@ function validateForm() {
 
   if (contactNo.length !== 10) {
     document.getElementById("contactNoError").textContent = "Contact number must be exactly 10 digits.";
-    contactNoError.style.color = "red";
-    contactNoError.style.marginTop = "15px";
     isValid = false;
   }
 
   if (password !== confirmPassword) {
     document.getElementById("passwordError").textContent = "Passwords do not match.";
     document.getElementById("confirmPasswordError").textContent = "Passwords do not match.";
-    passwordError.style.color = "red";
-    confirmPasswordError.style.color = "red";
-    passwordError.style.marginTop = "15px";
-    confirmPasswordError.style.marginTop = "15px";
     isValid = false;
   }
 
   return isValid;
 }
 
-document.getElementById("submitButton").addEventListener("click", function (event) {
+document.getElementById("signupForm").addEventListener("submit", function (event) {
   if (!validateForm()) {
     event.preventDefault();
   }
 });
+
+function togglePassword(fieldId, icon) {
+  const field = document.getElementById(fieldId);
+  if (field.type === "password") {
+    field.type = "text";
+    icon.classList.replace("bx-hide", "bx-show");
+  } else {
+    field.type = "password";
+    icon.classList.replace("bx-show", "bx-hide");
+  }
+}

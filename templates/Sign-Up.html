@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Sign-Up {% endblock title %}
+{% block title %}Sign-Up{% endblock title %}
 {% block body %}
 
 {% if messages %}
@@ -14,56 +14,64 @@
 <link rel="stylesheet" href="../static/css/Sign-up.css">
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-<section class="container forms">
-    <div class="form login">
+<section class="container">
+    <form id="signupForm" action="" method="post" onsubmit="return validateForm()">
         <div class="form-content">
             <header>Sign-Up</header>
-
-            <form id="signupForm" action="" method="post" onsubmit="return validateForm()">
-                {% csrf_token %}
-                <div class="field input-field">Name
-                    <input type="text" name="name" placeholder="Company / Paid Volunteer" class="input" required>
-                </div><br>
-
-                <div class="field input-field">Contact No.
-                    <input type="number" name="contact_no" class="input" id="contact_no" required>
-                    <div class="error-message" id="contactNoError"></div>
-                </div><br>
-
-                <div class="field input-field">Email
-                    <input type="email" name="email" class="input" required>
-                </div><br>
-
-                <div class="field input-field">Password
-                    <input type="password" name="password" class="password" id="password" required>
-                    <i class='bx bx-hide eye-icon' onclick="togglePassword('password', this)"></i>
+            {% csrf_token %}
+            <div class="form-group">
+                <div class="form-field">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Company / Paid Volunteer" class="input" required>
+                </div>
+                <div class="form-field">
+                    <label for="password">Password</label>
+                    <div class="password-container">
+                        <input type="password" id="password" name="password" class="password" required>
+                        <i class='bx bx-hide eye-icon' onclick="togglePassword('password', this)"></i>
+                    </div>
                     <div class="error-message" id="passwordError"></div>
-                </div><br>
-
-                <div class="field input-field">Confirm Password
-                    <input type="password" name="confirm-password" class="password" id="confirm-password" required>
-                    <i class='bx bx-hide eye-icon' onclick="togglePassword('confirm-password', this)"></i>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-field">
+                    <label for="contact_no">Contact No.</label>
+                    <input type="number" id="contact_no" name="contact_no" class="input" required>
+                    <div class="error-message" id="contactNoError"></div>
+                </div>
+                <div class="form-field">
+                    <label for="confirm-password">Confirm Password</label>
+                    <div class="password-container">
+                        <input type="password" id="confirm-password" name="confirm-password" class="password" required>
+                        <i class='bx bx-hide eye-icon' onclick="togglePassword('confirm-password', this)"></i>
+                    </div>
                     <div class="error-message" id="confirmPasswordError"></div>
-                </div><br>
-
-                <div class="field input-field"> 
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="input" required>
+                </div>
+                <div class="form-field">
                     <label for="role">Role:</label>
-                    <select name="role" id="role" required>
-                        <option name="role" value="company">Company</option>
-                        <option name="role" value="volunteer">Paid Volunteer</option>
+                    <select id="role" name="role" required>
+                        <option value="company">Company</option>
+                        <option value="volunteer">Paid Volunteer</option>
                     </select>
                 </div>
-                
-                <div class="field button-field">
+            </div>
+            <div class="form-group">
+                <div class="form-field">
                     <button type="submit">Next</button>
                 </div>
-            </form>
-
+            </div>
             <div class="form-link">
-                <span>Already have an Account ?</span> <a href="/auth/login" class="signup-link">Login</a>
+                <span>Already have an Account?</span>
+                <a href="/auth/login" class="signup-link">Login</a>
             </div>
         </div>
-    </div>
+    </form>
 </section>
 
 <script src="../static/js/Sign-up.js"></script>
