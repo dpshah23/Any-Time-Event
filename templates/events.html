@@ -31,7 +31,7 @@ body {
 
 .field button {
     height: 50px;
-    width: 30%;
+    width: 50%;
     font-size: 16px;
     font-weight: 400;
     border: none;
@@ -73,11 +73,14 @@ body {
 
             
             {% if request.session.email and request.session.role == "company" and request.session.email == event.company_email %}
-            {% comment %} <p><strong>Number of Volunteers Registered:</strong> <span id="phone">{{}}</span></p> {% endcomment %}
+            {% comment %} <p><strong>Number of Volunteers Registered:</strong></p> {% endcomment %}
            
             <div class="field button-field">
                 <a href="/company/get_volunteers/{{event.event_id}}"> <button type="button">Registered Volunteers</button></a>
+                <a href="/company/add_event"> <button type="button">Edit Event </button></a>
             </div>
+
+           
             {% endif %}
             
         </div>
