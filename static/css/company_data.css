@@ -13,7 +13,7 @@
 }
 
 .container {
-    min-height: 85vh;
+    min-height: 89vh;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -22,7 +22,7 @@
 }
 
 .form {
-    max-width: 800px;
+    max-width: 900px;
     width: 100%;
     padding: 30px;
     border-radius: 20px;
@@ -39,12 +39,11 @@
     right: 0;
     bottom: 0;
     border-radius: 20px;
-    border: 2px solid #006989;
     pointer-events: none;
 }
 
 header {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 600;
     color: #006989;
     text-align: center;
@@ -65,7 +64,7 @@ header {
 }
 
 .field label {
-    font-size: 14px;
+    font-size: 16px;
     margin-bottom: 5px;
     color: #333;
 }
@@ -90,7 +89,7 @@ header {
 }
 
 .image-note {
-    font-size: 12px;
+    font-size: 14px;
     color: #666;
     margin-top: 10px;
 }
@@ -109,7 +108,7 @@ header {
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 19px;
     transition: all 0.3s ease;
 }
 
