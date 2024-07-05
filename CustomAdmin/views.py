@@ -43,7 +43,10 @@ def pay(request):
 
 @login_required(login_url='/dj-admin/')
 def acceptyes(request,volemail):
-    userchange=users.objects.get(email=volemail)
+    try:
+        userchange=users.objects.get(email=volemail)
+    except Exception as e:
+        pass
     userchange.is_active=True
     userchange.save()
     load_dotenv()
@@ -93,6 +96,7 @@ def acceptno(request,volemail):
     userchange=users.objects.get(email=volemail)
     userchange.is_active=False
     userchange.save()
+    print(volemail)
 
     load_dotenv()
     from_email=os.getenv('EMAIL')
@@ -130,11 +134,11 @@ def acceptno(request,volemail):
             server.sendmail(from_email, volemail, msg.as_string())
     
     if userchange.role=="volunteer":
-        volunteer.delete(email=volemail)
+        volunteer.objects.filter(email=volemail).delete()
         users.delete(email=volemail)
         
     else:
-        company.delete(email=volemail)
+        company.objects.filter(email=volemail).delete()
         users.delete(email=volemail)
         
     messages.error(request,"User Rejected")
