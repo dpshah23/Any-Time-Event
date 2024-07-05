@@ -4,6 +4,11 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
   }
+
+  ::selection {
+    background-color: #006989;
+    color: #ffffff;
+  }
   
   html, body {
     height: 100%;
@@ -18,7 +23,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #1c5992;
+    background-color: #f0ece2;
   }
   
   .contact .content {
@@ -29,13 +34,14 @@
   .contact .content h2 {
     font-size: 36px;
     font-weight: bold;
-    color: #ffffff;
+    color: #006989;
     margin-bottom: 60px;
   }
   
   .contact .content p {
     font-weight: 300;
-    color: #ffffff;
+    color: #006989;
+    margin-top: 10px;
   }
   
   .container {
@@ -50,7 +56,6 @@
   .container .contactInfo {
     width: 100%;
     max-width: 600px;
-    display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 30px; 
@@ -67,26 +72,28 @@
   .container .contactInfo .box .icon {
     min-width: 50px;
     height: 50px;
-    background: #ffffff;
+    background: #f0ece2;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
     font-size: 22px;
+    color: #006989;
   }
   
   .container .contactInfo .box .text {
     display: flex;
     margin-left: 20px;
     font-size: 16px;
-    color: #ffffff;
+    color: #006989;
     flex-direction: column;
     font-weight: 300;
   }
   
   .container .contactInfo .box .text h3 {
     font-weight: 500;
-    color: #ffc107;
+    color: #000;
+    font-weight: bold;
   }
   
   .contactForm {
@@ -145,7 +152,7 @@
   
   .contactForm .inputBox input[type="submit"] {
     width: 100px;
-    background: #00bcd4;
+    background: #006989;
     color: #ffffff;
     border: none;
     cursor: pointer;
@@ -156,7 +163,7 @@
   }
   
   .contactForm .inputBox input[type="submit"]:hover {
-    background-color: #02a2b7;
+    background-color: #027497;
   }
   
   @media (max-width: 991px) {
