@@ -10,6 +10,7 @@ from email.mime.application import MIMEApplication
 from django.contrib.auth.decorators import login_required
 from datetime import date , timedelta
 from django.utils import timezone
+from company.models import Event,RegVol
 
 # Create your views here.
 def accept_user(request):
@@ -38,12 +39,18 @@ def accept_user(request):
 
 @login_required(login_url='/dj-admin/')
 def pay(request):
-    return render(request, 'pay.html')
+
+    rem_payment=Event.objects.filter()
+    print(rem_payment)
+    return render(request, 'event_payment.html',{'events_ex':rem_payment})
 
 
 @login_required(login_url='/dj-admin/')
 def acceptyes(request,volemail):
-    userchange=users.objects.get(email=volemail)
+    try:
+        userchange=users.objects.get(email=volemail)
+    except Exception as e:
+        pass
     userchange.is_active=True
     userchange.save()
     load_dotenv()
@@ -93,6 +100,7 @@ def acceptno(request,volemail):
     userchange=users.objects.get(email=volemail)
     userchange.is_active=False
     userchange.save()
+    print(volemail)
 
     load_dotenv()
     from_email=os.getenv('EMAIL')
@@ -130,11 +138,11 @@ def acceptno(request,volemail):
             server.sendmail(from_email, volemail, msg.as_string())
     
     if userchange.role=="volunteer":
-        volunteer.delete(email=volemail)
+        volunteer.objects.filter(email=volemail).delete()
         users.delete(email=volemail)
         
     else:
-        company.delete(email=volemail)
+        company.objects.filter(email=volemail).delete()
         users.delete(email=volemail)
         
     messages.error(request,"User Rejected")
