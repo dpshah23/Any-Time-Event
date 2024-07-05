@@ -18,8 +18,8 @@
     justify-content: center;
     align-items: center;
     background-color: #f0ece2;
-    min-height: 100vh;
     padding: 20px;
+    min-height: 90vh;
 }
 
 .form {
@@ -95,10 +95,6 @@ form {
 .form-link {
     text-align: center;
     margin-top: 10px;
-}
-
-.form-link span:hover {
-    text-decoration: underline;
 }
 
 .form-link span, .form-link a  {
