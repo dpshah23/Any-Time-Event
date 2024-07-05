@@ -84,6 +84,7 @@ a:hover {
   border-radius: 8px;
   background-color: #006989;
   color: #ffffff;
+  border: none;
   overflow: hidden;
 }
 
