@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from datetime import timedelta
+import datetime
 
 class Visit(models.Model):
     page_visited = models.CharField(max_length=255, unique=True)
@@ -19,7 +20,8 @@ class users(models.Model):
     timestamp = models.DateField(default=None, null=True)
     
     def is_expired(self):
-        self.timestamp+timedelta(hours=48) > timezone.now() 
+         return self.timestamp < datetime.date.today()
+        
     def __str__(self):
         return self.email
     
