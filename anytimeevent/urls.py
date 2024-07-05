@@ -22,7 +22,7 @@ urlpatterns = [
     path('auth/',include('auth1.urls')),
     path('',include('redirection.urls')),
     path('',include('error_handling.urls')),
-    path('admincustom',include('CustomAdmin.urls')),
+    path('admincustom/',include('CustomAdmin.urls')),
     path('company/',include('company.urls')),
     path('volunteer/',include('volunteers.urls')),
 ]

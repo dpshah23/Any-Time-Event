@@ -10,6 +10,7 @@ from email.mime.application import MIMEApplication
 from django.contrib.auth.decorators import login_required
 from datetime import date , timedelta
 from django.utils import timezone
+from company.models import Event,RegVol
 
 # Create your views here.
 def accept_user(request):
@@ -38,7 +39,10 @@ def accept_user(request):
 
 @login_required(login_url='/dj-admin/')
 def pay(request):
-    return render(request, 'pay.html')
+
+    rem_payment=Event.objects.filter()
+    print(rem_payment)
+    return render(request, 'event_payment.html',{'events_ex':rem_payment})
 
 
 @login_required(login_url='/dj-admin/')
