@@ -42,7 +42,7 @@ form {
 }
 
 .form .field {
-  height: 50px;
+  /* height: 50px; */
   width: 100%;
   margin-top: 20px;
   position: relative;
