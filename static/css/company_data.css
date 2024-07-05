@@ -13,7 +13,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #639bc6;
+    background-color: #f0ece2;
 }
 
 .form {
@@ -22,13 +22,12 @@
     padding: 30px;
     border-radius: 10px;
     background-color: #ffffff;
-    border: 2.4px solid black;
 }
 
 header {
     font-size: 28px;
     font-weight: 600;
-    color: #232836;
+    color: #006989;
     text-align: center;
 }
 
@@ -78,14 +77,15 @@ form {
 }
 
 .field button {
-    background-color: #0171d3;
+    background-color: #006989;
     color: #ffffff;
     transition: all 0.3s ease;
     cursor: pointer;
+    font-size: 18px;
 }
 
 .field button:hover {
-    background-color: #016dcb;
+    background-color: #03789b;
 }
 
 .form-link {
