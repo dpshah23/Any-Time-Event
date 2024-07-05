@@ -46,3 +46,13 @@ def apply (request,event_id):
             event_name=Event.objects.get(event_id=event_id_1).event_name
             messages.success(request,f"Applied Successfully to {event_name}")
             return redirect('/')
+    
+@ratelimit(key='ip', rate='10/m')
+def applyerr(request):
+    if 'email' and 'role' not in request.session:
+        messages.error(request,"You are not logged in")
+        return redirect('/')
+    if request.session['role']== "company":
+        messages.error(request,"You can not Apply to Events because this is a Company account ")
+        return redirect('/')
+    return render(request,"err_not_found.html")

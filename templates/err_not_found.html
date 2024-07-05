@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apply to Event | Any Time Event </title>
+  <link rel="stylesheet" href="/static/css/navbar.css" />
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css" />
+</head>
+
+<body>
+  <nav>
+    <input type="checkbox" id="check" />
+    <label for="check" class="checkbtn">
+      <img class="menu" src="/static/img/bars.svg" alt="Bars" />
+    </label>
+    <label class="logo"><img src="/static/img/Any-Time-Event-Logo.png" alt="Logo"></label>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/">Services</a></li>
+      <li><a href="#">About </a></li>
+      <li><a href="/contact-us">Contact</a></li>
+      {% if 'email' in request.session %}
+      {% if request.session.role == "volunteer" %}
+      <li><a href="volunteer/">Dashboard</a></li>
+      {% else %}
+      <li><a href="company/">Dashboard</a></li>
+      {% endif %}
+      {% endif %}
+      {% if 'email' not in request.session %}
+      <button class="log-butt"><a href="/auth/login">Login</a></button>
+      {% else %}
+      <button class="log-butt"><a href="/auth/logout">Logout</a></button>
+      {% endif %}
+    </ul>
+  </nav>
+  <style>
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 80vh;
+    }
+
+
+  </style>
+  <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+              <h1>404 Not Found</h1>
+                <hr>
+                <br>
+                <p>You Are Trying To Apply In Event That Does Not Exists</p>
+              <p>The page you are looking for does not exists... </p>
+              <a href="/" class="btn btn-primary">Go to Home</a>
+          </div>
+      </div>
+</body>
+
+</html>
