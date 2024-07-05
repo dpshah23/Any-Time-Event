@@ -17,6 +17,7 @@ from datetime import date
 import requests
 from datetime import timedelta
 import json
+import base64
 
 
 # Create your views here.
@@ -335,10 +336,10 @@ def signup (request):
         request.session['phone123'] = phone
         
         if role=="company":
-            user1 = users(email=email,password=encrypted_password,key=key_str,role=role)
+            user1 = users(email=email,password=encrypted_password,key=key_str,role=role,timestamp=date.today())
             user1.save()
         else:
-            user1 = users(email=email,password=encrypted_password,key=key_str,role=role,is_active=True)
+            user1 = users(email=email,password=encrypted_password,key=key_str,role=role,is_active=True,timestamp=date.today())
             user1.save()
             
         print("hello")
@@ -402,8 +403,12 @@ def companyinfo(request):
         image_name1 = ''.join(random.choice(alphanumeric_characters) for _ in range(10))
         
         # Read image files
-        card = image_file.read()
-        logo = image_file1.read()
+        try:
+            card = base64.b64encode(image_file.read()).decode('utf-8')
+            logo = base64.b64encode(image_file1.read()).decode('utf-8')
+        except Exception as e:
+            messages.error(request, 'Error processing image files: {}'.format(str(e)))
+            return render(request, 'company_data.html')
         
         # Create or update company object
         obj, created = company.objects.update_or_create(
@@ -475,6 +480,7 @@ def volunteerinfo(request):
         qualification = request.POST.get('qualification')
         emergency_contact = request.POST.get('emergency_no')
         upi = request.POST.get('upi_id')
+        city=request.POST.get('city')
         
         
         # Generate random image names
@@ -482,9 +488,19 @@ def volunteerinfo(request):
         image_name = ''.join(random.choice(alphanumeric_characters) for _ in range(10))
         image_name1 = ''.join(random.choice(alphanumeric_characters) for _ in range(10))
         
+        image_file = request.FILES['profile_picture'].read()
+        image_file1 = request.FILES['identity_proof'].read()
         # Read image files
-        profile_pic = image_file.read()
-        id_proof = image_file1.read()
+        try:    
+            profile_pic = base64.b64encode(image_file).decode('utf-8')
+            id_proof = base64.b64encode(image_file1).decode('utf-8')
+            print(profile_pic)
+            print()
+            print("hello")
+            print(id_proof)
+        except Exception as e:
+            messages.error(request, 'Error processing image files: {}'.format(str(e)))
+            return render(request, 'user_data.html')
         load_dotenv()
         api_key = os.getenv('api_key')   
         api_secret = os.getenv('api_secret')
@@ -576,7 +592,8 @@ def volunteerinfo(request):
                 'card': id_proof,
                 'upi': upi,
                 'contact_id': contact_id,
-                'fund_id': fund_id
+                'fund_id': fund_id,
+                'city':city.lower()
             }
         )
 

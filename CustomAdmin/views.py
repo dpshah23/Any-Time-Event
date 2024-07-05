@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from datetime import date , timedelta
 from django.utils import timezone
 from company.models import Event,RegVol
+from django.conf import settings
 
 # Create your views here.
 def accept_user(request):
@@ -18,21 +19,38 @@ def accept_user(request):
     vols = users.objects.filter(role="volunteer").filter(is_active=True)
     
     # Fetch companies
-    comp = users.objects.filter(role="company")
+    comps = users.objects.filter(role="company")
     
     final_vols = []
+    final_comps = []
+
+
+    for comp in comps:
+        try:
+            compobj = company.objects.get(email=comp.email)
+            
+            final_comps.append( compobj)
+        except company.DoesNotExist:
+            pass
     
     # Retrieve volunteer objects based on their email and prepare for context
     for user in vols:
         try:
             volobj = volunteer.objects.get(email=user.email)
-            final_vols.append(volobj)
+
+            final_vols.append( volobj )
+
+
         except volunteer.DoesNotExist:
             pass  # Handle case where volunteer object does not exist
     
+    print(final_vols)
+    print(final_comps)
+
+    
     context = {
         'volunteers': final_vols,
-        'companys': comp
+        'companys': final_comps
     }
     
     return render(request, 'accept_vol.html', context)
@@ -139,11 +157,10 @@ def acceptno(request,volemail):
     
     if userchange.role=="volunteer":
         volunteer.objects.filter(email=volemail).delete()
-        users.delete(email=volemail)
-        
+        users.objects.filter(email=volemail).delete()        
     else:
         company.objects.filter(email=volemail).delete()
-        users.delete(email=volemail)
+        users.objects.filter(email=volemail).delete()
         
     messages.error(request,"User Rejected")
     return redirect("/admincustom/acceptusers")
