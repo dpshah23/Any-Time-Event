@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Event Payments </title>
+        <style>
+            .field button {
+    background-color: #0171d3;
+    color: #FFFFFF;
+    transition: all 0.3s ease;
+    cursor: pointer;
+          }
+* {
+    margin: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+.table{
+    border: 10px;
+}
+        </style>
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    </head>
+    <body>
+        <h2><strong>Remaining Payment</strong></h2>
+        <table border="1">
+            <thead>
+            <th>Event ID</th>
+            <th>Event Name</th>
+            <th>Company Name</th>
+            <th>No of Registered Volunteers</th>
+            <th>City</th>
+            <th class="field button-field">Status</th>
+            </thead>
+            <tbody>
+                {% for event in events_ex %}
+            <tr>
+            <td><a href="" >{{event.event_id}}</td>
+            <td>{{event.event_name}}</td>
+            <td>{{event.event_company}}</td>
+            <td>{{event.event_vol}}</td>
+            <td>{{event.event_location}}</td>
+            <td><a  class="field button-field" href=""><button type="button">Pay Now</button></a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+<br>
+<h2><strong>Completed Payments</strong></h2>
+
+        <table border="1">
+            <thead>
+                <th>Event ID</th>
+                <th>Event Name</th>
+                <th>Company Name</th>
+                <th>No of Registered Volunteers</th>
+                <th>City</th>
+                </thead>
+                <tbody>
+                    {% for event in events %}
+                <tr>
+                <td><a href="" >{{event.event_id}}</td>
+                <td>{{event.event_name}}</td>
+                <td>{{event.event_company}}</td>
+                <td>{{event.event_vol}}</td>
+                <td>{{event.event_location}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+        </table>
+    </body>
+</html>
