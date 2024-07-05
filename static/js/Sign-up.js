@@ -1,14 +1,3 @@
-function togglePassword(id, element) {
-  const passwordField = document.getElementById(id);
-  if (passwordField.type === "password") {
-    passwordField.type = "text";
-    element.classList.replace("bx-hide", "bx-show");
-  } else {
-    passwordField.type = "password";
-    element.classList.replace("bx-show", "bx-hide");
-  }
-}
-
 function validateForm() {
   const contactNo = document.getElementById("contact_no").value;
   const password = document.getElementById("password").value;
@@ -32,8 +21,8 @@ function validateForm() {
     document.getElementById("confirmPasswordError").textContent = "Passwords do not match.";
     passwordError.style.color = "red";
     confirmPasswordError.style.color = "red";
-    passwordError.style.marginTop = "10px";
-    confirmPasswordError.style.marginTop = "10px";
+    passwordError.style.marginTop = "15px";
+    confirmPasswordError.style.marginTop = "15px";
     isValid = false;
   }
 
