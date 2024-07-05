@@ -178,8 +178,9 @@
   
     .contactForm,
     .container .contactInfo {
-      width: 100%;
+      width: 88%;
       max-width: none;
+      margin-bottom: 15px;
     }
   }
   
@@ -190,6 +191,11 @@
   
     .contact .content h2 {
       font-size: 28px;
+    }
+
+    .contact .content p {
+      font-size: 16px;
+      margin: 12px;
     }
   
     .contactForm h2 {
@@ -214,6 +220,7 @@
   
     .contact .content h2 {
       font-size: 24px;
+      margin-top: 15px;
     }
   
     .contactForm h2 {
