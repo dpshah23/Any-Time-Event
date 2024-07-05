@@ -1,5 +1,6 @@
 from django.db import models
-import datetime
+from datetime import datetime, timedelta
+from django.utils import timezone
 # Create your models here.
 class Event(models.Model):
     company_email = models.CharField(max_length=150 , null=True)
@@ -23,7 +24,9 @@ class Event(models.Model):
     paid_status = models.BooleanField(default=False)
 
     def is_expired (self):
-        return self.event_date < datetime.date.today()
+        expiration_time = self.timestamp + timedelta(days=2)
+        # Compare current time with expiration time
+        return timezone.now() > expiration_time
     
     def __str__(self):
         return self.event_name

@@ -18,9 +18,16 @@ def accept_user(request):
     vols_not = [users for users in vols if not users.is_expired()] 
     comp= users.objects.filter(role="company")
     final_vols=[]
-    for email in vols_not.email:
-        volobj=volunteer.objects.get(email=email)
+    # print(vols_not[0].email)
+    print(vols_not)
+    id=0
+    for user in vols_not:
+        email1=user.email
+        print(email1)
+        volobj=volunteer.objects.get(email=email1)
+        
         final_vols.append(volobj)
+        id+=1
         
     context={'volunteers':final_vols,'companys':comp}
         
