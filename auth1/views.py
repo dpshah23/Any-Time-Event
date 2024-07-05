@@ -334,8 +334,13 @@ def signup (request):
         request.session['name123'] = name
         request.session['phone123'] = phone
         
-        user1 = users(email=email,password=encrypted_password,key=key_str,role=role)
-        user1.save()
+        if role=="company":
+            user1 = users(email=email,password=encrypted_password,key=key_str,role=role)
+            user1.save()
+        else:
+            user1 = users(email=email,password=encrypted_password,key=key_str,role=role,is_active=True)
+            user1.save()
+            
         print("hello")
         if role == "company":
             print("in company")
