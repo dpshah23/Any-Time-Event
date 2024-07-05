@@ -16,7 +16,10 @@ class users(models.Model):
     key=models.TextField()
     role=models.CharField(max_length=20,default=None)
     is_active = models.BooleanField(default=False,null=True)
-
+    timestamp = models.DateField(default=None, null=True)
+    
+    def is_expired(self):
+        self.timestamp+timedelta(hours=48) > timezone.now() 
     def __str__(self):
         return self.email
     
@@ -92,7 +95,6 @@ class volunteer(models.Model):
     email = models.EmailField(max_length=100, default=None, null=True)
     phone = models.CharField(max_length=100, default=None, null=True)
     dob = models.CharField(max_length=150, default=None, null=True)
-    timestamp = models.CharField(max_length=250, default=None, null=True)
     experience = models.CharField(max_length=200, default=None, null=True)
     skills = models.CharField(max_length=200, default=None, null=True)
     qualification = models.CharField(max_length=100, default=None, null=True)
@@ -105,6 +107,7 @@ class volunteer(models.Model):
     description = models.TextField(default=None, null=True)
     contact_id = models.CharField(max_length=200 , null=True)
     fund_id = models.CharField(max_length=200 , null=True)
+    city = models.CharField(max_length=100 , null=True)
 
     def __str__(self):
         return self.name

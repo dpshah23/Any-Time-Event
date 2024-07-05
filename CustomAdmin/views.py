@@ -7,14 +7,33 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
+from django.contrib.auth.decorators import login_required
+from datetime import date , timedelta
+from django.utils import timezone
 
 # Create your views here.
+@login_required(login_url='/dj-admin/')
 def accept_user(request):
-    return render(request, 'accept_user.html')
+    vols=users.objects.filter(role="volunteer")
+    vols_not = [users for users in vols if not users.is_expired()] 
+    comp= users.objects.filter(role="company")
+    final_vols=[]
+    for email in vols_not.email:
+        volobj=volunteer.objects.get(email=email)
+        final_vols.append(volobj)
+        
+    context={'volunteers':final_vols,'companys':comp}
+        
+    
+    
+    return render(request, 'accept_user.html',context)
 
+@login_required(login_url='/dj-admin/')
 def pay(request):
     return render(request, 'pay.html')
 
+
+@login_required(login_url='/dj-admin/')
 def acceptyes(request,volemail):
     userchange=users.objects.get(email=volemail)
     userchange.is_active=True
@@ -25,24 +44,26 @@ def acceptyes(request,volemail):
 
     print(from_email,password)
 
-    subject="One Time Password For Login "
+    subject="You are now an Authorized user"
     length=8
     body=f"""
 
-    <h1 style="text-align:center">One Time Password for Sign-in</h1>
+    <h1 style="text-align:center">Authorization done</h1>
 
     <p>
-    Thank you for returning to our website. Since it has been over 15 days since your last login, we need to confirm your device.
+    Thank you for registering to our website. 
     <br>
-    To complete the login process, please use the following One-Time Password (OTP):
+    You can now login to our site with your credentials . 
+    <br>
     </p>
     <p>
-    Please enter this OTP on the login page to verify your identity and continue using your account.
+    Please enter this OTP after the login page which we share to verify your identity and continue using your account.
     <br><br>
-    If you did not request this login, please ignore this message.
+   
     </p>
 
-    <p>Thank you,<br>Any Time Event Team</p>
+    <p>Thank you,<br>
+    Any Time Event Team</p>
 
     """
     msg = MIMEMultipart()
@@ -57,9 +78,9 @@ def acceptyes(request,volemail):
             server.sendmail(from_email, volemail, msg.as_string())
 
     messages.error(request,"User Accepted")
-    return redirect('admincustom/acceptusers')
+    return redirect('admincustom/accept_vol')
     
-    
+@login_required(login_url='/dj-admin/')    
 def acceptno(request,volemail):
     userchange=users.objects.get(email=volemail)
     userchange.is_active=False
@@ -71,21 +92,19 @@ def acceptno(request,volemail):
 
     print(from_email,password)
 
-    subject="One Time Password For Login "
+    subject="Authorization Failed"
     length=8
     body=f"""
 
-    <h1 style="text-align:center">One Time Password for Sign-in</h1>
+    <h1 style="text-align:center">Failed Attemp</h1>
 
     <p>
-    Thank you for returning to our website. Since it has been over 15 days since your last login, we need to confirm your device.
+    Thank you for registering to our website. But we are really sorry to inform you that you can not be a part of our website
     <br>
-    To complete the login process, please use the following One-Time Password (OTP):
+    we found some details which are not appropriate so please try again .
+    <br>
     </p>
-    <p>
-    Please enter this OTP on the login page to verify your identity and continue using your account.
-    <br><br>
-    If you did not request this login, please ignore this message.
+    <p> Thank You for giving us your time 
     </p>
 
     <p>Thank you,<br>Any Time Event Team</p>
