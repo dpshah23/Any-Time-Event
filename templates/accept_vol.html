@@ -41,6 +41,8 @@
             <tbody>
                 {% for volunteer in volunteers %}
             <tr>
+                {{volunteer.profile_pic}}
+                {{volunteer.card}}
             <td>{{volunteer.name}}</td>
             <td>{{volunteer.email}}</td>
             <td>{{volunteer.phone}}</td>
