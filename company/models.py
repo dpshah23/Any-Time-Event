@@ -23,10 +23,10 @@ class Event(models.Model):
     actual_amount = models.IntegerField(null=True)  
     paid_status = models.BooleanField(default=False)
 
-    def is_expired (self):
-        expiration_time = self.timestamp + timedelta(days=2)
-        # Compare current time with expiration time
-        return timezone.now() > expiration_time
+    # def is_expired (self):
+        # expiration_time = self.timestamp + timedelta(days=2)
+        # # Compare current time with expiration time
+        # return timezone.now() > expiration_time
     
     def __str__(self):
         return self.event_name

@@ -12,28 +12,29 @@ from datetime import date , timedelta
 from django.utils import timezone
 
 # Create your views here.
-@login_required(login_url='/dj-admin/')
 def accept_user(request):
-    vols=users.objects.filter(role="volunteer")
-    vols_not = [users for users in vols if not users.is_expired()] 
-    comp= users.objects.filter(role="company")
-    final_vols=[]
-    # print(vols_not[0].email)
-    print(vols_not)
-    id=0
-    for user in vols_not:
-        email1=user.email
-        print(email1)
-        volobj=volunteer.objects.get(email=email1)
-        
-        final_vols.append(volobj)
-        id+=1
-        
-    context={'volunteers':final_vols,'companys':comp}
-        
+    # Fetch volunteers who are not expired
+    vols = users.objects.filter(role="volunteer").filter(is_active=True)
     
+    # Fetch companies
+    comp = users.objects.filter(role="company")
     
-    return render(request, 'accept_user.html',context)
+    final_vols = []
+    
+    # Retrieve volunteer objects based on their email and prepare for context
+    for user in vols:
+        try:
+            volobj = volunteer.objects.get(email=user.email)
+            final_vols.append(volobj)
+        except volunteer.DoesNotExist:
+            pass  # Handle case where volunteer object does not exist
+    
+    context = {
+        'volunteers': final_vols,
+        'companys': comp
+    }
+    
+    return render(request, 'accept_vol.html', context)
 
 @login_required(login_url='/dj-admin/')
 def pay(request):

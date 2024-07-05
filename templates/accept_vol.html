@@ -54,7 +54,11 @@
             <td><img src=""></td>
             <td><img src=""></td>
             <td>{{volunteer.upi}}</td>
-            <td><a  class="field button-field" href=""><button type="button">Accept</button></a></td>
+           <td>
+
+                <button><a href="/admincustom/acceptyes/{{volunteer.email}} /">Yes</a></button>
+                <button><a href="/admincustom/acceptno/{{volunteer.email}} /">No</a></button>
+          </td>
             </tr>
             {% endfor %}
             </tbody>
@@ -87,7 +91,11 @@
             <td>{{company.company_description}}</td>
             <td><img src=""></td>
             <td><img src=""></td>
-            <td><a class="field button-field" href=""><button type="button">Accept</button></a></td>
+            <td>
+
+                <button><a href="/admincustom/acceptyes/{{volunteer.email}} /">Yes</a></button>
+                <button><a href="/admincustom/acceptno/{{volunteer.email}} /">No</a></button>
+          </td>
             </tr>
             {% endfor %}
             </tbody>
