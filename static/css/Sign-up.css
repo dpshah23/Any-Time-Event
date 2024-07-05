@@ -13,7 +13,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #639bc6;
+  background-color: #f0ece2;
   z-index: 1;
   position: relative;
   padding: 20px;
@@ -26,14 +26,13 @@
   border-radius: 6px;
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border: 2.4px solid black;
 
 }
 
 header {
   font-size: 28px;
   font-weight: 600;
-  color: #232836;
+  color: #006989;
   text-align: center;
 }
 
@@ -81,14 +80,14 @@ form {
 }
 
 .field button {
-  background-color: #0171d3;
+  background-color: #006989;
   color: #ffffff;
   transition: all 0.3s ease;
   cursor: pointer;
 }
 
 .field button:hover {
-  background-color: #016dcb;
+  background-color: #02799d;
 }
 
 .form-link {
