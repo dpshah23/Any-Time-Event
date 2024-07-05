@@ -8,13 +8,18 @@
   font-family: "Poppins", sans-serif;
 }
 
+::selection {
+  background-color: #006989;
+  color: #fff;
+}
+
 .container {
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #639bc6;
+  background-color: #f0ece2;
   gap: 10px;  
   padding: 15px;
 }
@@ -25,24 +30,20 @@
   padding: 30px;
   border-radius: 6px;
   background-color: #ffffff;
-  border: 2.4px solid black;
-
 }
 
 header {
   font-size: 28px;
   font-weight: 600;
-  color: #232836;
+  color: #006989;
   text-align: center;
 }
 
 form {
   margin-top: 30px;
-  /* overflow: hidden; */
 }
 
 .form .field {
-  /* height: 50px; */
   width: 100%;
   margin-top: 20px;
   position: relative;
@@ -66,6 +67,7 @@ form {
   padding: 0 15px;
   border: 1px solid #cacaca;
   outline: none;
+  height: 40px;
 }
 
 .field input:focus {
@@ -84,14 +86,16 @@ form {
 }
 
 .field button {
-  background-color: #0171d3;
+  background-color: #006989;
   color: #ffffff;
   transition: all 0.3s ease;
   cursor: pointer;
+  height: 45px;
+  font-size: 18px;
 }
 
 .field button:hover {
-  background-color: #016dcb;
+  background-color: #037da2;
 }
 
 .form-link {
