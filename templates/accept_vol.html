@@ -41,8 +41,8 @@
             <tbody>
                 {% for volunteer in volunteers %}
             <tr>
-                {{volunteer.profile_pic}}
-                {{volunteer.card}}
+                <!-- {{volunteer.profile_pic}}
+                {{volunteer.card}} -->
             <td>{{volunteer.name}}</td>
             <td>{{volunteer.email}}</td>
             <td>{{volunteer.phone}}</td>
@@ -51,8 +51,8 @@
             <td>{{volunteer.skills}}</td>
             <td>{{volunteer.qualification}}</td>
             <td>{{volunteer.emergency_contact}}</td>
-            <td><img src=""></td>
-            <td><img src=""></td>
+            <td><img src="data:image/png;base64,{{volunteer.profile_pic}}"></td>
+            <td><img src="data:image/png;base64,{{volunteer.card}}"></td>
             <td>{{volunteer.upi}}</td>
            <td>
 
@@ -88,9 +88,9 @@
             <td>{{company.website}}</td>
             <td>{{company.phone2}}</td>
             <td>{{company.address}}</td>
-            <td>{{company.company_description}}</td>
-            <td><img src=""></td>
-            <td><img src=""></td>
+            <td>{{company.description}}</td>
+            <td><img src="data:image/png;base64,{{volunteer.card}}"></td>
+            <td><img src="data:image/png;base64,{{volunteer.logo}}"></td>
             <td>
 
                 <button><a href="/admincustom/acceptyes/{{volunteer.email}}">Yes</a></button>
