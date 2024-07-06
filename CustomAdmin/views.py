@@ -27,18 +27,23 @@ def accept_user(request):
 
     for comp in comps:
         try:
+            
             compobj = company.objects.get(email=comp.email)
             # print(compobj.logo)
-            final_comps.append( compobj)
+            
+            final_comps.append((compobj))
         except company.DoesNotExist:
             pass
+      
+            
     
     # Retrieve volunteer objects based on their email and prepare for context
     for user in vols:
         try:
-            volobj = volunteer.objects.get(email=user.email)
+            if user.is_expired():
+                volobj = volunteer.objects.get(email=user.email)
 
-            final_vols.append( volobj )
+                final_vols.append( volobj )
 
 
         except volunteer.DoesNotExist:

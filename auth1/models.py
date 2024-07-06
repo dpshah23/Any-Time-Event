@@ -20,7 +20,8 @@ class users(models.Model):
     timestamp = models.DateField(default=None, null=True)
     
     def is_expired(self):
-         return self.timestamp < datetime.date.today()
+        self.timestamp += timedelta(hours = 48)
+        return self.timestamp > datetime.date.today()
         
     def __str__(self):
         return self.email
