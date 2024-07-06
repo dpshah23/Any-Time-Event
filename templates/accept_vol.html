@@ -86,17 +86,17 @@
             <tr>
             <td>{{company.name}}</td>
             <td>{{company.email}}</td>
-            <td>{{company.phone}}</td>
+            <td>{{company.phone1}}</td>
             <td>{{company.website}}</td>
             <td>{{company.phone2}}</td>
             <td>{{company.address}}</td>
             <td>{{company.description}}</td>
-            <td><img src="data:image/png;base64,{{volunteer.card}}"></td>
-            <td><img src="data:image/png;base64,{{volunteer.logo}}"></td>
+            <td><img src="data:image/png;base64,{{company.card}}"></td>
+            <td><img src="data:image/png;base64,{{company.logo}}"></td>
             <td>
 
-                <button><a href="/admincustom/acceptyes/{{volunteer.email}}">Yes</a></button>
-                <button><a href="/admincustom/acceptno/{{volunteer.email}}">No</a></button>
+                <button><a href="/admincustom/acceptyes/{{company.email}}">Yes</a></button>
+                <button><a href="/admincustom/acceptno/{{company.email}}">No</a></button>
           </td>
             </tr>
             {% endfor %}

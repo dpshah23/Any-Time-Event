@@ -19,7 +19,7 @@ def accept_user(request):
     vols = users.objects.filter(role="volunteer").filter(is_active=True)
     
     # Fetch companies
-    comps = users.objects.filter(role="company")
+    comps = users.objects.filter(role="company",is_active=False)
     
     final_vols = []
     final_comps = []
@@ -28,7 +28,7 @@ def accept_user(request):
     for comp in comps:
         try:
             compobj = company.objects.get(email=comp.email)
-            
+            # print(compobj.logo)
             final_comps.append( compobj)
         except company.DoesNotExist:
             pass
@@ -57,9 +57,9 @@ def accept_user(request):
 
 @login_required(login_url='/dj-admin/')
 def pay(request):
+    rem_payment=Event.objects.filter(is_paid_vol=False,paid_status=True)
+    
 
-    rem_payment=Event.objects.filter()
-    print(rem_payment)
     return render(request, 'event_payment.html',{'events_ex':rem_payment})
 
 

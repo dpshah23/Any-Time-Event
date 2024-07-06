@@ -23,6 +23,7 @@ class Event(models.Model):
     event_mrp = models.IntegerField(null=True)
     actual_amount = models.IntegerField(null=True)  
     paid_status = models.BooleanField(default=False)
+    is_paid_vol=models.BooleanField(default=False)
 
     def is_expired (self):
         return self.event_date < datetime.date.today()
