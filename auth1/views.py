@@ -653,10 +653,16 @@ def reset(request):
     if request.method == "POST":
         email = request.POST.get('email')
         try:
-
-            user = users.objects.filter(email=email)
-            # print(email)
-            # print(user)
+            user = users.objects.get(email=email)
+            
+        except users.DoesNotExist:
+            messages.error(request, 'Invalid Email')
+            return render(request, 'reset.html')
+        except Exception as e:
+            print(e)
+            messages.error(request, 'Invalid Email')
+            return render(request, 'reset.html')
+        try:
             load_dotenv()
 
             from_email = os.getenv('EMAIL')
