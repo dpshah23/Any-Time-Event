@@ -186,3 +186,5 @@ def acceptno(request,volemail):
     messages.error(request,"User Rejected")
     return redirect("/admincustom/acceptusers")
     
+
+# def payvol(request,event_id,):
