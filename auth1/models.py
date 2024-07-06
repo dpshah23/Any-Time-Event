@@ -76,6 +76,7 @@ class otps(models.Model):
 
 
 class company(models.Model):
+    comp_id=models.CharField(max_length=100, default=None, null=True)
     name = models.CharField(max_length=100, default=None, null=True)
     email = models.EmailField(max_length=100, default=None)
     phone1 = models.CharField(max_length=100, default=None, null=True)
@@ -93,6 +94,7 @@ class company(models.Model):
         return self.name
 
 class volunteer(models.Model):
+    vol_id=models.CharField(max_length=100, default=None, null=True)
     name = models.CharField(max_length=100, default=None, null=True)
     email = models.EmailField(max_length=100, default=None, null=True)
     phone = models.CharField(max_length=100, default=None, null=True)

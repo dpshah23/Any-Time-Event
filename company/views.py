@@ -108,6 +108,30 @@ def gettotalvol(request,event_id):
     except RegVol.DoesNotExist:
         messages.error(request,"No Volunteers Registered")
         return redirect('/company/')
+
+
+
+@ratelimit(key='ip',rate='10/m')
+def profile(request,id):
+    if 'email' and 'role' not in request.session:
+        messages.error(request,"You are not logged in")
+        return redirect('/')
+    
+    if request.session['role']=="volunteer":
+        messages.error(request,"You Don't have permission to view this page")
+
+    try:
+        print(id)
+        obj=company.objects.get(comp_id=id)
+        if obj.email!=request.session['email']:
+            messages.error(request,"You Don't have permission to view this page")
+        print(obj)
+    except Exception as e:
+        print("error")
+        messages.error(request,"Company Not Found")
+        return redirect('/company/')
+    
+    return render(request,"/company/profile.html",{'data':obj})
     
 
 

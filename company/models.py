@@ -3,6 +3,7 @@ from django.db import models
 import datetime
 # Create your models here.
 class Event(models.Model):
+    creation_date=models.DateField(default=datetime.date.today)
     company_email = models.CharField(max_length=150 , null=True)
     event_company = models.CharField(max_length=200,null=True)
     event_name = models.CharField(max_length=200)

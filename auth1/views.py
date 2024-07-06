@@ -343,14 +343,17 @@ def signup (request):
             user1.save()
             
         print("hello")
+
+        keyid=x = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(16))
         if role == "company":
             print("in company")
-            c1=company(name=name,email=email,phone1=phone)
+
+            c1=company(name=name,email=email,phone1=phone,comp_id=keyid)
             c1.save()
             return redirect('/auth/companyinfo')
         else:
             print("in volunterr")
-            v1 = volunteer(name=name ,email=email,phone=phone )
+            v1 = volunteer(name=name ,email=email,phone=phone,vol_id=keyid )
             v1.save()
             return redirect('/auth/volunteerinfo')
        
