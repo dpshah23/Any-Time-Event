@@ -507,6 +507,8 @@ def volunteerinfo(request):
         load_dotenv()
         api_key = os.getenv('api_key')   
         api_secret = os.getenv('api_secret')
+        print(api_key)
+        print(api_secret)
         
         
         if not api_key and not api_secret:

@@ -187,4 +187,7 @@ def acceptno(request,volemail):
     return redirect("/admincustom/acceptusers")
     
 
-# def payvol(request,event_id,):
+def payvol(request,event_id):
+    regvoldetails=RegVol.objects.filter(event_id=event_id,)
+
+    pass
