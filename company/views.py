@@ -149,7 +149,7 @@ def getpayment (request , event_id):
     amount = (Event.objects.get(event_id=event_id).event_mrp) * total_vol
     final_amt = int(amount)*100
     payment = client.order.create({ "amount": final_amt, "currency": "INR", "payment_capture": '1' })
-    print(payment)
-    company_success.payment_id = payment['id']
-    company_success.save()
-    return render (request ,"all_events.html" , {'payment':payment})
+    # print(payment)
+    # company_success.payment_id = payment['id']
+    # company_success.save()
+    return render (request ,"payment.html" , {'payment':payment})

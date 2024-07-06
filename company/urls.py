@@ -8,5 +8,5 @@ urlpatterns = [
     path('events/',getallevents,name='getallevents'),
     path('get_volunteers/<event_id>/',gettotalvol,name='gettotalvol'),
     path('profile/<id>/',profile,name="profile_comp"),
-    path('/payment/<event_id>/' , getpayment ,name='pay' ),
+    path('payment/<event_id>/' , getpayment ,name='pay' ),
 ]

@@ -1,6 +1,29 @@
 <form action ='{% url 'pay'}' method = "post">
     {% csrf_token %}
-    
+    <div class="full-width">
+        <button type="submit">Submit</button>
+    </div>
 </form>
 <button id ="rzp-button1" type="button" >Pay Now </button>
-{% endblock 'body' %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+            
+              <script>
+                var options = {
+                    "key": "rzp_test_1hUnK1LrP2jkMb",
+                    "amount": "{{ payment.amount }}",
+                    "currency": "INR",
+                    "name": "Any Time Event",
+                    "description": "Payment for your Event",
+                    "order_id": "{{ payment.id }}", 
+                    "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+                    
+                    "theme": {
+                        "color": "#3399cc"
+                    }
+                };
+                var rzp1 = new Razorpay(options);
+                document.getElementById('rzp-button1').onclick = function(e){
+                    rzp1.open();
+                    e.preventDefault();
+                }
+                </script>
