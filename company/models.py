@@ -44,14 +44,19 @@ class RegVol(models.Model):
     def __str__(self):
         return self.name
     
-    class company_success(models.Model):
-        timestamp = models.DateField()
-        payment_id = models.TextField()
-        order_id = models.TextField()
-        signature = models.TextField()
-        
-    class company_error(models.Model):
-        timestamp = models.DateField()
-        code = models.TextField()
-        description = models.TextField()
-        reason = models.TextField()
+class company_success(models.Model):
+    timestamp = models.DateField()
+    payment_id = models.TextField()
+    order_id = models.TextField()
+    signature = models.TextField()
+
+    def __str__(self):
+        return self.payment_id        
+class company_error(models.Model):
+    timestamp = models.DateField()
+    code = models.TextField()
+    description = models.TextField()
+    reason = models.TextField()
+
+    def __str__(self):
+        return self.description

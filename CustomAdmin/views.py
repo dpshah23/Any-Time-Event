@@ -188,6 +188,6 @@ def acceptno(request,volemail):
     
 
 def payvol(request,event_id):
-    regvoldetails=RegVol.objects.filter(event_id=event_id,)
+    regvoldetails=RegVol.objects.filter(event_id=event_id,attendenc=False)
 
     pass

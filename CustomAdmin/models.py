@@ -10,4 +10,7 @@ class payout(models.Model):
     entity = models.TextField()
     amount = models.TextField()
     mode = models.TextField()
+
+    def __str__(self):
+        return self.vol_id
     
