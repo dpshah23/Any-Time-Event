@@ -58,10 +58,26 @@ def accept_user(request):
 @login_required(login_url='/dj-admin/')
 def pay(request):
     rem_payment=Event.objects.filter(is_paid_vol=False,paid_status=True)
-    
 
-    return render(request, 'event_payment.html',{'events_ex':rem_payment})
+    complete_payment=Event.objects.filter(is_paid_vol=True,paid_status=True)
 
+    event_complete_payment_undone=Event.objects.filter(is_paid_vol=False,paid_status=False)
+    final_event_complete_payment_undone=[]
+    for event in event_complete_payment_undone:
+        
+        days=(date.today()-event.event_date).days
+        if days>0:
+
+            final_event_complete_payment_undone.append((event,days))
+
+    # print(final_event_complete_payment_undone)
+
+    context={
+        'events_ex': rem_payment,
+        'complete_payment': complete_payment,
+        'unpaid_company': final_event_complete_payment_undone
+    }
+    return render(request, 'event_payment.html',context)
 
 @login_required(login_url='/dj-admin/')
 def acceptyes(request,volemail):
@@ -111,7 +127,7 @@ def acceptyes(request,volemail):
             server.sendmail(from_email, volemail, msg.as_string())
 
     messages.error(request,"User Accepted")
-    return redirect('admincustom/accept_vol')
+    return redirect('/admincustom/accept_vol')
     
 @login_required(login_url='/dj-admin/')    
 def acceptno(request,volemail):

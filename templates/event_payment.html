@@ -22,6 +22,35 @@
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     </head>
     <body>
+        <h2><strong>Event Completed Payment UnDone</strong></h2>
+
+        <table border="1">
+            <thead>
+            <th>Event ID</th>
+            <th>Event Name</th>
+            <th>Company Name</th>
+            <th>No of Registered Volunteers</th>
+            <th>City</th>
+            <th>Event Date</th>
+            <th>total Days</th>
+            <!-- <th class="field button-field">Status</th> -->
+            </thead>
+            <tbody>
+                {% for event,days in unpaid_company %}
+            <tr>
+            <td><a href="" >{{event.event_id}}</td>
+            <td>{{event.event_name}}</td>
+            <td>{{event.event_company}}</td>
+            <td>{{event.event_vol}}</td>
+            <td>{{event.event_location}}</td>
+            <td>{{event.event_date}}</td>
+            <td>{{days}}</td>
+            <!-- <td><a  class="field button-field" href=""><button type="button">Pay Now</button></a></td> -->
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
         <h2><strong>Remaining Payment</strong></h2>
         <table border="1">
             <thead>
@@ -59,7 +88,7 @@
                 <th>City</th>
                 </thead>
                 <tbody>
-                    {% for event in events %}
+                    {% for event in complete_payment %}
                 <tr>
                 <td><a href="" >{{event.event_id}}</td>
                 <td>{{event.event_name}}</td>
