@@ -101,9 +101,11 @@ form {
 p {
   font-size: 14px;
   color: #666;
-  margin-top: 20px;
-  text-align: center;
+  /* margin-right: 90px;  */
+  /* align-items: center;
+  text-align: center; */
 }
+
 
 @media (max-width: 975px) {
   .form {

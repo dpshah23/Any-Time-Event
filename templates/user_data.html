@@ -38,8 +38,8 @@
                         <textarea class="input" name="experience" required></textarea>
                     </div>
                     <div class="field input-field">
-                        <label for="profile_picture">Profile Picture</label>
-                        <input type="file" name="profile_picture" class="input" required>
+                        <label for="upi_id">UPI ID</label>
+                        <input type="text" name="upi_id" class="input" placeholder="UserName@Bank" required>
                     </div>
                 </div>
 
@@ -64,16 +64,20 @@
                         </select>
                     </div>
                     <div class="field input-field">
-                        <label for="upi_id">UPI ID</label>
-                        <input type="text" name="upi_id" class="input" placeholder="UserName@Bank" required>
+                        <label for="profile_picture">Profile Picture</label>
+                        <input type="file" name="profile_picture" class="input" required>
                     </div>
+                </div>
+                <div class="field-group">
                     <div class="field input-field">
                         <label for="city">City</label>
                         <input type="text" name="city" class="input"  required>
+                        <span class="right-text"><p>*Image should be of .png, .jpg, .jpeg only</p>
+                        </span>
                     </div>
+                    
                 </div>
 
-                <p>*Image should be of .png, .jpg, .jpeg only</p>
                 <div class="field button-field">
                     <button value="submit" name="submit_user_data">Sign Up</button>
                 </div>
