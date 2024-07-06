@@ -6,6 +6,9 @@ from .models import *
 import random , string
 from django.contrib import messages
 from datetime import timedelta
+import razorpay
+import os 
+from dotenv import load_dotenv
 # Create your views here.
 
 @ratelimit(key='ip', rate='5/m')
@@ -135,5 +138,16 @@ def profile(request,id):
     
 
 @ratelimit(key='ip',rate='5/m')
-def getpayment (request):
-    pass
+def getpayment (request , event_id):
+    load_dotenv()
+    key = os.getenv('api_key_razorpay')
+    secret = os.getenv('api_secret_razorpay')
+    client = razorpay.Client(auth=(key,secret))
+    total_vol=len(RegVol.objects.filter(event_id_1=event_id))
+    amount = (Event.objects.get(event_id=event_id).event_mrp) * total_vol
+    receipt_id = random.randint(0,10000)
+    data = { "amount": amount*100, "currency": "INR", "receipt": receipt_id }
+    payment = client.order.create(data=data)
+    company_success.payment_id = payment['id']
+    company_success.save()
+    return redirect ( "/")
