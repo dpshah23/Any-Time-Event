@@ -9,6 +9,7 @@ from datetime import timedelta
 import razorpay
 import os 
 from dotenv import load_dotenv
+from datetime import date
 # Create your views here.
 
 @ratelimit(key='ip', rate='5/m')
@@ -152,4 +153,11 @@ def getpayment (request , event_id):
     # print(payment)
     # company_success.payment_id = payment['id']
     # company_success.save()
+    timestamp = date.today()
+    payment_id = payment['id']
+    pay = company_success(timestamp=timestamp , payment_id = payment_id)
+    pay.save()
+    event =Event.objects.get(event_id=event_id)
+    event.paid_status = True
+    event.save()
     return render (request ,"payment.html" , {'payment':payment})
