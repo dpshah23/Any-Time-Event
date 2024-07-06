@@ -12,6 +12,10 @@ from datetime import date , timedelta
 from django.utils import timezone
 from company.models import Event,RegVol
 from django.conf import settings
+import requests
+from datetime import datetime
+from .models import payout
+from django.http import HttpResponse as httpresponse
 
 # Create your views here.
 def accept_user(request):
@@ -188,6 +192,69 @@ def acceptno(request,volemail):
     
 
 def payvol(request,event_id):
-    regvoldetails=RegVol.objects.filter(event_id=event_id,attendenc=False)
+    regvoldetails=RegVol.objects.filter(event_id_1=event_id,attendence=True,paid_status=False)
 
-    pass
+    print(regvoldetails)
+    load_dotenv()
+    key=os.getenv('api_key')
+    secret=os.getenv('api_secret')
+    all_paid=False
+    payout_endpoint="https://api.razorpay.com/v1/payouts"
+    for vol in regvoldetails:
+        email=vol.email
+        amount=Event.objects.get(event_id=event_id).actual_amount
+        fano=volunteer.objects.get(email=email).fund_id
+        data={
+        "account_number": os.getenv('acc_no'),
+        "fund_account_id": fano,
+        "amount": amount*100,
+        "currency": "INR",
+        "mode": "UPI",
+        "purpose": "refund",
+        "queue_if_low_balance": True,
+        "reference_id": "Payment For Event",
+        "narration": "Event Fund Transfer",
+        "notes": {
+            "notes_key_1":f"{event_id} - {email}",
+            "notes_key_2":"Payment Done"
+        }
+        }
+
+        print(data)
+        headers={
+            "Content-Type": "application/json",
+            
+            }
+        response=requests.post(payout_endpoint,headers=headers,json=data,auth=(key,secret))
+
+        print(response.json())
+
+        if response.status_code==200:
+            vol.paid_status=True
+            vol.save()
+            all_paid=True
+
+            timestamp=datetime.now().date
+
+            obj1=payout(timestamp=timestamp,vol_id=vol.vol_id,vol_email=vol.email,event_id=event_id,rz_id=response.json()['id'],entity=response.json()['entity'],amount=response.json()['amount'],mode=response.json()['mode'])
+            obj1.save()
+
+        else:
+            print("payment Failed")
+            all_paid=False
+            pass
+        
+        if all_paid:
+            event=Event.objects.get(event_id=event_id)
+            event.is_paid_vol=True
+            event.save()
+            messages.success(request,"Payment Done")
+            return redirect('/admincustom/pay')
+        else:
+            messages.error(request,"Payment Failed")
+            return redirect('/admincustom/pay')
+
+    
+
+        
+    
