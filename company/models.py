@@ -40,6 +40,7 @@ class RegVol(models.Model):
     skills = models.CharField(max_length=200 , null=True)
     paid_status = models.BooleanField()
     attendence = models.BooleanField(default=False)
+    vol_id = models.CharField(max_length=100 , null = True)
     
     def __str__(self):
         return self.name

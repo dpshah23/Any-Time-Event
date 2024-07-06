@@ -15,5 +15,5 @@ urlpatterns = [
     path('pay/', views.pay, name='pay'),
     path('acceptyes/<str:volemail>/', views.acceptyes, name="accept_user"),
     path('acceptno/<str:volemail>/', views.acceptno, name="reject_user"),
-    
+    path('payvol/<event_id>/' , views.payvol , name='payvolenteer' )
 ]

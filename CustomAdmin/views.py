@@ -198,14 +198,18 @@ def payvol(request,event_id):
     load_dotenv()
     key=os.getenv('api_key')
     secret=os.getenv('api_secret')
+    print(key)
+    print(secret)
     all_paid=False
     payout_endpoint="https://api.razorpay.com/v1/payouts"
     for vol in regvoldetails:
         email=vol.email
         amount=Event.objects.get(event_id=event_id).actual_amount
         fano=volunteer.objects.get(email=email).fund_id
+        print(email)
+        print (fano)
         data={
-        "account_number": os.getenv('acc_no'),
+        "account_number": '2323230032761492',
         "fund_account_id": fano,
         "amount": amount*100,
         "currency": "INR",
