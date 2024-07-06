@@ -16,6 +16,16 @@ def apply (request,event_id):
     if 'email' and 'role' not in request.session:
         messages.error(request,"You are not logged in")
         return redirect('/')
+    
+    try:
+        event=Event.objects.get(event_id=event_id)
+        if event.is_expired():
+            messages.error(request,"Event has expired")
+            return redirect('/')
+    except Event.DoesNotExist:
+        messages.error(request,"Event not found")
+        return redirect('/')
+    
     if request.session['role']== "company":
         messages.error(request,"You can not Apply to Events because this is a Company account ")
         return redirect('/')

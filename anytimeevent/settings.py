@@ -73,6 +73,7 @@ INSTALLED_APPS = [
     'company',
     'redirection',
     'volunteers',
+    'CustomAdmin',
     'unfold',
     "unfold.contrib.filters",  
     "unfold.contrib.forms", 

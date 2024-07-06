@@ -134,8 +134,6 @@ def profile(request,id):
     return render(request,"/company/profile.html",{'data':obj})
     
 
-
-    
-
-# def get_vol(request):
-
+@ratelimit(key='ip',rate='5/m')
+def getpayment (request):
+    pass
