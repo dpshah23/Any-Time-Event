@@ -145,7 +145,7 @@
   .contactForm .inputBox input:valid~span,
   .contactForm .inputBox textarea:focus~span,
   .contactForm .inputBox textarea:valid~span {
-    color: #e91e63;
+    color: #000;
     font-size: 12px;
     transform: translateY(-20px);
   }
