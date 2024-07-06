@@ -86,6 +86,7 @@ def getallevents(request):
     all_events = Event.objects.filter(company_email=email)
     events_expired = [event for event in all_events if event.is_expired()]  
     events_active = [event for event in all_events if not event.is_expired()]
+    
     return render(request,"all_events.html",{'events_ex':events_expired,'events':events_active,'company_name':company.objects.get(email=email).name})
 
 
@@ -143,11 +144,12 @@ def getpayment (request , event_id):
     key = os.getenv('api_key_razorpay')
     secret = os.getenv('api_secret_razorpay')
     client = razorpay.Client(auth=(key,secret))
+    
     total_vol=len(RegVol.objects.filter(event_id_1=event_id))
     amount = (Event.objects.get(event_id=event_id).event_mrp) * total_vol
-    receipt_id = random.randint(0,10000)
-    data = { "amount": amount*100, "currency": "INR", "receipt": receipt_id }
-    payment = client.order.create(data=data)
+    final_amt = int(amount)*100
+    payment = client.order.create({ "amount": final_amt, "currency": "INR", "payment_capture": '1' })
+    print(payment)
     company_success.payment_id = payment['id']
     company_success.save()
-    return redirect ( "/")
+    return render (request ,"all_events.html" , {'payment':payment})

@@ -107,18 +107,23 @@ body {
                   <h4><strong>Company Name:</strong> <span id="event_company">{{ r1.event_company }}</span></h4>
                   <p><strong>Event Description:</strong> <span id="event_company">{{ r1.event_description }}</span></p>
                   <div class="field button-field">
-                  <button id ="rzp-button1" type="button" >Pay Now </button>
+                  <a href = "/payments/{{r1.event_id}}"><button id ="rzp-button1" type="button" >Pay Now </button></a>
                 </div>
               </div>
-              <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+              {% endfor %}
+            </div>
+
+            
+            <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+            
               <script>
                 var options = {
                     "key": "rzp_test_1hUnK1LrP2jkMb",
-                    "amount": "{{payment.amount}}", 
+                    "amount": "{{ payment.amount }}",
                     "currency": "INR",
                     "name": "Any Time Event",
                     "description": "Payment for your Event",
-                    "order_id": "{{payment.id}}", 
+                    "order_id": "{{ payment.id }}", 
                     "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
                     
                     "theme": {
@@ -131,6 +136,4 @@ body {
                     e.preventDefault();
                 }
                 </script>
-              {% endfor %}
-            </div>
     </body>

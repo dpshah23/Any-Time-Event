@@ -1,0 +1,6 @@
+<form action ='{% url 'pay'}' method = "post">
+    {% csrf_token %}
+    
+</form>
+<button id ="rzp-button1" type="button" >Pay Now </button>
+{% endblock 'body' %}
