@@ -497,10 +497,10 @@ def volunteerinfo(request):
         try:    
             profile_pic = base64.b64encode(image_file).decode('utf-8')
             id_proof = base64.b64encode(image_file1).decode('utf-8')
-            print(profile_pic)
-            print()
-            print("hello")
-            print(id_proof)
+            # print(profile_pic)
+            # print()
+            # print("hello")
+            # print(id_proof)
         except Exception as e:
             messages.error(request, 'Error processing image files: {}'.format(str(e)))
             return render(request, 'user_data.html')
@@ -508,8 +508,6 @@ def volunteerinfo(request):
         api_key = os.getenv('api_key')   
         api_secret = os.getenv('api_secret')
         
-        print(api_key)
-        print(api_secret)
         
         if not api_key and not api_secret:
             messages.error(request, 'Payment gateway credentials not set. Please contact support.')
@@ -657,8 +655,8 @@ def reset(request):
         try:
 
             user = users.objects.filter(email=email)
-            print(email)
-            print(user)
+            # print(email)
+            # print(user)
             load_dotenv()
 
             from_email = os.getenv('EMAIL')
