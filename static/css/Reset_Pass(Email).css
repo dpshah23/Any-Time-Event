@@ -1,13 +1,13 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #f0ece2;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 90vh;
 }
 
 nav {
@@ -24,16 +24,21 @@ nav {
     border-radius: 15px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     width: 300px;
-    margin-top: 120px;
+    margin-top: 100px;
 }
 
 h2 {
     margin-bottom: 20px;
+    font-size: 32px;
 }
 
 .form-group {
     position: relative;
     margin-bottom: 15px;
+}
+
+.form-group label {
+    font-size: 18px;
 }
 
 input {
@@ -43,18 +48,20 @@ input {
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-bottom: 15px;
+    margin-top: 15px;
 }
 
 button {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #006989;
     color: #fff;
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    font-size: 15px;
 }
 
 button:hover {
-    background-color: #0465cc;
+    background-color: #027ba0;
 }
