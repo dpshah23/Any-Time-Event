@@ -6,4 +6,5 @@ urlpatterns = [
     path('contact-us',contact,name="contact"),
     path('logs-redirect-43782912342243589bxhscdujujmiainduxjea',logs,name="logs"),
     path('get-logs-saef3432546', get_logs, name='get_logs'), 
+    
 ]
