@@ -240,7 +240,7 @@ def payvol(request,event_id):
 
             timestamp=datetime.now().date
 
-            obj1=payout(timestamp=timestamp,vol_id=vol.vol_id,vol_email=vol.email,event_id=event_id,rz_id=response.json()['id'],entity=response.json()['entity'],amount=response.json()['amount'],mode=response.json()['mode'])
+            obj1=payout(timestamp1=timestamp,vol_id=vol.vol_id,vol_email=vol.email,event_id=event_id,rz_id=response.json()['id'],entity=response.json()['entity'],amount=response.json()['amount'],mode=response.json()['mode'])
             obj1.save()
 
         else:
