@@ -146,7 +146,7 @@ def getpayment (request , event_id):
     secret = os.getenv('api_secret_razorpay')
     client = razorpay.Client(auth=(key,secret))
     
-    total_vol=len(RegVol.objects.filter(event_id_1=event_id))
+    total_vol=len(RegVol.objects.filter(event_id_1=event_id,attendence=True))
     amount = (Event.objects.get(event_id=event_id).event_mrp) * total_vol
     final_amt = int(amount)*100
     payment = client.order.create({ "amount": final_amt, "currency": "INR", "payment_capture": '1' })
