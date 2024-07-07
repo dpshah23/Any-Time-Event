@@ -157,7 +157,9 @@ def getpayment (request , event_id):
     payment_id = payment['id']
     pay = company_success(timestamp=timestamp , payment_id = payment_id)
     pay.save()
-    event =Event.objects.get(event_id=event_id)
-    event.paid_status = True
-    event.save()
+    event, created = Event.objects.update_or_create(
+    event_id=event_id,
+    defaults={'paid_status': True}
+)
+
     return render (request ,"payment.html" , {'payment':payment})

@@ -107,7 +107,11 @@ body {
                   <h4><strong>Company Name:</strong> <span id="event_company">{{ r1.event_company }}</span></h4>
                   <p><strong>Event Description:</strong> <span id="event_company">{{ r1.event_description }}</span></p>
                   <div class="field button-field">
+                  {% if not r1.paid_status %}
                   <a href = "/company/payment/{{r1.event_id}}"><button type="button" >Pay Now </button></a>
+                  {% else %}
+                  <button type = button>Already Paid</button>
+                  {% endif %}
                 </div>
               </div>
               {% endfor %}
