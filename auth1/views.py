@@ -163,6 +163,11 @@ def login(request):
         return redirect('/')
     if request.method=="POST":
         email=request.POST.get('email')
+        if company.objects.get(email=email ,phone2__isnull=True ) or volunteer.objects.get(email=email , dob__isnull=True):
+            messages.error(request ,'Please enter a email address with valid details.')
+            return render(request,'Log-In.html')
+    if request.method=="POST":
+        email=request.POST.get('email')
         password=request.POST.get('password')
 
         try:
