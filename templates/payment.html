@@ -1,29 +1,277 @@
-<form action ='{% url 'pay'}' method = "post">
-    {% csrf_token %}
-    <div class="full-width">
-        <button type="submit">Submit</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock title %} | Any Time Event </title>
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0ece2;
+            overflow-x: hidden;
+        }
+
+        nav {
+            background: #dfd3c3;
+            height: 80px;
+            width: 100%;
+            z-index: 10;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        label.logo {
+            color: #000000;
+            font-size: 37px;
+            font-weight: bold;
+        }
+
+        label.logo img {
+            height: 72px;
+            margin-top: 3px;
+        }
+
+        nav ul {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        nav ul li {
+            line-height: 80px;
+        }
+
+        nav ul li a {
+            color: #006989;
+            font-size: 18px;
+            text-transform: uppercase;
+            padding: 7px 13px;
+            font-weight: 550;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+            transition: 0.1s ease-in;
+        }
+
+        .checkbtn {
+            display: none;
+            cursor: pointer;
+        }
+
+        #check {
+            display: none;
+        }
+
+        .menu {
+            height: 2rem;
+            width: 2rem;
+        }
+
+        .log-butt {
+            height: 2.5rem;
+            width: 5rem;
+            font-size: 19px;
+            font-weight: bold;
+            border-radius: 8px;
+            background-color: #006989;
+            color: #ffffff;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .log-butt a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        @media (max-width: 952px) {
+            label.logo {
+                font-size: 30px;
+            }
+
+            nav ul li a {
+                font-size: 16px;
+            }
+
+            .log-butt {
+                height: 2rem;
+                width: 4.2rem;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 858px) {
+            .checkbtn {
+                display: block;
+            }
+
+            nav ul {
+                position: fixed;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: #f0f0f0;
+                top: 80px;
+                left: -100%;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                transition: 0.5s all;
+                z-index: 10;
+            }
+
+            nav ul li {
+                margin: 20px 0;
+            }
+
+            nav ul li a {
+                font-size: 20px;
+            }
+
+            nav ul li a:hover,
+            nav ul li a.check {
+                background: none;
+                color: black;
+            }
+
+            #check:checked~ul {
+                left: 0;
+            }
+
+            .log-butt {
+                height: 3rem;
+                width: 6rem;
+                font-size: 22px;
+                background-color: #639bc6;
+            }
+        }
+
+        .container {
+            max-width: 50rem;
+            max-height: 100rem;
+            border: 1px solid black;
+            padding-left: 20px;
+            border-radius: 5px;
+            position: relative;
+            border: 1px solid #ddd;
+            background-color: white;
+            margin: 20px auto;
+        }
+
+        .form-field {
+            margin-bottom: 15px;
+        }
+
+        .form-field label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-field textarea {
+            width: 50%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .full-width {
+            text-align: center;
+        }
+
+        button[type="submit"], #rzp-button1 {
+            background-color: #0171d3;
+            color: #FFFFFF;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover, #rzp-button1:hover {
+            background-color: #005bb5;
+        }
+
+        button[type="button"] {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <input type="checkbox" id="check" />
+        <label for="check" class="checkbtn">
+            <img class="menu" src="../static/img/bars.svg" alt="Bars" />
+        </label>
+        <label class="logo">
+            <img src="../static/img/Any-Time-Event-Logo.png" alt="Logo">
+        </label>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/company/add_event">Add Event</a></li>
+            <li><a href="/company/profile">Profile</a></li>
+            <li><a href="/contact-us">Contact</a></li>
+            {% if 'email' not in request.session %}
+            <li><button class="log-butt"><a href="/auth/login">Login</a></button></li>
+            {% else %}
+            <li><button class="log-butt"><a href="/auth/logout">Logout</a></button></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div class="container">
+        <form action="{% url 'pay' %}" method="post">
+            {% csrf_token %}
+            <div class="form-field">
+                <label for="feedback">Please share Your valuable Feedback</label><br>
+                <textarea name="feedback" id="feedback"></textarea>
+            </div>
+            <div class="full-width">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+        <div class="full-width">
+            <button id="rzp-button1" type="button">Pay Now</button>
+        </div>
     </div>
-</form>
-<button id ="rzp-button1" type="button" >Pay Now </button>
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-            
-              <script>
-                var options = {
-                    "key": "rzp_test_1hUnK1LrP2jkMb",
-                    "amount": "{{ payment.amount }}",
-                    "currency": "INR",
-                    "name": "Any Time Event",
-                    "description": "Payment for your Event",
-                    "order_id": "{{ payment.id }}", 
-                    "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
-                    
-                    "theme": {
-                        "color": "#3399cc"
-                    }
-                };
-                var rzp1 = new Razorpay(options);
-                document.getElementById('rzp-button1').onclick = function(e){
-                    rzp1.open();
-                    e.preventDefault();
-                }
-                </script>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        var options = {
+            "key": "rzp_test_1hUnK1LrP2jkMb",
+            "amount": "{{ payment.amount }}",
+            "currency": "INR",
+            "name": "Any Time Event",
+            "description": "Payment for your Event",
+            "order_id": "{{ payment.id }}",
+            "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        document.getElementById('rzp-button1').onclick = function(e){
+            rzp1.open();
+            e.preventDefault();
+        }
+    </script>
+</body>
+</html>
