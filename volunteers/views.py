@@ -50,10 +50,11 @@ def apply (request,event_id):
             email = email
             phone = volunteer.objects.get(email=email).phone
             skills = volunteer.objects.get(email=email).skills
+            volid = volunteer.objects.get(email=email).vol_id
             paid_status = False
             
             
-            obj=RegVol(company_email=company_email,event_id_1=event_id_1,name=name , email=email ,phone=phone ,paid_status=paid_status) 
+            obj=RegVol(company_email=company_email,event_id_1=event_id_1,name=name , email=email ,phone=phone ,paid_status=paid_status,vol_id=volid,skills=skills,attendence=False) 
             obj.save()
             
             event_name=Event.objects.get(event_id=event_id_1).event_name
