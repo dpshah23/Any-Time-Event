@@ -10,14 +10,16 @@ body {
   font-family: sans-serif;
   background-color: #f0ece2;
   overflow-x: hidden;
+  padding-top: 80px;
 }
 
 nav {
   background: #dfd3c3;
   height: 80px;
   width: 100%;
-  z-index: 10;
-  position: relative;
+  z-index: 1000; 
+  position: fixed;
+  top: 0;
 }
 
 label.logo {
@@ -73,6 +75,7 @@ a:hover {
 .menu {
   height: 2rem;
   width: 2rem;
+  color: #006989;
 }
 
 .log-butt {
@@ -124,7 +127,7 @@ a:hover {
     left: -100%;
     text-align: center;
     transition: 0.5s all;
-    z-index: 10;
+    z-index: 1000;
   }
 
   nav ul li {

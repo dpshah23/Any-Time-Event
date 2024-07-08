@@ -26,69 +26,76 @@ nav {
     background: #dfd3c3;
     height: 90px;
     width: 100%;
-  }
-  
-  label.logo {
+    position: fixed;
+    top: 0;
+    left: 0; 
+}
+
+body {
+    margin-top: 90px;
+}
+
+label.logo {
     color: #000000;
     font-size: 37px;
     line-height: 80px;
     padding: 0 100px;
     font-weight: bold;
-  }
-  
-  label.logo img {
+}
+
+label.logo img {
     height: 79px;
-    margin-top: 10px;
-  }
-  
-  label.logo:hover {
+    margin-top: 5px;
+}
+
+label.logo:hover {
     text-decoration: underline;
-  }
-  
-  nav ul {
+}
+
+nav ul {
     float: right;
     margin-right: 20px;
-  }
-  
-  nav ul li {
+}
+
+nav ul li {
     display: inline-block;
     line-height: 80px;
     margin: 0 5px;
     margin-top: 10px;
-  }
-  
-  nav ul li a {
+}
+
+nav ul li a {
     color: #006989;
     font-size: 18px;
     text-transform: uppercase;
     padding: 7px 13px;
     font-weight: 550;
-  }
-  
-  a:hover {
+}
+
+a:hover {
     text-decoration: underline;
     transition: 0.1s ease-in;
-  }
-  
-  .checkbtn {
+}
+
+.checkbtn {
     float: right;
     line-height: 80px;
     margin-right: 40px;
     margin-top: 7px;
     cursor: pointer;
     display: none;
-  }
-  
-  #check {
+}
+
+#check {
     display: none;
-  }
-  
-  .menu {
+}
+
+.menu {
     height: 2rem;
     width: 2rem;
-  }
-  
-  .log-butt {
+}
+
+.log-butt {
     height: 2.5rem;
     width: 5rem;
     font-size: 20px;
@@ -97,85 +104,86 @@ nav {
     border-radius: 8px;
     background-color: #006989;
     color: #ffffff;
-    overflow: hidden;
-  }
-  
-  .log-butt a {
+    text-align: center;
+    padding: 0;
+}
+
+.log-butt a {
     text-decoration: none;
     color: inherit;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+}
 
-  .log-butt:hover {
+.log-butt:hover {
     background-color: #0184ac;
-  }
-  
-  @media (max-width: 952px) {
+}
+
+@media (max-width: 952px) {
     label.logo {
-      font-size: 30px;
-      padding-left: 50px;
+        font-size: 30px;
+        padding-left: 50px;
     }
-  
+
     nav ul li a {
-      font-size: 16px;
+        font-size: 16px;
     }
-  
+
     .log-butt {
-      height: 2rem;
-      width: 4.2rem;
-      font-size: 18px;
+        height: 2rem;
+        width: 4.2rem;
+        font-size: 18px;
     }
-  }
-  
-  @media (max-width: 858px) {
+}
+
+@media (max-width: 858px) {
     .checkbtn {
-      display: block;
-      color: #006989;
+        display: block;
+        color: #006989;
     }
-  
+
     ul {
-      position: fixed;
-      width: 15rem;
-      height: 100vh;
-      background-color: #f0f0f0;
-      top: 80px;
-      left: -100%;
-      text-align: center;
-      transition: 0.5s all;
+        position: fixed;
+        width: 15rem;
+        height: 100vh;
+        background-color: #f0f0f0;
+        top: 80px;
+        left: -100%;
+        text-align: center;
+        transition: 0.5s all;
     }
-  
+
     nav ul li {
-      display: block;
-      margin: 50px 0;
-      line-height: 30px;
+        display: block;
+        margin: 50px 0;
+        line-height: 30px;
     }
-  
+
     nav ul li a {
-      font-size: 20px;
+        font-size: 20px;
     }
-  
+
     a:hover,
     a.check {
-      background: none;
-      color: black;
+        background: none;
+        color: black;
     }
-  
+
     #check:checked ~ ul {
-      left: 0;
-      margin-top: 15px;
+        left: 0;
+        margin-top: 10px;
     }
-  
+
     .log-butt {
-      margin-left: 0rem;
-      height: 3rem;
-      width: 5rem;
-      font-weight: bold;
-      font-size: 21px;
-      background-color: #639bc6;
+        margin-left: 0rem;
+        height: 3rem;
+        width: 5rem;
+        font-weight: bold;
+        font-size: 21px;
+        background-color: #639bc6;
     }
-  }
+}
 
 /* Hero Message */
 

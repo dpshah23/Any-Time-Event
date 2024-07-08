@@ -18,6 +18,7 @@ import requests
 from datetime import timedelta
 import json
 import base64
+import emailvalidationio
 
 
 # Create your views here.
@@ -159,6 +160,11 @@ Exceptions:
 def login(request):
     if 'email' and 'role' in request.session:
         return redirect('/')
+    if request.method=="POST":
+        email=request.POST.get('email')
+        if company.objects.get(email=email ,phone2__isnull=True ) or volunteer.objects.get(email=email , dob__isnull=True):
+            messages.error(request ,'Please enter a email address with valid details.')
+            return render(request,'Log-In.html')
     if request.method=="POST":
         email=request.POST.get('email')
         password=request.POST.get('password')
@@ -309,6 +315,20 @@ Returns:
 def signup (request):
     if request.method == 'POST':
         email = request.POST.get('email')
+        load_dotenv()
+        api=os.getenv('api_key_email_validation')
+        print(api)
+
+        client = emailvalidationio.Client(api)
+        
+        result=client.validate(email)
+
+        print(result)
+        if result['mx_found'] is False or result['smtp_check'] is False or result['reason'] == 'invalid_mailbox':
+            messages.error(request, 'Invalid Email')
+            return redirect('/auth/signup')
+        
+
         if users.objects.filter(email=email).exists():
                 messages.info(request, 'Email already registered')
                 return render(request, 'Sign-Up.html')
@@ -506,6 +526,8 @@ def volunteerinfo(request):
         load_dotenv()
         api_key = os.getenv('api_key')   
         api_secret = os.getenv('api_secret')
+        print(api_key)
+        print(api_secret)
         
         
         if not api_key and not api_secret:

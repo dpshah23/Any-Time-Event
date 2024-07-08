@@ -40,18 +40,24 @@ class RegVol(models.Model):
     skills = models.CharField(max_length=200 , null=True)
     paid_status = models.BooleanField()
     attendence = models.BooleanField(default=False)
+    vol_id = models.CharField(max_length=100 , null = True)
     
     def __str__(self):
         return self.name
     
-    class company_success(models.Model):
-        timestamp = models.DateField()
-        payment_id = models.TextField()
-        order_id = models.TextField()
-        signature = models.TextField()
-        
-    class company_error(models.Model):
-        timestamp = models.DateField()
-        code = models.TextField()
-        description = models.TextField()
-        reason = models.TextField()
+class company_success(models.Model):
+    timestamp = models.DateField()
+    payment_id = models.TextField()
+    order_id = models.TextField()
+    signature = models.TextField()
+
+    def __str__(self):
+        return self.payment_id        
+class company_error(models.Model):
+    timestamp = models.DateField()
+    code = models.TextField()
+    description = models.TextField()
+    reason = models.TextField()
+
+    def __str__(self):
+        return self.description
