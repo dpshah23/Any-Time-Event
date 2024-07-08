@@ -47,7 +47,7 @@ def add_event(request):
         # event_completed =
         actual_amount = int(event_mrp) - ((int(event_mrp) * 25)/100)
         print(actual_amount)
-        event1 = Event(company_email = email , event_id=event_id,event_company=event_company,event_name=event_name,event_date=event_date,event_time=event_time,event_end_time=event_end_time,event_location=event_location,event_loc_link=event_loc_link,event_city=event_city,event_description=event_description,event_skills=event_skills,event_rep=event_rep,event_rep_no=event_rep_no,event_mrp=event_mrp,event_vol=event_vol,actual_amount=actual_amount)
+        event1 = Event(company_email = email , event_id=event_id,event_company=event_company,event_name=event_name,event_date=event_date,event_time=event_time,event_end_time=event_end_time,event_location=event_location,event_loc_link=event_loc_link,event_city=event_city.lower(),event_description=event_description,event_skills=event_skills,event_rep=event_rep,event_rep_no=event_rep_no,event_mrp=event_mrp,event_vol=event_vol,actual_amount=actual_amount)
         event1.save()
         
         messages.success(request,"Event Added Successfully")
@@ -164,7 +164,7 @@ def getpayment (request , event_id):
 
     return render (request ,"payment.html" , {'payment':payment})
 
-def editevent(request,event_id):
+def editevent(request,event_id1):
     if 'email' and 'role' not in request.session:
         messages.error(request,"You are not logged in")
         return redirect('/')
@@ -173,11 +173,49 @@ def editevent(request,event_id):
         messages.error(request,"You Don't have permission to view this page")
     try:
 
-        event=Event.objects.get(event_id=event_id)
+        event=Event.objects.get(event_id=event_id1)
 
         if request.method=="POST":
+            email = request.session['email']
+            event_company = company.objects.get(email=email).name
+            event_name = request.POST.get('eventName')
+            event_date = request.POST.get('date')
+            event_time = request.POST.get('time')
+            event_end_time = request.POST.get('etime')
+            event_location = request.POST.get('location')
+            event_loc_link = request.POST.get('location_link')
+            event_city = request.POST.get('event_city')
+            event_description = request.POST.get('eventDescription')
+            event_skills = request.POST.get('skills_needed')
+            event_rep = request.POST.get('companyRep')
+            event_rep_no = request.POST.get('contactNo')
+            event_vol = request.POST.get('requiredVolunteers')
+            event_mrp = request.POST.get('ratePerPerson')
+            actual_amount = int(event_mrp) - ((int(event_mrp) * 25)/100)
+            obj, created = Event.objects.update_or_create(
+                event_id=event_id1,
+                defaults={
+                    'event_name':event_name,
+                    'event_date':event_date,
+                    'event_time':event_time,
+                    'event_end_time':event_end_time,
+                    'event_location':event_location,
+                    'event_loc_link':event_loc_link,
+                    'event_city':event_city.lower(),
+                    'event_description':event_description,
+                    'event_skills':event_skills,
+                    'event_rep':event_rep,
+                    'event_rep_no':event_rep_no,
+                    'event_mrp':event_mrp,
+                    'event_vol':event_vol,
+                    'actual_amount':actual_amount,
+                }
+            )
             
-            pass
+
+            print("Updated")
+            messages.success(request,'Event Details Updated Successfully')
+            return redirect('/company/events/')
     except Event.DoesNotExist:
         messages.error('Event Does Not Exists')
         return redirect('/company/')
