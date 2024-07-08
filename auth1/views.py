@@ -23,6 +23,7 @@ import emailvalidationio
 
 # Create your views here.
 """
+Function: validate(request)
 ---------------------------
 
 Description:
@@ -160,10 +161,52 @@ Exceptions:
 def login(request):
     if 'email' and 'role' in request.session:
         return redirect('/')
+    
+#     if request.method=="POST":
+#         email=request.POST.get('email')
+#         try:
+#             if company.objects.get(email=email, phone2__isnull=True):
+#                 print(email)
+#                 messages.error(request, 'Please enter an email address with all the details.')
+#                 return render(request, 'Log-In.html')
+#             elif volunteer.objects.get(email=email, dob__isnull=True):
+#                 print(email)
+#                 messages.error(request, 'Please enter an email address with all the details.')
+#                 return render(request, 'Log-In.html')
+#             else :
+#                 messages.error(request, 'Email Does Not Exist.....')
+#                 return render(request, 'Log-In.html')
+#         except (company.DoesNotExist, volunteer.DoesNotExist):
+#             messages.error(request, 'Email Does Not Exist')
+#             return render(request, 'Log-In.html')
+    
     if request.method=="POST":
         email=request.POST.get('email')
         password=request.POST.get('password')
+        email_exists = False
 
+        try:
+            if company.objects.get(email=email, phone2__isnull=True):
+                print(email)
+                messages.error(request, 'Please enter an email address with all the details.')
+                return render(request, 'Log-In.html')
+            email_exists = True
+        except company.DoesNotExist:
+            pass
+        
+        try:
+            if volunteer.objects.get(email=email, dob__isnull=True):
+                print(email)
+                messages.error(request, 'Please enter an email address with all the details.')
+                return render(request, 'Log-In.html')
+            email_exists = True
+        except volunteer.DoesNotExist:
+            pass
+        
+        # if not email_exists:
+        #     messages.error(request, 'Email Does Not Exist.')
+        #     return render(request, 'Log-In.html')
+        
         try:
             # print(1)
             user=users.objects.get(email=email)
@@ -180,12 +223,7 @@ def login(request):
                 messages.error(request, 'Invalid Credentials')
                 return render(request, 'Log-In.html')
             # print(decrypted_pass)
-            
-            # email=request.POST.get('email')
-            # if company.objects.get(email=email ,phone2__isnull=True ) or volunteer.objects.get(email=email , dob__isnull=True):
-            #     messages.error(request ,'Please enter a email address with valid details.')
-            #     return render(request,'Log-In.html')
-            
+    
             if user.email==email and decrypted_pass==password and users.objects.get(email=email).is_active!= False :
                 
 
