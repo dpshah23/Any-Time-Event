@@ -117,7 +117,8 @@ def profile(request,id):
         return redirect('/')
     
     if request.session['role']=="company":
-        messages.error(request,"You Don't have permission to view this page")
+        messages.error(request,"You Do Not have permission to view this page")
+        return redirect('/')
 
     try:
         

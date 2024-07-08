@@ -138,7 +138,7 @@ def profile(request,id):
         messages.error(request,"Company Not Found")
         return redirect('/company/')
     
-    return render(request,"profile.html",{'data':obj , 'is_company': True})
+    return render(request,"profile.html",{'data':obj })
     
 
 @ratelimit(key='ip',rate='5/m')

@@ -8,12 +8,12 @@
 </head>
 <body>
     <div class="profile-container">
-        {% if not is_comapany %}
+        {% if request.session.role == "company" %}
         <div class="profile-header">
-            <img src="" alt="Profile Picture" class="profile-picture" id="profile-picture">
+            <img src="data:image/png;base64,{{data.logo}}" width="80px" heigth="80" alt="Profile Picture" class="profile-picture" id="profile-picture">
         </div>
         <div class="profile-details">
-            <h2>Personal Information</h2>
+            <h2>Company Information</h2>
             <p><strong>Name:</strong> <span id="phone">{{data.name}}</span></p>
             <p><strong>Email:</strong> <span id="email">{{data.email}}</span></p>
             <p><strong>Phone:</strong> <span id="phone">{{data.phone1}}</span></p>
@@ -23,10 +23,10 @@
         </div>
         {% else %}
         <div class="profile-header">
-            <img src="" alt="Profile Picture" class="profile-picture" id="profile-picture">
+            <img src="data:image/png;base64,{{obj.profile_pic}}" width="80px" heigth="80" alt="Profile Picture" class="profile-picture" id="profile-picture">
             </div>
             <div class="profile-details">
-                <h2>Company Information</h2>
+                <h2>Volunteer Information</h2>
                 <p><strong>Name:</strong> <span id="phone">{{obj.name}}</span></p>
                 <p><strong>Email:</strong> <span id="email">{{obj.email}}</span></p>
                 <p><strong>Phone:</strong> <span id="phone">{{obj.phone}}</span></p>
