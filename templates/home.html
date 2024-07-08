@@ -68,11 +68,11 @@
                 <div class="event-image"></div>
             </center>
             <div class="event-details">
-                <h2>{{ events.1.event_name }}</h2>
-                <p>Date & Time: {{events.1.event_date}}, {{events.1.event_time}} - {{events.1.event_end_time}}</p>
-                <p>Location: {{events.1.event_location}}</p>
+                <h2>{{ events.0.event_name }}</h2>
+                <p>Date & Time: {{events.0.event_date}}, {{events.0.event_time}} - {{events.0.event_end_time}}</p>
+                <p>Location: {{events.0.event_location}}</p>
                 {% if 'email' in request.session and request.session.role == "volunteer" %}
-                <a href="/volunteer/apply/{{events.1.event_id}}"><button>Apply Now</button></a>
+                <a href="/volunteer/apply/{{events.0.event_id}}"><button>Apply Now</button></a>
                 {% else %}
                 {% if 'email' not in request.session %}
                     <a href="/auth/login"><button>Apply Now</button></a>
@@ -85,6 +85,31 @@
             {% endif %}
             {% endif %}
                 {% endif %}
+            </div>
+        </div>
+
+        <div class="event-card">
+            <center>
+                <div class="event-image"></div>
+            </center>
+            <div class="event-details">
+                <h2>{{events.1.event_name}}</h2>
+                <p>Date & Time: {{events.1.event_date}}, {{events.1.event_time}} - {{events.1.event_end_time}}</p>
+                <p>Location: {{events.1.event_location}}</p>
+                {% if 'email' in request.session and request.session.role == "volunteer" %}
+                <a href="/volunteer/apply/{{events.1.event_id}}"><button>Apply Now</button></a>
+                {% else %}
+                {% if 'email' not in request.session %}
+                <a href="/auth/login"><button>Apply Now</button></a>
+                {% else %}
+                {% if request.session.role == "company" %}
+                <a href="#" onclick="alert('Only volunteers can apply. Please log in with a volunteer account.');"><button>Apply Now</button></a>
+               
+                {% else %}
+                <a href="/"><button>Apply Now</button></a>
+                {% endif %}
+                {% endif %}
+                {% endif %}
             </div>
         </div>
 
@@ -135,6 +160,8 @@
                 {% endif %}
                 {% endif %}
                 {% endif %}
+
+
             </div>
         </div>
 
@@ -144,7 +171,7 @@
             </center>
             <div class="event-details">
                 <h2>{{events.4.event_name}}</h2>
-                <p>Date & Time: {{events.4.event_date}}, {{events.4.event_time}} - {{events.4.event_end_time}}</p>
+                <p>Date & Time:{{events.4.event_date}}, {{events.4.event_time}} - {{events.4.event_end_time}}</p>
                 <p>Location: {{events.4.event_location}}</p>
                 {% if 'email' in request.session and request.session.role == "volunteer" %}
                 <a href="/volunteer/apply/{{events.4.event_id}}"><button>Apply Now</button></a>
@@ -160,8 +187,6 @@
                 {% endif %}
                 {% endif %}
                 {% endif %}
-
-
             </div>
         </div>
 
@@ -171,35 +196,10 @@
             </center>
             <div class="event-details">
                 <h2>{{events.5.event_name}}</h2>
-                <p>Date & Time:{{events.5.event_date}}, {{events.5.event_time}} - {{events.5.event_end_time}}</p>
+                <p>Date & Time: {{events.5.event_date}}, {{events.5.event_time}} - {{events.5.event_end_time}}</p>
                 <p>Location: {{events.5.event_location}}</p>
                 {% if 'email' in request.session and request.session.role == "volunteer" %}
                 <a href="/volunteer/apply/{{events.5.event_id}}"><button>Apply Now</button></a>
-                {% else %}
-                {% if 'email' not in request.session %}
-                <a href="/auth/login"><button>Apply Now</button></a>
-                {% else %}
-                {% if request.session.role == "company" %}
-                <a href="#" onclick="alert('Only volunteers can apply. Please log in with a volunteer account.');"><button>Apply Now</button></a>
-               
-                {% else %}
-                <a href="/"><button>Apply Now</button></a>
-                {% endif %}
-                {% endif %}
-                {% endif %}
-            </div>
-        </div>
-
-        <div class="event-card">
-            <center>
-                <div class="event-image"></div>
-            </center>
-            <div class="event-details">
-                <h2>{{events.6.event_name}}</h2>
-                <p>Date & Time: {{events.6.event_date}}, {{events.6.event_time}} - {{events.6.event_end_time}}</p>
-                <p>Location: {{events.6.event_location}}</p>
-                {% if 'email' in request.session and request.session.role == "volunteer" %}
-                <a href="/volunteer/apply/{{events.6.event_id}}"><button>Apply Now</button></a>
                 {% else %}
                 {% if 'email' not in request.session %}
                 <a href="/auth/login"><button>Apply Now</button></a>
