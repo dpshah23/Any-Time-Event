@@ -23,7 +23,6 @@ import emailvalidationio
 
 # Create your views here.
 """
-Function: validate(request)
 ---------------------------
 
 Description:
