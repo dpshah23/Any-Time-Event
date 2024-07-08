@@ -162,8 +162,8 @@ header {
   position: absolute;
   left: 0;
   top: 0;
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   border: 2px solid #ccc;
   border-radius: 4px;
   background-color: #fff;
@@ -179,8 +179,8 @@ header {
   position: absolute;
   left: 7px;
   top: 3px;
-  width: 10px;
-  height: 18px;
+  width: 7px;
+  height: 12px;
   border: solid white;
   border-width: 0 3px 3px 0;
   transform: rotate(45deg);
