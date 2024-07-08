@@ -68,11 +68,18 @@
                         <td>{{ volunteer.email }}</td>
                         <td>{{ volunteer.phone }}</td>
                         <td>{{ volunteer.skills }}</td>
+
+                        {% if not volunteer.attendence %}
                         <td class="field"><button type="button" name="Present">
-                            <a href="/">Present</a></button>
+                            <a href="/company/present/{{volunteer.event_id_1}}/{{volunteer.email}}">Present</a></button>
                             <button class="absent" type="button" name="Absent">
-                            <a href="/">Absent</a></button>
-                        </td>
+                                <a href="/company/absent/{{volunteer.event_id_1}}/{{volunteer.email}}">Absent</a></button>
+                            </td>
+                            {% else %}
+                            <td>
+                                <p>Attendance Already Marked</p>
+                            </td>
+                            {% endif %}
                         
                     </tr>
                     {% endfor %}

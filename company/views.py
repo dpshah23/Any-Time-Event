@@ -224,3 +224,20 @@ def editevent(request,event_id1):
         return redirect('/')
 
     return render(request,'edit_event.html',{'event':event})
+
+def markattendenceyes(request,event_id,email):
+    obj=RegVol.objects.get(event_id_1=event_id,email=email)
+    obj.attendence=True
+    obj.save()
+    messages.success(request,"Attendence Marked To Present")
+    return redirect(f'/company/get_volunteers/{event_id}')
+
+
+def markattendenceno(request,event_id,email):
+    obj=RegVol.objects.get(event_id_1=event_id,email=email)
+    obj.attendence=False
+    obj.save()
+    messages.success(request,"Attendence Marked To Absent")
+    return redirect(f'/company/get_volunteers/{event_id}')
+
+
