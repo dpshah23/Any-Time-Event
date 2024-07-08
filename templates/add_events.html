@@ -15,69 +15,57 @@
 
 
 <div class="form-container">
-    <h3>Add Events</h3>
-    <form id="eventForm" action ='{% url "add_event" %}' method = "post">
-      {% csrf_token %}
-        <div class="left-side">
-            <label for="companyName">Event Name:</label>
-            <input type="text" id="eventName" name="eventName" required>
+  <h3>Add Events</h3>
+  <form id="eventForm" action="#" method="post">
+      <div class="left-side">
+          <label for="eventName">Event Name:</label>
+          <input type="text" id="eventName" name="eventName" required>
 
-            <label for="location">Location:</label>
-            <input type="text" id="location" name="location" required>
+          <label for="location">Location:</label>
+          <input type="text" id="location" name="location" required>
 
-            <label for="skills_needed">Skills needed :</label>
-            <textarea id="skills_needed" name="skills_needed" required></textarea>
+          <label for="skills_needed">Skills Needed:</label>
+          <textarea id="skills_needed" name="skills_needed" required></textarea>
 
-            <label for="date">Date:</label>
-            <input type="date" id="date" name="date" min="<%= (new Date()).toISOString().split('T')[0] %>" required>
+          <label for="date">Date:</label>
+          <input type="date" id="date" name="date" required>
+      </div>
+      <div class="middle-side">
+          <label for="time">Start Time:</label>
+          <input type="time" id="time" name="time" required>
 
-            <label for="time"> Start Time:</label>
-            <input type="time" id="time" name="time" required>
+          <label for="etime">End Time:</label>
+          <input type="time" id="etime" name="etime" required>
 
-            <label for="time"> End Time:</label>
-            <input type="time" id="time" name="etime" required>
+          <label for="eventDescription">Event Description:</label>
+          <textarea id="eventDescription" placeholder="Event details, Dress Code, Skills required" name="eventDescription" required></textarea>
 
-            <label for="eventDescription">Event Description:</label>
-            <textarea id="eventDescription"  placeholder="Event details , Dress Code , Skills required"  name="eventDescription" required></textarea>
-        </div>
-        <div class="right-side">
-            <label for="ratePerPerson">Rate per Person:</label>
-            <input type="number" id="ratePerPerson" name="ratePerPerson" required>
+          <label for="ratePerPerson">Rate per Person:</label>
+          <input type="number" id="ratePerPerson" name="ratePerPerson" required>
+      </div>
+      <div class="right-side">
+          <label for="requiredVolunteers">Required Number of Volunteers:</label>
+          <input type="number" id="requiredVolunteers" name="requiredVolunteers" required>
 
-            <label for="requiredVolunteers">Required Number of Volunteers:</label>
-            <input type="number" id="requiredVolunteers" name="requiredVolunteers" required>
-            <span id="volunteerError" class="error-message"></span>
+          <label for="companyRep">Company Representative Name:</label>
+          <input type="text" id="companyRep" name="companyRep" required>
 
-            <label for="companyRep">Company Representative Name:</label>
-            <input type="text" id="companyRep" name="companyRep" required>
+          <label for="contactNo">Contact No:</label>
+          <input type="text" id="contactNo" name="contactNo" pattern="\d{10}" title="Please enter exactly 10 digits" required>
+          <span id="contactError" class="error-message"></span>
 
-            <label for="contactNo">Contact No:</label>
-            <input type="number" id="contactNo" name="contactNo" required>
-            <span id="contactError" class="error-message"></span>
-            
-            <label for="event_city">City:</label>
-            <input type="text" id="event_city" placeholder="City Name" name="event_city" required>
-            
-            <label for="location_link">Location Link:</label>
-            <input type="text" id="location_link" placeholder="Google Maps Link" name="location_link" required>
-        </div>
-        <div class="full-width">
-            <button type="submit">Submit</button>
-        </div>
-    </form>
+          <label for="event_city">City:</label>
+          <input type="text" id="event_city" name="event_city" required>
+
+          <label for="location_link">Location Link:</label>
+          <input type="text" id="location_link" name="location_link" required>
+      </div>
+      <div class="full-width">
+          <button type="submit">Submit</button>
+      </div>
+  </form>
 </div>
-<script>
-  var today = new Date();
-  var formattedToday = today.toISOString().split('T')[0];
-  document.getElementById('date').min = formattedToday;
-  
-  document.getElementById('date').addEventListener('change', function() {
-      var selectedDate = new Date(this.value);
-      if (selectedDate < today) {
-          this.value = formattedToday;
-          alert('Please select a date that is today or in the future.');
-      }
-  });
-  </script>
-<!-- <script src="../static/js/Add_Events.js"></script> -->
+
+<script src="../static/js/Add_Events.js"></script>
+
 {% endblock body %}

@@ -1,28 +1,25 @@
-document.getElementById('eventForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    let isValid = true;
-    const volunteerField = document.getElementById('requiredVolunteers');
-    const contactField = document.getElementById('contactNo');
-    const volunteerError = document.getElementById('volunteerError');
-    const contactError = document.getElementById('contactError');
-    
-    volunteerError.style.display = 'none';
-    contactError.style.display = 'none';
+document.addEventListener('DOMContentLoaded', function() {
+    var today = new Date();
+    var formattedToday = today.toISOString().split('T')[0];
+    document.getElementById('date').min = formattedToday;
 
-    // if (volunteerField.value.length !== 1) {
-    //     volunteerError.textContent = 'Required number of volunteers must be exactly 10 digits.';
-    //     volunteerError.style.display = 'block';
-    //     isValid = false;
-    // }
+    document.getElementById('date').addEventListener('change', function() {
+        var selectedDate = new Date(this.value);
+        if (selectedDate < today) {
+            this.value = formattedToday;
+            alert('Please select a date that is today or in the future.');
+        }
+    });
 
-    if (contactField.value.length !== 10) {
-        contactError.textContent = 'Contact number must be exactly 10 digits.';
-        contactError.style.display = 'block';
-        isValid = false;
-    }
-
-    if (isValid) {
-        alert('Form submitted!');
-    }
+    document.getElementById('eventForm').addEventListener('submit', function(event) {
+        var contactNo = document.getElementById('contactNo').value;
+        var contactError = document.getElementById('contactError');
+        
+        if (!/^\d{10}$/.test(contactNo)) {
+            contactError.textContent = 'Contact number must be exactly 10 digits.';
+            event.preventDefault();
+        } else {
+            contactError.textContent = '';
+        }
+    });
 });
