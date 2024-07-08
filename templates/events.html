@@ -72,7 +72,7 @@ body {
             </iframe> -->
 
             
-            {% if request.session.email and request.session.role == "company" and request.session.email == event.company_email %}
+            {% if request.session.email and request.session.role == "company" and request.session.email == event.company_email  %}
             {% comment %} <p><strong>Number of Volunteers Registered:</strong></p> {% endcomment %}
            
             <div class="field button-field">

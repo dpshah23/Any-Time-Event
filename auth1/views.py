@@ -163,11 +163,6 @@ def login(request):
         return redirect('/')
     if request.method=="POST":
         email=request.POST.get('email')
-        if company.objects.get(email=email ,phone2__isnull=True ) or volunteer.objects.get(email=email , dob__isnull=True):
-            messages.error(request ,'Please enter a email address with valid details.')
-            return render(request,'Log-In.html')
-    if request.method=="POST":
-        email=request.POST.get('email')
         password=request.POST.get('password')
 
         try:
@@ -186,7 +181,12 @@ def login(request):
                 messages.error(request, 'Invalid Credentials')
                 return render(request, 'Log-In.html')
             # print(decrypted_pass)
-    
+            
+            # email=request.POST.get('email')
+            # if company.objects.get(email=email ,phone2__isnull=True ) or volunteer.objects.get(email=email , dob__isnull=True):
+            #     messages.error(request ,'Please enter a email address with valid details.')
+            #     return render(request,'Log-In.html')
+            
             if user.email==email and decrypted_pass==password and users.objects.get(email=email).is_active!= False :
                 
 
