@@ -8,19 +8,38 @@
 </head>
 <body>
     <div class="profile-container">
+        {% if not is_comapany %}
         <div class="profile-header">
             <img src="" alt="Profile Picture" class="profile-picture" id="profile-picture">
         </div>
         <div class="profile-details">
             <h2>Personal Information</h2>
-            <p><strong>Name:</strong> <span id="phone">{{user1.name}}</span></p>
-            <p><strong>Email:</strong> <span id="email">{{user1.email}}</span></p>
-            <p><strong>Phone:</strong> <span id="phone">{{user1.phone}}</span></p>
-            <p><strong>Gender:</strong> <span id="phone">{{user1.gender}}</span></p>
-            <p><strong>Age:</strong> <span id="phone">{{user1.age}}</span></p>
-            <p><strong>Bio:</strong> <span id="phone">{{user1.description}}</span></p>
+            <p><strong>Name:</strong> <span id="phone">{{data.name}}</span></p>
+            <p><strong>Email:</strong> <span id="email">{{data.email}}</span></p>
+            <p><strong>Phone:</strong> <span id="phone">{{data.phone1}}</span></p>
+            <p><strong>Website:</strong> <span id="website">{{data.website}}</span></p>
+            <p><strong>Address:</strong> <span id="address">{{data.address}}</span></p>
+            <p><strong>Bio:</strong> <span id="phone">{{data.description}}</span></p>
         </div>
+        {% else %}
+        <div class="profile-header">
+            <img src="" alt="Profile Picture" class="profile-picture" id="profile-picture">
+            </div>
+            <div class="profile-details">
+                <h2>Company Information</h2>
+                <p><strong>Name:</strong> <span id="phone">{{obj.name}}</span></p>
+                <p><strong>Email:</strong> <span id="email">{{obj.email}}</span></p>
+                <p><strong>Phone:</strong> <span id="phone">{{obj.phone}}</span></p>
+                <p><strong>Date Of Birth:</strong> <span id="dob">{{obj.dob}}</span></p>
+                <p><strong>Skills:</strong> <span id="skills">{{obj.skills}}</span></p>
+                <p><strong>Qualification:</strong> <span id="qua">{{obj.qualification}}</span></p>
+                <p><strong>Experience:</strong> <span id="qua">{{obj.experience}}</span></p>
+                <p><strong>Description:</strong> <span id="des">{{obj.description}}</span></p>
+                <p><strong>UPI Id:</strong> <span id="upi">{{obj.upi}}</span></p>
+                <p><strong>City:</strong> <span id="city">{{obj.city}}</span></p>
 
+
+        {% endif %}
     <script src="script.js"></script>
 </body>
 </html> 

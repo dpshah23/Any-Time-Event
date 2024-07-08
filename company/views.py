@@ -88,7 +88,7 @@ def getallevents(request):
     events_expired = [event for event in all_events if event.is_expired()]  
     events_active = [event for event in all_events if not event.is_expired()]
     
-    return render(request,"all_events.html",{'events_ex':events_expired,'events':events_active,'company_name':company.objects.get(email=email).name})
+    return render(request,"all_events.html",{'events_ex':events_expired,'events':events_active,'company_name':company.objects.get(email=email).name , 'obj' : company.objects.get (email = email)})
 
 
 @ratelimit(key='ip', rate='10/m')
@@ -118,6 +118,8 @@ def gettotalvol(request,event_id):
 
 @ratelimit(key='ip',rate='10/m')
 def profile(request,id):
+    # print(id)
+    # print('in profile')
     if 'email' and 'role' not in request.session:
         messages.error(request,"You are not logged in")
         return redirect('/')
@@ -126,7 +128,7 @@ def profile(request,id):
         messages.error(request,"You Don't have permission to view this page")
 
     try:
-        print(id)
+        
         obj=company.objects.get(comp_id=id)
         if obj.email!=request.session['email']:
             messages.error(request,"You Don't have permission to view this page")
@@ -136,7 +138,7 @@ def profile(request,id):
         messages.error(request,"Company Not Found")
         return redirect('/company/')
     
-    return render(request,"/company/profile.html",{'data':obj})
+    return render(request,"profile.html",{'data':obj , 'is_company': True})
     
 
 @ratelimit(key='ip',rate='5/m')

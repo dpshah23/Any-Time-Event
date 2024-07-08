@@ -107,3 +107,27 @@ def dispevents(request):
     print(page_obj_active,page_obj_expired)
     return render(request,"volunteer/events_disp.html",{'events_ex':page_obj_expired,'events':page_obj_active})
 
+@ratelimit(key='ip',rate='10/m')
+def profile(request,id):
+    # print(id)
+    # print('in profile')
+    if 'email' and 'role' not in request.session:
+        messages.error(request,"You are not logged in")
+        return redirect('/')
+    
+    if request.session['role']=="company":
+        messages.error(request,"You Don't have permission to view this page")
+
+    try:
+        
+        obj=volunteer.objects.get(vol_id=id)
+        if obj.email!=request.session['email']:
+            messages.error(request,"You Don't have permission to view this page")
+        print(obj)
+    except Exception as e:
+        print("error")
+        messages.error(request,"Volunteer Not Found")
+        return redirect('/volunteer/')
+    
+    return render(request,"profile.html",{'obj':obj , 'is_volunteer': True})
+    
