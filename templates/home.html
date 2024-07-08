@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/img/Any-Time-Event-Logo.png">
+
 </head>
 
 <body>
@@ -27,27 +29,27 @@
             <li><a href="/">About</a></li>
             <li><a href="#">Services</a></li>
             <li><a href="/contact-us">Contact</a></li>
-            {% if 'email' in request.session  %}
+            {% if 'email' in request.session %}
             {% if request.session.role == "volunteer" %}
-                <li><a href="volunteer/">Dashboard</a></li>
+            <li><a href="volunteer/">Dashboard</a></li>
             {% else %}
             <li><a href="company/">Dashboard</a></li>
             {% endif %}
             {% endif %}
-            {% if 'email' not in request.session  %}
-                <button class="log-butt"><a href="/auth/login">Login</a></button>
+            {% if 'email' not in request.session %}
+            <button class="log-butt"><a href="/auth/login">Login</a></button>
             {% else %}
-                <button class="log-butt"><a href="/auth/logout">Logout</a></button>
+            <button class="log-butt"><a href="/auth/logout">Logout</a></button>
             {% endif %}
-            </ul>
+        </ul>
     </nav>
     {% if messages %}
-    {% for message in messages  %}
+    {% for message in messages %}
     <script>
         alert("{{message}}");
     </script>
     {% endfor %}
-{% endif %}
+    {% endif %}
 
     <!-- Hero Message -->
 
@@ -61,7 +63,7 @@
     </div>
 
     <!-- Events Cards -->
-    
+
     <div class="container">
         <div class="event-card">
             <center>
@@ -75,15 +77,17 @@
                 <a href="/volunteer/apply/{{events.0.event_id}}"><button>Apply Now</button></a>
                 {% else %}
                 {% if 'email' not in request.session %}
-                    <a href="/auth/login"><button>Apply Now</button></a>
+                <a href="/auth/login"><button>Apply Now</button></a>
                 {% else %}
-                    {% if request.session.role == "company" %}
-                    <a href="#" onclick="alert('Only volunteers can apply. Please log in with a volunteer account.');"><button>Apply Now</button></a>
-                   
+                {% if request.session.role == "company" %}
+                <a href="#"
+                    onclick="alert('Only volunteers can apply. Please log in with a volunteer account.');"><button>Apply
+                        Now</button></a>
+
                 {% else %}
                 <a href="/"><button>Apply Now</button></a>
-            {% endif %}
-            {% endif %}
+                {% endif %}
+                {% endif %}
                 {% endif %}
             </div>
         </div>
@@ -128,13 +132,15 @@
                 <a href="/auth/login"><button>Apply Now</button></a>
                 {% else %}
                 {% if request.session.role == "company" %}
-                <a href="#" onclick="alert('Only volunteers can apply. Please log in with a volunteer account.');"><button>Apply Now</button></a>
-               
+                <a href="#"
+                    onclick="alert('Only volunteers can apply. Please log in with a volunteer account.');"><button>Apply
+                        Now</button></a>
+
                 {% else %}
                 <a href="/"><button>Apply Now</button></a>
                 {% endif %}
                 {% endif %}
-                {% endif %}
+                     {% endif %}
             </div>
         </div>
 
@@ -153,15 +159,15 @@
                 <a href="/auth/login"><button>Apply Now</button></a>
                 {% else %}
                 {% if request.session.role == "company" %}
-                <a href="#" onclick="alert('Only volunteers can apply. Please log in with a volunteer account.');"><button>Apply Now</button></a>
-               
+                <a href="#"
+                    onclick="alert('Only volunteers can apply. Please log in with a volunteer account.');"><button>Apply
+                        Now</button></a>
+
                 {% else %}
                 <a href="/"><button>Apply Now</button></a>
                 {% endif %}
                 {% endif %}
                 {% endif %}
-
-
             </div>
         </div>
 
@@ -180,13 +186,17 @@
                 <a href="/auth/login"><button>Apply Now</button></a>
                 {% else %}
                 {% if request.session.role == "company" %}
-                <a href="#" onclick="alert('Only volunteers can apply. Please log in with a volunteer account.');"><button>Apply Now</button></a>
-               
+                <a href="#"
+                    onclick="alert('Only volunteers can apply. Please log in with a volunteer account.');"><button>Apply
+                        Now</button></a>
+
                 {% else %}
                 <a href="/"><button>Apply Now</button></a>
                 {% endif %}
                 {% endif %}
                 {% endif %}
+
+
             </div>
         </div>
 
@@ -205,6 +215,33 @@
                 <a href="/auth/login"><button>Apply Now</button></a>
                 {% else %}
                 {% if request.session.role == "company" %}
+                <a href="#"
+                    onclick="alert('Only volunteers can apply. Please log in with a volunteer account.');"><button>Apply
+                        Now</button></a>
+
+                {% else %}
+                <a href="/"><button>Apply Now</button></a>
+                {% endif %}
+                {% endif %}
+                     {% endif %}
+            </div>
+        </div>
+
+        <div class="event-card">
+            <center>
+                <div class="event-image"></div>
+            </center>
+            <div class="event-details">
+                <h2>{{events.6.event_name}}</h2>
+                <p>Date & Time: {{events.6.event_date}}, {{events.6.event_time}} - {{events.6.event_end_time}}</p>
+                <p>Location: {{events.6.event_location}}</p>
+                {% if 'email' in request.session and request.session.role == "volunteer" %}
+                <a href="/volunteer/apply/{{events.6.event_id}}"><button>Apply Now</button></a>
+                {% else %}
+                {% if 'email' not in request.session %}
+                <a href="/auth/login"><button>Apply Now</button></a>
+                {% else %}
+                {% if request.session.role == "company" %}
                 <a href="#" onclick="alert('Only volunteers can apply. Please log in with a volunteer account.');"><button>Apply Now</button></a>
                
                 {% else %}
@@ -215,7 +252,7 @@
             </div>
         </div>
     </div>
-        
+
     <!-- Clients Review -->
 
     <div class="reviews-container">
@@ -226,7 +263,8 @@
                 <h3 class="client-name">Aarav Sharma</h3>
                 <p class="client-status">Happy Client</p>
                 <p class="review-text">
-                    "I’ve been using Any Time Event for now, and it has never let me down. The user interface is intuitive, and the customer support is excellent. Highly recommend!"
+                    "I’ve been using Any Time Event for now, and it has never let me down. The user interface is
+                    intuitive, and the customer support is excellent. Highly recommend!"
                 </p>
             </div>
             <div class="review-card">
@@ -234,7 +272,9 @@
                 <h3 class="client-name">Kavita Bhatia</h3>
                 <p class="client-status">Happy Client</p>
                 <p class="review-text">
-                    "As a new user, I was impressed by how easy it was to get started with Any Time Event. The onboarding process was seamless, and the support team was always there to help when I had questions."
+                    "As a new user, I was impressed by how easy it was to get started with Any Time Event. The
+                    onboarding process was seamless, and the support team was always there to help when I had
+                    questions."
                 </p>
             </div>
             <div class="review-card">
@@ -242,7 +282,8 @@
                 <h3 class="client-name">Rajesh Kapoor</h3>
                 <p class="client-status">Happy Client</p>
                 <p class="review-text">
-                    "The features and functionality of Any Time Event are fantastic. It’s exactly what I needed to streamline my workflow. I’m extremely happy with my choice."
+                    "The features and functionality of Any Time Event are fantastic. It’s exactly what I needed to
+                    streamline my workflow. I’m extremely happy with my choice."
                 </p>
             </div>
         </div>

@@ -16,7 +16,7 @@
 
 <div class="form-container">
   <h3>Add Events</h3>
-  <form id="eventForm" action="#" method="post">
+  <form id="eventForm" action ='{% url "add_event" %}' method = "post">
       <div class="left-side">
           <label for="eventName">Event Name:</label>
           <input type="text" id="eventName" name="eventName" required>
