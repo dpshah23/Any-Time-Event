@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% block title %}{% endblock title %} | Any Time Event </title>
+  <!-- <title>Events | Any Time Event </title> -->
   <link rel="stylesheet" href="../static/css/navbar.css" />
   <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css" />
   <style>
@@ -275,7 +275,7 @@
     <label for="check" class="checkbtn">
       <img class="menu" src="../static/img/bars.svg" alt="Bars" />
     </label>
-    <label class="logo"><img src="../static/img/Any-Time-Event-Logo.png" alt="Logo"></label>
+    <label class="logo"><img src="/static/img/Any-Time-Event-Logo.png" alt="Logo"></label>
     <ul>
       <li><a href="/">Home</a></li>
       <li><a href="/company/add_event">Add Event</a></li>
@@ -290,6 +290,10 @@
   </nav>
   <h1>Upcoming Events</h1>
   <div class="post-container">
+    {% if not events %}
+   
+
+    {% endif %}
     {% for p1 in events %}
     <div class="container">
 
@@ -301,6 +305,12 @@
   </div>
   <br><br>
   <h1>Expired Events</h1>
+
+  {% if not events_ex %}
+
+  
+  {% endif %}
+
   <div class="post-container">
     {% for r1 in events_ex %}
     <div class="container">

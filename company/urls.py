@@ -9,4 +9,5 @@ urlpatterns = [
     path('get_volunteers/<event_id>/',gettotalvol,name='gettotalvol'),
     path('profile/<id>/',profile,name="profile_comp"),
     path('payment/<event_id>/' , getpayment ,name='pay' ),
+    path('editevent/<event_id>',editevent,name="editevent")
 ]

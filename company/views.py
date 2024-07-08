@@ -163,3 +163,26 @@ def getpayment (request , event_id):
 )
 
     return render (request ,"payment.html" , {'payment':payment})
+
+def editevent(request,event_id):
+    if 'email' and 'role' not in request.session:
+        messages.error(request,"You are not logged in")
+        return redirect('/')
+    
+    if request.session['role']=="volunteer":
+        messages.error(request,"You Don't have permission to view this page")
+    try:
+
+        event=Event.objects.get(event_id=event_id)
+
+        if request.method=="POST":
+            
+            pass
+    except Event.DoesNotExist:
+        messages.error('Event Does Not Exists')
+        return redirect('/company/')
+    except Exception as e:
+        print(e)
+        return redirect('/')
+
+    return render(request,'edit_event.html',{'event':event})
