@@ -188,7 +188,7 @@ def login(request):
         try:
             if company.objects.get(email=email, phone2__isnull=True):
                 print(email)
-                messages.error(request, 'Please enter an email address with all the details.')
+                messages.error(request, 'Please Sign up again with complete details after 5 minutes.')
                 return render(request, 'Log-In.html')
             email_exists = True
         except company.DoesNotExist:
@@ -197,7 +197,7 @@ def login(request):
         try:
             if volunteer.objects.get(email=email, dob__isnull=True):
                 print(email)
-                messages.error(request, 'Please enter an email address with all the details.')
+                messages.error(request, 'Please Sign up again with complete details after 5 minutes.')
                 return render(request, 'Log-In.html')
             email_exists = True
         except volunteer.DoesNotExist:

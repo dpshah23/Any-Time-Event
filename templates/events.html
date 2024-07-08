@@ -74,12 +74,16 @@ body {
             
             {% if request.session.email and request.session.role == "company" and request.session.email == event.company_email  %}
             {% comment %} <p><strong>Number of Volunteers Registered:</strong></p> {% endcomment %}
-           
+            {% if not event1 %}
             <div class="field button-field">
                 <a href="/company/get_volunteers/{{event.event_id}}"> <button type="button">Registered Volunteers</button></a>
                 <a href="/company/editevent/{{event.event_id}}"> <button type="button">Edit Event </button></a>
             </div>
-
+            {% else %}
+            <div class="field button-field">
+                <a href="/company/get_volunteers/{{event.event_id}}"> <button type="button">Registered Volunteers</button></a>
+            </div>
+            {% endif %}
            
             {% endif %}
             

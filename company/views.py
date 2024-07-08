@@ -71,8 +71,8 @@ def getevent(request,event_id):
     except Event.DoesNotExist:
         messages.error(request,"Event Not Found")
         return redirect('/company/')
-    
-    return render (request , "events.html",{'event':events})
+    event1 = events.is_expired
+    return render (request , "events.html",{'event':events , 'event1' : event1})
 
 @ratelimit(key='ip', rate='5/m')
 def getallevents(request):
