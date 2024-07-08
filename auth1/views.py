@@ -22,7 +22,6 @@ import base64
 
 # Create your views here.
 """
-Function: validate(request)
 ---------------------------
 
 Description:
