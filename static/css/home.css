@@ -455,7 +455,7 @@ button:hover {
     border-radius: 10px;
     margin: 20px;
     flex-shrink: 0;
-    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); */
+    height: 16rem;
 }
 
 .about-us-info {
@@ -471,6 +471,7 @@ button:hover {
 
 .about-us-info p {
     margin-bottom: 10px;
+    font-size: 17px;
 }
 
 .about-us-container button {
