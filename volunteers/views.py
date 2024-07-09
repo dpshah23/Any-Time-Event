@@ -158,3 +158,26 @@ def getevent(request,id):
     
 
     return render(request,"volunteer/events.html",{'event':event,'unregistered':unregistered})
+
+
+def unregister(request,event_id):
+    if 'email' and 'role' not in request.session:
+        messages.error(request,"You are not logged in")
+        return redirect('/')
+    
+    if request.session['role']=="company":
+        messages.error(request,"You Do Not have permission to view this page")
+        return redirect('/')
+
+    try:
+        email=request.session['email']
+        isreg=RegVol.objects.get(email=email,event_id_1=event_id)
+        isreg.delete()
+
+        messages.success(request,"UnRegistered From Event Successfully")
+
+        return redirect('/volunteer/events/')
+
+    except RegVol.DoesNotExist:
+        messages.error(request,"You Didn't apply in this event")
+        return redirect('/volunteer/events/')
