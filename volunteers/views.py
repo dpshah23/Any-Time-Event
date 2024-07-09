@@ -133,3 +133,28 @@ def profile(request,id):
     
     return render(request,"profile.html",{'obj':obj , 'is_volunteer': True})
     
+def getevent(request,id):
+    if 'email' and 'role' not in request.session:
+        messages.error(request,"You are not logged in")
+        return redirect('/')
+    
+    if request.session['role']=="company":
+        messages.error(request,"You Do Not have permission to view this page")
+        return redirect('/')
+
+    try:
+        event=Event.objects.get(event_id=id)
+        try:
+            email=request.session['email']
+            isreg=RegVol.objects.get(event_id_1=id,email=email)
+            unregistered=True
+        except RegVol.DoesNotExist:
+            unregistered=False
+
+            pass
+    except Event.DoesNotExist:
+        messages.error(request,'Event Does Not Exist')
+        return redirect('/volunteer/events/')
+    
+
+    return render(request,"volunteer/events.html",{'event':event,'unregistered':unregistered})

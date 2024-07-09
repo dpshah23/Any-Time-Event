@@ -74,13 +74,13 @@
                 <p>Date & Time: {{events.0.event_date}}, {{events.0.event_time}} - {{events.0.event_end_time}}</p>
                 <p>Location: {{events.0.event_location}}</p>
                 {% if 'email' in request.session and request.session.role == "volunteer" %}
-                <a href="/volunteer/apply/{{events.0.event_id}}"><button>Apply Now</button></a>
+                <a href="/volunteer/events/{{events.0.event_id}}"><button>Apply Now</button></a>
                 {% else %}
                 {% if 'email' not in request.session %}
                 <a href="/auth/login"><button>Apply Now</button></a>
                 {% else %}
                 {% if request.session.role == "company" %}
-                <a href="#"
+                <a href=""
                     onclick="alert('Only volunteers can apply. Please log in with a volunteer account.');"><button>Apply
                         Now</button></a>
 
@@ -101,7 +101,7 @@
                 <p>Date & Time: {{events.1.event_date}}, {{events.1.event_time}} - {{events.1.event_end_time}}</p>
                 <p>Location: {{events.1.event_location}}</p>
                 {% if 'email' in request.session and request.session.role == "volunteer" %}
-                <a href="/volunteer/apply/{{events.1.event_id}}"><button>Apply Now</button></a>
+                <a href="/volunteer/events/{{events.1.event_id}}"><button>Apply Now</button></a>
                 {% else %}
                 {% if 'email' not in request.session %}
                 <a href="/auth/login"><button>Apply Now</button></a>
@@ -126,7 +126,7 @@
                 <p>Date & Time: {{events.2.event_date}}, {{events.2.event_time}} - {{events.2.event_end_time}}</p>
                 <p>Location: {{events.2.event_location}}</p>
                 {% if 'email' in request.session and request.session.role == "volunteer" %}
-                <a href="/volunteer/apply/{{events.2.event_id}}"><button>Apply Now</button></a>
+                <a href="/volunteer/events/{{events.2.event_id}}"><button>Apply Now</button></a>
                 {% else %}
                 {% if 'email' not in request.session %}
                 <a href="/auth/login"><button>Apply Now</button></a>
@@ -153,7 +153,7 @@
                 <p>Date & Time: {{events.3.event_date}}, {{events.3.event_time}} - {{events.3.event_end_time}}</p>
                 <p>Location: {{events.3.event_location}}</p>
                 {% if 'email' in request.session and request.session.role == "volunteer" %}
-                <a href="/volunteer/apply/{{events.3.event_id}}"><button>Apply Now</button></a>
+                <a href="/volunteer/events/{{events.3.event_id}}"><button>Apply Now</button></a>
                 {% else %}
                 {% if 'email' not in request.session %}
                 <a href="/auth/login"><button>Apply Now</button></a>
@@ -180,7 +180,7 @@
                 <p>Date & Time:{{events.4.event_date}}, {{events.4.event_time}} - {{events.4.event_end_time}}</p>
                 <p>Location: {{events.4.event_location}}</p>
                 {% if 'email' in request.session and request.session.role == "volunteer" %}
-                <a href="/volunteer/apply/{{events.4.event_id}}"><button>Apply Now</button></a>
+                <a href="/volunteer/events/{{events.4.event_id}}"><button>Apply Now</button></a>
                 {% else %}
                 {% if 'email' not in request.session %}
                 <a href="/auth/login"><button>Apply Now</button></a>
@@ -209,7 +209,7 @@
                 <p>Date & Time: {{events.5.event_date}}, {{events.5.event_time}} - {{events.5.event_end_time}}</p>
                 <p>Location: {{events.5.event_location}}</p>
                 {% if 'email' in request.session and request.session.role == "volunteer" %}
-                <a href="/volunteer/apply/{{events.5.event_id}}"><button>Apply Now</button></a>
+                <a href="/volunteer/events/{{events.5.event_id}}"><button>Apply Now</button></a>
                 {% else %}
                 {% if 'email' not in request.session %}
                 <a href="/auth/login"><button>Apply Now</button></a>

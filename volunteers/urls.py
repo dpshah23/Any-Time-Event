@@ -7,4 +7,5 @@ urlpatterns = [
     path('apply/',applyerr,name="applyerr"),
     path('events/',dispevents,name='dispevents'),
     path('profile/<id>/',profile,name="profile_vol"),
+    path('events/<id>',getevent,name='geteventvol')
 ]
