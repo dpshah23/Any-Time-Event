@@ -94,6 +94,56 @@ header {
     margin-top: 10px;
 }
 
+.terms-conditions {
+    display: flex;
+    align-items: center;
+    font-size: 17px;
+    color: #333;
+    margin-bottom: 20px;
+    justify-content: center;
+    margin-top: 22px;
+}
+
+.terms-conditions input[type="checkbox"] {
+    transform: scale(1.5);
+    margin-right: 10px;
+    accent-color: #006989;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border: 1.5px solid #cacaca;
+    border-radius: 3px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.terms-conditions input[type="checkbox"]:checked {
+    background-color: #006989;
+    border-color: #006989;
+}
+
+.terms-conditions input[type="checkbox"]:checked:after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 1.3px;
+    width: 4px;
+    height: 7px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.terms-conditions a {
+    color: #006989;
+    text-decoration: none;
+}
+
+.terms-conditions a:hover {
+    text-decoration: underline;
+}
+
 .button-field {
     display: flex;
     justify-content: center;

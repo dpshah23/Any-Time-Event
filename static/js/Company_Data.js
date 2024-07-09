@@ -1,14 +1,18 @@
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.querySelector("form");
     const contactNoField = document.getElementById("contact_no_2");
+    const errorMessage = contactNoField.nextElementSibling;
 
     form.addEventListener("submit", function(event) {
-        const contactNo = contactNoField.value;
+        const contactNo = contactNoField.value.trim();
+        const digitRegex = /^\d{10}$/;
 
-        if (contactNo.length !== 10) {
+        if (!digitRegex.test(contactNo)) {
             event.preventDefault();
-            alert("Alternate Contact No. should be exactly 10 digits.");
+            errorMessage.style.display = "block";
             contactNoField.focus();
+        } else {
+            errorMessage.style.display = "none";
         }
     });
 });
