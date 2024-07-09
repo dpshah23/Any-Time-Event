@@ -289,7 +289,6 @@ a:hover {
     }
 }
 
-
 /* Events cards */
 
 .container {
@@ -308,8 +307,7 @@ a:hover {
     text-align: center;
 }
 
-.event-image {
-    background: url('../img/Any-Time-Event-Logo.png') center/cover no-repeat;
+.event-image img {
     height: 150px;
     border-radius: 10px;
     width: 210px;
