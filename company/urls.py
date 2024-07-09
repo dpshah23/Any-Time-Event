@@ -8,6 +8,7 @@ urlpatterns = [
     path('events/',getallevents,name='getallevents'),
     path('get_volunteers/<event_id>/',gettotalvol,name='gettotalvol'),
     path('profile/<id>/',profile,name="profile_comp"),
+    path('editprofile/<email>' , editcompany , name = 'editcompany'),
     path('payment/<event_id>/' , getpayment ,name='pay' ),
     path('editevent/<event_id1>',editevent,name="editevent"),
     path('present/<event_id>/<email>',markattendenceyes,name="present"),

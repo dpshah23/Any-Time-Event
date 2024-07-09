@@ -173,7 +173,7 @@ def profile(request,id):
         return redirect('/')
 
     try:
-        
+        email = volunteer.objects.get(vol_id = id ).email
         obj=volunteer.objects.get(vol_id=id)
         if obj.email!=request.session['email']:
             messages.error(request,"You Don't have permission to view this page")
@@ -183,7 +183,7 @@ def profile(request,id):
         messages.error(request,"Volunteer Not Found")
         return redirect('/volunteer/')
     
-    return render(request,"profile.html",{'obj':obj , 'is_volunteer': True})
+    return render(request,"profile.html",{'obj':obj , 'is_volunteer': True , 'volunteer':email})
     
 def getevent(request,id):
     if 'email' and 'role' not in request.session:
@@ -276,3 +276,53 @@ def generate_ics(event_name, event_date, event_time, event_location,event_end_ti
     END:VCALENDAR
     """
     return cal
+
+def editvol(request,email):
+    if 'email' and 'role' not in request.session:
+        messages.error(request,"You are not logged in")
+        return redirect('/')
+    
+    if request.session['role']=="company":
+        messages.error(request,"You Don't have permission to view this page")
+    try:
+
+        vol = volunteer.objects.get(email=email)
+        if request.method=="POST":
+            email = request.session['email']
+            id = volunteer.objects.get(email= email).vol_id
+            name = request.POST.get('name')
+            phone = request.POST.get('phone')
+            dob = request.POST.get('dob')
+            experience = request.POST.get('experience')
+            skills = request.POST.get('skills')
+            qualification = request.POST.get('qualification')
+            emergency_contact = request.POST.get('emergency_contact')
+            city = request.POST.get('city')
+            description = request.POST.get('description')
+            obj, created = volunteer.objects.update_or_create(
+                email=email,
+                defaults={
+                    'name':name,
+                    'phone' :phone,
+                    'dob': dob,
+                    'experience' : experience,
+                    'skills' : skills,
+                    'qualification' : qualification,
+                    'emergency_contact' : emergency_contact,
+                    'city' : city,
+                    'description' : description
+                }
+            )
+            
+
+            print("Updated")
+            messages.success(request,'Volunteer Details Updated Successfully')
+            return redirect(f'/volunteer/profile/{id}')
+    except volunteer.DoesNotExist:
+        messages.error('volunteer Does Not Exists')
+        return redirect('/volunteer/')
+    except Exception as e:
+        print(e)
+        return redirect('/')
+
+    return render(request,'edit_vol.html',{'volunteer':vol})

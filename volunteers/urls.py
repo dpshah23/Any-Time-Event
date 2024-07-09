@@ -7,6 +7,7 @@ urlpatterns = [
     path('apply/',applyerr,name="applyerr"),
     path('events/',dispevents,name='dispevents'),
     path('profile/<id>/',profile,name="profile_vol"),
+    path('editprofile/<email>/',editvol,name="editvol"),
     path('events/<id>',getevent,name='geteventvol'),
     path('unregister/<event_id>',unregister,name="unregister"),
 ]

@@ -21,6 +21,9 @@
             <p><strong>Address:</strong> <span id="address">{{data.address}}</span></p>
             <p><strong>Bio:</strong> <span id="phone">{{data.description}}</span></p>
         </div>
+        <div class="field button-field">
+            <a href="/company/editprofile/{{company}}"> <button type="button">Edit Details </button></a>
+        </div>
         {% else %}
         <div class="profile-header">
             <img src="data:image/png;base64,{{obj.profile_pic}}" width="80px" heigth="80" alt="Profile Picture" class="profile-picture" id="profile-picture">
@@ -37,7 +40,10 @@
                 <p><strong>Description:</strong> <span id="des">{{obj.description}}</span></p>
                 <p><strong>UPI Id:</strong> <span id="upi">{{obj.upi}}</span></p>
                 <p><strong>City:</strong> <span id="city">{{obj.city}}</span></p>
-
+            </div>
+            <div class="field button-field">
+                <a href="/volunteer/editprofile/{{volunteer}}"> <button type="button">Edit Details </button></a>
+            </div>
 
         {% endif %}
     <script src="script.js"></script>

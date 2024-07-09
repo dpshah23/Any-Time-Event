@@ -185,7 +185,7 @@ def profile(request,id):
         messages.error(request,"You Don't have permission to view this page")
 
     try:
-        
+        email = company.objects.get(comp_id = id ).email
         obj=company.objects.get(comp_id=id)
         if obj.email!=request.session['email']:
             messages.error(request,"You Don't have permission to view this page")
@@ -195,7 +195,7 @@ def profile(request,id):
         messages.error(request,"Company Not Found")
         return redirect('/company/')
     
-    return render(request,"profile.html",{'data':obj })
+    return render(request,"profile.html",{'data':obj , 'company':email})
     
 
 @ratelimit(key='ip',rate='5/m')
@@ -317,3 +317,46 @@ def bulkmail(smtp_server, port, sender_email, sender_password, subject, body, re
             server.sendmail(sender_email, recipient, msg.as_string())
             print(f"Email sent to {recipient}")
     pass
+
+
+def editcompany(request,email):
+    if 'email' and 'role' not in request.session:
+        messages.error(request,"You are not logged in")
+        return redirect('/')
+    
+    if request.session['role']=="volunteer":
+        messages.error(request,"You Don't have permission to view this page")
+    try:
+
+        comp = company.objects.get(email=email)
+        if request.method=="POST":
+            email = request.session['email']
+            id = company.objects.get(email= email).comp_id
+            name = request.POST.get('name')
+            phone1 = request.POST.get('phone1')
+            address = request.POST.get('address')
+            website = request.POST.get('website')
+            phone2 = request.POST.get('phone2')
+            description = request.POST.get('description')
+            obj, created = company.objects.update_or_create(
+                email=email,
+                defaults={
+                    'name':name,
+                    'phone1' :phone1,
+                    'address': address,
+                    'website' : website,
+                    'phone2' : phone2,
+                    'description' : description
+                }
+            )
+            
+            messages.success(request,'Company Details Updated Successfully')
+            return redirect(f'/company/profile/{id}')
+    except company.DoesNotExist:
+        messages.error('company Does Not Exists')
+        return redirect('/company/')
+    except Exception as e:
+        print(e)
+        return redirect('/')
+
+    return render(request,'edit_company.html',{'company':comp})

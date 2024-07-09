@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Company Data {% endblock title %}
+{% block body %}
+{% if messages %}
+  {% for message in messages %}
+    <div class="custom-alert custom-alert-{{ message.tags }}">
+      {{ message }}
+      <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+    </div>
+  {% endfor %}
+{% endif %}
+
+
+<link rel="stylesheet" href="../static/css/Company_Data.css">
+<link rel="stylesheet" href="../static/js/Company_Data.js">
+
+<section class="container forms">
+    <div class="form login">
+        <div class="form-content">
+            <header>Edit Details of Company</header>
+            <form id="companyForm" action ='/company/editprofile/{{company.email}}' method = "post">
+            {% csrf_token %}
+            <div class="field-group">
+                <div class="field input-field">
+                    <label for="Name">Name:</label>
+                    <input type="text" id="Name" value={{company.name}} name="name" required>
+                </div>
+                <div class="field input-field">
+                    <label for="phone1">Contact Number:</label>
+                    <input type="number" id="phone1" value={{company.phone1}} name="phone1" required>
+                </div>
+            </div>
+            <div class="field-group">
+                <div class="field input-field">
+                    <label for="website">Website</label>
+                    <input type="text" id="website" name="website" value ={{company.website}} class="input"required>
+                </div>
+                <div class="field input-field">
+                    <label for="phone2">Alternate Contact No.</label>
+                    <input type="number" id="phone2" name="phone2" value ={{company.phone2}} class="input" required>
+                </div>
+            </div>  
+            <div class="field-group">
+                <div class="field input-field">
+                    <label for="description">Description</label>
+                    <input type="text" id="description" name="description" value = {{company.description}} class="input" required>
+                </div>
+            </div>
+              <div class="field button-field">
+                  <button type="submit">Update Details</button>
+              </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock body %}

@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Volunteer Data {% endblock title %}
+{% block body %}
+{% if messages %}
+  {% for message in messages %}
+    <div class="custom-alert custom-alert-{{ message.tags }}">
+      {{ message }}
+      <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+    </div>
+  {% endfor %}
+{% endif %}
+
+<link rel="stylesheet" href="../static/css/user_data.css">
+
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+<section class="container forms">
+    <div class="form login">
+        <div class="form-content">
+            <header>Edit Details of Volunteer</header>
+            <form id="volunteerForm" action ='/volunteer/editprofile/{{volunteer.email}}' method = "post">
+            {% csrf_token %}
+
+            <div class="field-group">
+                <div class="field input-field">
+                    <label for="name">Name :</label>
+                    <input type="text" name="name" class="input" value = {{volunteer.name}} required>
+                </div>
+                <div class="field input-field">
+                    <label for="phone">Contact No. :</label>
+                    <input type="number" name="phone" value = {{volunteer.phone}} class="input" required>
+                </div>
+            </div>
+            <div class="field-group">
+                <div class="field input-field">
+                    <label for="dob">Date of Birth :</label>
+                    <input type="date" name="dob" value = {{volunteer.dob}} class="input" id="birthdate" required>
+                </div>
+                <div class="field input-field">
+                    <label for="emergency_contact">Emergency Contact No. :</label>
+                    <input type="number" name="emergency_contact" value = {{volunteer.emergency_contact}} class="input" required>
+                </div>
+            </div>
+
+            <div class="field-group">
+                <div class="field input-field">
+                    <label for="experience">Experience :</label>
+                    <textarea class="input" name="experience" value = {{volunteer.experience}} required></textarea>
+                </div>
+                <div class="field input-field">
+                    <label for="skills">Skills :</label>
+                    <textarea class="input" name="skills" value = {{volunteer.skills}} required></textarea>
+                </div>
+            </div>
+
+            <div class="field-group">
+                <div class="field input-field">
+                    <label for="qualification">Qualification :</label>
+                    <select name="qualification" id="qualification" required>
+                        <option value="employee">Employee</option>
+                        <option value="student">Student</option>
+                        <option value="volunteer">Others</option>
+                    </select>
+                </div>
+                <div class="field input-field">
+                    <label for="city">City :</label>
+                    <input type="text" name="city" value = {{volunteer.city}} class="input"  required>
+                </div>
+            </div>
+            
+                <div class="field input-field">
+                    <label for="description">Description :</label>
+                    <input type="text" id="description" name="description" value = {{volunteer.description}} class="input" required>
+                </div>
+            
+
+            <div class="field button-field">
+                <button value="submit" name="submit">Update details</button>
+            </div>
+        </form>
+    </div>
+</div>
+</section>
+
+<script>
+document.getElementById('birthdate').addEventListener('change', function() {
+    var birthdate = new Date(this.value);
+    var minDate = new Date();
+    minDate.setFullYear(minDate.getFullYear() - 16);
+
+    if (birthdate > minDate) {
+        alert('Please select a birthdate that makes you at least 16 years old.');
+        this.value = '';
+    }
+});
+</script>
+
+<script src="../static/js/Sign-up.js"></script>
+{% endblock body %}
