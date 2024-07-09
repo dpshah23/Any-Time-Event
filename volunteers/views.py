@@ -5,6 +5,16 @@ from django.contrib import messages
 from company.models import *
 from auth1.models import *
 from django.core.paginator import Paginator
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.application import MIMEApplication
+from email.mime.base import MIMEBase
+from email import encoders
+import os
+from dotenv import load_dotenv
+from datetime import datetime
+
 
 # Create your views here.
 @ratelimit(key='ip', rate='5/m')
@@ -58,8 +68,50 @@ def apply (request,event_id):
             obj.save()
             
             event_name=Event.objects.get(event_id=event_id_1).event_name
-            messages.success(request,f"Applied Successfully to {event_name}")
-            return redirect('/')
+            event_date=Event.objects.get(event_id=event_id_1).event_date
+            event_time=Event.objects.get(event_id=event_id_1).event_time.strftime("%I:%M %p")
+            event_end_time=Event.objects.get(event_id=event_id_1).event_end_time.strftime("%I:%M %p")
+            event_location=Event.objects.get(event_id=event_id_1).event_location
+            event_company=Event.objects.get(event_id=event_id_1).event_company
+            event_loc_link=Event.objects.get(event_id=event_id_1).event_loc_link
+
+            smtp_server = 'smtp.gmail.com'
+            port = 587
+
+            subject = f"Application Received for {event_name}"
+            body = f"""
+            <h1 style="text-align:center">Application Received</h1>
+            <p>
+            Dear Volunteer,
+            </p>
+            <p>
+            We are pleased to inform you that your application for the event "{event_name}" has been received successfully.
+            </p>
+            <p>
+            <strong>Event Details:</strong><br>
+            Date: {event_date}<br>
+            Time: {event_time}<br>
+            End Time: {event_end_time}<br>
+            Location: {event_location}<br>
+            Organized by: {event_company}<br>
+            Location Link: {event_loc_link}<br>
+            </p>
+            <p>
+            Thank you for your interest in participating. We will review your application and contact you with further details soon.
+            </p>
+            <p>
+                If you have any questions or need further assistance, please do not hesitate to contact us.
+            </p>
+            <p>Best regards,<br>Any Time Event Team</p>
+        """
+    load_dotenv()
+    from_email=os.getenv('EMAIL')
+    password=os.getenv('PASSWORD1')
+    sendmail(smtp_server, port, from_email, password, subject, body,email, event_name, event_date, event_time, event_location ,event_end_time)
+
+
+    messages.success(request,f"Applied Successfully to {event_name}")
+    return redirect('/')
     
 @ratelimit(key='ip', rate='10/m')
 def applyerr(request):
@@ -181,3 +233,46 @@ def unregister(request,event_id):
     except RegVol.DoesNotExist:
         messages.error(request,"You Didn't apply in this event")
         return redirect('/volunteer/events/')
+    
+def sendmail(smtp_server, port, sender_email, sender_password, subject, body,recipient, event_name, event_date, event_time, event_location ,event_end_time):
+    cal = generate_ics(event_name, event_date, event_time, event_location,event_end_time)
+    server = smtplib.SMTP(smtp_server, port)
+    server.starttls()  
+    server.login(sender_email, sender_password)
+   
+    msg = MIMEMultipart()
+    msg['From'] = sender_email
+    msg['To'] = recipient
+    msg['Subject'] = subject
+
+      
+    msg.attach(MIMEText(body, 'html'))
+
+    part = MIMEBase('text', 'calendar')
+    part.set_payload(cal)
+    encoders.encode_base64(part)
+    part.add_header('Content-Disposition', f'attachment; filename="{event_name}.ics"')
+    msg.attach(part)
+
+    server.sendmail(sender_email, recipient, msg.as_string())
+    print(f"Email sent to {recipient}")
+
+
+    server.quit()
+
+def generate_ics(event_name, event_date, event_time, event_location,event_end_time):
+    event_begin = datetime.strptime(f"{event_date} {event_time}", "%Y-%m-%d %I:%M %p")
+    event_end = datetime.strptime(f"{event_date} {event_end_time}", "%Y-%m-%d %I:%M %p")
+    
+    cal = f"""BEGIN:VCALENDAR
+    VERSION:2.0
+    PRODID:-//hacksw/handcal//NONSGML v1.0//EN
+    BEGIN:VEVENT
+    SUMMARY:{event_name}
+    DTSTART:{event_begin.strftime('%Y%m%dT%H%M%S')}
+    DTEND:{event_end.strftime('%Y%m%dT%H%M%S')}
+    LOCATION:{event_location}
+    END:VEVENT
+    END:VCALENDAR
+    """
+    return cal
