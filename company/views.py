@@ -10,6 +10,11 @@ import razorpay
 import os 
 from dotenv import load_dotenv
 from datetime import date
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.application import MIMEApplication
+
 # Create your views here.
 
 @ratelimit(key='ip', rate='5/m')
@@ -49,7 +54,59 @@ def add_event(request):
         print(actual_amount)
         event1 = Event(company_email = email , event_id=event_id,event_company=event_company,event_name=event_name,event_date=event_date,event_time=event_time,event_end_time=event_end_time,event_location=event_location,event_loc_link=event_loc_link,event_city=event_city.lower(),event_description=event_description,event_skills=event_skills,event_rep=event_rep,event_rep_no=event_rep_no,event_mrp=event_mrp,event_vol=event_vol,actual_amount=actual_amount)
         event1.save()
+    
+        events=Event.objects.filter(company_email=email)
+        vollist=[]
+        load_dotenv()
+        from_email = os.getenv('EMAIL')
+        password = os.getenv('PASSWORD1')
+        for event in events:
+            try:
+                emailids = RegVol.objects.filter(event_id_1=event.event_id).values_list('email', flat=True)
+                vollist.extend(emailids)
+            except Exception as e:
+                print(e)
+                pass
         
+        # Remove duplicates from the volunteer list
+        vollist = list(set(vollist))
+
+        smtp_server = 'smtp.gmail.com'
+        port = 587
+
+        subject=f"New Event Alert from {event_company}"
+
+        registration_link=f"http://127.0.0.1:8000/volunteer/events/{event_id}"
+
+        body=f"""
+        <h1 style="text-align:center">New Event Alert</h1>
+        <p>
+        Dear Volunteer,
+        </p>
+        <p>
+            We are excited to inform you that {event_company}, with whom you previously registered for an event, is organizing another event!
+        </p>
+        <p>
+        <strong>Event Details:</strong><br>
+        Event Name: {event_name}<br>
+        Date: {event_date}<br>
+        Location: {event_location}<br>
+        </p>
+        <p>
+            We would love for you to participate in this new event. To register, please click the link below:
+        </p>
+        <p style="text-align:center">
+            <a href="{registration_link}" style="display:inline-block;padding:10px 20px;margin:10px;color:white;background-color:#4CAF50;border-radius:5px;text-decoration:none;">Register Now</a>
+        </p>
+        <p>
+        If you have any questions or need further assistance, please do not hesitate to contact us.
+        </p>
+        <p>
+            We look forward to your continued participation and support.
+        </p>
+        <p>Best regards,<br>Any Time Event</p>
+        """
+        bulkmail(smtp_server, port, from_email, password, subject,body, vollist)
         messages.success(request,"Event Added Successfully")
         return redirect('/company/')
         
@@ -243,3 +300,20 @@ def markattendenceno(request,event_id,email):
     return redirect(f'/company/get_volunteers/{event_id}')
 
 
+def bulkmail(smtp_server, port, sender_email, sender_password, subject, body, recipient_list):
+    with smtplib.SMTP(smtp_server, port) as server:
+        server.starttls()  # Start TLS encryption
+        server.login(sender_email, sender_password)
+        
+        for recipient in recipient_list:
+            # Create the email headers and body
+            msg = MIMEMultipart()
+            msg['From'] = sender_email
+            msg['To'] = recipient
+            msg['Subject'] = subject
+            msg.attach(MIMEText(body, 'html'))
+
+            # Send the email
+            server.sendmail(sender_email, recipient, msg.as_string())
+            print(f"Email sent to {recipient}")
+    pass

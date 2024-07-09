@@ -315,6 +315,3 @@ def send_bulk_email(smtp_server, port, sender_email, sender_password, subject, b
     server.quit()
 
 
-# load_dotenv()
-#     from_email=os.getenv('EMAIL')
-#     password=os.getenv('PASSWORD1')
