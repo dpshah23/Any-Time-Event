@@ -84,8 +84,8 @@ def dispevents(request):
     email = request.session['email']
 
     # city=volunteer.objects.get(email=email).city
-    # city=volunteer.objects.get(email=email).city
-    city="ahmedabad"
+    city=volunteer.objects.get(email=email).city
+    # city="ahmedabad"
 
     events=Event.objects.filter(event_city=city)
 
@@ -103,7 +103,7 @@ def dispevents(request):
 
 
     page_obj_active = paginator.get_page(page_number)
-    page_obj_expired = paginator1.get_page(page_number1)
+    page_obj_expired = paginator1.get_page(page_number1)/
 
     print(page_obj_active,page_obj_expired)
     return render(request,"volunteer/events_disp.html",{'events_ex':page_obj_expired,'events':page_obj_active})

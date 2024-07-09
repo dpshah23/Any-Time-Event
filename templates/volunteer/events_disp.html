@@ -18,19 +18,11 @@
             <p>Date & Time: {{event.event_date}}, {{event.event_time}} - {{event.event_end_time}}</p>
             <p>Location: {{event.event_location}}</p>
             <a href='/volunteer/events/{{event.event_id}}'><button>View details</button></a>
-            {% if 'email' in request.session and request.session.role == "volunteer" %}
-            <a href="/volunteer/apply/{{event.event_id}}"><button>Apply Now</button></a>
+            {% if not unregistered %}
+            <a href="/volunteer/apply/{{event.event_id}}"><button>Apply Now</button?</a>
             {% else %}
-            {% if 'email' not in request.session %}
-                <a href="/auth/login"><button>Apply Now</button></a>
-            {% else %}
-                {% if request.session.role == "company" %}
-                <a href="#" onclick="alert('Only volunteers can apply. Please log in with a volunteer account.');"><button>Apply Now</button></a>
-               
-            {% else %}
-            <a href="/"><button>Apply Now</button></a>
-        {% endif %}
-        {% endif %}
+            
+            <a href="/volunteer/unregister/{{event.event_id}}"><button>Unregister</button></a>
             {% endif %}
         </div>
         {% empty %}
