@@ -203,10 +203,10 @@ def payvol(request,event_id):
     all_paid=False
     payout_endpoint="https://api.razorpay.com/v1/payouts"
     for vol in regvoldetails:
-        email=vol.email
+        email_to=vol.email
         amount=Event.objects.get(event_id=event_id).actual_amount
-        fano=volunteer.objects.get(email=email).fund_id
-        print(email)
+        fano=volunteer.objects.get(email=email_to).fund_id
+        print(email_to)
         print (fano)
         data={
         "account_number": '2323230032761492',
@@ -219,7 +219,7 @@ def payvol(request,event_id):
         "reference_id": "Payment For Event",
         "narration": "Event Fund Transfer",
         "notes": {
-            "notes_key_1":f"{event_id} - {email}",
+            "notes_key_1":f"{event_id} - {email_to}",
             "notes_key_2":"Payment Done"
         }
         }
@@ -243,9 +243,43 @@ def payvol(request,event_id):
             obj1=payout(timestamp1=timestamp,vol_id=vol.vol_id,vol_email=vol.email,event_id=event_id,rz_id=response.json()['id'],entity=response.json()['entity'],amount=response.json()['amount'],mode=response.json()['mode'])
             obj1.save()
 
+            load_dotenv()
+            from_email=os.getenv('EMAIL')
+            password=os.getenv('PASSWORD1')
+            name=Event.objects.get(event_id=event_id).event_name
+            amount=Event.objects.get(event_id=event_id).actual_amount
+            subject=f"Payment For Event : {name}"
+
+            body=f"""
+            <h1 style="text-align:center">Payment Confirmation</h1>
+            <p>
+            Dear Participant,
+            </p>
+            <p>
+                We are pleased to inform you that we have successfully sent your payment of <strong>{amount}</strong> for attending and participating in the {name}.
+            </p>
+            <p>
+            Thank you for your active participation and contribution to making the event a success. We hope you had a valuable and enjoyable experience.
+            </p>
+            <p>
+            If you have any questions or need further assistance, please do not hesitate to contact us.
+            </p>
+            <p>
+            We look forward to your continued participation in our future events.
+            </p>
+            <p>Best regards,<br>Any Time Event</p>
+            """
+            smtp_server = 'smtp.gmail.com'
+            port = 587
+
+            # Send the bulk email
+            send_bulk_email(smtp_server, port, from_email, password, subject, body,email_to)
+
+
         else:
             print("payment Failed")
             all_paid=False
+            
             pass
         
         if all_paid:
@@ -260,5 +294,27 @@ def payvol(request,event_id):
 
     
 
-        
-    
+def send_bulk_email(smtp_server, port, sender_email, sender_password, subject, body,recipient):
+
+    server = smtplib.SMTP(smtp_server, port)
+    server.starttls()  
+    server.login(sender_email, sender_password)
+   
+    msg = MIMEMultipart()
+    msg['From'] = sender_email
+    msg['To'] = recipient
+    msg['Subject'] = subject
+
+      
+    msg.attach(MIMEText(body, 'html'))
+
+    server.sendmail(sender_email, recipient, msg.as_string())
+    print(f"Email sent to {recipient}")
+
+
+    server.quit()
+
+
+# load_dotenv()
+#     from_email=os.getenv('EMAIL')
+#     password=os.getenv('PASSWORD1')
