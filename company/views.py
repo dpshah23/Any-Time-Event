@@ -21,6 +21,30 @@ from email.mime.application import MIMEApplication
 def company_home(request):
     return HttpResponse("Welcome to Company Home Page")
 
+
+"""
+Function: add_event(request)
+----------------------------
+
+Description:
+    This function handles the creation and addition of new events by company users. It ensures that the user
+    is authenticated and authorized to add events. It gathers event details from the POST request, generates
+    a unique event ID, calculates the actual amount after a 25% deduction, saves the event details to the database,
+    and sends notification emails to registered volunteers about the new event.
+
+Parameters:
+    request (HttpRequest): The HTTP request object containing session data and POST data.
+
+Returns:
+    HttpResponse: Returns an appropriate HTTP response based on the process result.
+                  - Redirects to '/' with an error message if the user is not logged in.
+                  - Redirects to '/' with an error message if the user is a volunteer.
+                  - Redirects to '/company/' with a success message upon successful event creation.
+                  - Renders 'add_events.html' if the request method is not POST.
+
+Usage:
+    This function is typically used in a Django view to handle event creation by company users.
+"""
 @ratelimit(key='ip', rate='5/m')
 def add_event(request):
     # print(request.session['role'])
@@ -112,6 +136,31 @@ def add_event(request):
         
     return render(request,"add_events.html")
 
+"""
+Function: getevent(request, event_id)
+-------------------------------------
+
+Description:
+    This function handles the retrieval and display of event details for a specific event ID. It ensures
+    that the user is authenticated and authorized to view the event details. It fetches the event details
+    from the database based on the event ID and the logged-in user's email, and renders the event details
+    in the 'events.html' template.
+
+Parameters:
+    request (HttpRequest): The HTTP request object containing session data.
+    event_id (str): The unique identifier of the event to be retrieved.
+
+Returns:
+    HttpResponse: Returns an appropriate HTTP response based on the process result.
+                  - Redirects to '/' with an error message if the user is not logged in.
+                  - Redirects to '/' with an error message if the user is a volunteer.
+                  - Redirects to '/company/' with an error message if the event is not found.
+                  - Renders 'events.html' with the event details if the event is found.
+
+Usage:
+    This function is typically used in a Django view to display event details for a specific event ID
+    to the authorized company users.
+"""
 @ratelimit(key='ip', rate='5/m')
 def getevent(request,event_id):
     if 'email' and 'role' not in request.session:
@@ -131,6 +180,29 @@ def getevent(request,event_id):
     event1 = events.is_expired
     return render (request , "events.html",{'event':events , 'event1' : event1})
 
+
+"""
+Function: getallevents(request)
+------------------------------
+
+Description:
+    This function retrieves and displays all events associated with the logged-in company user. It ensures
+    that the user is authenticated and authorized to view the events. It filters the events based on the
+    user's email, separates expired and active events, and renders them in the 'all_events.html' template.
+
+Parameters:
+    request (HttpRequest): The HTTP request object containing session data.
+
+Returns:
+    HttpResponse: Returns an appropriate HTTP response based on the process result.
+                  - Redirects to '/' with an error message if the user is not logged in.
+                  - Redirects to '/' with an error message if the user is a volunteer.
+                  - Renders 'all_events.html' with the expired and active events if the user is authorized.
+
+Usage:
+    This function is typically used in a Django view to display all events for the logged-in company user,
+    categorizing them as expired or active events.
+"""
 @ratelimit(key='ip', rate='5/m')
 def getallevents(request):
     if 'email' and 'role' not in request.session:
@@ -147,7 +219,31 @@ def getallevents(request):
     
     return render(request,"all_events.html",{'events_ex':events_expired,'events':events_active,'company_name':company.objects.get(email=email).name , 'obj' : company.objects.get (email = email)})
 
+"""
+Function: gettotalvol(request, event_id)
+---------------------------------------
 
+Description:
+    This function retrieves and displays the list of volunteers registered for a specific event. It ensures
+    that the user is authenticated and authorized to view the volunteer list. It fetches the event and the
+    associated volunteers from the database based on the event ID and the logged-in user's email, and renders
+    the list of volunteers in the 'list_of_attendees.html' template.
+
+Parameters:
+    request (HttpRequest): The HTTP request object containing session data.
+    event_id (str): The unique identifier of the event for which the volunteer list is to be retrieved.
+
+Returns:
+    HttpResponse: Returns an appropriate HTTP response based on the process result.
+                  - Redirects to '/' with an error message if the user is not logged in.
+                  - Redirects to '/' with an error message if the user is a volunteer.
+                  - Renders 'list_of_attendees.html' with the event and volunteer details if the event is found.
+                  - Redirects to '/company/' with an error message if the event or volunteers are not found.
+
+Usage:
+    This function is typically used in a Django view to display the list of volunteers for a specific event
+    to the authorized company users.
+"""
 @ratelimit(key='ip', rate='10/m')
 def gettotalvol(request,event_id):
     if 'email' and 'role' not in request.session:
@@ -172,7 +268,30 @@ def gettotalvol(request,event_id):
         return redirect('/company/')
 
 
+"""
+Function: profile(request, id)
+------------------------------
 
+Description:
+    This function handles the retrieval and display of a company's profile information based on the provided
+    company ID. It ensures that the user is authenticated and authorized to view the profile. It fetches the
+    company's details from the database and renders them in the 'profile.html' template.
+
+Parameters:
+    request (HttpRequest): The HTTP request object containing session data.
+    id (str): The unique identifier of the company whose profile is to be retrieved.
+
+Returns:
+    HttpResponse: Returns an appropriate HTTP response based on the process result.
+                  - Redirects to '/' with an error message if the user is not logged in.
+                  - Displays an error message if the user is a volunteer.
+                  - Displays an error message if the user does not have permission to view the profile.
+                  - Renders 'profile.html' with the company details if the user is authorized.
+                  - Redirects to '/company/' with an error message if the company is not found.
+
+Usage:
+    This function is typically used in a Django view to display the profile of a company to authorized users.
+"""
 @ratelimit(key='ip',rate='10/m')
 def profile(request,id):
     # print(id)
@@ -198,6 +317,28 @@ def profile(request,id):
     return render(request,"profile.html",{'data':obj , 'company':email})
     
 
+"""
+Function: getpayment(request, event_id)
+--------------------------------------
+
+Description:
+    This function handles the payment process for a specific event using the Razorpay API. It calculates the total
+    payment amount based on the number of volunteers who attended the event and the event's rate per person.
+    It creates a payment order with Razorpay, updates the event's payment status, and saves the payment information
+    in the database.
+
+Parameters:
+    request (HttpRequest): The HTTP request object containing session data.
+    event_id (str): The unique identifier of the event for which the payment is to be processed.
+
+Returns:
+    HttpResponse: Returns an appropriate HTTP response based on the process result.
+                  - Renders 'payment.html' with the payment details if the payment order is successfully created.
+
+Usage:
+    This function is typically used in a Django view to process payments for a specific event and update the
+    payment status in the database.
+"""
 @ratelimit(key='ip',rate='5/m')
 def getpayment (request , event_id):
     load_dotenv()
@@ -219,10 +360,35 @@ def getpayment (request , event_id):
     event, created = Event.objects.update_or_create(
     event_id=event_id,
     defaults={'paid_status': True}
-)
+    )
 
     return render (request ,"payment.html" , {'payment':payment})
 
+"""
+Function: editevent(request, event_id1)
+--------------------------------------
+
+Description:
+    This function handles the editing of event details for a specific event. It ensures that the user is authenticated
+    and authorized to edit the event. It retrieves the event details from the database, updates them based on the 
+    POST data from the request, and saves the updated event details.
+
+Parameters:
+    request (HttpRequest): The HTTP request object containing session data.
+    event_id1 (str): The unique identifier of the event to be edited.
+
+Returns:
+    HttpResponse: Returns an appropriate HTTP response based on the process result.
+                  - Redirects to '/' with an error message if the user is not logged in.
+                  - Displays an error message if the user is a volunteer.
+                  - Redirects to '/company/events/' with a success message if the event details are successfully updated.
+                  - Redirects to '/company/' with an error message if the event does not exist.
+                  - Redirects to '/' if any other exception occurs.
+                  - Renders 'edit_event.html' with the event details if the request method is GET.
+
+Usage:
+    This function is typically used in a Django view to allow authorized users to edit the details of a specific event.
+"""
 def editevent(request,event_id1):
     if 'email' and 'role' not in request.session:
         messages.error(request,"You are not logged in")
@@ -284,6 +450,28 @@ def editevent(request,event_id1):
 
     return render(request,'edit_event.html',{'event':event})
 
+
+"""
+Function: markattendenceyes(request, event_id, email)
+----------------------------------------------------
+
+Description:
+    This function marks the attendance of a volunteer as present for a specific event. It retrieves the
+    volunteer's registration record based on the event ID and email, updates the attendance status to True,
+    saves the changes, and redirects to the list of volunteers for that event.
+
+Parameters:
+    request (HttpRequest): The HTTP request object containing session data.
+    event_id (str): The unique identifier of the event.
+    email (str): The email address of the volunteer whose attendance is to be marked as present.
+
+Returns:
+    HttpResponse: Redirects to the list of volunteers for the specified event with a success message.
+
+Usage:
+    This function is typically used in a Django view to allow authorized users to mark the attendance of
+    volunteers as present for a specific event.
+"""
 def markattendenceyes(request,event_id,email):
     obj=RegVol.objects.get(event_id_1=event_id,email=email)
     obj.attendence=True
@@ -291,7 +479,27 @@ def markattendenceyes(request,event_id,email):
     messages.success(request,"Attendence Marked To Present")
     return redirect(f'/company/get_volunteers/{event_id}')
 
+"""
+Function: markattendenceno(request, event_id, email)
+---------------------------------------------------
 
+Description:
+    This function marks the attendance of a volunteer as absent for a specific event. It retrieves the
+    volunteer's registration record based on the event ID and email, updates the attendance status to False,
+    saves the changes, and redirects to the list of volunteers for that event.
+
+Parameters:
+    request (HttpRequest): The HTTP request object containing session data.
+    event_id (str): The unique identifier of the event.
+    email (str): The email address of the volunteer whose attendance is to be marked as absent.
+
+Returns:
+    HttpResponse: Redirects to the list of volunteers for the specified event with a success message.
+
+Usage:
+    This function is typically used in a Django view to allow authorized users to mark the attendance of
+    volunteers as absent for a specific event.
+"""
 def markattendenceno(request,event_id,email):
     obj=RegVol.objects.get(event_id_1=event_id,email=email)
     obj.attendence=False
@@ -299,7 +507,31 @@ def markattendenceno(request,event_id,email):
     messages.success(request,"Attendence Marked To Absent")
     return redirect(f'/company/get_volunteers/{event_id}')
 
+"""
+Function: bulkmail(smtp_server, port, sender_email, sender_password, subject, body, recipient_list)
+-------------------------------------------------------------------------------------------------
 
+Description:
+    This function sends bulk emails to a list of recipients. It connects to the specified SMTP server, 
+    logs in with the provided sender email and password, and sends an email with the given subject and 
+    body to each recipient in the recipient list.
+
+Parameters:
+    smtp_server (str): The SMTP server address (e.g., 'smtp.gmail.com').
+    port (int): The port number for the SMTP server (e.g., 587 for TLS).
+    sender_email (str): The email address of the sender.
+    sender_password (str): The password or app-specific password for the sender's email account.
+    subject (str): The subject of the email.
+    body (str): The HTML body of the email.
+    recipient_list (list): A list of recipient email addresses.
+
+Returns:
+    None
+
+Usage:
+    This function is typically used to send bulk emails for notifications, newsletters, or announcements
+    to a list of recipients.
+"""
 def bulkmail(smtp_server, port, sender_email, sender_password, subject, body, recipient_list):
     with smtplib.SMTP(smtp_server, port) as server:
         server.starttls()  # Start TLS encryption
