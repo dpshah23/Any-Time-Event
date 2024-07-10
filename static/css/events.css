@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
+body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0ece2;
+    flex-direction: column;
+    margin: 0;
+}
+
+.profile-container {
+    width: 80%;
+    max-width: 800px;
+    margin: 100px auto 0;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.profile-details p {
+    margin-bottom: 20px;
+}
+
+.profile-details h2 {
+    margin-bottom: 30px;
+    color: #006989;
+}
+
+.field.button-field {
+    display: flex;
+    margin-top: 20px;
+    gap: 4rem;
+}
+
+.field button {
+    height: 50px;
+    width: 11rem;
+    font-size: 16px;
+    font-weight: 400;
+    border: none;
+    border-radius: 6px;
+    background-color: #006989;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.field button:hover {
+    background-color: #017ca2;
+}
