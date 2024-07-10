@@ -6,6 +6,11 @@
   box-sizing: border-box;
 }
 
+::selection {
+  background-color: #006989;
+  color: #ffffff;
+}
+
 body {
   font-family: sans-serif;
   background-color: #f0ece2;
@@ -89,6 +94,10 @@ a:hover {
   color: #ffffff;
   border: none;
   overflow: hidden;
+}
+
+.log-butt:hover {
+  background-color: #037fa4;
 }
 
 .log-butt a {

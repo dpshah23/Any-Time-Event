@@ -44,7 +44,6 @@ main {
     flex-grow: 1;
     padding: 20px 20px 20px 20px;
     overflow-y: auto;
-    margin-top: 60px;
 }
 
 .content {
@@ -83,7 +82,7 @@ footer button {
 }
 
 #decline {
-    background-color: #f81818;
+    background-color: #f95252;
     color: #fff;
 }
 
@@ -97,5 +96,5 @@ footer button {
 }
 
 #accept:hover {
-    background-color: #037ca1;
+    background-color: #037fa4;
 }

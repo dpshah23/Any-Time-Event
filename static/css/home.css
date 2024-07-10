@@ -117,7 +117,7 @@ a:hover {
 }
 
 .log-butt:hover {
-    background-color: #0184ac;
+    background-color: #037fa4;
 }
 
 @media (max-width: 952px) {
@@ -341,7 +341,7 @@ button {
 }
 
 button:hover {
-    background-color: #0184ac;
+    background-color: #037fa4;
 }
 
 @media (max-width: 1200px) {
@@ -484,7 +484,7 @@ button:hover {
 }
 
 .about-us-container button:hover {
-    background-color: #0381a7;
+    background-color: #037fa4;
 }
 
 @media (max-width: 768px) {
