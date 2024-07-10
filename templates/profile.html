@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="../static/css/profile.css">
 </head>
 <body>
+
+    {% if messages %}
+    {% for message in messages %}
+    <script>
+        alert("{{message}}");
+    </script>
+    {% endfor %}
+    {% endif %}
+    
     <div class="profile-container">
         {% if request.session.role == "company" %}
         <div class="profile-header">
@@ -41,9 +50,11 @@
                 <p><strong>UPI Id:</strong> <span id="upi">{{obj.upi}}</span></p>
                 <p><strong>City:</strong> <span id="city">{{obj.city}}</span></p>
             </div>
+            {% if request.session.email == obj.email %}
             <div class="field button-field">
                 <a href="/volunteer/editprofile/{{obj.vol_id}}"> <button type="button">Edit Details </button></a>
             </div>
+            {% endif %}
 
         {% endif %}
     <script src="script.js"></script>

@@ -335,7 +335,7 @@ def generate_ics(event_name, event_date, event_time, event_location,event_end_ti
     """
     return cal
 
-def editvol(request,email):
+def editvol(request,vol_id):
     if 'email' and 'role' not in request.session:
         messages.error(request,"You are not logged in")
         return redirect('/')
@@ -344,7 +344,7 @@ def editvol(request,email):
         messages.error(request,"You Don't have permission to view this page")
     try:
 
-        vol = volunteer.objects.get(email=email)
+        vol = volunteer.objects.get(vol_id=vol_id)
         if request.method=="POST":
             email = request.session['email']
             id = volunteer.objects.get(email= email).vol_id
@@ -356,7 +356,7 @@ def editvol(request,email):
             qualification = request.POST.get('qualification')
             emergency_contact = request.POST.get('emergency_contact')
             city = request.POST.get('city')
-            description = request.POST.get('description')
+            # description = request.POST.get('description')
             obj, created = volunteer.objects.update_or_create(
                 email=email,
                 defaults={
@@ -368,7 +368,7 @@ def editvol(request,email):
                     'qualification' : qualification,
                     'emergency_contact' : emergency_contact,
                     'city' : city,
-                    'description' : description
+                    
                 }
             )
             
@@ -377,7 +377,7 @@ def editvol(request,email):
             messages.success(request,'Volunteer Details Updated Successfully')
             return redirect(f'/volunteer/profile/{id}')
     except volunteer.DoesNotExist:
-        messages.error('volunteer Does Not Exists')
+        messages.error(request,'volunteer Does Not Exists')
         return redirect('/volunteer/')
     except Exception as e:
         print(e)

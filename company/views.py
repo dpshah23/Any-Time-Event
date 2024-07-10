@@ -584,7 +584,7 @@ def editcompany(request,comp_id):
             messages.success(request,'Company Details Updated Successfully')
             return redirect(f'/company/profile/{id}')
     except company.DoesNotExist:
-        messages.error('company Does Not Exists')
+        messages.error(request,'company Does Not Exists')
         return redirect('/company/')
     except Exception as e:
         print(e)
