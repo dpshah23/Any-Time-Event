@@ -12,6 +12,7 @@ from email.mime.application import MIMEApplication
 from email.mime.base import MIMEBase
 from email import encoders
 import os
+import base64
 from dotenv import load_dotenv
 from datetime import datetime
 
@@ -339,13 +340,28 @@ def editvol(request,vol_id):
     if 'email' and 'role' not in request.session:
         messages.error(request,"You are not logged in")
         return redirect('/')
-    
+
     if request.session['role']=="company":
         messages.error(request,"You Don't have permission to view this page")
     try:
 
+        
+
         vol = volunteer.objects.get(vol_id=vol_id)
         if request.method=="POST":
+
+            if 'profile_picture' in request.FILES:
+                image_file = request.FILES['profile_picture']
+                valid_extensions = ['jpg', 'png', 'jpeg', 'heic']
+                if image_file.name.split('.')[-1].lower() not in valid_extensions:
+                    messages.error(request, 'Invalid Image format. Only JPG, PNG, JPEG, and HEIC are allowed.')
+                    return render(request, 'edit_vol.html', {'volunteer': vol})
+
+                image_data = image_file.read()
+                profile_pic = base64.b64encode(image_data).decode('utf-8')
+            else:
+                profile_pic = vol.profile_pic 
+        
             email = request.session['email']
             id = volunteer.objects.get(email= email).vol_id
             name = request.POST.get('name')
@@ -368,6 +384,7 @@ def editvol(request,vol_id):
                     'qualification' : qualification,
                     'emergency_contact' : emergency_contact,
                     'city' : city,
+                    'profile_pic':profile_pic
                     
                 }
             )

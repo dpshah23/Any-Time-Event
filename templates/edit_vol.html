@@ -18,7 +18,7 @@
     <div class="form login">
         <div class="form-content">
             <header>Edit Details of Volunteer</header>
-            <form id="volunteerForm" action ='/volunteer/editprofile/{{volunteer.vol_id}}/' method = "post">
+            <form id="volunteerForm" action ='/volunteer/editprofile/{{volunteer.vol_id}}/' method = "post" enctype="multipart/form-data">
             {% csrf_token %}
 
             <div class="field-group">
@@ -68,7 +68,12 @@
                 </div>
             </div>
             
-              
+            <div class="field input-field">
+                <label for="profile_picture">Profile Picture</label>
+                <input type="file" name="profile_picture" class="input" required>
+                <span class="right-text"><p>*Image should be of .png, .jpg, .jpeg only</p>
+                </div>
+            </div>              
 
             <div class="field button-field">
                 <button value="submit" name="submit">Update details</button>
