@@ -11,14 +11,14 @@
 {% endif %}
 
 
-<link rel="stylesheet" href="../static/css/Company_Data.css">
-<link rel="stylesheet" href="../static/js/Company_Data.js">
+<link rel="stylesheet" href="/static/css/Company_Data.css">
+<link rel="stylesheet" href="/static/js/Company_Data.js">
 
 <section class="container forms">
     <div class="form login">
         <div class="form-content">
-            <header>Edit Details of Company</header>
-            <form id="companyForm" action ='/company/editprofile/{{company.email}}' method = "post">
+            <header>Edit Details</header>
+            <form id="companyForm" action ='/company/editprofile/{{company.comp_id}}' method = "post">
             {% csrf_token %}
             <div class="field-group">
                 <div class="field input-field">

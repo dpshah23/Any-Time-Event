@@ -551,7 +551,7 @@ def bulkmail(smtp_server, port, sender_email, sender_password, subject, body, re
     pass
 
 
-def editcompany(request,email):
+def editcompany(request,comp_id):
     if 'email' and 'role' not in request.session:
         messages.error(request,"You are not logged in")
         return redirect('/')
@@ -560,10 +560,9 @@ def editcompany(request,email):
         messages.error(request,"You Don't have permission to view this page")
     try:
 
-        comp = company.objects.get(email=email)
+        comp = company.objects.get(comp_id=comp_id)
         if request.method=="POST":
             email = request.session['email']
-            id = company.objects.get(email= email).comp_id
             name = request.POST.get('name')
             phone1 = request.POST.get('phone1')
             address = request.POST.get('address')
@@ -571,7 +570,7 @@ def editcompany(request,email):
             phone2 = request.POST.get('phone2')
             description = request.POST.get('description')
             obj, created = company.objects.update_or_create(
-                email=email,
+                comp_id=comp_id,
                 defaults={
                     'name':name,
                     'phone1' :phone1,
@@ -585,7 +584,7 @@ def editcompany(request,email):
             messages.success(request,'Company Details Updated Successfully')
             return redirect(f'/company/profile/{id}')
     except company.DoesNotExist:
-        messages.error('company Does Not Exists')
+        messages.error(request,'company Does Not Exists')
         return redirect('/company/')
     except Exception as e:
         print(e)

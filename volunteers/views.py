@@ -12,6 +12,7 @@ from email.mime.application import MIMEApplication
 from email.mime.base import MIMEBase
 from email import encoders
 import os
+import base64
 from dotenv import load_dotenv
 from datetime import datetime
 
@@ -335,17 +336,32 @@ def generate_ics(event_name, event_date, event_time, event_location,event_end_ti
     """
     return cal
 
-def editvol(request,email):
+def editvol(request,vol_id):
     if 'email' and 'role' not in request.session:
         messages.error(request,"You are not logged in")
         return redirect('/')
-    
+
     if request.session['role']=="company":
         messages.error(request,"You Don't have permission to view this page")
     try:
 
-        vol = volunteer.objects.get(email=email)
+        
+
+        vol = volunteer.objects.get(vol_id=vol_id)
         if request.method=="POST":
+
+            if 'profile_picture' in request.FILES:
+                image_file = request.FILES['profile_picture']
+                valid_extensions = ['jpg', 'png', 'jpeg', 'heic']
+                if image_file.name.split('.')[-1].lower() not in valid_extensions:
+                    messages.error(request, 'Invalid Image format. Only JPG, PNG, JPEG, and HEIC are allowed.')
+                    return render(request, 'edit_vol.html', {'volunteer': vol})
+
+                image_data = image_file.read()
+                profile_pic = base64.b64encode(image_data).decode('utf-8')
+            else:
+                profile_pic = vol.profile_pic 
+        
             email = request.session['email']
             id = volunteer.objects.get(email= email).vol_id
             name = request.POST.get('name')
@@ -356,7 +372,7 @@ def editvol(request,email):
             qualification = request.POST.get('qualification')
             emergency_contact = request.POST.get('emergency_contact')
             city = request.POST.get('city')
-            description = request.POST.get('description')
+            # description = request.POST.get('description')
             obj, created = volunteer.objects.update_or_create(
                 email=email,
                 defaults={
@@ -368,7 +384,8 @@ def editvol(request,email):
                     'qualification' : qualification,
                     'emergency_contact' : emergency_contact,
                     'city' : city,
-                    'description' : description
+                    'profile_pic':profile_pic
+                    
                 }
             )
             
@@ -377,7 +394,7 @@ def editvol(request,email):
             messages.success(request,'Volunteer Details Updated Successfully')
             return redirect(f'/volunteer/profile/{id}')
     except volunteer.DoesNotExist:
-        messages.error('volunteer Does Not Exists')
+        messages.error(request,'volunteer Does Not Exists')
         return redirect('/volunteer/')
     except Exception as e:
         print(e)
