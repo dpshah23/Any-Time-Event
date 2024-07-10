@@ -14,6 +14,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
+import base64
 
 # Create your views here.
 
@@ -562,6 +563,19 @@ def editcompany(request,comp_id):
 
         comp = company.objects.get(comp_id=comp_id)
         if request.method=="POST":
+
+            if 'company_logo' in request.FILES:
+                image_file = request.FILES['company_logo']
+                valid_extensions = ['jpg', 'png', 'jpeg', 'heic']
+                if image_file.name.split('.')[-1].lower() not in valid_extensions:
+                    messages.error(request, 'Invalid Image format. Only JPG, PNG, JPEG, and HEIC are allowed.')
+                    return render(request, 'edit_company.html', {'company': comp})
+
+                image_data = image_file.read()
+                comp_logo = base64.b64encode(image_data).decode('utf-8')
+            else:
+                comp_logo = comp.profile_pic 
+
             email = request.session['email']
             name = request.POST.get('name')
             phone1 = request.POST.get('phone1')
@@ -577,7 +591,8 @@ def editcompany(request,comp_id):
                     'address': address,
                     'website' : website,
                     'phone2' : phone2,
-                    'description' : description
+                    'description' : description,
+                    'logo':comp_logo
                 }
             )
             

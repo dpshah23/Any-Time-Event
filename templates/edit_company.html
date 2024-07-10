@@ -18,7 +18,7 @@
     <div class="form login">
         <div class="form-content">
             <header>Edit Details</header>
-            <form id="companyForm" action ='/company/editprofile/{{company.comp_id}}' method = "post">
+            <form id="companyForm" action ='/company/editprofile/{{company.comp_id}}' method = "post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="field-group">
                 <div class="field input-field">
@@ -46,6 +46,13 @@
                     <input type="text" id="description" name="description" value = {{company.description}} class="input" required>
                 </div>
             </div>
+            <div class="field input-field">
+                <label for="company_logo">Company Logo</label>
+                <input type="file" id="company_logo" name="company_logo" class="input">
+            </div>
+        </div>
+        <p class="image-note">*Image should be of .png, .jpg, .jpeg only</p>
+
               <div class="field button-field">
                   <button type="submit">Update Details</button>
               </div>
