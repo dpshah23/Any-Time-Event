@@ -39,7 +39,7 @@
                 <div class="field-group">
                     <div class="field input-field">
                         <label for="emergency_no">Emergency Contact No.</label>
-                        <input type="number" name="emergency_no" class="input" required>
+                        <input type="number" name="emergency_no" class="input" id="emergency_no" required>
                     </div>
                     <div class="field input-field">
                         <label for="skills">Skills</label>
@@ -85,18 +85,6 @@
     </div>
 </section>
 
-<script>
-    document.getElementById('birthdate').addEventListener('change', function() {
-        var birthdate = new Date(this.value);
-        var minDate = new Date();
-        minDate.setFullYear(minDate.getFullYear() - 16);
-
-        if (birthdate > minDate) {
-            alert('Please select a birthdate that makes you at least 16 years old.');
-            this.value = '';
-        }
-    });
-</script>
-
-<script src="../static/js/Sign-up.js"></script>
+<script src="../static/js/user_data.js"></script>
 {% endblock body %}
+
