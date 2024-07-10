@@ -1,30 +1,47 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Accept Volunteer</title>
-        <style>
-            .field button {
-    background-color: #0171d3;
-    color: #FFFFFF;
-    transition: all 0.3s ease;
-    cursor: pointer;
-          }
-* {
-    margin: 10px;
-    padding: 10px;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-.table{
-    border: 10px;
-}
-        </style>
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    </head>
-    <body>
-        <h2><strong>Volunteer</strong></h2>
-        <table border="1">
-            <thead>
+<head>
+    <title>Accept Users</title>
+    <style>
+        .field button {
+            color: #FFFFFF;
+            background-color: #006989;
+            height: 50px;
+            width: 90%;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 19px;
+            transition: all 0.3s ease;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        .field button a {
+            color: #ffffff;
+            text-decoration: none;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        * {
+            margin: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <h2><strong>Volunteers</strong></h2>
+    <table border="1">
+        <thead>
             <th>Name</th>
             <th>Email</th>
             <th>Contact No</th>
@@ -34,40 +51,36 @@
             <th>Qualification</th>
             <th>Emergency Contact No</th>
             <th>Profile Picture</th>
-            <th>identity Proof</th>
+            <th>Identity Proof</th>
             <th>UPI ID</th>
             <th class="field button-field">Accept</th>
-            </thead>
-            <tbody>
-                {% for volunteer in volunteers %}
+        </thead>
+        <tbody>
+            {% for volunteer in volunteers %}
             <tr>
-                <!-- {{volunteer.profile_pic}}
-                {{volunteer.card}} -->
-            <td>{{volunteer.name}}</td>
-            <td>{{volunteer.email}}</td>
-            <td>{{volunteer.phone}}</td>
-            <td>{{volunteer.dob}}</td>
-            <td>{{volunteer.experience}}</td>
-            <td>{{volunteer.skills}}</td>
-            <td>{{volunteer.qualification}}</td>
-            <td>{{volunteer.emergency_contact}}</td>
-            <td><img src="data:image/png;base64,{{volunteer.profile_pic}} " width="80px" heigth="80" ></td>
-            <td><img src="data:image/png;base64,{{volunteer.card}}" width="80px" height="80px"></td>
-            <td>{{volunteer.upi}}</td>
-           <td>
-
-                <button><a href="/admincustom/acceptyes/{{volunteer.email}}">Yes</a></button>
-                <button><a href="/admincustom/acceptno/{{volunteer.email}}">No</a></button>
-          </td>
+                <td>{{volunteer.name}}</td>
+                <td>{{volunteer.email}}</td>
+                <td>{{volunteer.phone}}</td>
+                <td>{{volunteer.dob}}</td>
+                <td>{{volunteer.experience}}</td>
+                <td>{{volunteer.skills}}</td>
+                <td>{{volunteer.qualification}}</td>
+                <td>{{volunteer.emergency_contact}}</td>
+                <td><img src="data:image/png;base64,{{volunteer.profile_pic}}" width="80px" height="80px"></td>
+                <td><img src="data:image/png;base64,{{volunteer.card}}" width="80px" height="80px"></td>
+                <td>{{volunteer.upi}}</td>
+                <td class="field button-field">
+                    <button type="button"><a href="/admincustom/acceptyes/{{volunteer.email}}">Yes</a></button>
+                    <button type="button"><a href="/admincustom/acceptno/{{volunteer.email}}">No</a></button>
+                </td>
             </tr>
             {% endfor %}
-            </tbody>
-        </table>
-<br>
-<h2><strong>Company</strong></h2>
-
-        <table border="1">
-            <thead>
+        </tbody>
+    </table>
+    <br>
+    <h2><strong>Companys</strong></h2>
+    <table border="1">
+        <thead>
             <th>Name</th>
             <th>Email</th>
             <th>Contact No</th>
@@ -78,29 +91,26 @@
             <th>Company Card</th>
             <th>Company Logo</th>
             <th class="field button-field">Accept</th>
-            </thead>
-            <tbody>
-                {% for company in companys %}
-                {{volunteer.logo}}
-                {{volunteer.card}}
+        </thead>
+        <tbody>
+            {% for company in companys %}
             <tr>
-            <td>{{company.name}}</td>
-            <td>{{company.email}}</td>
-            <td>{{company.phone1}}</td>
-            <td>{{company.website}}</td>
-            <td>{{company.phone2}}</td>
-            <td>{{company.address}}</td>
-            <td>{{company.description}}</td>
-            <td><img src="data:image/png;base64,{{company.card}}" width="80px" heigth="80"></td>
-            <td><img src="data:image/png;base64,{{company.logo}}" width="80px" heigth="80"></td>
-            <td>
-
-                <button><a href="/admincustom/acceptyes/{{company.email}}">Yes</a></button>
-                <button><a href="/admincustom/acceptno/{{company.email}}">No</a></button>
-          </td>
+                <td>{{company.name}}</td>
+                <td>{{company.email}}</td>
+                <td>{{company.phone1}}</td>
+                <td>{{company.website}}</td>
+                <td>{{company.phone2}}</td>
+                <td>{{company.address}}</td>
+                <td>{{company.description}}</td>
+                <td><img src="data:image/png;base64,{{company.card}}" width="80px" height="80px"></td>
+                <td><img src="data:image/png;base64,{{company.logo}}" width="80px" height="80px"></td>
+                <td class="field button-field">
+                    <button type="button"><a href="/admincustom/acceptyes/{{company.email}}">Yes</a></button>
+                    <button type="button"><a href="/admincustom/acceptno/{{company.email}}">No</a></button>
+                </td>
             </tr>
             {% endfor %}
-            </tbody>
-        </table>
-    </body>
+        </tbody>
+    </table>
+</body>
 </html>
