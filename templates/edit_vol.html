@@ -83,18 +83,5 @@
 </div>
 </section>
 
-<script>
-document.getElementById('birthdate').addEventListener('change', function() {
-    var birthdate = new Date(this.value);
-    var minDate = new Date();
-    minDate.setFullYear(minDate.getFullYear() - 16);
-
-    if (birthdate > minDate) {
-        alert('Please select a birthdate that makes you at least 16 years old.');
-        this.value = '';
-    }
-});
-</script>
-
-<script src="../static/js/Sign-up.js"></script>
-{% endblock body %}
+<script src="../static/js/user_data.js"></script>
+{% endblock body 
