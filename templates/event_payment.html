@@ -4,25 +4,74 @@
         <title>Event Payments </title>
         <style>
             .field button {
-    background-color: #0171d3;
-    color: #FFFFFF;
-    transition: all 0.3s ease;
-    cursor: pointer;
-          }
-* {
-    margin: 10px;
-    padding: 10px;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-.table{
-    border: 10px;
-}
+                color: #FFFFFF;
+                background-color: #006989;
+                height: 50px;
+                width: 90%;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 19px;
+                transition: all 0.3s ease;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        
+            .field button a {
+                color: #ffffff;
+                text-decoration: none;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        
+            /* Remove underline from all links */
+            a, a:link, a:visited, a:hover, a:active {
+                text-decoration: none !important;
+            }
+        
+            * {
+                margin: 10px;
+                padding: 10px;
+                box-sizing: border-box;
+                font-family: 'Poppins', sans-serif;
+            }
+        
+            /* Additional styles for table buttons */
+            table button {
+                color: #FFFFFF;
+                background-color: #006989;
+                height: 50px;
+                width: 90%;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 19px;
+                transition: all 0.3s ease;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        
+            table button a {
+                color: #ffffff;
+                text-decoration: none;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
         </style>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     </head>
     <body>
-        <h2><strong>Event Completed Payment UnDone</strong></h2>
+        <h2><strong>Event Completed but Payment UnDone</strong></h2>
 
         <table border="1">
             <thead>
@@ -32,7 +81,7 @@
             <th>No of Registered Volunteers</th>
             <th>City</th>
             <th>Event Date</th>
-            <th>total Days</th>
+            <th>Total Days</th>
             <!-- <th class="field button-field">Status</th> -->
             </thead>
             <tbody>
@@ -71,7 +120,7 @@
             <td>{{event.event_vol}}</td>
             <td>{{event.event_city}}</td>
             <td>{{event.paid_status}}</td>
-            <td><a  class="field button-field" href="/admincustom/payvol/{{event.event_id}}"><button type="button">Pay Now</button></a></td>
+            <td><button type="button"><a  class="field button-field" href="/admincustom/payvol/{{event.event_id}}">Pay Now</a></button></td>
             </tr>
             {% endfor %}
             </tbody>
