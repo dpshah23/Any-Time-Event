@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 import os
 from company.models import Event
 from django.utils import timezone  
+from auth1.models import company
 
 # Create your views here.
 @ratelimit(key='ip', rate='10/m')
@@ -26,15 +27,19 @@ def index(request):
     events_active = [event for event in events if not event.is_expired()]
     add=0
     event=[]
+    logos =[]
     for event1 in events_active:
         if add==7:
             break
         add+=1
+        logo = company.objects.get(email=event1.company_email).logo
         event.append(event1)
+        logos.append(logo)
         
 
-    # print(event)
-    return render(request,'home.html',{'events':event})
+    print(event)
+    print(logos)
+    return render(request,'home.html',{'events':event,'logo':logos})
 
 @ratelimit(key='ip', rate='10/m')
 def contact(request):

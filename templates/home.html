@@ -26,14 +26,14 @@
         <label class="logo"><img src="../static/img/Any-Time-Event-Logo.png" alt="Logo" /></label>
         <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/">About</a></li>
+            <li><a href="/templates/About-Us.html">About</a></li>
             <li><a href="#">Services</a></li>
             <li><a href="/contact-us">Contact</a></li>
             {% if 'email' in request.session %}
             {% if request.session.role == "volunteer" %}
-            <li><a href="volunteer/">Dashboard</a></li>
+            <li><a href="volunteer/events">Dashboard</a></li>
             {% else %}
-            <li><a href="company/">Dashboard</a></li>
+            <li><a href="company/events">Dashboard</a></li>
             {% endif %}
             {% endif %}
             {% if 'email' not in request.session %}
@@ -68,7 +68,7 @@
         <div class="event-card">
             <center>
                 <div class="event-image">
-                    <img src="../static/img/Any-Time-Event-Logo.png" alt="Event 1" />
+                    <img src="data:image/png;base64,{{ logo.0 }}" width="80px" heigth="80" alt="Event logo" class="profile-picture" id="profile-picture">
                 </div>
             </center>
             <div class="event-details">
@@ -97,7 +97,7 @@
         <div class="event-card">
             <center>
                 <div class="event-image">
-                    <img src="../static/img/Any-Time-Event-Logo.png" alt="Event 1" />
+                    <img src="data:image/png;base64,{{ logo.1 }}" width="80px" heigth="80" alt="Event logo" class="profile-picture" id="profile-picture">
                 </div>
             </center>
             <div class="event-details">
@@ -124,7 +124,8 @@
         <div class="event-card">
             <center>
                 <div class="event-image">
-                    <img src="../static/img/Any-Time-Event-Logo.png" alt="Event 1" />
+                    <img src="data:image/png;base64,{{ logo.2 }}" width="80px" heigth="80" alt="Event logo" class="profile-picture" id="profile-picture">
+                </div>
                 </div>
             </center>
             <div class="event-details">
@@ -153,7 +154,7 @@
         <div class="event-card">
             <center>
                 <div class="event-image">
-                    <img src="../static/img/Any-Time-Event-Logo.png\" alt="Event 1" />
+                    <img src="data:image/png;base64,{{logo.3}}" width="80px" heigth="80" alt="Event logo" class="profile-picture" id="profile-picture">
                 </div>
             </center>
             <div class="event-details">
@@ -182,7 +183,8 @@
         <div class="event-card">
             <center>
                 <div class="event-image">
-                    <img src="../static/img/Any-Time-Event-Logo.png" alt="Event 1" />
+                    <img src="data:image/png;base64,{{ logo.4 }}" width="80px" heigth="80" alt="Event logo" class="profile-picture" id="profile-picture">
+                </div>
                 </div>
             </center>
             <div class="event-details">
@@ -213,7 +215,8 @@
         <div class="event-card">
             <center>
                 <div class="event-image">
-                    <img src="../static/img/Any-Time-Event-Logo.png" alt="Event 1" />
+                    <img src="data:image/png;base64,{{ logo.5 }}" width="80px" heigth="80" alt="Event logo" class="profile-picture" id="profile-picture">
+                </div>
                 </div>
             </center>
             <div class="event-details">
