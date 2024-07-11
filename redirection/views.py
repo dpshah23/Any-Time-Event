@@ -10,6 +10,7 @@ from company.models import Event
 from django.utils import timezone  
 from auth1.models import company
 from .models import review
+from company.models import RegVol
 
 # Create your views here.
 @ratelimit(key='ip', rate='10/m')
@@ -37,10 +38,11 @@ def index(request):
         event.append(event1)
         logos.append(logo)
         
+    applied_events = [regvol.event_id_1 for regvol in RegVol.objects.filter(email=email)]
 
     print(event)
     print(logos)
-    return render(request,'home.html',{'events':event,'logo':logos})
+    return render(request,'home.html',{'events':event,'logo':logos,'applied_events':applied_events})
 
 @ratelimit(key='ip', rate='10/m')
 def contact(request):
