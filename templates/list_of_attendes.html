@@ -69,7 +69,8 @@
                         <td>{{ volunteer.phone }}</td>
                         <td>{{ volunteer.skills }}</td>
 
-                        {% if not volunteer.attendence %}
+                        {% if volunteer.attendence != "present" and volunteer.attendence != "absent" %}
+
                         <td class="field"><button type="button" name="Present">
                             <a href="/company/present/{{volunteer.event_id_1}}/{{volunteer.email}}">Present</a></button>
                             <button class="absent" type="button" name="Absent">

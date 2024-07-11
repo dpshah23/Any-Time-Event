@@ -159,20 +159,8 @@ def dispevents(request):
     events_active = [event for event in events if not event.is_expired()]
 
     print(events_active,events_expired)
-    
-    page_number = request.GET.get('page_active',1)
 
-    page_number1= request.GET.get('page_expired',1)
-
-    paginator = Paginator(events_active, 9)
-    paginator1 = Paginator(events_expired, 9)
-
-
-    page_obj_active = paginator.get_page(page_number)
-    page_obj_expired = paginator1.get_page(page_number1)
-
-    print(page_obj_active,page_obj_expired)
-    return render(request,"volunteer/events_disp.html",{'events_ex':page_obj_expired,'events':page_obj_active})
+    return render(request,"volunteer/events_disp.html",{'events_ex':events_expired,'events':events_active})
 
 @ratelimit(key='ip',rate='10/m')
 def profile(request,id):

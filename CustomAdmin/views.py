@@ -192,7 +192,7 @@ def acceptno(request,volemail):
     
 
 def payvol(request,event_id):
-    regvoldetails=RegVol.objects.filter(event_id_1=event_id,attendence=True,paid_status=False)
+    regvoldetails=RegVol.objects.filter(event_id_1=event_id,attendence="present",paid_status=False)
 
     print(regvoldetails)
     load_dotenv()
@@ -238,7 +238,7 @@ def payvol(request,event_id):
             vol.save()
             all_paid=True
 
-            timestamp=datetime.now().date
+            timestamp=datetime.now().date().isoformat()
 
             obj1=payout(timestamp1=timestamp,vol_id=vol.vol_id,vol_email=vol.email,event_id=event_id,rz_id=response.json()['id'],entity=response.json()['entity'],amount=response.json()['amount'],mode=response.json()['mode'])
             obj1.save()
@@ -296,6 +296,8 @@ def payvol(request,event_id):
 
 def send_bulk_email(smtp_server, port, sender_email, sender_password, subject, body,recipient):
 
+
+    print("mail : ",recipient)
     server = smtplib.SMTP(smtp_server, port)
     server.starttls()  
     server.login(sender_email, sender_password)

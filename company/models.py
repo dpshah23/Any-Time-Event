@@ -39,7 +39,7 @@ class RegVol(models.Model):
     phone = models.CharField(max_length=100)
     skills = models.CharField(max_length=200 , null=True)
     paid_status = models.BooleanField()
-    attendence = models.BooleanField(default=False)
+    attendence = models.TextField(null=True)
     vol_id = models.CharField(max_length=100 , null = True)
     
     def __str__(self):

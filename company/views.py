@@ -347,7 +347,7 @@ def getpayment (request , event_id):
     secret = os.getenv('api_secret_razorpay')
     client = razorpay.Client(auth=(key,secret))
     
-    total_vol=len(RegVol.objects.filter(event_id_1=event_id,attendence=True))
+    total_vol=len(RegVol.objects.filter(event_id_1=event_id,attendence="present"))
     amount = (Event.objects.get(event_id=event_id).event_mrp) * total_vol
     final_amt = int(amount)*100
     payment = client.order.create({ "amount": final_amt, "currency": "INR", "payment_capture": '1' })
@@ -475,7 +475,7 @@ Usage:
 """
 def markattendenceyes(request,event_id,email):
     obj=RegVol.objects.get(event_id_1=event_id,email=email)
-    obj.attendence=True
+    obj.attendence="present"
     obj.save()
     messages.success(request,"Attendence Marked To Present")
     return redirect(f'/company/get_volunteers/{event_id}')
@@ -503,7 +503,7 @@ Usage:
 """
 def markattendenceno(request,event_id,email):
     obj=RegVol.objects.get(event_id_1=event_id,email=email)
-    obj.attendence=False
+    obj.attendence="absent"
     obj.save()
     messages.success(request,"Attendence Marked To Absent")
     return redirect(f'/company/get_volunteers/{event_id}')
