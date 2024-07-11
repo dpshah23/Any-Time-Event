@@ -271,7 +271,7 @@
             "name": "Any Time Event",
             "description": "Payment for your Event",
             "order_id": "{{ payment.id }}",
-            "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+            "callback_url": "{% url 'verify_payment' %}",
             "theme": {
                 "color": "#3399cc"
             }

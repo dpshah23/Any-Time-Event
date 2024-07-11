@@ -47,8 +47,9 @@ class RegVol(models.Model):
     
 class company_payment(models.Model):
     timestamp = models.DateField()
+    event_id = models.CharField(null=True)
     payment_id = models.TextField()
-    signature = models.TextField()
+    status = models.TextField(null = True)
 
     def __str__(self):
         return self.payment_id        

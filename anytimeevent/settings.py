@@ -68,16 +68,16 @@ LOGGING = {
 # Application definition
 
 INSTALLED_APPS = [
-   
+    'jazzmin',
     'error_handling',
     'auth1',
     'company',
     'redirection',
     'volunteers',
     'CustomAdmin',
-    'unfold',
-    "unfold.contrib.filters",  
-    "unfold.contrib.forms", 
+    # 'unfold',
+    # "unfold.contrib.filters",  
+    # "unfold.contrib.forms", 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
