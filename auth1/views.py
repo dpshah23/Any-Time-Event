@@ -301,7 +301,7 @@ def login(request):
 
                     print("mail sent")
                         
-                    messages.success(request, 'OTP sent to your email')
+                    # messages.success(request, 'OTP sent to your email')
                     return redirect('/auth/validate')
                 
 

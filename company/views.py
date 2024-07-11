@@ -487,6 +487,7 @@ def markattendenceyes(request,event_id,email):
     messages.success(request,"Attendence Marked To Present")
     return redirect(f'/company/get_volunteers/{event_id}')
 
+
 """
 Function: markattendenceno(request, event_id, email)
 ---------------------------------------------------
