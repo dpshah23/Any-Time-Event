@@ -136,7 +136,7 @@ def acceptyes(request,volemail):
             server.sendmail(from_email, volemail, msg.as_string())
 
     messages.error(request,"User Accepted")
-    return redirect('/admincustom/accept_vol')
+    return redirect('/admincustom/acceptusers')
     
 @login_required(login_url='/dj-admin/')    
 def acceptno(request,volemail):
