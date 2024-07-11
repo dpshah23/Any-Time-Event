@@ -27,7 +27,7 @@
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/templates/About-Us.html">About</a></li>
-            <li><a href="#">Services</a></li>
+            <li><a href="#">Reviews</a></li>
             <li><a href="/contact-us">Contact</a></li>
             {% if 'email' in request.session %}
             {% if request.session.role == "volunteer" %}
@@ -243,10 +243,10 @@
         </div>
     </div>
 
-    <!-- Clients Review -->
+    <!-- Reviews -->
 
     <div class="reviews-container">
-        <h1 class="title">CLIENTS <span class="highlight">REVIEW</span></h1>
+        <h1 class="title"><span class="highlight">REVIEWS</span></h1>
         <div class="reviews">
             <div class="review-card">
                 <img src="../static/img/Any-Time-Event-Logo.png" alt="Image" class="client-img" />
