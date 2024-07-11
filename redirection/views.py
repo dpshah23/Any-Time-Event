@@ -83,7 +83,7 @@ def reviews(request):
     return render(request,"reviews.html")
 
 def privacy_policy(request):
-    return render(request,'privacy_policy.html')
+    return render(request,'privacy.html')
 
 def ourteam(request):
     return render(request,"our-team.html")

@@ -441,6 +441,11 @@ Notes:
 
 @ratelimit(key='ip', rate='10/m')
 def companyinfo(request):
+
+    if not request.session.get('email123') or not request.session.get('phone123') or not request.session.get('name123'):
+        messages.error(request, "You are not authorized to access this page")
+        return redirect('/')
+
     if request.method == 'POST':
         image_file = request.FILES.get('company_card')
         image_file1 = request.FILES.get('company_logo')
@@ -486,6 +491,12 @@ def companyinfo(request):
                 'logo': logo,
             }
         )
+
+        request.session.pop('email123')
+        request.session.pop('phone123')
+        request.session.pop('name123')
+
+
         messages.success(request, 'Company Registered Successfully')
         return redirect('/')
     
@@ -515,6 +526,12 @@ Notes:
 """
 @ratelimit(key='ip', rate='10/m')
 def volunteerinfo(request):
+
+    if not request.session.get('email123') or not request.session.get('phone123') or not request.session.get('name123'):
+        messages.error(request, "You are not authorized to access this page")
+        return redirect('/')
+    
+
     if request.method == 'POST':
         # Check if both images are uploaded
         if 'profile_picture' not in request.FILES or 'identity_proof' not in request.FILES:
@@ -657,6 +674,12 @@ def volunteerinfo(request):
             }
         )
 
+
+        request.session.pop('email123')
+        request.session.pop('phone123')
+        request.session.pop('name123')
+
+        
         messages.success(request, 'Volunteer Registered Successfully')
         
         return redirect('/')
