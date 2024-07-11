@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse , JsonResponse
 from django_ratelimit.decorators import ratelimit
 from auth1.models import company
 from .models import *
@@ -16,6 +16,9 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 import base64
 from redirection.models import review
+import json 
+import hashlib 
+import  hmac
 
 # Create your views here.
 
@@ -343,25 +346,6 @@ Usage:
 """
 @ratelimit(key='ip',rate='5/m')
 def getpayment (request , event_id):
-
-    if request.method=="POST":
-        name=request.POST['name']
-        email=request.POST['email']
-        review1=request.POST['feedback']
-
-        obj1=review(name=name,email=email,review=review1)
-        obj1.save()
-
-        try:
-            obj=Event.objects.get(event_id=event_id,paid_status=True)
-
-            messages.success(request,"Thank You For Giving Your Valuable Feedback")
-            return redirect(f'/company/events/{event_id}')
-        
-        except Event.DoesNotExist:
-            messages.success(request,"Thank You For Giving Your Valuable Feedback... please proceed for payment")
-            return redirect(f'/payment/{event_id}')
-        
     load_dotenv()
     key = os.getenv('api_key_razorpay')
     secret = os.getenv('api_secret_razorpay')
@@ -376,15 +360,49 @@ def getpayment (request , event_id):
     # company_success.save()
     timestamp = date.today()
     payment_id = payment['id']
-    pay = company_payment(timestamp=timestamp , payment_id = payment_id)
+ 
+    pay = company_payment(timestamp=timestamp ,event_id = event_id, payment_id = payment_id)
     pay.save()
-    event, created = Event.objects.update_or_create(
-    event_id=event_id,
-    defaults={'paid_status': True}
-    )
+    # event, created = Event.objects.update_or_create(
+    # event_id=event_id,
+    # defaults={'paid_status': True}
+    # )
 
     return render (request ,"payment.html" , {'payment':payment})
 
+def verify_payment(request):
+        try:
+            # Get the required data from the request
+            payload = request.body
+            received_signature = request.headers.get('X-Razorpay-Signature')
+            secret = os.getenv('api_secret_razorpay')
+            
+            # Compute the expected signature
+            computed_signature = hmac.new(
+                secret.encode('utf-8'),
+                payload,
+                hashlib.sha256
+            ).hexdigest()
+            
+            # Verify the signatures match
+            if hmac.compare_digest(received_signature, computed_signature):
+                data = json.loads(payload)
+                payment_id = data['payload']['payment']['entity']['id']
+                
+                # Update payment status in the database
+                company_payment.objects.filter(payment_id=payment_id).update(status='success')
+            else:
+                data = json.loads(payload)
+                payment_id = data['payload']['payment']['entity']['id']
+                
+                # Update payment status in the database
+                company_payment.objects.filter(payment_id=payment_id).update(status='fail')
+
+        except Exception as e:
+            print("Error in payment verification: ", str(e))
+            return JsonResponse({'status': 'error', 'message': str(e)})
+        
+        return JsonResponse({'status': 'success'})
 """
 Function: editevent(request, event_id1)
 --------------------------------------
