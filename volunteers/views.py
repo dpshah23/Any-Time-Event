@@ -53,52 +53,7 @@ def apply (request,event_id):
     length=req
     print(length)
     print(len(total_vol))
-    if (len(total_vol)+1) == req:
-        load_dotenv()
-        from_email=os.getenv('EMAIL')
-        password=os.getenv('PASSWORD1')
-
-        print(from_email,password)
-        subject=f"Volunteer Requirement Met for {event_name} on {event_date}"
-        body=f"""
-        <h1 style="text-align:center">Volunteer Requirement Met</h1>
-        <p>
-        Dear {event_company},
-        </p>
-        <p>
-        We are pleased to inform you that the required number of volunteers for the event "{event_name}" has been met successfully.
-        </p>
-        <p>
-        <strong>Event Details:</strong><br>
-        Date: {event_date}<br>
-        Time: {event_time}<br>
-        End Time: {event_end_time}<br>
-        Location: {event_location}<br>
-        Organized by: {event_company}<br>
-        </p>
-        <p>
-        <strong>Volunteer Details:</strong><br>
-        Required Volunteers: {len(total_vol)+1}<br>
-        Registered Volunteers: {length}<br>
-        </p>
-        <p>
-        Thank you for choosing Any Time Event for your volunteer staffing needs. If you have any questions or need further assistance, please do not hesitate to contact us.
-        </p>
-        <p>Best regards,<br>Any Time Event Team</p>
-        """
-
-        msg = MIMEMultipart()
-        msg['Subject'] = subject
-        msg['From'] = from_email
-        msg['To'] = comp_mail
-        msg.attach(MIMEText(body, 'html'))
-        
-
-        with smtplib.SMTP('smtp.gmail.com', 587) as server:
-            server.starttls()
-            server.login(from_email, password)
-            server.sendmail(from_email, comp_mail, msg.as_string())
-            print("Mail Sent")
+    
 
     if len(total_vol) >= req :
         messages.error(request,"Maximum Limit of Volunteers has been reached...")
