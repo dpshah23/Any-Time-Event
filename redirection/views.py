@@ -9,6 +9,7 @@ import os
 from company.models import Event
 from django.utils import timezone  
 from auth1.models import company
+from .models import review
 
 # Create your views here.
 @ratelimit(key='ip', rate='10/m')
@@ -80,7 +81,9 @@ def services(request):
     return render(request,'services.html')
 
 def reviews(request):
-    return render(request,"reviews.html")
+    
+    obj=review.objects.all()
+    return render(request,"reviews.html",{'reviews':obj})
 
 def privacy_policy(request):
     return render(request,'privacy.html')
