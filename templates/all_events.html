@@ -246,10 +246,23 @@
       background-color: #027da2;
   }
 
+  /* .welcome-text{
+    display: left;
+    align-items: left;
+  } */
     h1 {
       text-align: center;
       margin-top: 2rem;
       color: #006989;
+    }
+
+    .fs-1{
+      text-align: left;
+      margin-top: 2rem;
+      color: #006989;
+      font-size: 60px;
+      padding-left:20px;
+      text-decoration:bold;
     }
 
     p {
@@ -288,11 +301,13 @@
       {% endif %}
     </ul>
   </nav>
+  <div>
+    <p class="fs-1">Welcome , {{company_name}}</p>
+    </div>
+    <br>
   <h1>Upcoming Events</h1>
   <div class="post-container">
     {% if not events %}
-   
-
     {% endif %}
     {% for p1 in events %}
     <div class="container">
