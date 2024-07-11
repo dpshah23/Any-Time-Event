@@ -19,7 +19,7 @@
             <p>Location: {{event.event_location}}</p>
             <a href='/volunteer/events/{{event.event_id}}'><button>View details</button></a>
             {% if not unregistered %}
-            <a href="/volunteer/apply/{{event.event_id}}"><button>Apply Now</button?</a>
+            <a href="/volunteer/apply/{{event.event_id}}"><button>Apply Now</button></a>
             {% else %}
             
             <a href="/volunteer/unregister/{{event.event_id}}"><button>Unregister</button></a>
