@@ -31,9 +31,9 @@
             <li><a href="/contact-us">Contact</a></li>
             {% if 'email' in request.session %}
             {% if request.session.role == "volunteer" %}
-            <li><a href="volunteer/">Dashboard</a></li>
+            <li><a href="volunteer/events">Dashboard</a></li>
             {% else %}
-            <li><a href="company/">Dashboard</a></li>
+            <li><a href="company/events">Dashboard</a></li>
             {% endif %}
             {% endif %}
             {% if 'email' not in request.session %}
