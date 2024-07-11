@@ -75,3 +75,9 @@ def get_logs(request):
         return JsonResponse({'logs': logs})
     else:
         return JsonResponse({'error': 'Log file not found'}, status=404)
+    
+def services(request):
+    return render(request,'services.html')
+
+def review(request):
+    return render(request,"reviews.html")
