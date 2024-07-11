@@ -1,0 +1,86 @@
+{% extends "base.html" %} {% block title %}About Us {% endblock title %} {%
+block body %} {% if messages %} {% for message in messages %}
+<div class="custom-alert custom-alert-{{ message.tags }}">
+    {{ message }}
+    <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+</div>
+{% endfor %} {% endif %}
+
+<link rel="stylesheet" href="/static/css/About-Us.css" />
+
+<h1>About Us</h1>
+<div class="container">
+    <div class="header">
+        <img src="/static/img/Any-Time-Event-Logo.png" alt="Logo" class="logo" />
+    </div>
+    <div class="content">
+        <h2>Welcome to Any Time Event!</h2>
+        <p>
+            Welcome to <b>AnyTimeEvent</b> – The premier platform connecting companies
+            with dedicated paid volunteers and freelancers eager to make a difference
+            while earning an income.
+        </p>
+
+        <h3>Our Mission</h3>
+        <p>
+            At <b>AnyTimeEvent</b>, Our mission is to bridge the gap between companies
+            seeking paid volunteer assistance and individuals looking to contribute
+            their skills and time for a rewarding experience. We believe in the power
+            of collaboration and aim to create opportunities that benefit both
+            businesses and volunteers.
+        </p>
+
+        <h3>Services We Offer</h3>
+        <p>
+            We provide a seamless platform where companies can post volunteer
+            opportunities,and where students and freelancers can find and apply for
+            roles that match their skills and interests. Our goal is to facilitate
+            meaningful connections that lead to personal growth, professional
+            development, and community impact.
+        </p>
+
+        <h3>Why Choose Us?</h3>
+        <ul>
+            <li>
+                <strong>For Companies:</strong> Easily find enthusiastic volunteers and
+                freelancers ready to support your projects. Our platform offers tools to
+                manage job postings, communicate with applicants, and ensure a smooth
+                collaboration process.
+            </li>
+            <li>
+                <strong>For Volunteers:</strong>Discover a variety of volunteer
+                opportunities that allow you to earn money, gain experience, and make a
+                positive impact. Our intuitive search and application system helps you
+                find the perfect match for your skills and availability.
+            </li>
+            <li>
+                <strong>Attention to Detail:</strong> Every detail matters, and we
+                ensure nothing is overlooked.
+            </li>
+            <li>
+                <strong>Reliable and Trustworthy:</strong> You can count on us to
+                deliver on our promises.
+            </li>
+        </ul>
+
+        <h3>Join Us</h3>
+        <p>
+            Whether you’re a company looking for passionate volunteers or an
+            individual seeking rewarding opportunities, AnyTimeEvent is here to help
+            you achieve your goals. Join our community today and be part of a network
+            dedicated to making a difference.
+        </p>
+
+        <h3>Contact Us</h3>
+        <p>Ready to plan your next event? Get in touch with us today!</p>
+        <p>
+            <strong>Phone:</strong> (123) 456-7890<br />
+            <strong>Email:</strong>
+            <a href="mailto:info@anytimeevent.com">info@anytimeevent.com</a><br />
+            <strong>Website:</strong>
+            <a href="http://www.anytimeevent.com">www.anytimeevent.com</a>
+        </p>
+    </div>
+</div>
+
+{% endblock body %}
