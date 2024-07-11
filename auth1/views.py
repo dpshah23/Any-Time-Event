@@ -353,18 +353,18 @@ Returns:
 def signup (request):
     if request.method == 'POST':
         email = request.POST.get('email')
-        load_dotenv()
-        api=os.getenv('api_key_email_validation')
-        print(api)
+        # load_dotenv()
+        # api=os.getenv('api_key_email_validation')
+        # print(api)
 
-        client = emailvalidationio.Client(api)
+        # client = emailvalidationio.Client(api)
         
-        result=client.validate(email)
+        # result=client.validate(email)
 
-        print(result)
-        if result['mx_found'] is False or result['smtp_check'] is False or result['reason'] == 'invalid_mailbox':
-            messages.error(request, 'Invalid Email')
-            return redirect('/auth/signup')
+        # print(result)
+        # if result['mx_found'] is False or result['smtp_check'] is False or result['reason'] == 'invalid_mailbox':
+        #     messages.error(request, 'Invalid Email')
+        #     return redirect('/auth/signup')
         
 
         if users.objects.filter(email=email).exists():
