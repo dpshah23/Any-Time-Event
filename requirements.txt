@@ -10,3 +10,4 @@ razorpay
 psycopg2
 psycopg
 emailvalidationio
+django-jazzmin
