@@ -4,6 +4,5 @@ from .models import *
 
 admin.site.register(Event)
 admin.site.register(RegVol)
-admin.site.register(company_success)
-admin.site.register(company_error)
+admin.site.register(company_payment)
 # Register your models here.

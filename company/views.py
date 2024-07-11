@@ -356,7 +356,7 @@ def getpayment (request , event_id):
     # company_success.save()
     timestamp = date.today()
     payment_id = payment['id']
-    pay = company_success(timestamp=timestamp , payment_id = payment_id)
+    pay = company_payment(timestamp=timestamp , payment_id = payment_id)
     pay.save()
     event, created = Event.objects.update_or_create(
     event_id=event_id,
