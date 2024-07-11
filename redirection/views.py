@@ -79,5 +79,11 @@ def get_logs(request):
 def services(request):
     return render(request,'services.html')
 
-def review(request):
+def reviews(request):
     return render(request,"reviews.html")
+
+def privacy_policy(request):
+    return render(request,'privacy_policy.html')
+
+def ourteam(request):
+    return render(request,"our-team.html")
