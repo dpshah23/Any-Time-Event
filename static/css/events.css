@@ -24,10 +24,14 @@ body {
 .profile-details p {
     margin-bottom: 20px;
 }
+.strong{
+    font-size: 23px;
+}
 
 .profile-details h2 {
     margin-bottom: 30px;
     color: #006989;
+    font-size: 28px;
 }
 
 .field.button-field {
@@ -38,7 +42,7 @@ body {
 
 .field button {
     height: 50px;
-    width: 11rem;
+    width: 125%;
     font-size: 16px;
     font-weight: 400;
     border: none;
