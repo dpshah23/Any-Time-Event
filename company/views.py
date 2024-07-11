@@ -370,39 +370,8 @@ def getpayment (request , event_id):
 
     return render (request ,"payment.html" , {'payment':payment})
 
-def verify_payment(request):
-        try:
-            # Get the required data from the request
-            payload = request.body
-            received_signature = request.headers.get('X-Razorpay-Signature')
-            secret = os.getenv('api_secret_razorpay')
-            
-            # Compute the expected signature
-            computed_signature = hmac.new(
-                secret.encode('utf-8'),
-                payload,
-                hashlib.sha256
-            ).hexdigest()
-            
-            # Verify the signatures match
-            if hmac.compare_digest(received_signature, computed_signature):
-                data = json.loads(payload)
-                payment_id = data['payload']['payment']['entity']['id']
-                
-                # Update payment status in the database
-                company_payment.objects.filter(payment_id=payment_id).update(status='success')
-            else:
-                data = json.loads(payload)
-                payment_id = data['payload']['payment']['entity']['id']
-                
-                # Update payment status in the database
-                company_payment.objects.filter(payment_id=payment_id).update(status='fail')
 
-        except Exception as e:
-            print("Error in payment verification: ", str(e))
-            return JsonResponse({'status': 'error', 'message': str(e)})
-        
-        return JsonResponse({'status': 'success'})
+    
 """
 Function: editevent(request, event_id1)
 --------------------------------------
