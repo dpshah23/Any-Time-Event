@@ -8,3 +8,11 @@ class contactus(models.Model):
 
     def __str__(self):
         return self.name
+    
+class review(models.Model):
+    name=models.CharField(max_length=150)
+    email=models.EmailField(max_length=250)
+    review=models.TextField()
+
+    def __str__(self):
+        return self.name

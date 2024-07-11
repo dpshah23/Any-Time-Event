@@ -241,6 +241,14 @@
         <form action="{% url 'pay' %}" method="post">
             {% csrf_token %}
             <div class="form-field">
+                <label for="name">Name : </label><br>
+                <input type="text" name="name">
+            </div>
+            <div class="form-field">
+                <label for="email">Email : </label><br>
+                <input type="email" name="email">
+            </div>
+            <div class="form-field">
                 <label for="feedback">Please share Your valuable Feedback</label><br>
                 <textarea name="feedback" id="feedback"></textarea>
             </div>
@@ -248,6 +256,7 @@
                 <button type="submit">Submit</button>
             </div>
         </form>
+        
         <div class="full-width">
             <button id="rzp-button1" type="button">Pay Now</button>
         </div>

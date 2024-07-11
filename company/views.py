@@ -15,6 +15,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 import base64
+from redirection.models import review
 
 # Create your views here.
 
@@ -342,6 +343,25 @@ Usage:
 """
 @ratelimit(key='ip',rate='5/m')
 def getpayment (request , event_id):
+
+    if request.method=="POST":
+        name=request.POST['name']
+        email=request.POST['email']
+        review1=request.POST['feedback']
+
+        obj1=review(name=name,email=email,review=review1)
+        obj1.save()
+
+        try:
+            obj=Event.objects.get(event_id=event_id,paid_status=True)
+
+            messages.success(request,"Thank You For Giving Your Valuable Feedback")
+            return redirect(f'/company/events/{event_id}')
+        
+        except Event.DoesNotExist:
+            messages.success(request,"Thank You For Giving Your Valuable Feedback... please proceed for payment")
+            return redirect(f'/payment/{event_id}')
+        
     load_dotenv()
     key = os.getenv('api_key_razorpay')
     secret = os.getenv('api_secret_razorpay')
