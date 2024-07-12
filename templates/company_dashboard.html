@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- <title>Events | Any Time Event </title> -->
-  <link rel="stylesheet" href="../static/css/navbar.css" />
+  <title>{% block title %}{% endblock title %} | Any Time Event </title>
   <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/img/Any-Time-Event-Logo.png">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
-
+  
     * {
       margin: 0;
       padding: 0;
@@ -17,18 +17,18 @@
       list-style: none;
       box-sizing: border-box;
     }
-
+  
     body {
       font-family: sans-serif;
       background-color: #f0ece2;
       overflow-x: hidden;
     }
-
+  
     ::selection {
       background-color: #006989;
       color: #fff;
   }
-
+  
     nav {
       background: #dfd3c3;
       height: 80px;
@@ -36,7 +36,7 @@
       z-index: 10;
       position: relative;
     }
-
+  
     label.logo {
       color: #000000;
       font-size: 37px;
@@ -44,23 +44,23 @@
       padding: 0 100px;
       font-weight: bold;
     }
-
+  
     label.logo img {
       height: 72px;
       margin-top: 3px;
     }
-
+  
     nav ul {
       float: right;
       margin-right: 20px;
     }
-
+  
     nav ul li {
       display: inline-block;
       line-height: 80px;
       margin: 0 5px;
     }
-
+  
     nav ul li a {
       color: #006989;
       font-size: 18px;
@@ -68,12 +68,12 @@
       padding: 7px 13px;
       font-weight: 550;
     }
-
+  
     a:hover {
       text-decoration: underline;
       transition: 0.1s ease-in;
     }
-
+  
     .checkbtn {
       float: right;
       line-height: 80px;
@@ -82,16 +82,16 @@
       cursor: pointer;
       display: none;
     }
-
+  
     #check {
       display: none;
     }
-
+  
     .menu {
       height: 2rem;
       width: 2rem;
     }
-
+  
     .log-butt {
       height: 2.5rem;
       width: 5rem;
@@ -103,34 +103,34 @@
       color: #ffffff;
       overflow: hidden;
     }
-
+  
     .log-butt a {
       text-decoration: none;
       color: inherit;
     }
-
+  
     @media (max-width: 952px) {
       label.logo {
         font-size: 30px;
         padding-left: 50px;
       }
-
+  
       nav ul li a {
         font-size: 16px;
       }
-
+  
       .log-butt {
         height: 2rem;
         width: 4.2rem;
         font-size: 18px;
       }
     }
-
+  
     @media (max-width: 858px) {
       .checkbtn {
         display: block;
       }
-
+  
       ul {
         position: fixed;
         width: 15rem;
@@ -142,27 +142,27 @@
         transition: 0.5s all;
         z-index: 10;
       }
-
+  
       nav ul li {
         display: block;
         margin: 50px 0;
         line-height: 30px;
       }
-
+  
       nav ul li a {
         font-size: 20px;
       }
-
+  
       a:hover,
       a.check {
         background: none;
         color: black;
       }
-
+  
       #check:checked~ul {
         left: 0;
       }
-
+  
       .log-butt {
         margin-left: 0rem;
         height: 3rem;
@@ -172,27 +172,27 @@
         background-color: #639bc6;
       }
     }
-
+  
     body {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       font-family: 'Poppins', sans-serif;
       background-color: #f0ece2;
-
+  
     }
-
+  
     .container-fluid {
       max-width: 100%;
-
+  
     }
-
+  
     .post {
       text-align: center;
       color: black;
       /* background-color: white; */
     }
-
+  
     .post-container {
       /* background-color: white; */
       text-align: center;
@@ -207,9 +207,9 @@
       grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
       /* Adjust minmax as needed */
       gap: 20px;
-
+  
     }
-
+  
     .container {
       max-width: 100rem;
       max-height: 100rem;
@@ -221,13 +221,13 @@
       border: 1px solid #ddd;
       border-radius: 5px;
       background-color: white;
-
+  
     }
-
+  
     .posts:hover {
       transition: all 0.4s ease-in-out;
     }
-
+  
     .field button {
       height: 50px;
       width: 30%;
@@ -241,77 +241,21 @@
       cursor: pointer;
       margin-bottom: 30px;
     }
-
+  
     .field button:hover {
       background-color: #027da2;
   }
-
+  
   /* .welcome-text{
     display: left;
     align-items: left;
   } */
-
-  .flex-wrapper {
-  display: flex;
-  flex-flow: row nowrap;
-}
-
-.single-chart {
-  width: 33%;
-  justify-content: space-around ;
-}
-
-.circular-chart {
-  display: block;
-  margin: 10px auto;
-  max-width: 30%;
-  max-height: 200px;
-}
-
-.circle-bg {
-  fill: none;
-  stroke: #f0ece2;
-  stroke-width: 3.8;
-}
-
-.circle {
-  fill: none;
-  stroke-width: 2.8;
-  stroke-linecap: round;
-  animation: progress 1s ease-out forwards;
-}
-
-@keyframes progress {
-  0% {
-    stroke-dasharray: 0 100;
-  }
-}
-
-.circular-chart.orange .circle {
-  stroke: #ff9f00;
-}
-
-.circular-chart.green .circle {
-  stroke: #4CC790;
-}
-
-.circular-chart.blue .circle {
-  stroke: #006989;
-}
-
-.percentage {
-  fill: #666;
-  font-family: sans-serif;
-  font-size: 0.5em;
-  text-anchor: middle;
-}
-
     h1 {
       text-align: center;
       margin-top: 2rem;
       color: #006989;
     }
-
+  
     .fs-1{
       text-align: left;
       margin-top: 2rem;
@@ -320,7 +264,7 @@
       padding-left:20px;
       text-decoration:bold;
     }
-
+  
     p {
       margin-bottom: 20px;
       margin-top: 10px;
@@ -329,93 +273,28 @@
   h4 {
       margin: 10px;
   }
-
+  
   </style>
-  <!-- <link rel="stylesheet" href="../static/css/event_history.css"> -->
-  <script defer src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
-  <title>{{company_name}} | Event history</title>
 </head>
 
 <body>
-  <nav>
-    <input type="checkbox" id="check" />
-    <label for="check" class="checkbtn">
-      <img class="menu" src="../static/img/bars.svg" alt="Bars" />
-    </label>
-    <label class="logo"><img src="/static/img/Any-Time-Event-Logo.png" alt="Logo"></label>
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/company/add_event">Add Event</a></li>
-      <li><a href="/company/profile/{{obj.comp_id}}">Profile</a></li>
-      <li><a href="/contact-us">Contact</a></li>
-      {% if 'email' not in request.session %}
-      <button class="log-butt"><a href="/auth/login">Login</a></button>
-      {% else %}
-      <button class="log-butt"><a href="/auth/logout">Logout</a></button>
-      {% endif %}
-    </ul>
-  </nav>
-  <div>
-    <p class="fs-1">Welcome , {{company_name}}</p>
-    </div>
-    <br>
-    <div class="single-chart">
-      <svg viewBox="0 0 36 36" class="circular-chart blue">
-        <path class="circle-bg"
-          d="M18 2.0845
-            a 15.9155 15.9155 0 0 1 0 31.831
-            a 15.9155 15.9155 0 0 1 0 -31.831"
-        />
-        <path class="circle"
-          stroke-dasharray="90, 100"
-          d="M18 2.0845
-            a 15.9155 15.9155 0 0 1 0 31.831
-            a 15.9155 15.9155 0 0 1 0 -31.831"
-        />
-        <text x="18" y="20.35" class="percentage">90%</text>
-      </svg>
-    </div>
-  </div>
-  <h1>Upcoming Events</h1>
-  <div class="post-container">
-    {% if not events %}
+<nav>
+  <input type="checkbox" id="check" />
+  <label for="check" class="checkbtn">
+    <img class="menu" src="../static/img/bars.svg" alt="Bars" />
+  </label>
+  <label class="logo"><img src="/static/img/Any-Time-Event-Logo.png" alt="Logo"></label>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/company/add_event">Add Event</a></li>
+    <li><a href="/company/profile/{{obj.comp_id}}">Profile</a></li>
+    <li><a href="/contact-us">Contact</a></li>
+    {% if 'email' not in request.session %}
+    <button class="log-butt"><a href="/auth/login">Login</a></button>
+    {% else %}
+    <button class="log-butt"><a href="/auth/logout">Logout</a></button>
     {% endif %}
-    {% for p1 in events %}
-    <div class="container">
-
-      <h1><a class="post" href="/company/events/{{ p1.event_id }}">{{ p1.event_name }}</a></h1>
-      <h4><strong>Company Name:</strong> <span id="event_company">{{ p1.event_company }}</span></h4>
-      <p><strong>Event Description:</strong> <span id="event_company">{{ p1.event_description }}</span></p>
-    </div>
-    {% endfor %}
-  </div>
-  <br><br>
-  <h1>Expired Events</h1>
-
-  {% if not events_ex %}
-
-  
-  {% endif %}
-
-  <div class="post-container">
-    {% for r1 in events_ex %}
-    <div class="container">
-      <h1><a class="post" href="/company/events/{{ r1.event_id }}">{{ r1.event_name }}</a></h1>
-      <h4><strong>Company Name:</strong> <span id="event_company">{{ r1.event_company }}</span></h4>
-      <p><strong>Event Description:</strong> <span id="event_company">{{ r1.event_description }}</span></p>
-      <div class="field button-field">
-        {% if not r1.paid_status %}
-        <a href="/company/payment/{{r1.event_id}}"><button type="button">Pay Now </button></a>
-        {% else %}
-        <button type=button>Already Paid</button>
-        {% endif %}
-      </div>
-    </div>
-    {% endfor %}
-  </div>
-
-
-
+  </ul>
+</nav>
 </body>
+</html>
