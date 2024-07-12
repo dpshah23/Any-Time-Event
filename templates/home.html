@@ -320,7 +320,18 @@
             </div>
         </div>
         <div class="footerBottom">
-            <a href="#">Terms & Conditions</a> | <a href="#">Privacy Policy</a>
+
+            {% if request.session.role == "company" %}
+            <a href="/terms-and-condition#company">Terms & Conditions</a> | <a href="/privacy_policy">Privacy Policy</a>
+            
+            {% elif request.session.role == "volunteer" %}
+            
+            <a href="/terms-and-condition#volunteer">Terms & Conditions</a> | <a href="/privacy_policy">Privacy Policy</a>
+            
+            {% else %}
+            
+            <a href="/terms-and-condition">Terms & Conditions</a> | <a href="/privacy_policy">Privacy Policy</a>
+            {% endif %}
             <p>
                 CopyRight &copy;2024; Designed by
                 <span class="designer">ANY TIME EVENT TEAM</span>
