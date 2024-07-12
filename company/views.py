@@ -221,8 +221,17 @@ def getallevents(request):
     all_events = Event.objects.filter(company_email=email)
     events_expired = [event for event in all_events if event.is_expired()]  
     events_active = [event for event in all_events if not event.is_expired()]
+
+    required=0
+    for event in all_events:
+        required+=event.event_vol
+
+    total=len(RegVol.objects.filter(company_email=email))
+
+    print(required,total)
+
     
-    return render(request,"all_events.html",{'events_ex':events_expired,'events':events_active,'company_name':company.objects.get(email=email).name , 'obj' : company.objects.get (email = email)})
+    return render(request,"all_events.html",{'events_ex':events_expired,'events':events_active,'company_name':company.objects.get(email=email).name , 'obj' : company.objects.get (email = email),'required':required,'total':total})
 
 """
 Function: gettotalvol(request, event_id)
