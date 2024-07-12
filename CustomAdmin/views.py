@@ -237,10 +237,11 @@ def payvol(request,event_id):
             vol.paid_status=True
             vol.save()
             all_paid=True
+            event_name = Event.objects.get(event_id=event_id).event_name
 
             timestamp=datetime.now().date().isoformat()
 
-            obj1=payout(timestamp1=timestamp,vol_id=vol.vol_id,vol_email=vol.email,event_id=event_id,rz_id=response.json()['id'],entity=response.json()['entity'],amount=response.json()['amount'],mode=response.json()['mode'])
+            obj1=payout(timestamp1=timestamp,event_name=event_name,vol_id=vol.vol_id,vol_email=vol.email,event_id=event_id,rz_id=response.json()['id'],entity=response.json()['entity'],amount=response.json()['amount'],mode=response.json()['mode'])
             obj1.save()
 
             load_dotenv()

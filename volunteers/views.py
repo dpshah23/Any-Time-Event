@@ -372,4 +372,4 @@ def history(request):
         return redirect('/')
     except Exception as e:
         print(e)
-    return render(request ,'transaction.html' , {'history' : history} )
+    return render(request ,'transaction.html' , {'history1' : history} )

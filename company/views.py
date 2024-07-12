@@ -376,7 +376,9 @@ def getpayment(request, event_id):
     payment_id = payment['id']
     company_email = Event.objects.get(event_id=event_id).company_email
     company_id = company.objects.get(email = company_email ).comp_id
-    pay = company_payment(timestamp=timestamp, event_id=event_id, payment_id=payment_id , company_id = company_id)
+    event_name = Event.objects.get(event_id=event_id).event_name
+    event_date = Event.objects.get(event_id = event_id).event_date
+    pay = company_payment(timestamp=timestamp, event_id=event_id,event_name=event_name,event_date=event_date,amount=amount, payment_id=payment_id , company_id = company_id)
     pay.save()
 
     return render(request, "payment.html", {'payment': payment, 'key': key,'event_id':event_id})

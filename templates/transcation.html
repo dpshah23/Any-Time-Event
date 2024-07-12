@@ -20,5 +20,19 @@
                 <img src="data:image/png;base64,{{post['img']}}" class="card-img-top" alt="Display Picture" style="height: 200px;width: 200px;border-radius: 50%;overflow: hidden;"><br><br>
             </div>
             {% endfor %} -->
+          {% if request.session.email and request.session.role == "company" and request.session.email == event.company_email  %}
+            {% for t1 in history %}
+            <h4><strong>Payment Date :</strong> <span id="date">{{ p1.timestamp }}</span></h4>
+            <h4><strong>Event Date :</strong> <span id="date1">{{ p1.event_date }}</span></h4>
+            <h4><strong>Event Name :</strong> <span id="name">{{ p1.event_name }}</span></h4>
+            <h4><strong>Amount :</strong> <span id="amount">{{ p1.amount }}</span></h4>
+            <h4><strong>Payment Id:</strong> <span id="id">{{ p1.payment_id }}</span></h4>
+          {%else%}
+            {% for t1 in history1%}
+            <h4><strong>Payment Date :</strong> <span id="date">{{ p1.timestamp1 }}</span></h4>
+            <h4><strong>Email :</strong> <span id="email">{{ p1.vol_email }}</span></h4>
+            <h4><strong>Event Name :</strong> <span id="name">{{ p1.event_name }}</span></h4>
+            <h4><strong>Amount :</strong> <span id="amount">{{ p1.amount }}</span></h4>
+            <h4><strong>Mode :</strong> <span id="mode">{{ p1.mode }}</span></h4>
           </div>
     </body>

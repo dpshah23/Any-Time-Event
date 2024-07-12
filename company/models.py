@@ -48,6 +48,9 @@ class RegVol(models.Model):
 class company_payment(models.Model):
     timestamp = models.DateField()
     event_id = models.CharField(null=True)
+    event_name = models.CharField(null = True)
+    event_date = models.DateField(null=True)
+    amount = models.CharField(null=True)
     payment_id = models.TextField()
     company_id = models.CharField(null=True)
     status = models.BooleanField(default = False)
