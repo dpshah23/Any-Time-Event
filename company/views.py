@@ -633,8 +633,13 @@ def storedetails(request):
         timestamp=datetime.datetime.now().date()
         event_id=request.GET.get('event_id')
 
-        obj=company_payment(order_id=order_id,timestamp=timestamp,event_id=event_id,payment_id=payment_id,signature=signature,status="Success")
+        obj=company_payment(order_id=order_id,timestamp=timestamp,event_id=event_id,payment_id=payment_id,status="Success")
         obj.save()
+        if (company_payment.objects.get(event_id = event_id).status == "Success"):
+            event, created = Event.objects.update_or_create(
+            event_id=event_id,
+            defaults={'paid_status': True}
+            )
 
         messages.success(request,"payment Successful")
         return redirect(f'/company/events')
