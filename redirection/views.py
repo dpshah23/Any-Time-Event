@@ -11,6 +11,7 @@ from django.utils import timezone
 from auth1.models import company
 from .models import review
 from company.models import RegVol
+from datetime import date
 
 # Create your views here.
 @ratelimit(key='ip', rate='10/m')
@@ -96,12 +97,15 @@ def reviews(request):
         name=request.POST.get('name')
         email=request.POST.get('email')
         feedbackreview=request.POST.get('feedback')
+        date1=date.today()
 
-        objs=review(name=name,email=email,review=feedbackreview)
+        print(name,email,feedbackreview,date1)
+
+        objs=review(name=name,email=email,review=feedbackreview,date=date1)
         objs.save()
 
         messages.success(request,"Review Added Successfully")
-        return redirect('/reviews')
+        return redirect('/review')
 
 
     obj=review.objects.all()

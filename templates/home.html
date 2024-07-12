@@ -27,7 +27,7 @@
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/templates/About-Us.html">About</a></li>
-            <li><a href="#">Reviews</a></li>
+            <li><a href="/review">Reviews</a></li>
             <li><a href="/contact-us">Contact</a></li>
             {% if 'email' in request.session %}
             {% if request.session.role == "volunteer" %}
@@ -251,7 +251,7 @@
             <div class="review-card">
                 <img src="../static/img/Any-Time-Event-Logo.png" alt="Image" class="client-img" />
                 <h3 class="client-name">{{reviews.0.name}}</h3>
-                <p class="client-status">{{reviews.0.email}}</p>
+                <p class="client-status">{{reviews.0.date}}</p>
                 <p class="review-text">
                     {{reviews.0.review}}
                 </p>
@@ -259,7 +259,7 @@
             <div class="review-card">
                 <img src="../static/img/Any-Time-Event-Logo.png" alt="Image" class="client-img" />
                 <h3 class="client-name">{{reviews.1.name}}</h3>
-                <p class="client-status">{{reviews.1.email}}</p>
+                <p class="client-status">{{reviews.1.date}}</p>
                 <p class="review-text">
                     {{reviews.1.review}}
                 </p>
@@ -267,7 +267,7 @@
             <div class="review-card">
                 <img src="../static/img/Any-Time-Event-Logo.png" alt="Image" class="client-img" />
                 <h3 class="client-name">{{reviews.2.name}}</h3>
-                <p class="client-status">{{reviews.2.email}}</p>
+                <p class="client-status">{{reviews.2.date}}</p>
                 <p class="review-text">
                     {{reviews.2.review}}
                 </p>
