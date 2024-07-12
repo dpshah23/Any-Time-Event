@@ -258,29 +258,36 @@
         </form>
         
         <div class="full-width">
-            <button id="rzp-button1" type="button">Pay Now</button>
+            <button id="rzp-button1">Pay Now</button>
         </div>
     </div>
 
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    <script>
-        var options = {
-            "key": "rzp_test_1hUnK1LrP2jkMb",
-            "amount": "{{ payment.amount }}",
-            "currency": "INR",
-            "name": "Any Time Event",
-            "description": "Payment for your Event",
-            "order_id": "{{ payment.id }}",
-            "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
-            "theme": {
-                "color": "#3399cc"
-            }
-        };
-        var rzp1 = new Razorpay(options);
-        document.getElementById('rzp-button1').onclick = function(e){
-            rzp1.open();
-            e.preventDefault();
-        }
-    </script>
+    
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "{{key}}", 
+    "amount": "{{ payment.amount }}", 
+    "currency": "INR",
+    "name": "Any Time Event",
+    "description": "Payment for your Event",
+    "image": "/static/img/Any-Time-Event-Logo.png",
+    "order_id": "{{payment.id}}", 
+    "handler": function (response){
+        alert("Payment successfull");
+    },
+    "theme": {
+        "color": "#f0ece2;"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert("Payment Failed");
+});
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
 </body>
 </html>

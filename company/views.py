@@ -368,7 +368,7 @@ def getpayment (request , event_id):
     # defaults={'paid_status': True}
     # )
 
-    return render (request ,"payment.html" , {'payment':payment})
+    return render (request ,"payment.html" , {'payment':payment , 'key':key})
 
 
     
