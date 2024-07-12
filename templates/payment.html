@@ -262,32 +262,34 @@
         </div>
     </div>
 
-    
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script>
-var options = {
-    "key": "{{key}}", 
-    "amount": "{{ payment.amount }}", 
-    "currency": "INR",
-    "name": "Any Time Event",
-    "description": "Payment for your Event",
-    "image": "/static/img/Any-Time-Event-Logo.png",
-    "order_id": "{{payment.id}}", 
-    "handler": function (response){
-        alert("Payment successfull");
-    },
-    "theme": {
-        "color": "#f0ece2;"
-    }
-};
-var rzp1 = new Razorpay(options);
-rzp1.on('payment.failed', function (response){
-        alert("Payment Failed");
-});
-document.getElementById('rzp-button1').onclick = function(e){
-    rzp1.open();
-    e.preventDefault();
-}
-</script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        var options = {
+            "key": "{{ key }}",
+            "amount": "{{ payment.amount }}",
+            "currency": "INR",
+            "name": "Any Time Event",
+            "description": "Payment for your Event",
+            "image": "/static/img/Any-Time-Event-Logo.png",
+            "order_id": "{{ payment.id }}",
+            "handler": function (response){
+                console.log("Payment successful", response);
+                alert("Payment successful");
+            },
+            "theme": {
+                "color": "#f0ece2"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.on('payment.failed', function (response){
+            console.error("Payment failed", response);
+            alert("Payment Failed");
+        });
+        document.getElementById('rzp-button1').onclick = function(e){
+            console.log("Opening Razorpay checkout");
+            rzp1.open();
+            e.preventDefault();
+        }
+    </script>
 </body>
 </html>

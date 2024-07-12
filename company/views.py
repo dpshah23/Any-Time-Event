@@ -221,8 +221,17 @@ def getallevents(request):
     all_events = Event.objects.filter(company_email=email)
     events_expired = [event for event in all_events if event.is_expired()]  
     events_active = [event for event in all_events if not event.is_expired()]
+
+    required=0
+    for event in all_events:
+        required+=event.event_vol
+
+    total=len(RegVol.objects.filter(company_email=email))
+
+    print(required,total)
+
     
-    return render(request,"all_events.html",{'events_ex':events_expired,'events':events_active,'company_name':company.objects.get(email=email).name , 'obj' : company.objects.get (email = email)})
+    return render(request,"all_events.html",{'events_ex':events_expired,'events':events_active,'company_name':company.objects.get(email=email).name , 'obj' : company.objects.get (email = email),'required':required,'total':total})
 
 """
 Function: gettotalvol(request, event_id)
@@ -345,30 +354,31 @@ Usage:
     payment status in the database.
 """
 @ratelimit(key='ip',rate='5/m')
-def getpayment (request , event_id):
+def getpayment(request, event_id):
     load_dotenv()
     key = os.getenv('api_key_razorpay')
     secret = os.getenv('api_secret_razorpay')
-    client = razorpay.Client(auth=(key,secret))
+    client = razorpay.Client(auth=(key, secret))
     
-    total_vol=len(RegVol.objects.filter(event_id_1=event_id,attendence="present"))
-    amount = (Event.objects.get(event_id=event_id).event_mrp) * total_vol
-    final_amt = int(amount)*100
-    payment = client.order.create({ "amount": final_amt, "currency": "INR", "payment_capture": '1' })
-    # print(payment)
-    # company_success.payment_id = payment['id']
-    # company_success.save()
+    total_vol = len(RegVol.objects.filter(event_id_1=event_id, attendence="present"))
+    event_mrp = Event.objects.get(event_id=event_id).event_mrp
+    amount = event_mrp * total_vol
+    final_amt = int(amount) * 100  # Convert amount to paise
+
+    try:
+        payment = client.order.create({"amount": final_amt, "currency": "INR", "payment_capture": '1'})
+    except Exception as e:
+        print("Error creating order: ", e)
+        return render(request, "error.html", {"message": "Error creating Razorpay order"})
+
+    print(payment)
     timestamp = date.today()
     payment_id = payment['id']
- 
-    pay = company_payment(timestamp=timestamp ,event_id = event_id, payment_id = payment_id)
-    pay.save()
-    # event, created = Event.objects.update_or_create(
-    # event_id=event_id,
-    # defaults={'paid_status': True}
-    # )
 
-    return render (request ,"payment.html" , {'payment':payment , 'key':key})
+    pay = company_payment(timestamp=timestamp, event_id=event_id, payment_id=payment_id)
+    pay.save()
+
+    return render(request, "payment.html", {'payment': payment, 'key': key})
 
 
     
@@ -623,8 +633,13 @@ def storedetails(request):
         timestamp=datetime.datetime.now().date()
         event_id=request.GET.get('event_id')
 
-        obj=company_payment(order_id=order_id,timestamp=timestamp,event_id=event_id,payment_id=payment_id,signature=signature,status="Success")
+        obj=company_payment(order_id=order_id,timestamp=timestamp,event_id=event_id,payment_id=payment_id,status="Success")
         obj.save()
+        if (company_payment.objects.get(event_id = event_id).status == "Success"):
+            event, created = Event.objects.update_or_create(
+            event_id=event_id,
+            defaults={'paid_status': True}
+            )
 
         messages.success(request,"payment Successful")
         return redirect(f'/company/events')
