@@ -4,6 +4,7 @@ from django_ratelimit.decorators import ratelimit
 from django.contrib import messages
 from company.models import *
 from auth1.models import *
+from CustomAdmin.models import payout
 from django.core.paginator import Paginator
 import smtplib
 from email.mime.text import MIMEText
@@ -350,3 +351,25 @@ def editvol(request,vol_id):
         return redirect('/')
 
     return render(request,'edit_vol.html',{'volunteer':vol})
+
+@ratelimit(key='ip',rate='5/m')
+def history(request):
+    if 'email' and 'role' not in request.session:
+        messages.error(request,"You are not logged in")
+        return redirect('/')
+
+    if request.session['role']=="company":
+        messages.error(request,"You Don't have permission to view this page")
+        return redirect('/')
+    
+    email = request.session['email']
+    try:
+        vol_id = volunteer.objects.get(email = email).vol_id
+        history = payout.objects.filter(vol_id=vol_id)
+        
+    except volunteer.DoesNotExist:
+        messages.error(request,'volunteer Does Not Exists')
+        return redirect('/')
+    except Exception as e:
+        print(e)
+    return render(request ,'transaction.html' , {'history' : history} )

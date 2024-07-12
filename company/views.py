@@ -374,8 +374,9 @@ def getpayment(request, event_id):
     print(payment)
     timestamp = date.today()
     payment_id = payment['id']
-
-    pay = company_payment(timestamp=timestamp, event_id=event_id, payment_id=payment_id)
+    company_email = Event.objects.get(event_id=event_id).company_email
+    company_id = company.objects.get(email = company_email ).comp_id
+    pay = company_payment(timestamp=timestamp, event_id=event_id, payment_id=payment_id , company_id = company_id)
     pay.save()
 
     return render(request, "payment.html", {'payment': payment, 'key': key,'event_id':event_id})
@@ -407,6 +408,7 @@ Returns:
 Usage:
     This function is typically used in a Django view to allow authorized users to edit the details of a specific event.
 """
+@ratelimit(key='ip',rate='5/m')
 def editevent(request,event_id1):
     if 'email' and 'role' not in request.session:
         messages.error(request,"You are not logged in")
@@ -570,6 +572,7 @@ def bulkmail(smtp_server, port, sender_email, sender_password, subject, body, re
     pass
 
 
+@ratelimit(key='ip',rate='5/m')
 def editcompany(request,comp_id):
     if 'email' and 'role' not in request.session:
         messages.error(request,"You are not logged in")
@@ -645,3 +648,26 @@ def storedetails(request):
 
         messages.success(request,"payment Successful")
         return redirect(f'/company/events')
+    
+@ratelimit(key='ip',rate='5/m')
+def payment_history(request ):
+    if 'email' and 'role' not in request.session:
+        messages.error(request,"You are not logged in")
+        return redirect('/')
+    
+    if request.session['role']=="volunteer":
+        messages.error(request,"You Don't have permission to view this page")
+    email = request.session['email']
+    try :
+        company_id = company.objects.get(email = email).comp_id
+        history = company_payment.objects.filter(comp_id=company_id)
+    
+    except company.DoesNotExist:
+        messages.error(request,'company Does Not Exists')
+        return redirect('/company/')
+    except Exception as e:
+        print(e)
+        return redirect('/')
+    
+    return render(request ,'transaction.html' , {'history' : history} )
+        

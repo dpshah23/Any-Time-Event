@@ -13,5 +13,6 @@ urlpatterns = [
     path('editevent/<event_id1>',editevent,name="editevent"),
     path('present/<event_id>/<email>',markattendenceyes,name="present"),
     path('absent/<event_id>/<email>',markattendenceno,name="absent"),
-    path('storedetails',storedetails,name="storedeatail")
+    path('storedetails',storedetails,name="storedeatail"),
+    path('transaction_history ', payment_history , name = 'history'),
 ]

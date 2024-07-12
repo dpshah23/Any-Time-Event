@@ -49,7 +49,7 @@ class company_payment(models.Model):
     timestamp = models.DateField()
     event_id = models.CharField(null=True)
     payment_id = models.TextField()
-
+    company_id = models.CharField(null=True)
     status = models.BooleanField(default = False)
 
     def __str__(self):
