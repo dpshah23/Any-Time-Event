@@ -160,7 +160,13 @@ def dispevents(request):
 
     print(events_active,events_expired)
 
-    return render(request,"volunteer/events_disp.html",{'events_ex':events_expired,'events':events_active})
+    applied_events = [regvol.event_id_1 for regvol in RegVol.objects.filter(email=email)]
+
+    return render(request, "volunteer/events_disp.html", {
+        'events_ex': events_expired,
+        'events': events_active,
+        'applied_events': applied_events
+    })
 
 @ratelimit(key='ip',rate='10/m')
 def profile(request,id):

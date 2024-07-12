@@ -18,12 +18,12 @@
             <p>Date & Time: {{event.event_date}}, {{event.event_time}} - {{event.event_end_time}}</p>
             <p>Location: {{event.event_location}}</p>
             <a href='/volunteer/events/{{event.event_id}}'><button>View details</button></a>
-            {% if not unregistered %}
+           {% if event.event_id not in applied_events %}
             <a href="/volunteer/apply/{{event.event_id}}"><button>Apply Now</button></a>
             {% else %}
             
             <a href="/volunteer/unregister/{{event.event_id}}"><button>Unregister</button></a>
-            {% endif %}w
+            {% endif %}
         </div>
         {% empty %}
         <p>No active events found.</p>

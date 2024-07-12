@@ -250,30 +250,26 @@
         <div class="reviews">
             <div class="review-card">
                 <img src="../static/img/Any-Time-Event-Logo.png" alt="Image" class="client-img" />
-                <h3 class="client-name">Aarav Sharma</h3>
-                <p class="client-status">Happy Client</p>
+                <h3 class="client-name">{{reviews.0.name}}</h3>
+                <p class="client-status">{{reviews.0.email}}</p>
                 <p class="review-text">
-                    "I’ve been using Any Time Event for now, and it has never let me down. The user interface is
-                    intuitive, and the customer support is excellent. Highly recommend!"
+                    {{reviews.0.review}}
                 </p>
             </div>
             <div class="review-card">
                 <img src="../static/img/Any-Time-Event-Logo.png" alt="Image" class="client-img" />
-                <h3 class="client-name">Kavita Bhatia</h3>
-                <p class="client-status">Happy Client</p>
+                <h3 class="client-name">{{reviews.1.name}}</h3>
+                <p class="client-status">{{reviews.1.email}}</p>
                 <p class="review-text">
-                    "As a new user, I was impressed by how easy it was to get started with Any Time Event. The
-                    onboarding process was seamless, and the support team was always there to help when I had
-                    questions."
+                    {{reviews.1.review}}
                 </p>
             </div>
             <div class="review-card">
                 <img src="../static/img/Any-Time-Event-Logo.png" alt="Image" class="client-img" />
-                <h3 class="client-name">Rajesh Kapoor</h3>
-                <p class="client-status">Happy Client</p>
+                <h3 class="client-name">{{reviews.2.name}}</h3>
+                <p class="client-status">{{reviews.2.email}}</p>
                 <p class="review-text">
-                    "The features and functionality of Any Time Event are fantastic. It’s exactly what I needed to
-                    streamline my workflow. I’m extremely happy with my choice."
+                    {{reviews.2.review}}
                 </p>
             </div>
         </div>
@@ -310,16 +306,16 @@
                 <a href=""><i class="fa-brands fa-facebook"></i></a>
                 <a href=""><i class="fa-brands fa-x-twitter"></i></a>
                 <a href=""><i class="fa-brands fa-instagram"></i></a>
-                <a href=""><i class="fa-brands fa-github"></i></a>
+                <a href="https://github.com/dpshah23/Any-Time-Event"><i class="fa-brands fa-github"></i></a>
             </div>
 
             <div class="footerNav">
                 <ul>
-                    <li><a href="">HOME</a></li>
-                    <li><a href="">ABOUT</a></li>
-                    <li><a href="">SERVICES</a></li>
-                    <li><a href="">CONTACT</a></li>
-                    <li><a href="">OUR TEAM</a></li>
+                    <li><a href="/">HOME</a></li>
+                    <li><a href="/about">ABOUT</a></li>
+                    <li><a href="/services">SERVICES</a></li>
+                    <li><a href="/contact-us">CONTACT</a></li>
+                    <li><a href="/our-team">OUR TEAM</a></li>
                 </ul>
             </div>
         </div>
