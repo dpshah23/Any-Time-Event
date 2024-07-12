@@ -49,8 +49,8 @@ class company_payment(models.Model):
     timestamp = models.DateField()
     event_id = models.CharField(null=True)
     payment_id = models.TextField()
-    order_id=models.TextField(null=True)
-    status = models.BooleanField(default = True)
+
+    status = models.BooleanField(default = False)
 
     def __str__(self):
         return self.payment_id        

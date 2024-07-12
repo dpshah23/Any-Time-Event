@@ -274,7 +274,8 @@
             "order_id": "{{ payment.id }}",
             "handler": function (response){
                 console.log("Payment successful", response);
-                alert("Payment successful");
+                window.location.href='/company/storedetails?order_id={{payment.id}}&event_id={{event_id}}'
+                
             },
             "theme": {
                 "color": "#f0ece2"

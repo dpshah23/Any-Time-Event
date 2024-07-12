@@ -137,7 +137,7 @@ def add_event(request):
         """
         bulkmail(smtp_server, port, from_email, password, subject,body, vollist)
         messages.success(request,"Event Added Successfully")
-        return redirect('/company/')
+        return redirect('/company/events/')
         
     return render(request,"add_events.html")
 
@@ -363,7 +363,7 @@ def getpayment(request, event_id):
     total_vol = len(RegVol.objects.filter(event_id_1=event_id, attendence="present"))
     event_mrp = Event.objects.get(event_id=event_id).event_mrp
     amount = event_mrp * total_vol
-    final_amt = int(amount) * 100  # Convert amount to paise
+    final_amt = int(amount) * 100  
 
     try:
         payment = client.order.create({"amount": final_amt, "currency": "INR", "payment_capture": '1'})
@@ -378,7 +378,7 @@ def getpayment(request, event_id):
     pay = company_payment(timestamp=timestamp, event_id=event_id, payment_id=payment_id)
     pay.save()
 
-    return render(request, "payment.html", {'payment': payment, 'key': key})
+    return render(request, "payment.html", {'payment': payment, 'key': key,'event_id':event_id})
 
 
     
@@ -416,7 +416,7 @@ def editevent(request,event_id1):
         messages.error(request,"You Don't have permission to view this page")
     try:
 
-        event=Event.objects.get(event_id=event_id1)
+        event=Event.objects.get(event_id=event_id1,company_email=email)
 
         if request.method=="POST":
             email = request.session['email']
@@ -461,7 +461,7 @@ def editevent(request,event_id1):
             return redirect('/company/events/')
     except Event.DoesNotExist:
         messages.error('Event Does Not Exists')
-        return redirect('/company/')
+        return redirect('/company/events/')
     except Exception as e:
         print(e)
         return redirect('/')
@@ -627,15 +627,17 @@ def editcompany(request,comp_id):
 
 def storedetails(request):
     if request.method=="GET":
-        payment_id=request.GET.get('payment_id')
+   
         order_id=request.GET.get('order_id')
-        signature=request.GET.get('rzp_signature')
-        timestamp=datetime.datetime.now().date()
+     
         event_id=request.GET.get('event_id')
-
-        obj=company_payment(order_id=order_id,timestamp=timestamp,event_id=event_id,payment_id=payment_id,status="Success")
-        obj.save()
-        if (company_payment.objects.get(event_id = event_id).status == "Success"):
+        payment , created= company_payment.objects.update_or_create(
+        payment_id = order_id , 
+        defaults={'status' : True}
+        )
+        # obj=company_payment(order_id=order_id,timestamp=timestamp,event_id=event_id,payment_id=payment_id,status="Success")
+        # obj.save()
+        if (company_payment.objects.get(event_id = event_id).status == True):
             event, created = Event.objects.update_or_create(
             event_id=event_id,
             defaults={'paid_status': True}
