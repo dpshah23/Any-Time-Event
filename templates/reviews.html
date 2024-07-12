@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Reviews {% endblock title %}
+{% block body %}
+
+<style>
+
+
+    .reviews-container {
+        width: 80%;
+        text-align: center;
+        margin-top: 50px;
+    }
+    
+    .title {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        color: black;
+    }
+    
+    .highlight {
+        color: #006989;
+    }
+    
+    .reviews {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        justify-content: space-around;
+    }
+    
+    .review-card {
+        background-color: #dfd3c3;
+        border-radius: 10px;
+        padding: 1rem;
+        width: 100%;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    
+    .client-img {
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        margin-bottom: 1rem;
+    }
+    
+    .client-name {
+        font-size: 1.2rem;
+        margin: 0;
+        color: #006989;
+    }
+    
+    .client-status {
+        color: #000;
+        margin: 0.5rem 0;
+    }
+    
+    .review-text {
+        font-size: 0.9rem;
+        color: #006989;
+    }
+    
+    @media (max-width: 1200px) {
+        .reviews {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .reviews {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    
+
+</style>
+<div class="reviews-container">
+    <h1 class="title"><span class="highlight">REVIEWS</span></h1>
+
+    {% for review in reviews %}
+    <div class="reviews">
+        <div class="review-card">
+            <img src="../static/img/Any-Time-Event-Logo.png" alt="Image" class="client-img" />
+            <h3 class="client-name">{{reviews.0.name}}</h3>
+            <p class="client-status">{{reviews.0.email}}</p>
+            <p class="review-text">
+                {{reviews.0.review}}
+            </p>
+        </div>
+        
+        {% endfor %}
+{% endblock body %}
