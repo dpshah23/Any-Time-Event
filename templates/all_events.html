@@ -190,36 +190,31 @@
     }
 
     .post-container {
-      /* background-color: white; */
-      text-align: center;
-      margin: 5px;
-      /* max-width: 700px; */
-      border-radius: 10px;
-      border-width: 10px;
-      position: relative;
-      left: 50%;
-      transform: translateX(-50%);
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-      /* Adjust minmax as needed */
-      gap: 20px;
+      display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background-color: #f0ece2;
+            gap:10px;
 
     }
 
     .container {
-      max-width: 100rem;
-      max-height: 100rem;
+      max-width: 60rem;
+      max-height: 60rem;
       border: 1px solid black;
-      padding: 5px 5px 5px 5px;
-      border-radius: 5px;
-      position: relative;
-      /* Add position relative to allow positioning of individual posts */
-      border: 1px solid #ddd;
+      padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 22%;
       border-radius: 5px;
       background-color: white;
 
     }
 
+    .description{
+            overflow: auto;
+            padding: 15px;
+    }
     .posts:hover {
       transition: all 0.4s ease-in-out;
     }
@@ -284,7 +279,7 @@
 }
 
 .circular-chart.orange .circle {
-  stroke: #ff9f00;
+  stroke: #006989;
 }
 
 .circular-chart.green .circle {
@@ -357,6 +352,43 @@
     <p class="fs-1">Welcome , {{company_name}}</p>
     </div>
     <br>
+    <div class="flex-wrapper">
+      <div class="single-chart">
+        <svg viewBox="0 0 36 36" class="circular-chart orange">
+          <path class="circle-bg"
+            d="M18 2.0845
+              a 15.9155 15.9155 0 0 1 0 31.831
+              a 15.9155 15.9155 0 0 1 0 -31.831"
+          />
+          <path class="circle"
+            stroke-dasharray="30, 100"
+            d="M18 2.0845
+              a 15.9155 15.9155 0 0 1 0 31.831
+              a 15.9155 15.9155 0 0 1 0 -31.831"
+          />
+          <text x="18" y="20.35" class="percentage">30% <br></text>
+        </svg>
+      </div>
+      
+    
+      <div class="single-chart">
+        <svg viewBox="0 0 36 36" class="circular-chart blue">
+          <path class="circle-bg"
+            d="M18 2.0845
+              a 15.9155 15.9155 0 0 1 0 31.831
+              a 15.9155 15.9155 0 0 1 0 -31.831"
+          />
+          <path class="circle"
+            stroke-dasharray="90, 100"
+            d="M18 2.0845
+              a 15.9155 15.9155 0 0 1 0 31.831
+              a 15.9155 15.9155 0 0 1 0 -31.831"
+          />
+          <text x="18" y="20.35" class="percentage">90% <br>      Volunteers Registered</text>
+        </svg>
+      </div>
+      <text x="19" y="20.35" class="percentage" style="font-size: 6rem;color: #006989;">10+ <br>Events Completed</text>
+
     <div class="single-chart">
       <svg viewBox="0 0 36 36" class="circular-chart blue">
         <path class="circle-bg"
@@ -373,7 +405,6 @@
         <text x="18" y="20.35" class="percentage">{{total}}/{{required}}</text>
       </svg>
     </div>
-  </div>
   <h1>Upcoming Events</h1>
   <div class="post-container">
     {% if not events %}
@@ -383,7 +414,7 @@
 
       <h1><a class="post" href="/company/events/{{ p1.event_id }}">{{ p1.event_name }}</a></h1>
       <h4><strong>Company Name:</strong> <span id="event_company">{{ p1.event_company }}</span></h4>
-      <p><strong>Event Description:</strong> <span id="event_company">{{ p1.event_description }}</span></p>
+      <p class="description"><strong>Event Description:</strong> <span id="event_company">{{ p1.event_description }}</span></p>
     </div>
     {% endfor %}
   </div>
