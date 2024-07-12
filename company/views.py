@@ -345,30 +345,31 @@ Usage:
     payment status in the database.
 """
 @ratelimit(key='ip',rate='5/m')
-def getpayment (request , event_id):
+def getpayment(request, event_id):
     load_dotenv()
     key = os.getenv('api_key_razorpay')
     secret = os.getenv('api_secret_razorpay')
-    client = razorpay.Client(auth=(key,secret))
+    client = razorpay.Client(auth=(key, secret))
     
-    total_vol=len(RegVol.objects.filter(event_id_1=event_id,attendence="present"))
-    amount = (Event.objects.get(event_id=event_id).event_mrp) * total_vol
-    final_amt = int(amount)*100
-    payment = client.order.create({ "amount": final_amt, "currency": "INR", "payment_capture": '1' })
-    # print(payment)
-    # company_success.payment_id = payment['id']
-    # company_success.save()
+    total_vol = len(RegVol.objects.filter(event_id_1=event_id, attendence="present"))
+    event_mrp = Event.objects.get(event_id=event_id).event_mrp
+    amount = event_mrp * total_vol
+    final_amt = int(amount) * 100  # Convert amount to paise
+
+    try:
+        payment = client.order.create({"amount": final_amt, "currency": "INR", "payment_capture": '1'})
+    except Exception as e:
+        print("Error creating order: ", e)
+        return render(request, "error.html", {"message": "Error creating Razorpay order"})
+
+    print(payment)
     timestamp = date.today()
     payment_id = payment['id']
- 
-    pay = company_payment(timestamp=timestamp ,event_id = event_id, payment_id = payment_id)
-    pay.save()
-    # event, created = Event.objects.update_or_create(
-    # event_id=event_id,
-    # defaults={'paid_status': True}
-    # )
 
-    return render (request ,"payment.html" , {'payment':payment , 'key':key})
+    pay = company_payment(timestamp=timestamp, event_id=event_id, payment_id=payment_id)
+    pay.save()
+
+    return render(request, "payment.html", {'payment': payment, 'key': key})
 
 
     
