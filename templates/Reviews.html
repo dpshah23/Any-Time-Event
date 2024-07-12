@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Reviews {% endblock title %}
+{% block body %}
+{% if messages %}
+{% for message in messages %}
+<div class="custom-alert custom-alert-{{ message.tags }}">
+    {{ message }}
+    <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+</div>
+{% endfor %}
+{% endif %}
+
+
+<link rel="stylesheet" href="/static/css/Reviews.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<h1>REVIEWS</h1>
+<div class="review-container">
+    <div class="review-card">
+        <div class="review-header">
+            <div class="avatar">
+                <i class="fa-solid fa-circle-user"></i>
+            </div>
+            <div class="review-info">
+                <h3>John Doe</h3>
+                <span class="date">12/8/2018 via Yelp</span>
+            </div>
+            <img src="/static/img/Any-Time-Event-Logo.png" alt="Logo" class="platform-icon">
+        </div>
+        <p class="review-text"
+            data-full-text="I'm sorry but this place lost a customer. I don't know if they changed management or what but it went downhill. I stopped by this evening for dinner. We ordered several dishes, and each one was disappointing. The service was slow and unprofessional.">
+            I'm sorry but this place lost a customer. I don't know if they changed management or what but it went
+            downhill. I stopped by this evening for dinner. We... <a href="#" class="read-more">Read more</a></p>
+    </div>
+</div>
+
+<div class="form-container">
+    <h2>REVIEW</h2>
+    <form action="submit_form.php" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script src="/static/js/Reviews.js"></script>
+
+{% endblock body %}
