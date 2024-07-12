@@ -9,17 +9,19 @@ import os
 from company.models import Event
 from django.utils import timezone  
 from auth1.models import company
+from .models import review
+from company.models import RegVol
 
 # Create your views here.
 @ratelimit(key='ip', rate='10/m')
 def index(request):
-    if 'email' and 'role' in request.session:
-        email=request.session['email']
-        role=request.session['role']
+    if 'email' and 'role' not in request.session:
+        pass
         
     # print(request.COOKIES.get('time'))
     now=timezone.now().date()
 
+    
     
     Event.objects.filter(event_date__lt=now, event_completed=False).update(event_completed=True)
 
@@ -35,11 +37,20 @@ def index(request):
         logo = company.objects.get(email=event1.company_email).logo
         event.append(event1)
         logos.append(logo)
-        
 
-    print(event)
-    print(logos)
-    return render(request,'home.html',{'events':event,'logo':logos})
+    obj=review.objects.all()
+
+    if 'email' and 'role' in request.session:  
+        email=request.session['email']
+        applied_events = [regvol.event_id_1 for regvol in RegVol.objects.filter(email=email)]
+        return render(request,'home.html',{'events':event,'logo':logos,'applied_events':applied_events,'reviews':obj})
+
+    # print(event)
+    # print(logos)
+
+
+    
+    return render(request,'home.html',{'events':event,'logo':logos,'reviews':obj})
 
 @ratelimit(key='ip', rate='10/m')
 def contact(request):
@@ -75,3 +86,29 @@ def get_logs(request):
         return JsonResponse({'logs': logs})
     else:
         return JsonResponse({'error': 'Log file not found'}, status=404)
+    
+def services(request):
+    return render(request,'services.html')
+
+def reviews(request):
+
+    if request.method=="POST":
+        name=request.POST.get('name')
+        email=request.POST.get('email')
+        feedbackreview=request.POST.get('feedback')
+
+        objs=review(name=name,email=email,review=feedbackreview)
+        objs.save()
+
+        messages.success(request,"Review Added Successfully")
+        return redirect('/reviews')
+
+
+    obj=review.objects.all()
+    return render(request,"reviews.html",{'reviews':obj})
+
+def privacy_policy(request):
+    return render(request,'privacy.html')
+
+def ourteam(request):
+    return render(request,"our-team.html")

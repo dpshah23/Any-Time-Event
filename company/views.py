@@ -487,6 +487,7 @@ def markattendenceyes(request,event_id,email):
     messages.success(request,"Attendence Marked To Present")
     return redirect(f'/company/get_volunteers/{event_id}')
 
+
 """
 Function: markattendenceno(request, event_id, email)
 ---------------------------------------------------
@@ -613,3 +614,17 @@ def editcompany(request,comp_id):
         return redirect('/')
 
     return render(request,'edit_company.html',{'company':comp})
+
+def storedetails(request):
+    if request.method=="GET":
+        payment_id=request.GET.get('payment_id')
+        order_id=request.GET.get('order_id')
+        signature=request.GET.get('rzp_signature')
+        timestamp=datetime.datetime.now().date()
+        event_id=request.GET.get('event_id')
+
+        obj=company_payment(order_id=order_id,timestamp=timestamp,event_id=event_id,payment_id=payment_id,signature=signature,status="Success")
+        obj.save()
+
+        messages.success(request,"payment Successful")
+        return redirect(f'/company/events')
