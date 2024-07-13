@@ -6,24 +6,17 @@
   box-sizing: border-box;
 }
 
-::selection {
-  background-color: #006989;
-  color: #ffffff;
-}
-
 body {
   font-family: sans-serif;
   background-color: #f0ece2;
-  overflow-x: hidden;
 }
 
 nav {
   background: #dfd3c3;
   height: 80px;
-  width: 99.9%;
-  z-index: 1000;
-  position: fixed;
-  top: 0;
+  width: 100%;
+  z-index: 10;
+  position: relative;
 }
 
 label.logo {
@@ -79,24 +72,22 @@ a:hover {
 .menu {
   height: 2rem;
   width: 2rem;
-  color: #006989;
 }
 
 .log-butt {
   height: 2.5rem;
   width: 5rem;
   font-size: 19px;
-  font-weight: 500;
   margin-left: 5rem;
   border-radius: 8px;
   background-color: #006989;
   color: #ffffff;
-  border: none;
   overflow: hidden;
+  border: none;
 }
 
 .log-butt:hover {
-  background-color: #037fa4;
+  background-color: #02789c;
 }
 
 .log-butt a {
@@ -135,7 +126,7 @@ a:hover {
     left: -100%;
     text-align: center;
     transition: 0.5s all;
-    z-index: 1000;
+    z-index: 10;
   }
 
   nav ul li {
