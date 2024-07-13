@@ -24,7 +24,8 @@
     align-items: center;
     flex-direction: column;
     background-color: #f0ece2;
-  }
+    margin-top: 80px;
+}
   
   .contact .content {
     max-width: 800px;
