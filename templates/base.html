@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% block title %}{% endblock title %} | Any Time Event </title>
   <link rel="stylesheet" href="/static/css/navbar.css" />
+  <link rel="stylesheet" href="/static/css/footer1.css"/>
   <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css" />
   <link rel="icon" type="image/png" sizes="16x16" href="../static/img/Any-Time-Event-Logo.png">
 </head>
@@ -19,14 +20,14 @@
     <label class="logo"><img src="/static/img/Any-Time-Event-Logo.png" alt="Logo"></label>
     <ul>
       <li><a href="/">Home</a></li>
-      <li><a href="/">Reviews</a></li>
+      <li><a href="/review">Reviews</a></li>
       <li><a href="#">About </a></li>
       <li><a href="/contact-us">Contact</a></li>
       {% if 'email' in request.session %}
       {% if request.session.role == "volunteer" %}
-      <li><a href="volunteer/">Dashboard</a></li>
+      <li><a href="/volunteer/events">Dashboard</a></li>
       {% else %}
-      <li><a href="company/">Dashboard</a></li>
+      <li><a href="/company/events">Dashboard</a></li>
       {% endif %}
       {% endif %}
       {% if 'email' not in request.session %}
@@ -37,6 +38,45 @@
     </ul>
   </nav>
   {% block body %}{% endblock body %}
+
+  <footer>
+    <div class="footerCoontainer">
+        <div class="socialIcons">
+            <a href=""><i class="fa-brands fa-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-x-twitter"></i></a>
+            <a href=""><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://github.com/dpshah23/Any-Time-Event"><i class="fa-brands fa-github"></i></a>
+        </div>
+
+        <div class="footerNav">
+            <ul>
+                <li><a href="/">HOME</a></li>
+                <li><a href="/about">ABOUT</a></li>
+                <li><a href="/services">SERVICES</a></li>
+                <li><a href="/contact-us">CONTACT</a></li>
+                <li><a href="/our-team">OUR TEAM</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footerBottom">
+
+        {% if request.session.role == "company" %}
+        <a href="/terms-and-condition#company">Terms & Conditions</a> | <a href="/privacy_policy">Privacy Policy</a>
+        
+        {% elif request.session.role == "volunteer" %}
+        
+        <a href="/terms-and-condition#volunteer">Terms & Conditions</a> | <a href="/privacy_policy">Privacy Policy</a>
+        
+        {% else %}
+        
+        <a href="/terms-and-condition">Terms & Conditions</a> | <a href="/privacy_policy">Privacy Policy</a>
+        {% endif %}
+        <p>
+            CopyRight &copy;2024; Designed by
+            <span class="designer">ANY TIME EVENT TEAM</span>
+        </p>
+    </div>
+</footer>
 </body>
 
 </html>
