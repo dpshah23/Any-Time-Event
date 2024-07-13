@@ -257,7 +257,7 @@ def sendmail(smtp_server, port, sender_email, sender_password, subject, body,rec
       
     msg.attach(MIMEText(body, 'html'))
 
-    part = MIMEBase('text', 'calendar')
+    part = MIMEBase('text', 'calendar', method='REQUEST')   
     part.set_payload(cal)
     encoders.encode_base64(part)
     part.add_header('Content-Disposition', f'attachment; filename="{event_name}.ics"')
@@ -269,21 +269,20 @@ def sendmail(smtp_server, port, sender_email, sender_password, subject, body,rec
 
     server.quit()
 
-def generate_ics(event_name, event_date, event_time, event_location,event_end_time):
+def generate_ics(event_name, event_date, event_time, event_location, event_end_time):
     event_begin = datetime.strptime(f"{event_date} {event_time}", "%Y-%m-%d %I:%M %p")
     event_end = datetime.strptime(f"{event_date} {event_end_time}", "%Y-%m-%d %I:%M %p")
     
     cal = f"""BEGIN:VCALENDAR
-    VERSION:2.0
-    PRODID:-//hacksw/handcal//NONSGML v1.0//EN
-    BEGIN:VEVENT
-    SUMMARY:{event_name}
-    DTSTART:{event_begin.strftime('%Y%m%dT%H%M%S')}
-    DTEND:{event_end.strftime('%Y%m%dT%H%M%S')}
-    LOCATION:{event_location}
-    END:VEVENT
-    END:VCALENDAR
-    """
+VERSION:2.0
+PRODID:-//hacksw/handcal//NONSGML v1.0//EN
+BEGIN:VEVENT
+SUMMARY:{event_name}
+DTSTART:{event_begin.strftime('%Y%m%dT%H%M%S')}
+DTEND:{event_end.strftime('%Y%m%dT%H%M%S')}
+LOCATION:{event_location}
+END:VEVENT
+END:VCALENDAR"""
     return cal
 
 def editvol(request,vol_id):
