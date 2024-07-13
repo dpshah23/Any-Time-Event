@@ -2,8 +2,6 @@ body {
     font-family: Arial, sans-serif;
     background-color: #dfd3c3;
     margin: 0;
-    padding: 20px;
-    margin-top: 4rem;
 }
 
 ::selection {
@@ -32,6 +30,8 @@ h1 {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: 29%;
+    margin-left: 25px;
+    margin-right: 25px;
 }
 
 .review-header {
