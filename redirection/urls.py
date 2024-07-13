@@ -10,6 +10,7 @@ urlpatterns = [
     path('services/',services,name="service"), 
     path('review/',reviews,name="reviews"),
     path('privacy_policy/',privacy_policy,name="privacy"),
-    path('our-team/',ourteam,name="ourteam")
+    path('our-team/',ourteam,name="ourteam"),
+    path('terms-and-condition/',termsandcond,name="termsandcond")
 
 ]

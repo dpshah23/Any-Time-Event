@@ -130,6 +130,19 @@ WSGI_APPLICATION = 'anytimeevent.wsgi.application'
 #     }
 # }
 
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Anytime Event Admin",
+    "site_header": "Anytime Event",
+    "welcome_sign": "Welcome to Anytime Event Admin Portal",
+    "site_logo": "../static/img/Any-Time-Event-Logo.png",  # Path to the logo
+    "login_logo": "../static/img/Any-Time-Event-Logo.png",  # Path to the login logo
+    "login_logo_dark": "../static/img/Any-Time-Event-Logo.png",  # Path to the dark mode logo (if applicable)
+    "site_icon": "../static/img/Any-Time-Event-Logo.png",  # Path to the favicon (if using the same image)
+    # Other Jazzmin settings...
+}
+
+
 from dotenv import load_dotenv
 
 load_dotenv()
