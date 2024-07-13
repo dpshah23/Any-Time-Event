@@ -43,17 +43,19 @@ h1 {
 h2 {
     color: #333;
     font-size: 1.8em;
+    margin-bottom: 15px;
 }
 
 h3 {
     color: #333;
     font-size: 1.4em;
     margin-top: 20px;
+    margin-bottom: 15px;
 }
 
 p {
     line-height: 1.6;
-    font-size: 17.5px;
+    font-size: 18px;
     color: #006989;
 }
 
