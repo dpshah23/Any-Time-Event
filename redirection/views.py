@@ -119,3 +119,6 @@ def ourteam(request):
 
 def termsandcond(request):
     return render(request,"Terms & Conditions.html")
+
+def aboutus(request):
+    return render(request,"About-Us.html")

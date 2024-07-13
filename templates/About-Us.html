@@ -6,7 +6,7 @@ block body %} {% if messages %} {% for message in messages %}
     <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
 </div>
 {% endfor %} {% endif %}
-
+{% block body %}
 <link rel="stylesheet" href="/static/css/About-Us.css" />
 
 <h1>About Us</h1>
