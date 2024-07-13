@@ -261,23 +261,44 @@ def login(request):
                 otp=random.randint(111111,999999)
                 body=f"""
 
-                <h1 style="text-align:center">One Time Password for Sign-in</h1>
+                <div style="font-family: Arial, sans-serif; color: #333;">
+        <h1 style="text-align: center; color: #4CAF50;">One-Time Password for Secure Login</h1>
 
-                <p>
-                Thank you for returning to our website. Since it has been over 15 days since your last login, we need to confirm your device.
-                <br>
-                To complete the login process, please use the following One-Time Password (OTP):
-                </p>
+        <p>Dear User,</p>
 
-                <h2>Your OTP: {otp}</h2>
+        <p>
+            We are thrilled to welcome you back to our platform! It has been over 15 days since your last login, and for your security, we need to verify your device.
+        </p>
 
-                <p>
-                Please enter this OTP on the login page to verify your identity and continue using your account.
-                <br><br>
-                If you did not request this login, please ignore this message.
-                </p>
+        <p>
+            To proceed with the login process, please use the One-Time Password (OTP) provided below. This OTP is unique to your login attempt and will expire in 10 minutes for security purposes.
+        </p>
 
-                <p>Thank you,<br>Any Time Event Team</p>
+        <div style="text-align: center; margin: 20px 0;">
+            <h2 style="display: inline-block; background: #f4f4f4; padding: 10px 20px; border: 1px solid #ddd; border-radius: 5px;">{otp}</h2>
+        </div>
+
+        <p>
+            Enter this OTP on the login page to verify your identity and continue accessing your account.
+        </p>
+
+        <p>
+            If you did not request this login, please ignore this message. No further action is required.
+        </p>
+
+        <p>
+            Should you have any questions or need assistance, please feel free to contact our team.
+        </p>
+
+        <p>
+            Thank you for choosing Any Time Event. We are committed to ensuring the security and privacy of your account.
+        </p>
+
+        <p>
+            Best regards,<br>
+            <strong>The Any Time Event Team</strong>
+        </p>
+    </div>
 
                 """
                 msg = MIMEMultipart()
@@ -760,20 +781,29 @@ def reset(request):
             final_str_link = "http://127.0.0.1:8000/auth/resetpass?email=" + email + "&key=" + x
 
             body = f"""
-            <h1 style="text-align:center">Password Reset Request</h1>
+            <div style="font-family: Arial, sans-serif; color: #333;">
+    <h1 style="text-align: center; color: #4CAF50;">Password Reset Request</h1>
 
-            <p>We're sorry to hear that you're having trouble logging into Any Time Event. We've received a request to reset your password.
-            <br>
-            If this was you, you can reset your password now using the link below:
-            </p>
+    <p>Dear User,</p>
 
-            <h2>Your Link: <a href="{final_str_link}">{final_str_link}</a></h2>
+    <p>We understand that you are having trouble logging into your Any Time Event account. To help you get back on track, we have received a request to reset your password.</p>
 
-            <p>
-            If you didn't request a password reset, you can ignore this message.
-            </p>
+    <p>If you initiated this request, you can reset your password by clicking the link below. For security reasons, this link will expire in 1 hour:</p>
 
-            <p>Thank you,<br>Any Time Event Team</p>
+    <div style="text-align: center; margin: 20px 0;">
+        <h2 style="display: inline-block; background: #f4f4f4; padding: 10px 20px; border: 1px solid #ddd; border-radius: 5px;">
+            <a href="{final_str_link}" style="text-decoration: none; color: #4CAF50;">Reset Password</a>
+        </h2>
+    </div>
+
+    <p>If you did not request a password reset, please ignore this message. Your account will remain secure, and no changes will be made.</p>
+
+    <p>If you have any questions or need further assistance, please do not hesitate to contact our team.</p>
+
+    <p>Thank you for your understanding and cooperation.</p>
+
+    <p>Best regards,<br><strong>The Any Time Event Team</strong></p>
+</div>
             
             """
             msg = MIMEMultipart()

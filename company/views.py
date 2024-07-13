@@ -99,7 +99,7 @@ def add_event(request):
         
         # Remove duplicates from the volunteer list
         vollist = list(set(vollist))
-
+        
         smtp_server = 'smtp.gmail.com'
         port = 587
 
@@ -108,32 +108,31 @@ def add_event(request):
         registration_link=f"http://127.0.0.1:8000/volunteer/events/{event_id}"
 
         body=f"""
-        <h1 style="text-align:center">New Event Alert</h1>
-        <p>
-        Dear Volunteer,
-        </p>
-        <p>
-            We are excited to inform you that {event_company}, with whom you previously registered for an event, is organizing another event!
-        </p>
-        <p>
-        <strong>Event Details:</strong><br>
-        Event Name: {event_name}<br>
-        Date: {event_date}<br>
-        Location: {event_location}<br>
-        </p>
-        <p>
-            We would love for you to participate in this new event. To register, please click the link below:
-        </p>
-        <p style="text-align:center">
-            <a href="{registration_link}" style="display:inline-block;padding:10px 20px;margin:10px;color:white;background-color:#4CAF50;border-radius:5px;text-decoration:none;">Register Now</a>
-        </p>
-        <p>
-        If you have any questions or need further assistance, please do not hesitate to contact us.
-        </p>
-        <p>
-            We look forward to your continued participation and support.
-        </p>
-        <p>Best regards,<br>Any Time Event</p>
+        
+        <div style="font-family: Arial, sans-serif; color: #333;">
+    <h1 style="text-align:center; color: #4CAF50;">New Event Alert</h1>
+    
+    <p>Dear Volunteer,</p>
+    
+    <p>We are thrilled to inform you that <strong>{event_company}</strong>, with whom you previously registered for an event, is organizing another exciting event!</p>
+    
+    <p><strong>Event Details:</strong><br>
+    <strong>Event Name:</strong> {event_name}<br>
+    <strong>Date:</strong> {event_date}<br>
+    <strong>Location:</strong> {event_location}</p>
+    
+    <p>We would love for you to participate in this new event. Your dedication and enthusiasm make a significant difference, and we hope to see you there!</p>
+    
+    <p style="text-align:center">
+        <a href="{registration_link}" style="display:inline-block;padding:10px 20px;margin:10px;color:white;background-color:#4CAF50;border-radius:5px;text-decoration:none;">Register Now</a>
+    </p>
+    
+    <p>If you have any questions or need further assistance, please do not hesitate to contact us.</p>
+    
+    <p>We look forward to your continued participation and support.</p>
+    
+    <p>Best regards,<br><strong>The Any Time Event Team</strong></p>
+</div>
         """
         bulkmail(smtp_server, port, from_email, password, subject,body, vollist)
         messages.success(request,"Event Added Successfully")

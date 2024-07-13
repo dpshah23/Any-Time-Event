@@ -106,22 +106,21 @@ def acceptyes(request,volemail):
     length=8
     body=f"""
 
-    <h1 style="text-align:center">Authorization done</h1>
+    <div style="font-family: Arial, sans-serif; color: #333;">
+    <h1 style="text-align:center; color: #4CAF50;">Authorization Successful</h1>
 
-    <p>
-    Thank you for registering to our website. 
-    <br>
-    You can now login to our site with your credentials . 
-    <br>
-    </p>
-    <p>
-    Please enter this OTP after the login page which we share to verify your identity and continue using your account.
-    <br><br>
-   
-    </p>
+    <p>Dear User,</p>
 
-    <p>Thank you,<br>
-    Any Time Event Team</p>
+    <p>Thank you for registering on our website, Any Time Event. We are pleased to inform you that your account has been successfully authorized. You can now log in to our site using your credentials.</p>
+    
+    <p>To ensure the security of your account, please enter the One-Time Password (OTP) that will be provided to you at the login page to verify your identity.</p>
+
+    <p>If you have any questions or require further assistance, please do not hesitate to contact our team . We are here to help and ensure your experience with Any Time Event is smooth and enjoyable.</p>
+
+    <p>Thank you for choosing Any Time Event. We look forward to your active participation and support.</p>
+
+    <p>Best regards,<br><strong>The Any Time Event Team</strong></p>
+</div>
 
     """
     msg = MIMEMultipart()
@@ -155,18 +154,24 @@ def acceptno(request,volemail):
     length=8
     body=f"""
 
-    <h1 style="text-align:center">Failed Attemp</h1>
+    <div style="font-family: Arial, sans-serif; color: #333;">
+    <h1 style="text-align:center; color: #d9534f;">Authorization Attempt Failed</h1>
+    
+    <p>Dear Applicant,</p>
+    
+    <p>Thank you for registering on our website, Any Time Event. We appreciate your interest in joining our community. However, we regret to inform you that your registration has not been successful at this time.</p>
+    
+    <p>After a careful review of the details you provided, we have found some discrepancies that prevent us from approving your account. We encourage you to verify your information and try registering again. Ensuring that all provided information is accurate and complete can help facilitate a smoother registration process.</p>
+    
+    <p>If you have any questions or need further assistance, please do not hesitate to contact our team to address any concerns or queries you may have.</p>
+    
+    <p>We value your effort and time, and we hope that you will take the opportunity to rectify the issues and attempt registration once more. We look forward to welcoming you to our community and to your active participation in our events.</p>
+    
+    <p>Thank you for your time and understanding.</p>
+    
+    <p>Best regards,<br><strong>The Any Time Event Team</strong></p>
+</div>
 
-    <p>
-    Thank you for registering to our website. But we are really sorry to inform you that you can not be a part of our website
-    <br>
-    we found some details which are not appropriate so please try again .
-    <br>
-    </p>
-    <p> Thank You for giving us your time 
-    </p>
-
-    <p>Thank you,<br>Any Time Event Team</p>
 
     """
     msg = MIMEMultipart()
@@ -252,23 +257,21 @@ def payvol(request,event_id):
             subject=f"Payment For Event : {name}"
 
             body=f"""
-            <h1 style="text-align:center">Payment Confirmation</h1>
-            <p>
-            Dear Participant,
-            </p>
-            <p>
-                We are pleased to inform you that we have successfully sent your payment of <strong>{amount}</strong> for attending and participating in the {name}.
-            </p>
-            <p>
-            Thank you for your active participation and contribution to making the event a success. We hope you had a valuable and enjoyable experience.
-            </p>
-            <p>
-            If you have any questions or need further assistance, please do not hesitate to contact us.
-            </p>
-            <p>
-            We look forward to your continued participation in our future events.
-            </p>
-            <p>Best regards,<br>Any Time Event</p>
+            <div style="font-family: Arial, sans-serif; color: #333;">
+                <h1 style="text-align:center; color: #4CAF50;">Payment Confirmation</h1>
+
+                <p>Dear Participant,</p>
+
+                <p>We are pleased to inform you that we have successfully processed your payment of <strong>{amount}</strong> for attending and participating in <strong>{name}</strong>.</p>
+
+                <p>Thank you for your active participation and contribution to making the event a success. We hope you had a valuable and enjoyable experience.</p>
+
+                <p>If you have any questions or need further assistance, please do not hesitate to contact us . We are here to help and support you with any inquiries you may have.</p>
+
+                <p>We look forward to your continued participation in our future events.</p>
+
+                <p>Best regards,<br><strong>The Any Time Event Team</strong></p>
+            </div>
             """
             smtp_server = 'smtp.gmail.com'
             port = 587
