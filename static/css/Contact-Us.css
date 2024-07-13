@@ -17,14 +17,15 @@
   
   .contact {
     position: relative;
-    min-height: 107vh;
+    min-height: 89vh;
     padding: 38px 88px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     background-color: #f0ece2;
-  }
+    margin-top: 80px;
+}
   
   .contact .content {
     max-width: 800px;
