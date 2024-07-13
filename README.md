@@ -16,27 +16,6 @@
 This project sets up the necessary environment using Docker and Docker Compose. Follow the instructions below to build and run the project.
 
 
-Internship Project	Course Code: 4350704
-
-
-SUGGESTED 15 DAYS WORK SHEET REPORT
-Student Name :	
-
-Enrollment No:	
-
-Internship/Project Title	Any Time Events
-
-Tools and Technologies	Django, Html, CSS, Javasricpt, Visual Studio Code
-
-Company/ Organization Name	Technostack infoTech Pvt. Ltd
-
-Student’s Activity Details:
-	Week
-Number	Start Date to
-End Date	Tasks to be assigned	Tasks to be completed	Remarks	
-	
----
-
 
 # Documentation
 

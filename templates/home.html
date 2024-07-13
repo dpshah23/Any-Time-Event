@@ -26,7 +26,7 @@
         <label class="logo"><img src="../static/img/Any-Time-Event-Logo.png" alt="Logo" /></label>
         <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/templates/About-Us.html">About</a></li>
+            <li><a href="/about-us">About</a></li>
             <li><a href="/review">Reviews</a></li>
             <li><a href="/contact-us">Contact</a></li>
             {% if 'email' in request.session %}
@@ -68,7 +68,11 @@
         <div class="event-card">
             <center>
                 <div class="event-image">
+                    {% if events.0.event_date %}
                     <img src="data:image/png;base64,{{ logo.0 }}" width="80px" heigth="80" alt="Event logo" class="profile-picture" id="profile-picture">
+                    {% else %}
+                    <img src="../static/img/Any-Time-Event-Logo.png" width="80px" heigth="80" alt="Event logo" class="profile-picture" id="profile-picture">
+                    {% endif %}
                 </div>
             </center>
             <div class="event-details">
@@ -96,9 +100,15 @@
 
         <div class="event-card">
             <center>
+                
                 <div class="event-image">
+                    {% if events.1.event_date %}
                     <img src="data:image/png;base64,{{ logo.1 }}" width="80px" heigth="80" alt="Event logo" class="profile-picture" id="profile-picture">
+                    {% else %}
+                    <img src="../static/img/Any-Time-Event-Logo.png" width="80px" heigth="80" alt="Event logo" class="profile-picture" id="profile-picture">
+                    {% endif %}
                 </div>
+                
             </center>
             <div class="event-details">
                 <h2><a href="" style="color:black" >{{ events.1.event_name }}</a></h2>
@@ -123,8 +133,16 @@
 
         <div class="event-card">
             <center>
+            
                 <div class="event-image">
+                    {% if events.2.event_date %}
                     <img src="data:image/png;base64,{{ logo.2 }}" width="80px" heigth="80" alt="Event logo" class="profile-picture" id="profile-picture">
+                    {% else %}
+                    
+                    <img src="../static/img/Any-Time-Event-Logo.png" width="80px" heigth="80" alt="Event logo" class="profile-picture" id="profile-picture">
+                    
+                    
+                    {% endif %}
                 </div>
                 
             </center>
@@ -154,7 +172,13 @@
         <div class="event-card">
             <center>
                 <div class="event-image">
+                    {% if events.3.event_date %}
                     <img src="data:image/png;base64,{{logo.3}}" width="80px" heigth="80" alt="Event logo" class="profile-picture" id="profile-picture">
+                    {% else %}
+                    <img src="../static/img/Any-Time-Event-Logo.png" width="80px" heigth="80" alt="Event logo" class="profile-picture" id="profile-picture">
+                    {% endif %}
+                    
+                
                 </div>
             </center>
             <div class="event-details">
@@ -183,7 +207,14 @@
         <div class="event-card">
             <center>
                 <div class="event-image">
+                    {% if events.4.event_date %}
                     <img src="data:image/png;base64,{{ logo.4 }}" width="80px" heigth="80" alt="Event logo" class="profile-picture" id="profile-picture">
+                    {% else %}
+
+                    <img src="../static/img/Any-Time-Event-Logo.png" width="80px" heigth="80" alt="Event logo" class="profile-picture" id="profile-picture">
+
+                    {% endif %}
+               
                 </div>
                 
             </center>
@@ -215,7 +246,13 @@
         <div class="event-card">
             <center>
                 <div class="event-image">
+                    {% if events.5.event_date %}
+
                     <img src="data:image/png;base64,{{ logo.5 }}" width="80px" heigth="80" alt="Event logo" class="profile-picture" id="profile-picture">
+                    {% else %}
+
+                    <img src="../static/img/Any-Time-Event-Logo.png" width="80px" heigth="80" alt="Event logo" class="profile-picture" id="profile-picture">
+                    {% endif %}
                 </div>
             
             </center>
@@ -312,7 +349,7 @@
             <div class="footerNav">
                 <ul>
                     <li><a href="/">HOME</a></li>
-                    <li><a href="/about">ABOUT</a></li>
+                    <li><a href="/about-us">ABOUT</a></li>
                     <li><a href="/services">SERVICES</a></li>
                     <li><a href="/contact-us">CONTACT</a></li>
                     <li><a href="/our-team">OUR TEAM</a></li>
