@@ -38,8 +38,14 @@ body {
 
 .services-grid {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+}
+
+.row {
+    display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .service-item {
@@ -47,17 +53,14 @@ body {
     padding: 20px;
     margin: 10px;
     border-radius: 25px;
-    width: 250px;
+    width: 311px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .service-item i {
-    height: 10px;
-}
-
-.service-item img {
-    width: 50px;
-    margin-bottom: 10px;
+    font-size: 40px;
+    color: #006989;
+    margin-bottom: 20px;
 }
 
 .service-item h3 {
@@ -69,12 +72,6 @@ body {
 .service-item p {
     font-size: 14px;
     color: #777;
-}
-
-.service-item i {
-    font-size: 40px;
-    color: #006989;
-    margin-bottom: 20px;
 }
 
 .learn-more {
