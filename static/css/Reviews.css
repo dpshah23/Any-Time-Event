@@ -3,6 +3,7 @@ body {
     background-color: #dfd3c3;
     margin: 0;
     padding: 20px;
+    margin-top: 4rem;
 }
 
 ::selection {

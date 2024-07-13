@@ -90,6 +90,7 @@ body {
 
 .learn-more:hover {
     background: #0283aa;
+    text-decoration: none;
 }
 
 @media (max-width: 500px) {

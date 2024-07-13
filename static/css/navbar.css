@@ -15,13 +15,12 @@ body {
   font-family: sans-serif;
   background-color: #f0ece2;
   overflow-x: hidden;
-  padding-top: 80px; /* Add padding-top to accommodate the fixed navbar */
 }
 
 nav {
   background: #dfd3c3;
   height: 80px;
-  width: 100%;
+  width: 99%;
   z-index: 1000;
   position: fixed;
   top: 0;
