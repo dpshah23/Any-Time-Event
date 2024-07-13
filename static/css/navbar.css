@@ -15,14 +15,14 @@ body {
   font-family: sans-serif;
   background-color: #f0ece2;
   overflow-x: hidden;
-  padding-top: 80px;
+  padding-top: 80px; /* Add padding-top to accommodate the fixed navbar */
 }
 
 nav {
   background: #dfd3c3;
   height: 80px;
   width: 100%;
-  z-index: 1000; 
+  z-index: 1000;
   position: fixed;
   top: 0;
 }
@@ -87,7 +87,7 @@ a:hover {
   height: 2.5rem;
   width: 5rem;
   font-size: 19px;
-  font-weight: 500;     
+  font-weight: 500;
   margin-left: 5rem;
   border-radius: 8px;
   background-color: #006989;
@@ -155,7 +155,7 @@ a:hover {
     color: black;
   }
 
-  #check:checked~ul {
+  #check:checked ~ ul {
     left: 0;
   }
 
