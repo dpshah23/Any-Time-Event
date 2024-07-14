@@ -40,6 +40,9 @@
 </head>
 <body>
     <h2><strong>Volunteers</strong></h2>
+    {% if not volunteers %}
+    <p><center>No New Volunteers Found !!!</center></p>
+    {% else %}
     <table border="1">
         <thead>
             <th>Name</th>
@@ -75,10 +78,14 @@
                 </td>
             </tr>
             {% endfor %}
+        {% endif %}
         </tbody>
     </table>
     <br>
     <h2><strong>Companys</strong></h2>
+    {% if not companys %}
+    <p><center>No New Companys Found !!!</center></p>
+    {% else %}
     <table border="1">
         <thead>
             <th>Name</th>
@@ -110,6 +117,7 @@
                 </td>
             </tr>
             {% endfor %}
+            {% endif %}
         </tbody>
     </table>
 </body>
