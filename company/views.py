@@ -571,7 +571,28 @@ def bulkmail(smtp_server, port, sender_email, sender_password, subject, body, re
             server.sendmail(sender_email, recipient, msg.as_string())
             print(f"Email sent to {recipient}")
     pass
+'''
+Function Name:
+editcompany (request,comp_id)
 
+Description:
+This view function allows users to edit the details of an existing company. It checks if the user is logged in and has the necessary permissions. If the user has the required permissions, the function retrieves the company object by its ID and updates its details based on the submitted form data. If a company logo is provided, it validates the file format and encodes it in base64 before saving. After successful updates, the user is redirected to the company's profile page.
+
+Parameters:
+request: The HTTP request object containing metadata about the request and user data.
+comp_id: The ID of the company to be edited.
+
+Returns:
+Redirects to the home page ('/') if the user is not logged in.
+Redirects to the same page if the user does not have permission to view the page.
+Renders the edit company page with the current company details if the form submission is invalid.
+Redirects to the company profile page after successful updates.
+Redirects to the company list page if the company does not exist.
+Redirects to the home page for any other exceptions.
+
+Usage:
+This function is intended to be used in a Django web application as a view for editing company details. 
+'''
 
 @ratelimit(key='ip',rate='5/m')
 def editcompany(request,comp_id):
@@ -629,6 +650,26 @@ def editcompany(request,comp_id):
 
     return render(request,'edit_company.html',{'company':comp})
 
+'''
+
+Function Name :
+storedetails
+
+Description:
+This view function processes payment details received via a GET request. It updates the payment status in the company_payment model based on
+the order_id and updates the event's paid status if the payment is successful. Upon successful completion, it redirects the user to the
+company events page.
+
+Parameters
+request: The HTTP request object containing metadata about the request and user data.
+
+Returns:
+Redirects to the company events page ('/company/events') with a success message.
+
+Usage:
+This function is intended to be used in a Django web application as a view for storing payment details and updating the event's paid status.
+'''
+
 def storedetails(request):
     if request.method=="GET":
    
@@ -649,6 +690,28 @@ def storedetails(request):
 
         messages.success(request,"payment Successful")
         return redirect(f'/company/events')
+    
+'''
+Function Name:
+payment_history
+
+Description:
+This view function displays the payment history for the logged-in company. It checks if the user is logged in and has the appropriate
+permissions. If the user has the required permissions, it retrieves the payment history for the company associated with the logged-in user
+and renders the transaction.html template with the payment history data.
+
+Parameters:
+request: The HTTP request object containing metadata about the request and user data.
+
+Returns:
+Redirects to the home page ('/') if the user is not logged in.
+Redirects to the same page if the user does not have permission to view the page.
+Redirects to the company list page if the company does not exist.
+Renders the transaction.html template with the payment history data for the company.
+
+Usage:
+This function is intended to be used in a Django web application as a view for displaying the payment history of a company.
+'''
     
 @ratelimit(key='ip',rate='5/m')
 def payment_history(request ):

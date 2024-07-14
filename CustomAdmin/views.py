@@ -18,6 +18,24 @@ from .models import payout
 from django.http import HttpResponse as httpresponse
 
 # Create your views here.
+'''
+Function Name:
+accept_user
+
+Description:
+This view function retrieves active volunteers and inactive companies to prepare them for acceptance or further processing. 
+It filters out unwanted company and volunteer entries based on certain conditions and prepares the final lists for rendering in the
+template. The function then renders the accept_vol.html template with the context data.
+
+Parameters:
+request: The HTTP request object containing metadata about the request and user data.
+
+Returns:
+Renders the accept_vol.html template with the context data containing lists of volunteers and companies.
+
+Usage:
+This function is intended to be used in a Django web application as a view for displaying lists of volunteers and companies that need to be accepted or processed.
+'''
 def accept_user(request):
     # Fetch volunteers who are not expired
     vols = users.objects.filter(role="volunteer").filter(is_active=True)
@@ -68,6 +86,30 @@ def accept_user(request):
     
     return render(request, 'accept_vol.html', context)
 
+'''
+Function Name:
+pay
+
+Description:
+This view function retrieves and categorizes events based on their payment status for volunteers and companies. It organizes events into 
+three categories:
+
+    1. Events where volunteer payments are pending but company payments are completed.
+    2. Events where both volunteer and company payments are completed.
+    3. Events where both volunteer and company payments are pending but the event date has passed.
+
+The function then renders the event_payment.html template with the categorized event data.
+
+Parameters:
+request: The HTTP request object containing metadata about the request and user data.
+
+Returns:
+Renders the event_payment.html template with the context data containing categorized event lists.
+
+Usage
+This function is intended to be used in a Django web application as a view for displaying the payment status of events. 
+'''
+
 @login_required(login_url='/dj-admin/')
 def pay(request):
     rem_payment=Event.objects.filter(is_paid_vol=False,paid_status=True)
@@ -91,6 +133,27 @@ def pay(request):
         'unpaid_company': final_event_complete_payment_undone
     }
     return render(request, 'event_payment.html',context)
+
+'''
+
+Function Name:
+acceptyes
+
+Description:
+This view function activates a user account based on the provided email and sends an authorization email to the user, 
+notifying them that their account has been successfully authorized. The function also handles the email sending process using
+environment variables for the email credentials.
+
+Parameters:
+    request: The HTTP request object containing metadata about the request and user data.
+    volemail: The email address of the user to be activated.
+
+Returns:
+Redirects to the accept users page ('/admincustom/acceptusers') with a success message.
+
+Usage:
+This function is intended to be used in a Django web application as a view for accepting and activating user accounts.
+'''
 
 @login_required(login_url='/dj-admin/')
 def acceptyes(request,volemail):
@@ -140,6 +203,26 @@ def acceptyes(request,volemail):
 
     messages.error(request,"User Accepted")
     return redirect('/admincustom/acceptusers')
+
+'''
+Function Name:
+acceptno
+
+Description:
+This view function deactivates a user account based on the provided email and sends a rejection email to the user,
+notifying them that their registration attempt was unsuccessful. It also deletes the corresponding user data from the database.
+The function handles the email sending process using environment variables for the email credentials.
+
+Parameters:
+    request: The HTTP request object containing metadata about the request and user data.
+    volemail: The email address of the user to be rejected.
+    
+Returns:
+Redirects to the accept users page ('/admincustom/acceptusers') with a rejection message.
+
+Usage:
+This function is intended to be used in a Django web application as a view for rejecting user accounts. 
+'''
     
 @login_required(login_url='/dj-admin/')    
 def acceptno(request,volemail):
@@ -198,6 +281,56 @@ def acceptno(request,volemail):
         
     messages.error(request,"User Rejected")
     return redirect("/admincustom/acceptusers")
+
+'''
+Function Name
+payvol
+
+Purpose :
+
+Description
+The payvol view function handles the process of paying volunteers for their participation in a specific event. 
+It retrieves registered volunteer details for a given event where attendance is marked as "present" and the payment status is false.
+Using Razorpay's API, it initiates payouts to each volunteer's account based on their associated fund ID. Upon successful payment 
+processing, it updates the volunteer's payment status, logs the transaction details into a database table (payout), and sends a 
+confirmation email to the volunteer.
+
+Parameters:
+request: The HTTP request object containing metadata about the request and user data.
+event_id: The unique identifier of the event for which volunteer payments are being processed.
+
+Returns:
+Redirects to the /admincustom/pay page upon successful payment completion or failure, displaying appropriate success or error messages.
+
+Detailed Steps:
+    1. Retrieve Volunteer Details: 
+        Fetches volunteer records (RegVol) for the specified event (event_id) where attendance is marked as "present" and payment status
+        is false.
+
+    2. Initialize Razorpay Credentials: 
+        Loads API key and secret from environment variables for authentication with the Razorpay API.
+
+    3. Iterate Through Volunteers: For each volunteer:
+        - Constructs a data payload for the payout transaction including account details, amount, currency, mode, purpose, and notes.
+        - Sends a POST request to Razorpay's payout endpoint (payouts) to process the payment.
+        - Upon successful payment (status_code == 200):
+        - Updates the volunteer's payment status to true (paid_status=True).
+        - Logs the transaction details (timestamp, event_name, vol_id, vol_email, event_id, rz_id, entity, amount, mode) into the payout database table.
+        - Sends a confirmation email to the volunteer acknowledging the successful payment.
+        - If payment fails (status_code != 200), logs the failure but continues processing.
+        
+    4. Update Event Payment Status: If all payments are successful (all_paid=True):
+        - Marks the event (Event) as fully paid for volunteers (is_paid_vol=True).
+        - Displays a success message and redirects to the /admincustom/pay page.
+        
+    5. Handle Payment Failure: 
+        If any payment fails, displays an error message and redirects to the /admincustom/pay page.
+
+Usage :
+This function is crucial in managing the financial aspects of event participation for volunteers.
+It integrates with Razorpay for secure payment processing and ensures that volunteers are compensated accurately and promptly for
+their contributions to events.
+'''
     
 
 def payvol(request,event_id):

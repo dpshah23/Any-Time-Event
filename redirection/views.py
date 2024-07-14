@@ -14,6 +14,59 @@ from company.models import RegVol
 from datetime import date
 
 # Create your views here.
+'''
+
+Function Name:
+index
+
+Description:
+The index view function serves as the main landing page for a web application, displaying upcoming events, company logos associated with
+these events, user reviews, and optionally, events a logged-in user has applied to. It also marks events as completed if their event date
+has passed. If a user is logged in, it retrieves their email from the session and checks for events they have applied to (RegVol). 
+It utilizes Django's timezone module to manage event dates and filtering.
+
+Parameters:
+request: The HTTP request object containing metadata about the request and user data.
+
+Returns:
+    -Renders the home.html template with context data:
+    -events: Upcoming events sorted by event date.
+    -logo: Logos associated with each event's organizing company.
+    -applied_events: Events that the logged-in user has applied to (if authenticated).
+    -reviews: All reviews available in the database.
+
+Detailed Steps:
+    Session Check: 
+        Checks if 'email' and 'role' are present in the session. If not, assumes the user is not logged in.
+
+    Update Event Completion: 
+        Marks events as completed (event_completed=True) if their event date (event_date) is in the past (event_date__lt=now).
+
+    Retrieve Events:    
+        Fetches all events from the Event model and orders them by event_date.
+
+    Filter Active Events: 
+        Filters events to include only those that are not expired (events_active).
+
+    Retrieve Company Logos: 
+        Retrieves logos associated with each active event's organizing company (company_email) and limits to 7 events.
+
+    Retrieve Reviews: 
+        Retrieves all reviews (review objects) from the database.
+
+    Authenticated User Handling: 
+        If a user is authenticated (i.e., 'email' and 'role' are in the session):
+        Retrieves the user's email from the session.
+        Fetches events the user has applied to (applied_events) by querying RegVol for events associated with their email.
+    
+    Render Template: 
+        Renders the home.html template with the gathered context data (events, logo, applied_events, reviews).
+
+Usage: 
+This function is central to displaying dynamic content on the application's homepage, catering to both logged-in and guest users. 
+It leverages Django's ORM capabilities for efficient data retrieval and manipulation, ensuring that users are presented with relevant and
+up-to-date information about events and their applications.
+'''
 @ratelimit(key='ip', rate='10/m')
 def index(request):
     if 'email' and 'role' not in request.session:

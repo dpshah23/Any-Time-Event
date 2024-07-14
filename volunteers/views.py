@@ -23,6 +23,62 @@ from datetime import datetime
 def volunteer_home(request):
     return HttpResponse("Welcome to Volunteer Home Page")
 
+'''
+
+Function Name:
+apply
+
+Description:
+The apply view function handles the process of allowing volunteers to apply for events on a website. It checks if the user is logged in as
+a volunteer, verifies if the event is not expired, and ensures that the maximum limit of volunteers for the event has not been reached.
+If all conditions are met, it saves the volunteer's application (RegVol object) to the database and sends a confirmation email to the 
+volunteer. It also handles various error scenarios such as the event being expired, the user being a company, or already having applied 
+for the event.
+
+Parameters:
+-request: The HTTP request object containing metadata about the request and user data.
+-event_id: The unique identifier of the event for which the volunteer is applying.
+
+
+Returns:
+Redirects to the homepage ('/') after processing the application, displaying appropriate success or error messages using Django's messages 
+framework.
+
+Detailed Steps:
+    Session Check:
+        Checks if 'email' and 'role' are present in the session. If not, displays an error message and redirects to the homepage.
+
+    Event Validity Check: 
+        Fetches the event object (Event) using event_id and checks if the event is expired (event.is_expired()). If expired, displays an error message and redirects to the homepage.
+
+    Role Check: 
+        If the user's role is "company", displays an error message indicating that companies cannot apply for events and redirects to the homepage.
+
+    Volunteer Limit Check: 
+        Retrieves the total number of registered volunteers (RegVol) for the event (total_vol) and compares it with the required number of volunteers (req).
+        If the limit is reached, displays an error message and redirects to the homepage.
+
+    Duplicate Application Check: 
+        Checks if the logged-in volunteer has already applied for the event (RegVol). If an application exists, displays an error message and redirects to the homepage.
+
+    Save Application: 
+        If all checks pass:
+            Retrieves necessary details from the volunteer's profile (volunteer) and the event (Event).
+            Creates a new RegVol object and saves it to the database.
+            Send Confirmation Email: Constructs an email message confirming the application and includes event details such as date, time, location, etc. Uses SMTP to send the email.
+
+    Success Message: 
+        Displays a success message confirming the application was submitted successfully using Django's messages framework.
+
+    Redirect: 
+        Redirects to the homepage ('/') after processing the application.
+
+Usage:
+This function facilitates the volunteer application process for events, ensuring that volunteers can apply only if they meet eligibility 
+criteria and there is space available. It integrates email communication to confirm the application submission, enhancing user experience
+and engagement
+'''
+
 @ratelimit(key='ip', rate='5/m')
 def apply (request,event_id):
     if 'email' and 'role' not in request.session:
@@ -137,6 +193,59 @@ def applyerr(request):
         messages.error(request,"You can not Apply to Events because this is a Company account ")
         return redirect('/')
     return render(request,"err_not_found.html")
+
+'''
+The dispevents function serves to display events for a logged-in volunteer based on their city. 
+It ensures that only authenticated volunteers can access event information, prevents companies from accessing the page, 
+and categorizes events into active and expired lists. It also retrieves events the volunteer has already applied to and
+sends this data to the events_disp.html template for rendering.
+
+Function Name:
+dispevents
+
+Description
+The dispevents view function retrieves and displays events for a logged-in volunteer based on their city. 
+It categorizes events into active and expired categories, retrieves events the volunteer has already applied to (RegVol),
+and sends this information to the events_disp.html template for rendering.
+
+Parameters:
+    request: The HTTP request object containing metadata about the request and user data.
+
+Returns:
+    Renders the volunteer/events_disp.html template with the following context data:
+    events_ex: List of expired events in the volunteer's city.
+    events: List of active events in the volunteer's city.
+    applied_events: List of event IDs that the volunteer has already applied to.
+
+Detailed Steps:
+    Session Check: 
+        Verifies if 'email' and 'role' are present in the session. If not, displays an error message and redirects to the homepage ('/').
+
+    Role Check: 
+        Checks if the logged-in user's role is "company". If true, displays an error message indicating that companies cannot access event information meant for volunteers and redirects to the homepage ('/').
+
+    Retrieve Volunteer's Email: 
+        Retrieves the volunteer's email from the session for further processing.
+
+    Fetch Volunteer's City: 
+        Retrieves the city of the logged-in volunteer from their profile (volunteer model).
+
+    Fetch Events: 
+        Filters events (Event model) based on the volunteer's city (event_city). Separates events into two lists:
+        events_active: Contains events that are not expired (not event.is_expired()).
+        events_expired: Contains events that are expired (event.is_expired()).
+    
+    Retrieve Applied Events: 
+    Fetches event IDs (event_id_1) that the volunteer has already applied to (RegVol model).
+
+Render Template:
+Renders the volunteer/events_disp.html template with context data (events_ex, events, applied_events) for displaying event information to the volunteer.
+
+Usage:
+This function enhances the volunteer's user experience by providing personalized event recommendations based on their city 
+and displays relevant event details such as active and expired events. It ensures that only authorized users (volunteers) can access event
+information, maintaining data privacy and security.
+'''
 
 
 @ratelimit(key='ip', rate="10/m")
