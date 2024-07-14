@@ -3,445 +3,296 @@
 {% block title %}{{company_name}}{% endblock title %}
 
 {% block body %}
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
 
-    * {
-      margin: 0;
-      padding: 0;
-      text-decoration: none;
-      list-style: none;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: sans-serif;
-      background-color: #f0ece2;
-      overflow-x: hidden;
-    }
-
-    ::selection {
-      background-color: #006989;
-      color: #fff;
+  body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0ece2;
   }
 
-    nav {
-      background: #dfd3c3;
-      height: 80px;
-      width: 100%;
-      z-index: 10;
-      position: relative;
-    }
+  .container-fluid {
+    max-width: 100%;
+  }
 
-    label.logo {
-      color: #000000;
-      font-size: 37px;
-      line-height: 80px;
-      padding: 0 100px;
-      font-weight: bold;
-    }
+  .post {
+    text-align: center;
+    color: black;
+  }
 
-    label.logo img {
-      height: 72px;
-      margin-top: 3px;
-    }
+  .post-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #f0ece2;
+    gap: 20px;
+  }
 
-    nav ul {
-      float: right;
-      margin-right: 20px;
-    }
+  .container {
+    flex-basis: calc(25% - 20px);
+    max-width: 300px;
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: white;
+  }
 
-    nav ul li {
-      display: inline-block;
-      line-height: 80px;
-      margin: 0 5px;
-    }
-
-    nav ul li a {
-      color: #006989;
-      font-size: 18px;
-      text-transform: uppercase;
-      padding: 7px 13px;
-      font-weight: 550;
-    }
-
-    a:hover {
-      text-decoration: underline;
-      transition: 0.1s ease-in;
-    }
-
-    .checkbtn {
-      float: right;
-      line-height: 80px;
-      margin-right: 40px;
-      margin-top: 7px;
-      cursor: pointer;
-      display: none;
-    }
-
-    #check {
-      display: none;
-    }
-
-    .menu {
-      height: 2rem;
-      width: 2rem;
-    }
-
-    .log-butt {
-      height: 2.5rem;
-      width: 5rem;
-      font-size: 19px;
-      font-weight: bold;
-      margin-left: 5rem;
-      border-radius: 8px;
-      background-color: #006989;
-      color: #ffffff;
-      overflow: hidden;
-    }
-
-    .log-butt a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    @media (max-width: 952px) {
-      label.logo {
-        font-size: 30px;
-        padding-left: 50px;
-      }
-
-      nav ul li a {
-        font-size: 16px;
-      }
-
-      .log-butt {
-        height: 2rem;
-        width: 4.2rem;
-        font-size: 18px;
-      }
-    }
-
-    @media (max-width: 858px) {
-      .checkbtn {
-        display: block;
-      }
-
-      ul {
-        position: fixed;
-        width: 15rem;
-        height: 100vh;
-        background-color: #f0f0f0;
-        top: 80px;
-        left: -100%;
-        text-align: center;
-        transition: 0.5s all;
-        z-index: 10;
-      }
-
-      nav ul li {
-        display: block;
-        margin: 50px 0;
-        line-height: 30px;
-      }
-
-      nav ul li a {
-        font-size: 20px;
-      }
-
-      a:hover,
-      a.check {
-        background: none;
-        color: black;
-      }
-
-      #check:checked~ul {
-        left: 0;
-      }
-
-      .log-butt {
-        margin-left: 0rem;
-        height: 3rem;
-        width: 6rem;
-        font-weight: bold;
-        font-size: 22px;
-        background-color: #639bc6;
-      }
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-      background-color: #f0ece2;
-
-    }
-
-    .container-fluid {
-      max-width: 100%;
-
-    }
-
-    .post {
-      text-align: center;
-      color: black;
-      /* background-color: white; */
-    }
-
-    .post-container {
-      display: flex;
-            justify-content: space-around;
-            padding: 20px;
-            background-color: #f0ece2;
-            gap:10px;
-
-    }
-
+  @media (max-width: 1200px) {
     .container {
-      max-width: 60rem;
-      max-height: 60rem;
-      border: 1px solid black;
-      padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            width: 22%;
-      border-radius: 5px;
-      background-color: white;
-
+      flex-basis: calc(23.33% - 20px);
     }
-
-    .description{
-            overflow: auto;
-            padding: 15px;
-    }
-    .posts:hover {
-      transition: all 0.4s ease-in-out;
-    }
-
-    .field button {
-      height: 50px;
-      width: 30%;
-      font-size: 16px;
-      font-weight: 400;
-      border: none;
-      border-radius: 6px;
-      background-color: #006989;
-      color: #ffffff;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      margin-bottom: 30px;
-    }
-
-    .field button:hover {
-      background-color: #027da2;
   }
 
-  /* .welcome-text{
-    display: left;
-    align-items: left;
-  } */
+  @media (max-width: 900px) {
+    .container {
+      flex-basis: calc(30% - 20px);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .container {
+      flex-basis: 90%;
+    }
+  }
+
+  .description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* number of lines to show */
+    -webkit-box-orient: vertical;
+    max-height: 4.5em; /* 3 lines * 1.5 line-height */
+    line-height: 1.5em;
+  }
+
+  .learn-more {
+    display: block;
+    text-align: center;
+    color: #006989;
+    cursor: pointer;
+  }
+
+  .posts:hover {
+    transition: all 0.4s ease-in-out;
+  }
+
+  .field button {
+    height: 50px;
+    width: 30%;
+    font-size: 16px;
+    font-weight: 400;
+    border: none;
+    border-radius: 6px;
+    background-color: #006989;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-bottom: 30px;
+  }
+
+  .field button:hover {
+    background-color: #027da2;
+  }
 
   .flex-wrapper {
-  display: flex;
-  flex-flow: row nowrap;
-}
-
-.single-chart {
-  width: 33%;
-  justify-content: space-around ;
-}
-
-.circular-chart {
-  display: block;
-  margin: 10px auto;
-  max-width: 30%;
-  max-height: 200px;
-}
-
-.circle-bg {
-  fill: none;
-  stroke: #f0ece2;
-  stroke-width: 3.8;
-}
-
-.circle {
-  fill: none;
-  stroke-width: 2.8;
-  stroke-linecap: round;
-  animation: progress 1s ease-out forwards;
-}
-
-@keyframes progress {
-  0% {
-    stroke-dasharray: 0 100;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
   }
-}
 
-.circular-chart.orange .circle {
-  stroke: #006989;
-}
-
-.circular-chart.green .circle {
-  stroke: #4CC790;
-}
-
-.circular-chart.blue .circle {
-  stroke: #006989;
-}
-
-.percentage {
-  fill: #666;
-  font-family: sans-serif;
-  font-size: 0.5em;
-  text-anchor: middle;
-}
-
-    h1 {
-      text-align: center;
-      margin-top: 2rem;
-      color: #006989;
-    }
-
-    .fs-1{
-      text-align: left;
-      margin-top: 2rem;
-      color: #006989;
-      font-size: 60px;
-      padding-left:20px;
-      text-decoration:bold;
-    }
-
-    p {
-      margin-bottom: 20px;
-      margin-top: 10px;
+  .single-chart {
+    width: 33%;
+    justify-content: space-around;
   }
-  
+
+  .circular-chart {
+    display: block;
+    margin: 10px auto;
+    width: 80%;
+    height: auto;
+    max-width: 200px;
+  }
+
+  .circle-bg {
+    fill: none;
+    stroke: #f0ece2;
+    stroke-width: 3.8;
+  }
+
+  .circle {
+    fill: none;
+    stroke-width: 2.8;
+    stroke-linecap: round;
+    animation: progress 1s ease-out forwards;
+  }
+
+  @keyframes progress {
+    0% {
+      stroke-dasharray: 0 100;
+    }
+  }
+
+  .circular-chart.orange .circle {
+    stroke: #006989;
+  }
+
+  .circular-chart.green .circle {
+    stroke: #4CC790;
+  }
+
+  .circular-chart.blue .circle {
+    stroke: #006989;
+  }
+
+  .percentage {
+    fill: #666;
+    font-family: sans-serif;
+    font-size: 0.5em;
+    text-anchor: middle;
+  }
+
+  h1 {
+    text-align: center;
+    margin-top: 2rem;
+    color: #006989;
+  }
+
+  .fs-1 {
+    text-align: left;
+    margin-top: 2rem;
+    color: #006989;
+    font-size: 60px;
+    padding-left: 20px;
+    font-weight: bold;
+  }
+
+  p {
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+
   h4 {
-      margin: 10px;
+    margin: 10px;
   }
 
-  </style>
-  <!-- <link rel="stylesheet" href="../static/css/event_history.css">
-  <script defer src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
-  <!-- <title>{{company_name}} | Event history</title> -->
-{% comment %} </head> --> {% endcomment %}
+  @media (max-width: 768px) {
+    .fs-1 {
+      font-size: 40px;
+    }
 
-{% comment %} <body>
-  <nav>
-    <input type="checkbox" id="check" />
-    <label for="check" class="checkbtn">
-      <img class="menu" src="../static/img/bars.svg" alt="Bars" />
-    </label>
-    <label class="logo"><img src="/static/img/Any-Time-Event-Logo.png" alt="Logo"></label>
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/company/add_event">Add Event</a></li>
-      <li><a href="/company/profile/{{obj.comp_id}}">Profile</a></li>
-      <li><a href="/contact-us">Contact</a></li>
-      {% if 'email' not in request.session %}
-      <button class="log-butt"><a href="/auth/login">Login</a></button>
-      {% else %}
-      <button class="log-butt"><a href="/auth/logout">Logout</a></button>
-      {% endif %}
-    </ul>
-  </nav> {% endcomment %}
-  <div>
-    <p class="fs-1">Welcome , {{company_name}}</p>
-    </div>
-    <br>
-    <div class="flex-wrapper">
-      <div class="single-chart">
-        <svg viewBox="0 0 36 36" class="circular-chart orange">
-          <path class="circle-bg"
-            d="M18 2.0845
-              a 15.9155 15.9155 0 0 1 0 31.831
-              a 15.9155 15.9155 0 0 1 0 -31.831"
-          />
-          <path class="circle"
-            stroke-dasharray="30, 100"
-            d="M18 2.0845
-              a 15.9155 15.9155 0 0 1 0 31.831
-              a 15.9155 15.9155 0 0 1 0 -31.831"
-          />
-          <text x="18" y="20.35" class="percentage">30% <br></text>
-        </svg>
-      </div>
-      
-    
-      <div class="single-chart">
-        <svg viewBox="0 0 36 36" class="circular-chart blue">
-          <path class="circle-bg"
-            d="M18 2.0845
-              a 15.9155 15.9155 0 0 1 0 31.831
-              a 15.9155 15.9155 0 0 1 0 -31.831"
-          />
-          <path class="circle"
-            stroke-dasharray="90, 100"
-            d="M18 2.0845
-              a 15.9155 15.9155 0 0 1 0 31.831
-              a 15.9155 15.9155 0 0 1 0 -31.831"
-          />
-          <text x="18" y="20.35" class="percentage">90% <br>      Volunteers Registered</text>
-        </svg>
-      </div>
-      <text x="19" y="20.35" class="percentage" style="font-size: 6rem;color: #006989;">10+ <br>Events Completed</text>
+    .circular-chart {
+      width: 60%;
+      max-width: 150px;
+    }
 
-    <div class="single-chart">
-      <svg viewBox="0 0 36 36" class="circular-chart blue">
-        <path class="circle-bg"
-          d="M18 2.0845
-            a 15.9155 15.9155 0 0 1 0 31.831
-            a 15.9155 15.9155 0 0 1 0 -31.831"
-        />
-        <path class="circle"
-          stroke-dasharray="{{total}}, {{required}}"
-          d="M18 2.0845
-            a 15.9155 15.9155 0 0 1 0 31.831
-            a 15.9155 15.9155 0 0 1 0 -31.831"
-        />
-        <text x="18" y="20.35" class="percentage">{{total}}/{{required}}</text>
-      </svg>
-    </div>
-  <h1>Upcoming Events</h1>
-  <div class="post-container">
-    {% if not events %}
-    {% endif %}
-    {% for p1 in events %}
-    <div class="container">
+    .percentage {
+      font-size: 0.75em;
+    }
+  }
 
-      <h1><a class="post" href="/company/events/{{ p1.event_id }}">{{ p1.event_name }}</a></h1>
-      <h4><strong>Company Name:</strong> <span id="event_company">{{ p1.event_company }}</span></h4>
-      <p class="description"><strong>Event Description:</strong> <span id="event_company">{{ p1.event_description }}</span></p>
-    </div>
-    {% endfor %}
+  @media (max-width: 480px) {
+    .fs-1 {
+      font-size: 30px;
+    }
+
+    .circular-chart {
+      width: 50%;
+      max-width: 120px;
+    }
+
+    .percentage {
+      font-size: 0.6em;
+    }
+  }
+</style>
+
+<div>
+  <p class="fs-1">Welcome, {{company_name}}</p>
+</div>
+<br>
+<br>
+<div class="flex-wrapper">
+  <div class="single-chart">
+    <svg viewBox="0 0 36 36" class="circular-chart blue">
+      <path class="circle-bg"
+        d="M18 2.0845
+           a 15.9155 15.9155 0 0 1 0 31.831
+           a 15.9155 15.9155 0 0 1 0 -31.831"/>
+      <path class="circle"
+        stroke-dasharray="{{events_no}}, 100"
+        d="M18 2.0845
+           a 15.9155 15.9155 0 0 1 0 31.831
+           a 15.9155 15.9155 0 0 1 0 -31.831"/>
+      <text x="18" y="20.35" class="percentage">{{events}}</text>
+    </svg>
+    <p style="font-size: 2rem; color: black; text-align: center;"><strong>Upcoming Events</strong></p>
   </div>
-  <br><br>
-  <h1>Expired Events</h1>
-
-  {% if not events_ex %}
-
   
-  {% endif %}
-
-  <div class="post-container">
-    {% for r1 in events_ex %}
-    <div class="container">
-      <h1><a class="post" href="/company/events/{{ r1.event_id }}">{{ r1.event_name }}</a></h1>
-      <h4><strong>Company Name:</strong> <span id="event_company">{{ r1.event_company }}</span></h4>
-      <p><strong>Event Description:</strong> <span id="event_company">{{ r1.event_description }}</span></p>
-      <div class="field button-field">
-        {% if not r1.paid_status %}
-        <a href="/company/payment/{{r1.event_id}}"><button type="button">Pay Now </button></a>
-        {% else %}
-        <button type=button>Already Paid</button>
-        {% endif %}
-      </div>
-    </div>
-    {% endfor %}
+  <div class="single-chart">
+    <svg viewBox="0 0 36 36" class="circular-chart blue">
+      <path class="circle-bg"
+        d="M18 2.0845
+           a 15.9155 15.9155 0 0 1 0 31.831
+           a 15.9155 15.9155 0 0 1 0 -31.831"/>
+      <path class="circle"
+        stroke-dasharray="{{total}},100"
+        d="M18 2.0845
+           a 15.9155 15.9155 0 0 1 0 31.831
+           a 15.9155 15.9155 0 0 1 0 -31.831"/>
+      <text x="18" y="20.35" class="percentage">{{total}}/{{required}}</text>
+    </svg>
+    <p style="font-size: 2rem; color: black; text-align: center;"><strong>Volunteers Registered</strong></p>
   </div>
+  
+  <div class="single-chart">
+    <p style="font-size: 2rem; color: #006989; text-align: center;">10+ <br> Events Completed</p>
+  </div>
+</div>
+<br><br>
+<h1>Upcoming Events</h1>
+<div class="post-container">
+  {% if not events %}
+  <p><center>No Upcoming Events Found !!!</center></p>
+  {% endif %}
+  {% for p1 in events|slice:":4" %}
+  <div class="container">
+    <h1><a class="post" href="/company/events/{{ p1.event_id }}">{{ p1.event_name }}</a></h1>
+    <h4><strong>Company Name:</strong> <span id="event_company">{{ p1.event_company }}</span></h4>
+    <div class="description-container">
+      <p class="description" id="description-{{ p1.event_id }}"><strong>Event Description:</strong> {{ p1.event_description }}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<br><br>
+<h1>Expired Events</h1>
 
+{% if not events_ex %}
+<p><center>No Expired Events Found !!!</center></p>
+{% endif %}
 
-  {% endblock body %}
+<div class="post-container">
+  {% for r1 in events_ex|slice:":4" %}
+  <div class="container">
+    <h1><a class="post" href="/company/events/{{ r1.event_id }}">{{ r1.event_name }}</a></h1>
+    <h4><strong>Company Name:</strong> <span id="event_company">{{ r1.event_company }}</span></h4>
+    <div class="description-container">
+      <p class="description" id="description-{{ p1.event_id }}"><strong>Event Description:</strong> {{ r1.event_description }}</p>
+    </div>
+    <div class="field button-field">
+      {% if not r1.paid_status %}
+      <a href="/company/payment/{{r1.event_id}}"><button type="button">Pay Now</button></a>
+      {% else %}
+      <button type="button">Already Paid</button>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock body %}
