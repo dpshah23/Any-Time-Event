@@ -28,7 +28,9 @@ def accept_user(request):
     final_vols = []
     final_comps = []
 
+    companys_unwanted=company.objects.filter(phone2__isnull=True)
 
+    volunteer_unwanted=volunteer.objects.filter(dob__isnull=True)
     for comp in comps:
         try:
             
@@ -59,7 +61,9 @@ def accept_user(request):
     
     context = {
         'volunteers': final_vols,
-        'companys': final_comps
+        'companys': final_comps,
+        'companys_unwanted':companys_unwanted,
+        'volunteers_unwanted':volunteer_unwanted
     }
     
     return render(request, 'accept_vol.html', context)
@@ -320,4 +324,21 @@ def send_bulk_email(smtp_server, port, sender_email, sender_password, subject, b
 
     server.quit()
 
+
+def delete(request,email,role):
+    try:
+        users.objects.get(email=email).delete()
+
+        if role=="volunteer":
+            volunteer.objects.get(email=email).delete()
+        
+        else:
+            company.objects.get(email=email).delete()
+    
+    except Exception as e:
+        print(e)
+        return redirect('/admincustom/acceptusers/')
+        
+    return redirect('/admincustom/acceptusers/')
+    
 
