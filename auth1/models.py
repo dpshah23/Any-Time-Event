@@ -18,6 +18,7 @@ class users(models.Model):
     role=models.CharField(max_length=20,default=None)
     is_active = models.BooleanField(default=False,null=True)
     timestamp = models.DateField(default=None, null=True)
+    block=models.BooleanField(default=False)
     
     def is_expired(self):
         self.timestamp += timedelta(hours = 48)

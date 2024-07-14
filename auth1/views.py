@@ -212,6 +212,10 @@ def login(request):
             user=users.objects.get(email=email)
             print(user)
 
+            if user.block==True:
+                messages.error(request,"Some Unexpected Activity happened in Your Account.. So We have Blocked Your Account")
+                return redirect('/')
+
             if user.is_active==False:
                 messages.error(request, 'Account is not activated... We Will Take 2 Working Days To Activate Your Account. Please Try Again Later.')
                 return render(request, 'Log-In.html')
