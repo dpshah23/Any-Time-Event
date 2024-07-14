@@ -72,7 +72,9 @@
     </head>
     <body>
         <h2><strong>Event Completed but Payment UnDone</strong></h2>
-
+         {% if not unpaid_company %}
+         <p><center>No Unpaid Events Found !!!</center></p>
+         {% else %}
         <table border="1">
             <thead>
             <th>Event ID</th>
@@ -97,10 +99,14 @@
             <!-- <td><a  class="field button-field" href=""><button type="button">Pay Now</button></a></td> -->
             </tr>
             {% endfor %}
+            {% endif %}
             </tbody>
         </table>
 
         <h2><strong>Remaining Payment</strong></h2>
+        {% if not events_ex %}
+        <p><center>No Expired Events Found !!!</center></p>
+        {% else %}
         <table border="1">
             <thead>
             <th>Event ID</th>
@@ -123,11 +129,14 @@
             <td><button type="button"><a  class="field button-field" href="/admincustom/payvol/{{event.event_id}}">Pay Now</a></button></td>
             </tr>
             {% endfor %}
+            {% endif %}
             </tbody>
         </table>
 <br>
 <h2><strong>Completed Payments</strong></h2>
-
+{% if not completed_payment %}
+<p><center>No Completed Payments Found !!!</center></p>
+{% else %}
         <table border="1">
             <thead>
                 <th>Event ID</th>
@@ -146,6 +155,7 @@
                 <td>{{event.event_city}}</td>
                 </tr>
                 {% endfor %}
+                {% endif %}
                 </tbody>
         </table>
     </body>
