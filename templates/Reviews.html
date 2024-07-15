@@ -10,14 +10,14 @@
 {% endfor %}
 {% endif %}
 
-
+<head>
 <link rel="stylesheet" href="/static/css/Reviews.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-<h1>REVIEWS</h1>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div>
+      <h1>REVIEWS</h1>
+    </div>
 <div class="review-container">
     {% for review in reviews %}
     <div class="review-card">
@@ -56,5 +56,5 @@
 </div>
 
 <script src="/static/js/Reviews.js"></script>
-
+</body>
 {% endblock body %}
