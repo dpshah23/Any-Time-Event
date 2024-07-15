@@ -3,6 +3,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #dfd3c3;
+    margin-top: 6rem;
 }
 
 ::selection {
@@ -38,7 +39,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     flex: 1 1 calc(33% - 20px);
     text-align: center;
-    max-width: 300px;
+    max-width: 21rem;
 }
 
 .image-crop {
