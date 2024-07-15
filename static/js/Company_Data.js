@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.querySelector("form");
     const contactNoField = document.getElementById("contact_no_2");
-    const errorMessage = contactNoField.nextElementSibling;
+    const errorMessage = document.querySelector(".error-message");
 
     form.addEventListener("submit", function(event) {
         const contactNo = contactNoField.value.trim();

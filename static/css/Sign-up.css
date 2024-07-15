@@ -29,7 +29,6 @@
   padding: 20px;
 }
 
-
 form {
   width: 90%;
   max-width: 900px;
@@ -37,6 +36,7 @@ form {
   border-radius: 10px;
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 6.3rem;
 }
 
 header {
