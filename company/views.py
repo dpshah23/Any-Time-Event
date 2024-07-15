@@ -712,3 +712,6 @@ def payment_history(request ):
     
     return render(request ,'transaction.html' , {'history' : history} )
         
+
+def payment_success(request):
+    return render(request, 'payment_success.html')
