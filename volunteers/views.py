@@ -287,9 +287,6 @@ def profile(request,id):
         messages.error(request,"You are not logged in")
         return redirect('/')
     
-    if request.session['role']=="company":
-        messages.error(request,"You Do Not have permission to view this page")
-        return redirect('/')
 
     try:
         email = volunteer.objects.get(vol_id = id ).email
@@ -402,11 +399,16 @@ def editvol(request,vol_id):
 
     if request.session['role']=="company":
         messages.error(request,"You Don't have permission to view this page")
+
+    
     try:
 
-        
-
         vol = volunteer.objects.get(vol_id=vol_id)
+
+        if vol.email!=request.session['email']:
+            messages.error(request,"You Don't have permission to view this page")
+            return redirect('/volunteer/events')
+        
         if request.method=="POST":
 
             if 'profile_picture' in request.FILES:

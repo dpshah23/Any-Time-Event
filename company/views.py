@@ -314,9 +314,6 @@ def profile(request,id):
         messages.error(request,"You are not logged in")
         return redirect('/')
     
-    if request.session['role']=="volunteer":
-        messages.error(request,"You Don't have permission to view this page")
-
     try:
         email = company.objects.get(comp_id = id ).email
         obj=company.objects.get(comp_id=id)
@@ -638,6 +635,11 @@ def editcompany(request,comp_id):
     try:
 
         comp = company.objects.get(comp_id=comp_id)
+
+        if comp.email!=request.session['email']:
+            messages.error(request,"You Don't have permission to view this page")
+            return redirect('/')
+        
         if request.method=="POST":
 
             if 'company_logo' in request.FILES:

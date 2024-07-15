@@ -103,6 +103,40 @@
             </tbody>
         </table>
 
+        <br>
+
+        <h2><strong>Bypass Payment</strong></h2>
+        {% if not payment_bypass %}
+        <p><center>No Bypass Payment Found !!!</center></p>
+        {% else %}
+        <table border="1">
+            <thead>
+            <th>Event ID</th>
+            <th>Event Name</th>
+            <th>Company Name</th>
+            <th>No of Registered Volunteers</th>
+            <th>City</th>
+            <th>Event Date</th>
+            <th>Is Paid</th>
+            <th>Send Mail to Company</th>
+            </thead>
+
+            <tbody>
+                {% for event in payment_bypass %}
+            <tr>
+            <td><a href="" >{{event.event_id}}</td>
+            <td>{{event.event_name}}</td>
+            <td>{{event.event_company}}</td>
+            <td>{{event.event_vol}}</td>
+            <td>{{event.event_city}}</td>
+            <td>{{event.event_date}}</td>
+            <td>{{event.paid_status}}</td>
+            <td><button type="button"><a  class="field button-field" href="/admincustom/sendmailbypass/{{event.event_id}}/">Send Mail</a></button></td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+
+
         <h2><strong>Remaining Payment</strong></h2>
         {% if not events_ex %}
         <p><center>No Expired Events Found !!!</center></p>

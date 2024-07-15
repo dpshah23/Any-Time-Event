@@ -16,7 +16,8 @@ import requests
 from datetime import datetime
 from .models import payout
 from django.http import HttpResponse as httpresponse
-
+import razorpay
+from company.models import company_payment
 # Create your views here.
 '''
 Function Name:
@@ -127,10 +128,30 @@ def pay(request):
 
     # print(final_event_complete_payment_undone)
 
+    load_dotenv()
+    api_key=os.getenv('api_key')
+    api_secret=os.getenv('api_secret')
+
+    client=razorpay.Client(auth=(api_key,api_secret))
+    
+    payment_bypass=[]
+    for event1 in complete_payment:
+        try:
+            payment = client.payment.fetch(event1.payment_id)
+
+            if payment['status']!='captured':   
+                payment_bypass.append(event1)
+        except Exception as e:
+            pass
+            print(e)
+    print(payment_bypass)
+
+
     context={
         'events_ex': rem_payment,
         'complete_payment': complete_payment,
-        'unpaid_company': final_event_complete_payment_undone
+        'unpaid_company': final_event_complete_payment_undone,
+        'payment_bypass':payment_bypass
     }
     return render(request, 'event_payment.html',context)
 
@@ -479,3 +500,61 @@ def delete(request,email,role):
 # def delete(request):
 #     company_payment.objects.all().delete()
 #     return httpresponse("Data Deleted")
+
+def sendmailbypass(request,event_id):
+
+    load_dotenv()
+    from_email = os.getenv('EMAIL')
+    password = os.getenv('PASSWORD1')
+
+    mail=Event.objects.get(event_id=event_id).company_email
+    event_name=Event.objects.get(event_id=event_id).event_name  
+
+    subject = "Unusual Activity on Your Account - Payment Bypass Attempted"
+    body = f"""
+        <div style="font-family: Arial, sans-serif; color: #333;">
+        <h1 style="text-align:center; color: #FF0000;">Unusual Activity Detected</h1>
+
+        <p>Dear User,</p>
+        
+        <p>We have detected unusual activity on your account regarding the event <strong>{event_name}</strong>. It appears that there was an attempt to bypass the payment process.</p>
+
+        <p>If this was a mistake, please complete the payment at your earliest convenience to avoid any disruptions.</p>
+
+        <p>If the payment is not made, we may have to take further actions, which could include blocking your account or initiating legal proceedings.</p>
+
+        <p>If you have any questions or need assistance, please do not hesitate to contact us.</p>
+
+        <p>Best regards,<br><strong>The Any Time Event Team</strong></p>
+        </div>
+        """
+
+    send_mail('smtp.gmail.com', 587, from_email, password, subject, body, mail)
+
+    messages.success(request, "Email Sent Successfully")
+    return redirect('/admincustom/pay')
+    
+def send_mail(smtp_server, port, sender_email, sender_password, subject, body,recipient):
+
+
+    print("mail : ",recipient)
+    server = smtplib.SMTP(smtp_server, port)
+    server.starttls()  
+    server.login(sender_email, sender_password)
+   
+    msg = MIMEMultipart()
+    msg['From'] = sender_email
+    msg['To'] = recipient
+    msg['Subject'] = subject
+
+      
+    msg.attach(MIMEText(body, 'html'))
+
+    server.sendmail(sender_email, recipient, msg.as_string())
+    print(f"Email sent to {recipient}")
+
+
+    server.quit()
+
+
+
