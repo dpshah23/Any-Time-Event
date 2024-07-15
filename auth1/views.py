@@ -18,7 +18,7 @@ import requests
 from datetime import timedelta
 import json
 import base64
-import emailvalidationio
+
 
 
 # Create your views here.
@@ -77,8 +77,12 @@ def validate(request):
 
                     # print("cookie set")
 
+                    role=users.objects.get(email=email).role
                     request.session['email']=email
                     request.session['role']=users.objects.get(email=email).role
+                    if role=="volunteer":
+                        request.session['city']=volunteer.objects.get(email=email).city
+                        pass
                     user.delete()
                     return response
                 elif users.objects.get(email=email).role=="company" and users.objects.get(email=email).is_active!= False:
@@ -188,7 +192,7 @@ def login(request):
         try:
             if company.objects.get(email=email, phone2__isnull=True):
                 print(email)
-                messages.error(request, 'Please Sign up again with complete details after 5 minutes.')
+                messages.error(request, 'Please Sign up again with complete details after 1 day.')
                 return render(request, 'Log-In.html')
             email_exists = True
         except company.DoesNotExist:
@@ -197,7 +201,7 @@ def login(request):
         try:
             if volunteer.objects.get(email=email, dob__isnull=True):
                 print(email)
-                messages.error(request, 'Please Sign up again with complete details after 5 minutes.')
+                messages.error(request, 'Please Sign up again with complete details after 1 day.')
                 return render(request, 'Log-In.html')
             email_exists = True
         except volunteer.DoesNotExist:
@@ -234,6 +238,10 @@ def login(request):
                 if  request.COOKIES.get('time'):
                     request.session['email']=email
                     request.session['role']=users.objects.get(email=email).role
+
+                    if role=="volunteer":                      
+                        request.session['city']=volunteer.objects.get(email=email).city
+                        pass
                     context={
 
                     }

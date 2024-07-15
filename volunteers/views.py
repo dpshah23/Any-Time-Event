@@ -260,7 +260,8 @@ def dispevents(request):
     email = request.session['email']
 
     # city=volunteer.objects.get(email=email).city
-    city=volunteer.objects.get(email=email).city
+    # city=volunteer.objects.get(email=email).city
+    city=request.session['city']
     # city="ahmedabad"
 
     events=Event.objects.filter(event_city=city)
