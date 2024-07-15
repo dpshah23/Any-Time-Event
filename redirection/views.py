@@ -92,7 +92,7 @@ def index(request):
         event.append(event1)
         logos.append(logo)
 
-    obj=review.objects.all()
+    obj=review.objects.all().order_by('-date')[:3]
 
     if 'email' and 'role' in request.session:  
         email=request.session['email']
@@ -161,7 +161,7 @@ def reviews(request):
         return redirect('/review')
 
 
-    obj=review.objects.all()
+    obj=review.objects.all().order_by('-date')
     return render(request,"reviews.html",{'reviews':obj})
 
 def privacy_policy(request):

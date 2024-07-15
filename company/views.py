@@ -19,6 +19,7 @@ from redirection.models import review
 import json 
 import hashlib 
 import  hmac
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -354,15 +355,46 @@ Usage:
 """
 @ratelimit(key='ip',rate='5/m')
 def getpayment(request, event_id):
+
+    if request.method=="POST":
+        name=request.POST.get('name')
+        email=request.POST.get('email')
+        feedbackreview=request.POST.get('feedback')
+        date1=date.today()
+
+        print(name,email,feedbackreview,date1)
+
+        objs=review(name=name,email=email,review=feedbackreview,date=date1)
+        objs.save()
+        try:
+            ispaid1=Event.objects.get(event_id=event_id).paid_status
+        except Event.DoesNotExist:
+            messages.error(request,"Event Not Found")
+            return redirect('/company/events/')
+        messages.success(request,"Review Added Successfully")
+
+        if ispaid1:
+            return redirect('/company/events/')
     load_dotenv()
     key = os.getenv('api_key_razorpay')
     secret = os.getenv('api_secret_razorpay')
     client = razorpay.Client(auth=(key, secret))
-    
+
     total_vol = len(RegVol.objects.filter(event_id_1=event_id, attendence="present"))
     event_mrp = Event.objects.get(event_id=event_id).event_mrp
     amount = event_mrp * total_vol
     final_amt = int(amount) * 100  
+
+    try:
+        ispaid=Event.objects.get(event_id=event_id).paid_status
+        if ispaid:
+            messages.error(request,"Payment Already Done")
+            ispaid1=True
+
+            return render(request, "payment.html", {'ispaid': ispaid1,'event_id':event_id})
+    except Event.DoesNotExist:
+        messages.error(request,"Event Not Found")
+        return redirect('/company/events/')
 
     try:
         payment = client.order.create({"amount": final_amt, "currency": "INR", "payment_capture": '1'})
@@ -374,11 +406,12 @@ def getpayment(request, event_id):
     timestamp = date.today()
     payment_id = payment['id']
     company_email = Event.objects.get(event_id=event_id).company_email
-    company_id = company.objects.get(email = company_email ).comp_id
+    company_id = company.objects.get(email=company_email).comp_id
     event_name = Event.objects.get(event_id=event_id).event_name
-    event_date = Event.objects.get(event_id = event_id).event_date
-    pay = company_payment(timestamp=timestamp, event_id=event_id,event_name=event_name,event_date=event_date,amount=amount, payment_id=payment_id , company_id = company_id)
+    event_date = Event.objects.get(event_id=event_id).event_date
+    pay = company_payment(timestamp=timestamp, event_id=event_id, event_name=event_name, event_date=event_date, amount=amount, order_id=payment_id, company_id=company_id)
     pay.save()
+
 
     return render(request, "payment.html", {'payment': payment, 'key': key,'event_id':event_id})
 
@@ -643,7 +676,7 @@ def editcompany(request,comp_id):
             return redirect(f'/company/profile/{id}')
     except company.DoesNotExist:
         messages.error(request,'company Does Not Exists')
-        return redirect('/company/')
+        return redirect(f'/company/profile/{comp_id}')
     except Exception as e:
         print(e)
         return redirect('/')
@@ -671,29 +704,69 @@ This function is intended to be used in a Django web application as a view for s
 '''
 
 def storedetails(request):
-    if request.method=="GET":
+ 
    
-        order_id=request.GET.get('order_id')
-     
-        event_id=request.GET.get('event_id')
-        payment , created= company_payment.objects.update_or_create(
-        payment_id = order_id , 
-        defaults={'status' : True}
+    if request.method == "POST":
+        data = json.loads(request.body)
+    elif request.method == "GET":
+        data = request.GET
+    else:
+        messages.error(request, "Invalid request method")
+        return redirect('/')
+
+    order_id = data.get('order_id')
+    payment_id = data.get('payment_id')
+    signature = data.get('signature')
+    amount = int(data.get('amount'))/100
+    event_id = data.get('event_id')
+
+    key = os.getenv('api_key_razorpay')
+    secret = os.getenv('api_secret_razorpay')
+    client = razorpay.Client(auth=(key, secret))
+
+    print("authorize")
+
+    params_dict = {
+        'razorpay_order_id': order_id,
+        'razorpay_payment_id': payment_id,
+        'razorpay_signature': signature
+    }
+
+    try:
+        client.utility.verify_payment_signature(params_dict)
+
+        payment, created = company_payment.objects.update_or_create(
+            order_id=order_id,
+            defaults={'status': True, 'payment_id': payment_id, 'amount': amount, 'signature': signature}
         )
-        # obj=company_payment(order_id=order_id,timestamp=timestamp,event_id=event_id,payment_id=payment_id,status="Success")
-        # obj.save()
-        if (company_payment.objects.get(event_id = event_id).status == True):
+        if company_payment.objects.filter(event_id=event_id, status=True).exists():
             event, created = Event.objects.update_or_create(
-            event_id=event_id,
-            defaults={'paid_status': True}
+                event_id=event_id,
+                defaults={'paid_status': True}
             )
+
+        print("Verified")
+        messages.success(request, "Payment Successful")
+        return redirect('/company/payment_success')  # Redirect on success
+    except razorpay.errors.SignatureVerificationError:
+
+        print("failed")
+        messages.error(request, "Payment Failed")
+        return redirect('/company/events')  # Redirect on failure
+    except Exception as e:
+        print(e)
+        messages.error(request, "An error occurred")
+        return redirect('/')
+
+
+
+
 
         messages.success(request,"payment Successful")
         return redirect(f'/company/events')
     
 '''
-Function Name:
-payment_history
+Function Name: payment_history
 
 Description:
 This view function displays the payment history for the logged-in company. It checks if the user is logged in and has the appropriate
@@ -712,7 +785,7 @@ Renders the transaction.html template with the payment history data for the comp
 Usage:
 This function is intended to be used in a Django web application as a view for displaying the payment history of a company.
 '''
-    
+
 @ratelimit(key='ip',rate='5/m')
 def payment_history(request ):
     if 'email' and 'role' not in request.session:
@@ -735,3 +808,7 @@ def payment_history(request ):
     
     return render(request ,'transaction.html' , {'history' : history} )
         
+
+def payment_success(request):
+
+    return render(request, 'payment_success.html')
