@@ -15,6 +15,7 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th>Profile</th>
                     <th>Volunteer ID</th>
                     <th>Volunteer Name</th>
                     <th>Volunteer Email</th>
@@ -26,6 +27,7 @@
             <tbody>
                 {% for volunteer in volunteers %}
                 <tr>
+                    <td><a href="/volunteer/profile/{{volunteer.vol_id}}">Visit Profile </a></td>
                     <td>{{ forloop.counter }}</td>
                     <td>{{ volunteer.name }}</td>
                     <td>{{ volunteer.email }}</td>

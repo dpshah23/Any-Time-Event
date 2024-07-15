@@ -1,4 +1,4 @@
-{% extends "./basevol.html" %}
+{% extends "volunteer/basevol.html" %}
 {% block title %}Profile {% endblock title %}
 {% block body %}
 
@@ -29,6 +29,7 @@
             <p><strong>Qualification:</strong> <span id="qua">{{obj.qualification}}</span></p>
             <p><strong>Experience:</strong> <span id="qua">{{obj.experience}}</span></p>
             <p><strong>Description:</strong> <span id="des">{{obj.description}}</span></p>
+            <p><strong>Total Attended Events:</strong> <span id="des">{{totalattendedevent}}</span></p>
             {% if request.session.email == obj.email %}
             
             <p><strong>UPI Id:</strong> <span id="upi">{{obj.upi}}</span></p>
