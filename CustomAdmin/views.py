@@ -475,3 +475,7 @@ def delete(request,email,role):
     return redirect('/admincustom/acceptusers/')
     
 
+# from company.models import company_payment
+# def delete(request):
+#     company_payment.objects.all().delete()
+#     return httpresponse("Data Deleted")

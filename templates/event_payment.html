@@ -134,7 +134,8 @@
         </table>
 <br>
 <h2><strong>Completed Payments</strong></h2>
-{% if not completed_payment %}
+
+{% if not complete_payment %}
 <p><center>No Completed Payments Found !!!</center></p>
 {% else %}
         <table border="1">
@@ -146,6 +147,7 @@
                 <th>City</th>
                 </thead>
                 <tbody>
+             
                     {% for event in complete_payment %}
                 <tr>
                 <td><a href="" >{{event.event_id}}</td>

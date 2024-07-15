@@ -47,13 +47,16 @@ class RegVol(models.Model):
     
 class company_payment(models.Model):
     timestamp = models.DateField()
-    event_id = models.CharField(null=True)
-    event_name = models.CharField(null = True)
+    event_id = models.CharField(max_length=255, null=True)   
+    event_name = models.CharField(max_length=255, null=True) 
     event_date = models.DateField(null=True)
-    amount = models.CharField(null=True)
-    payment_id = models.TextField()
-    company_id = models.CharField(null=True)
-    status = models.BooleanField(default = False)
+    amount = models.CharField(max_length=255, null=True) 
+    order_id = models.TextField(default=None,null=True)  
+    payment_id = models.TextField(null=True)
+    company_id = models.CharField(max_length=255, null=True)  
+    status = models.BooleanField(default=False)
+    signature = models.TextField(null=True)
+
 
     def __str__(self):
-        return self.payment_id        
+        return self.order_id        
