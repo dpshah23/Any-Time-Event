@@ -59,4 +59,4 @@ class company_payment(models.Model):
 
 
     def __str__(self):
-        return self.payment_id        
+        return self.order_id        

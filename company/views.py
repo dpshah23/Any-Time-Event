@@ -19,6 +19,7 @@ from redirection.models import review
 import json 
 import hashlib 
 import  hmac
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -358,7 +359,7 @@ def getpayment(request, event_id):
     key = os.getenv('api_key_razorpay')
     secret = os.getenv('api_secret_razorpay')
     client = razorpay.Client(auth=(key, secret))
-    
+
     total_vol = len(RegVol.objects.filter(event_id_1=event_id, attendence="present"))
     event_mrp = Event.objects.get(event_id=event_id).event_mrp
     amount = event_mrp * total_vol
@@ -374,11 +375,12 @@ def getpayment(request, event_id):
     timestamp = date.today()
     payment_id = payment['id']
     company_email = Event.objects.get(event_id=event_id).company_email
-    company_id = company.objects.get(email = company_email ).comp_id
+    company_id = company.objects.get(email=company_email).comp_id
     event_name = Event.objects.get(event_id=event_id).event_name
-    event_date = Event.objects.get(event_id = event_id).event_date
-    pay = company_payment(timestamp=timestamp, event_id=event_id,event_name=event_name,event_date=event_date,amount=amount, payment_id=payment_id , company_id = company_id)
+    event_date = Event.objects.get(event_id=event_id).event_date
+    pay = company_payment(timestamp=timestamp, event_id=event_id, event_name=event_name, event_date=event_date, amount=amount, order_id=payment_id, company_id=company_id)
     pay.save()
+
 
     return render(request, "payment.html", {'payment': payment, 'key': key,'event_id':event_id})
 
@@ -622,7 +624,7 @@ def editcompany(request,comp_id):
             return redirect(f'/company/profile/{id}')
     except company.DoesNotExist:
         messages.error(request,'company Does Not Exists')
-        return redirect('/company/')
+        return redirect(f'/company/profile/{comp_id}')
     except Exception as e:
         print(e)
         return redirect('/')
@@ -630,46 +632,64 @@ def editcompany(request,comp_id):
     return render(request,'edit_company.html',{'company':comp})
 
 def storedetails(request):
-    if request.method=="GET":
+ 
    
-        if request.method == "POST":
-            data = json.loads(request.body)
-            order_id = data.get('order_id')
-            payment_id = data.get('payment_id')
-            signature = data.get('signature')
-            amount = data.get('amount')
-            event_id = data.get('event_id')
+    if request.method == "POST":
+        data = json.loads(request.body)
+    elif request.method == "GET":
+        data = request.GET
+    else:
+        messages.error(request, "Invalid request method")
+        return redirect('/')
 
-            client = razorpay.Client(auth=("YOUR_KEY_ID", "YOUR_KEY_SECRET"))
-            params_dict = {
-            'razorpay_order_id': order_id,
-            'razorpay_payment_id': payment_id,
-            'razorpay_signature': signature
-            }
+    order_id = data.get('order_id')
+    payment_id = data.get('payment_id')
+    signature = data.get('signature')
+    amount = int(data.get('amount'))/100
+    event_id = data.get('event_id')
 
-            try:
-                client.utility.verify_payment_signature(params_dict)
+    key = os.getenv('api_key_razorpay')
+    secret = os.getenv('api_secret_razorpay')
+    client = razorpay.Client(auth=(key, secret))
+
+    print("authorize")
+
+    params_dict = {
+        'razorpay_order_id': order_id,
+        'razorpay_payment_id': payment_id,
+        'razorpay_signature': signature
+    }
+
+    try:
+        client.utility.verify_payment_signature(params_dict)
+
+        payment, created = company_payment.objects.update_or_create(
+            order_id=order_id,
+            defaults={'status': True, 'payment_id': payment_id, 'amount': amount, 'signature': signature}
+        )
+        if company_payment.objects.filter(event_id=event_id, status=True).exists():
+            event, created = Event.objects.update_or_create(
+                event_id=event_id,
+                defaults={'paid_status': True}
+            )
+
+        print("Verified")
+        messages.success(request, "Payment Successful")
+        return redirect('/company/payment_success')  # Redirect on success
+    except razorpay.errors.SignatureVerificationError:
+
+        print("failed")
+        messages.error(request, "Payment Failed")
+        return redirect('/company/events')  # Redirect on failure
+    except Exception as e:
+        print(e)
+        messages.error(request, "An error occurred")
+        return redirect('/')
 
 
-                payment , created= company_payment.objects.update_or_create(
-                order_id = order_id , 
-                defaults={'status' : True,'payment_id':payment_id,'amount':amount,'signature':signature}
-                )
-                # obj=company_payment(order_id=order_id,timestamp=timestamp,event_id=event_id,payment_id=payment_id,status="Success")
-                # obj.save()
-                if (company_payment.objects.get(event_id = event_id).status == True):
-                    event, created = Event.objects.update_or_create(
-                    event_id=event_id,
-                    defaults={'paid_status': True}
-                    )
-
-                messages.success(request,"Payment Successful")
-                return redirect('/')
-            except razorpay.errors.SignatureVerificationError:
-                messages.error(request,"Payment Falied")
-                return redirect('/company/')
 
        
+@csrf_exempt
 @ratelimit(key='ip',rate='5/m')
 def payment_history(request ):
     if 'email' and 'role' not in request.session:

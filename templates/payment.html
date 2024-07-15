@@ -265,54 +265,41 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
         var options = {
-            "key": "{{ key }}",
-            "amount": "{{ payment.amount }}",
+            "key": "{{ key }}", // Your Razorpay key
+            "amount": "{{ payment.amount }}", // Amount in paise
             "currency": "INR",
             "name": "Any Time Event",
             "description": "Payment for your Event",
-            "image": "/static/img/Any-Time-Event-Logo.png",
-            "order_id": "{{ payment.id }}",
+            "image": "/img/Any-Time-Event-Logo.png",
+            "order_id": "{{ payment.id }}", // Replace with actual Order ID
             "handler": function (response){
                 console.log("Payment successful", response);
-                fetch('/company/storedetails', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    },
-                    body: JSON.stringify({
-                        order_id: response.razorpay_order_id,
-                        payment_id: response.razorpay_payment_id,
-                        signature: response.razorpay_signature,
-                        amount: "{{ payment.amount }}",
-                        event_id: '{{ event_id }}'
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
-                    window.location.href = '/company/payment_success';
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    alert("Payment verification failed");
-                });
+                // Redirect to storedetails page with parameters
+                var url = '/company/storedetails' +
+                          '?order_id=' + response.razorpay_order_id +
+                          '&payment_id=' + response.razorpay_payment_id +
+                          '&signature=' + response.razorpay_signature +
+                          '&amount=' + "{{ payment.amount }}" +
+                          '&event_id=' + '{{ event_id }}';
+                window.location.href = url;
             },
             "theme": {
                 "color": "#f0ece2"
             }
         };
+
         var rzp1 = new Razorpay(options);
+
         rzp1.on('payment.failed', function (response){
             console.error("Payment failed", response);
             alert("Payment Failed");
         });
+
         document.getElementById('rzp-button1').onclick = function(e){
             console.log("Opening Razorpay checkout");
             rzp1.open();
             e.preventDefault();
         }
-            
     </script>
 </body>
 </html>
