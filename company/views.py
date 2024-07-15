@@ -685,24 +685,36 @@ def editcompany(request,comp_id):
 
 '''
 
-Function Name :
-storedetails
+Function Name: storedetails
 
-Description:
-This view function processes payment details received via a GET request. It updates the payment status in the company_payment model based on
-the order_id and updates the event's paid status if the payment is successful. Upon successful completion, it redirects the user to the
-company events page.
+    Handles the verification and storage of payment details received from Razorpay.
+    Redirects to appropriate pages based on payment verification status.
+    
+    Request Method:
+        - POST: Accepts JSON data for payment verification.
+        - GET: Accepts query parameters for payment verification (not recommended for sensitive data).
 
-Parameters
-request: The HTTP request object containing metadata about the request and user data.
+    Parameters:
+        - order_id: Razorpay order ID.
+        - payment_id: Razorpay payment ID.
+        - signature: Razorpay payment signature.
+        - amount: Amount of payment received (converted from paise to currency).
+        - event_id: ID of the event for which payment is being processed.
 
-Returns:
-Redirects to the company events page ('/company/events') with a success message.
+    Exceptions:
+        - SignatureVerificationError: Raised when the payment signature verification fails.
+        - Any other exception: Handles general errors that may occur during payment processing.
 
-Usage:
-This function is intended to be used in a Django web application as a view for storing payment details and updating the event's paid status.
+    Sends an email notification to the event organizer upon successful payment, including event details and payment amount.
+
+    Disclaimer:
+        - Includes a disclaimer in the email body stating that any attempt to bypass payment may result in rejection and legal action.
+
+    Redirects:
+        - '/company/payment_success': Redirects on successful payment verification.
+        - '/company/events': Redirects on payment failure.
+
 '''
-
 def storedetails(request):
  
    
@@ -746,6 +758,43 @@ def storedetails(request):
             )
 
         print("Verified")
+
+        load_dotenv()
+        from_email=os.getenv('EMAIL')
+        password=os.getenv('PASSWORD1')
+
+        name=Event.objects.get(event_id=event_id).event_name
+        total_vol = len(RegVol.objects.filter(event_id_1=event_id, attendence="present"))
+        event_mrp = Event.objects.get(event_id=event_id).event_mrp
+        amount = event_mrp * total_vol
+
+        email = Event.objects.get(event_id=event_id).company_email
+
+        subject=f"Payment Received for {name}"
+
+        body=f"""
+        <div style="font-family: Arial, sans-serif; color: #333;">
+        <h1 style="text-align:center; color: #4CAF50;">Payment Received</h1>
+
+        <p>Dear Organizer,</p>
+        
+        <p>We are pleased to inform you that the payment for the event <strong>{name}</strong> has been successfully received.</p>
+
+        <p><strong>Event Name:</strong> {name}<br>
+        <strong>Total Amount:</strong> INR {amount}</p>
+
+        <p>If you have any questions or need further assistance, please do not hesitate to contact us.</p>
+
+        <p>We appreciate your continued support and look forward to working with you on future events.</p>
+
+        <p>Best regards,<br><strong>The Any Time Event Team</strong></p>
+        
+        <p><em>Note: In case of any discrepancy found during payment, we reserve the right to reject your payment and take legal action against attempts to bypass payment.</em></p>
+        </div>
+        """
+
+        send_mail('smtp.gmail.com', 587, from_email, password, subject, body,email)
+        
         messages.success(request, "Payment Successful")
         return redirect('/company/payment_success')  # Redirect on success
     except razorpay.errors.SignatureVerificationError:
@@ -757,10 +806,6 @@ def storedetails(request):
         print(e)
         messages.error(request, "An error occurred")
         return redirect('/')
-
-
-
-
 
         messages.success(request,"payment Successful")
         return redirect(f'/company/events')
@@ -812,3 +857,27 @@ def payment_history(request ):
 def payment_success(request):
 
     return render(request, 'payment_success.html')
+
+
+def send_mail(smtp_server, port, sender_email, sender_password, subject, body,recipient):
+
+
+    print("mail : ",recipient)
+    server = smtplib.SMTP(smtp_server, port)
+    server.starttls()  
+    server.login(sender_email, sender_password)
+   
+    msg = MIMEMultipart()
+    msg['From'] = sender_email
+    msg['To'] = recipient
+    msg['Subject'] = subject
+
+      
+    msg.attach(MIMEText(body, 'html'))
+
+    server.sendmail(sender_email, recipient, msg.as_string())
+    print(f"Email sent to {recipient}")
+
+
+    server.quit()
+
