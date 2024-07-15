@@ -327,7 +327,7 @@ def profile(request,id):
         messages.error(request,"Company Not Found")
         return redirect('/company/')
     
-    return render(request,"profile.html",{'data':obj , 'company':email})
+    return render(request,"profile_company.html",{'data':obj , 'company':email})
     
 
 """
@@ -628,66 +628,70 @@ Usage:
 This function is intended to be used in a Django web application as a view for editing company details. 
 '''
 
-@ratelimit(key='ip',rate='5/m')
-def editcompany(request,comp_id):
-    if 'email' and 'role' not in request.session:
-        messages.error(request,"You are not logged in")
+@ratelimit(key='ip', rate='5/m')
+def editcompany(request, comp_id):
+    if 'email' not in request.session or 'role' not in request.session:
+        messages.error(request, "You are not logged in")
         return redirect('/')
-    
-    if request.session['role']=="volunteer":
-        messages.error(request,"You Don't have permission to view this page")
-    try:
 
+    if request.session['role'] == "volunteer":
+        messages.error(request, "You don't have permission to view this page")
+        return redirect('/')
+
+    try:
         comp = company.objects.get(comp_id=comp_id)
 
-        if comp.email!=request.session['email']:
-            messages.error(request,"You Don't have permission to view this page")
+        if comp.email != request.session['email']:
+            messages.error(request, "You don't have permission to view this page")
             return redirect('/')
-        
-        if request.method=="POST":
 
+        if request.method == "POST":
             if 'company_logo' in request.FILES:
                 image_file = request.FILES['company_logo']
                 valid_extensions = ['jpg', 'png', 'jpeg', 'heic']
                 if image_file.name.split('.')[-1].lower() not in valid_extensions:
-                    messages.error(request, 'Invalid Image format. Only JPG, PNG, JPEG, and HEIC are allowed.')
+                    messages.error(request, 'Invalid image format. Only JPG, PNG, JPEG, and HEIC are allowed.')
                     return render(request, 'edit_company.html', {'company': comp})
 
                 image_data = image_file.read()
                 comp_logo = base64.b64encode(image_data).decode('utf-8')
             else:
-                comp_logo = comp.profile_pic 
+                comp_logo = comp.logo
 
-            email = request.session['email']
             name = request.POST.get('name')
             phone1 = request.POST.get('phone1')
             address = request.POST.get('address')
             website = request.POST.get('website')
             phone2 = request.POST.get('phone2')
             description = request.POST.get('description')
+
+            # print(f"Updating company: {comp_id} with data: {name}, {phone1}, {address}, {website}, {phone2}, {description}, {comp_logo}")
+
             obj, created = company.objects.update_or_create(
                 comp_id=comp_id,
                 defaults={
-                    'name':name,
-                    'phone1' :phone1,
+                    'name': name,
+                    'phone1': phone1,
                     'address': address,
-                    'website' : website,
-                    'phone2' : phone2,
-                    'description' : description,
-                    'logo':comp_logo
+                    'website': website,
+                    'phone2': phone2,
+                    'description': description,
+                    'logo': comp_logo
                 }
             )
-            
-            messages.success(request,'Company Details Updated Successfully')
-            return redirect(f'/company/profile/{id}')
+
+            messages.success(request, 'Company details updated successfully')
+            return redirect(f'/company/profile/{comp_id}')
     except company.DoesNotExist:
-        messages.error(request,'company Does Not Exists')
+        messages.error(request, 'Company does not exist')
         return redirect(f'/company/profile/{comp_id}')
     except Exception as e:
-        print(e)
+        print(f"Error: {e}")
+        messages.error(request, 'An error occurred while updating the company details')
         return redirect('/')
 
-    return render(request,'edit_company.html',{'company':comp})
+    return render(request, 'edit_company.html', {'company': comp})
+
 
 '''
 
