@@ -1,0 +1,78 @@
+.field button {
+    color: #FFFFFF;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    background-color: #006989;
+}
+
+.field button.absent {
+    background-color: #006989;
+}
+
+.field button a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.field button:hover {
+    background-color: rgb(56, 135, 56);
+}
+
+.field button.absent:hover {
+    background-color: rgb(170, 47, 47);
+}
+
+.absent {
+    background-color: #f2dede;
+}
+
+.Present {
+    background-color: #dff0d8;
+}
+
+.container{
+    background-color: #f0ece2;
+}
+table {
+    background-color: #f0ece2;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+table thead tr {
+    background-color: #006989;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+table th,
+table td {
+    padding: 12px 15px;
+    border: 1px solid #dddddd;
+}
+
+table tbody tr {
+    border-bottom: 1px solid #f0ece2;
+}
+
+table tbody tr:nth-of-type(even) {
+    background-color: #f0ece2;
+}
+
+table tbody tr:last-of-type {
+    border-bottom: 2px solid #f0ece2;
+}
+
+table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
