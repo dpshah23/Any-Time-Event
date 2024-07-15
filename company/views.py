@@ -449,8 +449,10 @@ def editevent(request,event_id1):
     
     if request.session['role']=="volunteer":
         messages.error(request,"You Don't have permission to view this page")
-    try:
 
+    try:
+        email=request.session['email']
+        # if request.sess
         event=Event.objects.get(event_id=event_id1,company_email=email)
 
         if request.method=="POST":

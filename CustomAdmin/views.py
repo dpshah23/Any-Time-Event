@@ -137,7 +137,8 @@ def pay(request):
     payment_bypass=[]
     for event1 in complete_payment:
         try:
-            payment = client.payment.fetch(event1.payment_id)
+            obj=company_payment.objects.get(event_id=event1.event_id)
+            payment = client.payment.fetch(obj.payment_id)
 
             if payment['status']!='captured':   
                 payment_bypass.append(event1)
@@ -527,6 +528,38 @@ def sendmailbypass(request,event_id):
 
         <p>Best regards,<br><strong>The Any Time Event Team</strong></p>
         </div>
+        """
+
+    send_mail('smtp.gmail.com', 587, from_email, password, subject, body, mail)
+
+    messages.success(request, "Email Sent Successfully")
+    return redirect('/admincustom/pay')
+
+def warncomp(request,event_id):
+    load_dotenv()
+    from_email = os.getenv('EMAIL')
+    password = os.getenv('PASSWORD1')
+
+    mail=Event.objects.get(event_id=event_id).company_email
+    event_name=Event.objects.get(event_id=event_id).event_name  
+
+    subject = "Payment Reminder - Event Payment Due"
+    body = f"""
+        <div style="font-family: Arial, sans-serif; color: #333;">
+        <h1 style="text-align:center; color: #FF0000;">Payment Reminder</h1>
+
+        <p>Dear User,</p>
+
+        <p>This is a reminder that the payment for the event <strong>{event_name}</strong> is due. Please complete the payment at your earliest convenience to avoid any disruptions.</p>
+
+        <p>Please ensure that the payment is made promptly to secure your participation in the event and avoid any penalties or account restrictions.</p>
+
+        <p>If you have already made the payment, please disregard this message. If you have any questions or need assistance, please do not hesitate to contact us.</p>
+
+        <p>Thank you for your cooperation and prompt attention to this matter.</p>
+
+        <p>Best regards,<br><strong>The Any Time Event Team</strong></p>        
+
         """
 
     send_mail('smtp.gmail.com', 587, from_email, password, subject, body, mail)

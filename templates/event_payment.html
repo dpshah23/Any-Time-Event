@@ -84,6 +84,7 @@
             <th>City</th>
             <th>Event Date</th>
             <th>Total Days</th>
+            <th>Send Mail to Company</th>
             <!-- <th class="field button-field">Status</th> -->
             </thead>
             <tbody>
@@ -96,6 +97,7 @@
             <td>{{event.event_city}}</td>
             <td>{{event.event_date}}</td>
             <td>{{days}}</td>
+            <td><button type="button"><a  class="field button-field" href="/admincustom/warncomp/{{event.event_id}}/">Send Mail</a></button></td>
             <!-- <td><a  class="field button-field" href=""><button type="button">Pay Now</button></a></td> -->
             </tr>
             {% endfor %}
