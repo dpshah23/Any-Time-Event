@@ -223,6 +223,8 @@ def getallevents(request):
     events_active = [event for event in all_events if not event.is_expired()]
 
     required=0
+    total_events_no=len(events_expired  )
+    activeno=len(events_active)
     for event in all_events:
         required+=event.event_vol
 
@@ -231,7 +233,7 @@ def getallevents(request):
     print(required,total)
 
     
-    return render(request,"all_events.html",{'events_ex':events_expired,'events':events_active,'company_name':company.objects.get(email=email).name , 'obj' : company.objects.get (email = email),'required':required,'total':total})
+    return render(request,"all_events.html",{'events_ex':events_expired,'events':events_active,'num_active':activeno,'company_name':company.objects.get(email=email).name , 'obj' : company.objects.get (email = email),'required':required,'total':total,'total_events_no':total_events_no})
 
 """
 Function: gettotalvol(request, event_id)
@@ -317,8 +319,8 @@ def profile(request,id):
     try:
         email = company.objects.get(comp_id = id ).email
         obj=company.objects.get(comp_id=id)
-        if obj.email!=request.session['email']:
-            messages.error(request,"You Don't have permission to view this page")
+        # if obj.email!=request.session['email']:
+        #     messages.error(request,"You Don't have permission to view this page")
         print(obj)
     except Exception as e:
         print("error")

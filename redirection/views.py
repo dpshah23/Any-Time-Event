@@ -117,6 +117,7 @@ def contact(request):
         obj1.save()
         
         messages.success(request,"Message sent successfully")
+        return redirect('/')
         
         
         
