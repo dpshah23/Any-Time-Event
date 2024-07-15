@@ -238,28 +238,36 @@
     </nav>
 
     <div class="container">
-        <form action="{% url 'pay' %}" method="post">
+        <form action="/company/payment/{{ event_id }}/" method="post">
             {% csrf_token %}
             <div class="form-field">
                 <label for="name">Name : </label><br>
-                <input type="text" name="name">
+                <input type="text" name="name" required>
             </div>
             <div class="form-field">
                 <label for="email">Email : </label><br>
-                <input type="email" name="email">
+                <input type="email" name="email" required>
             </div>
             <div class="form-field">
                 <label for="feedback">Please share Your valuable Feedback</label><br>
-                <textarea name="feedback" id="feedback"></textarea>
+                <textarea name="feedback" id="feedback" required></textarea>
             </div>
             <div class="full-width">
                 <button type="submit">Submit</button>
             </div>
         </form>
-        
+        <br>
+        {% if not ispaid %}
         <div class="full-width">
             <button id="rzp-button1">Pay Now</button>
         </div>
+
+        {% else %}
+
+        <div class="full-width">
+            <h2>Payment Already Done</h2>
+        </div>
+        {% endif %}
     </div>
 
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>

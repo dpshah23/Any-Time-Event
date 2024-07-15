@@ -355,6 +355,26 @@ Usage:
 """
 @ratelimit(key='ip',rate='5/m')
 def getpayment(request, event_id):
+
+    if request.method=="POST":
+        name=request.POST.get('name')
+        email=request.POST.get('email')
+        feedbackreview=request.POST.get('feedback')
+        date1=date.today()
+
+        print(name,email,feedbackreview,date1)
+
+        objs=review(name=name,email=email,review=feedbackreview,date=date1)
+        objs.save()
+        try:
+            ispaid1=Event.objects.get(event_id=event_id).paid_status
+        except Event.DoesNotExist:
+            messages.error(request,"Event Not Found")
+            return redirect('/company/events/')
+        messages.success(request,"Review Added Successfully")
+
+        if ispaid1:
+            return redirect('/company/events/')
     load_dotenv()
     key = os.getenv('api_key_razorpay')
     secret = os.getenv('api_secret_razorpay')
@@ -364,6 +384,17 @@ def getpayment(request, event_id):
     event_mrp = Event.objects.get(event_id=event_id).event_mrp
     amount = event_mrp * total_vol
     final_amt = int(amount) * 100  
+
+    try:
+        ispaid=Event.objects.get(event_id=event_id).paid_status
+        if ispaid:
+            messages.error(request,"Payment Already Done")
+            ispaid1=True
+
+            return render(request, "payment.html", {'ispaid': ispaid1,'event_id':event_id})
+    except Event.DoesNotExist:
+        messages.error(request,"Event Not Found")
+        return redirect('/company/events/')
 
     try:
         payment = client.order.create({"amount": final_amt, "currency": "INR", "payment_capture": '1'})
@@ -688,8 +719,7 @@ def storedetails(request):
 
 
 
-       
-@csrf_exempt
+
 @ratelimit(key='ip',rate='5/m')
 def payment_history(request ):
     if 'email' and 'role' not in request.session:
@@ -714,4 +744,5 @@ def payment_history(request ):
         
 
 def payment_success(request):
+
     return render(request, 'payment_success.html')
