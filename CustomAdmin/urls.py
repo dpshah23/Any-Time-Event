@@ -16,5 +16,6 @@ urlpatterns = [
     path('acceptyes/<str:volemail>/', views.acceptyes, name="accept_user"),
     path('acceptno/<str:volemail>/', views.acceptno, name="reject_user"),
     path('payvol/<str:event_id>/' , views.payvol , name='payvolenteer' ),
-    path('delete/<email>/<role>/',views.delete,name="delete")
+    path('delete/<email>/<role>/',views.delete,name="delete"),
+    # path('delete12/',views.delete,name="delete12")
 ]

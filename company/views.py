@@ -632,24 +632,44 @@ def editcompany(request,comp_id):
 def storedetails(request):
     if request.method=="GET":
    
-        order_id=request.GET.get('order_id')
-     
-        event_id=request.GET.get('event_id')
-        payment , created= company_payment.objects.update_or_create(
-        payment_id = order_id , 
-        defaults={'status' : True}
-        )
-        # obj=company_payment(order_id=order_id,timestamp=timestamp,event_id=event_id,payment_id=payment_id,status="Success")
-        # obj.save()
-        if (company_payment.objects.get(event_id = event_id).status == True):
-            event, created = Event.objects.update_or_create(
-            event_id=event_id,
-            defaults={'paid_status': True}
-            )
+        if request.method == "POST":
+            data = json.loads(request.body)
+            order_id = data.get('order_id')
+            payment_id = data.get('payment_id')
+            signature = data.get('signature')
+            amount = data.get('amount')
+            event_id = data.get('event_id')
 
-        messages.success(request,"payment Successful")
-        return redirect(f'/company/events')
-    
+            client = razorpay.Client(auth=("YOUR_KEY_ID", "YOUR_KEY_SECRET"))
+            params_dict = {
+            'razorpay_order_id': order_id,
+            'razorpay_payment_id': payment_id,
+            'razorpay_signature': signature
+            }
+
+            try:
+                client.utility.verify_payment_signature(params_dict)
+
+
+                payment , created= company_payment.objects.update_or_create(
+                order_id = order_id , 
+                defaults={'status' : True,'payment_id':payment_id,'amount':amount,'signature':signature}
+                )
+                # obj=company_payment(order_id=order_id,timestamp=timestamp,event_id=event_id,payment_id=payment_id,status="Success")
+                # obj.save()
+                if (company_payment.objects.get(event_id = event_id).status == True):
+                    event, created = Event.objects.update_or_create(
+                    event_id=event_id,
+                    defaults={'paid_status': True}
+                    )
+
+                messages.success(request,"Payment Successful")
+                return redirect('/')
+            except razorpay.errors.SignatureVerificationError:
+                messages.error(request,"Payment Falied")
+                return redirect('/company/')
+
+       
 @ratelimit(key='ip',rate='5/m')
 def payment_history(request ):
     if 'email' and 'role' not in request.session:

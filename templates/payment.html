@@ -274,8 +274,29 @@
             "order_id": "{{ payment.id }}",
             "handler": function (response){
                 console.log("Payment successful", response);
-                window.location.href='/company/storedetails?order_id={{payment.id}}&event_id={{event_id}}'
-                
+                fetch('/company/storedetails', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({
+                        order_id: response.razorpay_order_id,
+                        payment_id: response.razorpay_payment_id,
+                        signature: response.razorpay_signature,
+                        amount: "{{ payment.amount }}",
+                        event_id: '{{ event_id }}'
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    window.location.href = '/company/payment_success';
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert("Payment verification failed");
+                });
             },
             "theme": {
                 "color": "#f0ece2"
@@ -291,6 +312,7 @@
             rzp1.open();
             e.preventDefault();
         }
+            
     </script>
 </body>
 </html>
