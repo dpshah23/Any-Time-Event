@@ -82,6 +82,12 @@ def validate(request):
                     request.session['role']=users.objects.get(email=email).role
                     if role=="volunteer":
                         request.session['city']=volunteer.objects.get(email=email).city
+                        request.session['id']=volunteer.objects.get(email=email).vol_id
+
+                        pass
+
+                    elif role=="company":
+                        request.session['id']=company.objects.get(email=email).comp_id
                         pass
                     user.delete()
                     return response
@@ -241,6 +247,12 @@ def login(request):
 
                     if role=="volunteer":                      
                         request.session['city']=volunteer.objects.get(email=email).city
+                        request.session['id']=volunteer.objects.get(email=email).vol_id 
+                        pass
+
+                    elif role=="company":
+
+                        request.session['id']=company.objects.get(email=email).comp_id
                         pass
                     context={
 
