@@ -14,32 +14,51 @@
 
         <div class="post-container">
           <table class="table">
-            <thead>
+            
+              {% if request.session.email and request.session.role == "company"  %}
+              <thead>
+                <tr>
+                  <th>Payment Date</th>
+                  <th>Event Date</th>
+                  <th>Event Name</th>
+                  <th>Amount</th>
+                  <th>Payment ID</th>
+                  <th>Payment Status</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for p1 in history %}
               <tr>
-                <th>Payment Date</th>
-                <th>Event Date</th>
-                <th>Event Name</th>
-                <th>Amount</th>
-                <th>Payment ID</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% if request.session.email and request.session.role == "company" and request.session.email == event.company_email  %}
-              {% for t1 in history %}
                  <td>{{ p1.timestamp }}</td>
                  <td>{{ p1.event_date }}</td>
                  <td>{{ p1.event_name }}</td>
                  <td>{{ p1.amount }}</td>
                  <td>{{ p1.payment_id }}</td>
+                 <td>{{ p1.status }}</td>
+                 </tr>
                 {% endfor %}
                {% else %}
+               <thead>
+                <tr>
+                  <th>Payment Date</th>
+                  <th>Event Name</th>
+                  <th>Email</th>
+                  <th>Amount</th>
+                  <th>Mode</th>
+                </tr>
+              </thead>
+              <tbody>
                {% for t1 in history1%}
-               <td>{{ t1.timestamp }}</td>
-               <td>{{ t1.event_date }}</td>
+               <tr>
+               <td>{{ t1.timestamp1 }}</td>
                <td>{{ t1.event_name }}</td>
+               <td>{{ t1.vol_email }}</td>
                <td>{{ t1.amount }}</td>
-               <td>{{ t1.payment_id }}</td>
+               <td>{{ t1.mode }}</td>
+               </tr>  
+               {% endfor %}
             </tbody>
                {% endif %}
           </table>
     </body>
+    
