@@ -55,7 +55,7 @@
   {% for p1 in events|slice:":4" %}
   <div class="container">
     <h1><a class="post" href="/company/events/{{ p1.event_id }}">{{ p1.event_name }}</a></h1>
-    <h4><strong>Company Name:</strong> <span id="event_company"><a href="/company/profile/{{p1.company_id}}/">{{ p1.event_company }}</a></span></h4>
+    <h4><strong>Company Name:</strong> <span id="event_company" style="font-size: 2rem; color: black; text-align: center; margin-top: 3rem;"><a href="/company/profile/{{p1.company_id}}/" style="color:black">{{ p1.event_company }}</a></span></h4>
     <div class="description-container">
       <p class="description" id="description-{{ p1.event_id }}"><strong>Event Description:</strong> {{ p1.event_description }}</p>
     </div>
@@ -73,7 +73,7 @@
   {% for r1 in events_ex|slice:":4" %}
   <div class="container">
     <h1><a class="post" href="/company/events/{{ r1.event_id }}">{{ r1.event_name }}</a></h1>
-    <h4><strong>Company Name:</strong> <span id="event_company"><a href="/company/profile/{{r1.company_id}}/">{{ r1.event_company }}</a></span></h4>
+    <h4><strong>Company Name:</strong> <span id="event_company"style="font-size: 2rem; color: #006989; text-align: center; margin-top: 3rem;"><a href="/company/profile/{{r1.company_id}}/" style="color:black">{{ r1.event_company }}</a></span></h4>
     <div class="description-container">
       <p class="description" id="description-{{ r1.event_id }}"><strong>Event Description:</strong> {{ r1.event_description }}</p>
     </div>
