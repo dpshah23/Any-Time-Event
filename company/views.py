@@ -354,47 +354,101 @@ Usage:
     payment status in the database.
 """
 @ratelimit(key='ip',rate='5/m')
+# def getpayment(request, event_id):
+#     if request.method == "POST":
+#         name = request.POST.get('name')
+#         email = request.POST.get('email')
+#         feedbackreview = request.POST.get('feedback')
+#         date1 = date.today()
+
+#         print(name, email, feedbackreview, date1)
+
+#         review_obj = review(name=name, email=email, review=feedbackreview, date=date1)
+#         review_obj.save()
+#         try:
+#             ispaid1 = Event.objects.get(event_id=event_id).paid_status
+#         except Event.DoesNotExist:
+#             messages.error(request, "Event Not Found")
+#             return redirect('/company/events/')
+        
+#         messages.success(request, "Review Added Successfully")
+
+#         if ispaid1:
+#             return redirect('/company/events/')
+    
+#     load_dotenv()
+#     key = os.getenv('api_key_razorpay')
+#     secret = os.getenv('api_secret_razorpay')
+#     client = razorpay.Client(auth=(key, secret))
+
+#     total_vol = len(RegVol.objects.filter(event_id_1=event_id, attendence="present"))
+#     event = Event.objects.get(event_id=event_id)
+#     event_mrp = Event.objects.get(event_id=event_id).event_mrp
+#     amount = event_mrp * total_vol
+#     final_amt = int(amount) * 100  # Razorpay amount is in paise
+
+#     ispaid = event.paid_status
+
+#     if ispaid:
+#         messages.error(request, "Payment Already Done")
+#         return render(request, "payment.html", {'ispaid': ispaid, 'event_id': event_id})
+
+#     try:
+#         payment = client.order.create({"amount": final_amt, "currency": "INR", "payment_capture": '1'})
+#     except Exception as e:
+#         print("Error creating order: ", e)
+#         return render(request, "error.html", {"message": "Error creating Razorpay order"})
+
+#     print(payment)
+#     timestamp = date.today()
+#     payment_id = payment['id']
+#     company_email = event.company_email
+#     company_id = company.objects.get(email=company_email).comp_id
+#     event_name = event.event_name
+#     event_date = event.event_date
+
+#     pay = company_payment(timestamp=timestamp, event_id=event_id, event_name=event_name, event_date=event_date, amount=amount, order_id=payment_id, company_id=company_id)
+#     pay.save()
+
+#     return render(request, "payment.html", {'payment': payment, 'key': key, 'event_id': event_id, 'ispaid': ispaid})
 def getpayment(request, event_id):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        feedbackreview = request.POST.get('feedback')
+        date1 = date.today()
 
-    if request.method=="POST":
-        name=request.POST.get('name')
-        email=request.POST.get('email')
-        feedbackreview=request.POST.get('feedback')
-        date1=date.today()
+        print(name, email, feedbackreview, date1)
 
-        print(name,email,feedbackreview,date1)
-
-        objs=review(name=name,email=email,review=feedbackreview,date=date1)
-        objs.save()
+        review_obj = review(name=name, email=email, review=feedbackreview, date=date1)
+        review_obj.save()
         try:
-            ispaid1=Event.objects.get(event_id=event_id).paid_status
+            ispaid1 = Event.objects.get(event_id=event_id).paid_status
         except Event.DoesNotExist:
-            messages.error(request,"Event Not Found")
+            messages.error(request, "Event Not Found")
             return redirect('/company/events/')
-        messages.success(request,"Review Added Successfully")
+        
+        messages.success(request, "Review Added Successfully")
 
         if ispaid1:
             return redirect('/company/events/')
+    
     load_dotenv()
     key = os.getenv('api_key_razorpay')
     secret = os.getenv('api_secret_razorpay')
     client = razorpay.Client(auth=(key, secret))
 
     total_vol = len(RegVol.objects.filter(event_id_1=event_id, attendence="present"))
+    event = Event.objects.get(event_id=event_id)
     event_mrp = Event.objects.get(event_id=event_id).event_mrp
     amount = event_mrp * total_vol
-    final_amt = int(amount) * 100  
+    final_amt = int(amount) * 100
 
-    try:
-        ispaid=Event.objects.get(event_id=event_id).paid_status
-        if ispaid:
-            messages.error(request,"Payment Already Done")
-            ispaid1=True
+    ispaid = event.paid_status
 
-            return render(request, "payment.html", {'ispaid': ispaid1,'event_id':event_id})
-    except Event.DoesNotExist:
-        messages.error(request,"Event Not Found")
-        return redirect('/company/events/')
+    if ispaid:
+        messages.error(request, "Payment Already Done")
+        return render(request, "payment.html", {'ispaid': ispaid, 'event_id': event_id})
 
     try:
         payment = client.order.create({"amount": final_amt, "currency": "INR", "payment_capture": '1'})
@@ -405,15 +459,15 @@ def getpayment(request, event_id):
     print(payment)
     timestamp = date.today()
     payment_id = payment['id']
-    company_email = Event.objects.get(event_id=event_id).company_email
+    company_email = event.company_email
     company_id = company.objects.get(email=company_email).comp_id
-    event_name = Event.objects.get(event_id=event_id).event_name
-    event_date = Event.objects.get(event_id=event_id).event_date
+    event_name = event.event_name
+    event_date = event.event_date
+
     pay = company_payment(timestamp=timestamp, event_id=event_id, event_name=event_name, event_date=event_date, amount=amount, order_id=payment_id, company_id=company_id)
     pay.save()
 
-
-    return render(request, "payment.html", {'payment': payment, 'key': key,'event_id':event_id})
+    return render(request, "payment.html", {'payment': payment, 'key': key, 'event_id': event_id, 'ispaid': ispaid})
 
 
     

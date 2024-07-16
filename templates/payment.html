@@ -150,72 +150,67 @@
             margin-top: 20px;
         }
     </style>
-<body>
-    <div class="form-container">
-       
-        <h2>REVIEW</h2>
-        <form action="/company/payment/{{ event_id }}/" method="post">
-                
-                    {% csrf_token %}
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
-            
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-            
-                    <label for="message">Message:</label>
-                    <textarea id="message" name="feedback"  rows="4" required></textarea>
-            
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
+    <body>
+        <div class="form-container">
+            <h2>REVIEW</h2>
+            <form action="/company/payment/{{ event_id }}/" method="post">
+                {% csrf_token %}
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Message:</label>
+                <textarea id="message" name="feedback" rows="4" required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    
         {% if not ispaid %}
             <center><button id="rzp-button1">Pay Now</button></center>
-
         {% else %}
-
             <center><h2>Payment Already Done</h2></center>
         {% endif %}
-
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    <script>
-        var options = {
-            "key": "{{ key }}", // Your Razorpay key
-            "amount": "{{ payment.amount }}", // Amount in paise
-            "currency": "INR",
-            "name": "Any Time Event",
-            "description": "Payment for your Event",
-            "image": "/img/Any-Time-Event-Logo.png",
-            "order_id": "{{ payment.id }}", // Replace with actual Order ID
-            "handler": function (response){
-                console.log("Payment successful", response);
-                // Redirect to storedetails page with parameters
-                var url = '/company/storedetails' +
-                          '?order_id=' + response.razorpay_order_id +
-                          '&payment_id=' + response.razorpay_payment_id +
-                          '&signature=' + response.razorpay_signature +
-                          '&amount=' + "{{ payment.amount }}" +
-                          '&event_id=' + '{{ event_id }}';
-                window.location.href = url;
-            },
-            "theme": {
-                "color": "#f0ece2"
+    
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <script>
+            var options = {
+                "key": "{{ key }}",
+                "amount": "{{ payment.amount }}",
+                "currency": "INR",
+                "name": "Any Time Event",
+                "description": "Payment for your Event",
+                "image": "img/Any-Time-Event-Logo.png",
+                "order_id": "{{ payment.id }}",
+                "handler": function (response){
+                    console.log("Payment successful", response);
+                    var url = '/company/storedetails' +
+                              '?order_id=' + response.razorpay_order_id +
+                              '&payment_id=' + response.razorpay_payment_id +
+                              '&signature=' + response.razorpay_signature +
+                              '&amount=' + "{{ payment.amount }}" +
+                              '&event_id=' + '{{ event_id }}';
+                    window.location.href = url;
+                },
+                "theme": {
+                    "color": "#f0ece2"
+                }
+            };
+    
+            var rzp1 = new Razorpay(options);
+    
+            rzp1.on('payment.failed', function (response){
+                console.error("Payment failed", response);
+                alert("Payment Failed");
+            });
+    
+            document.getElementById('rzp-button1').onclick = function(e){
+                console.log("Opening Razorpay checkout");
+                rzp1.open();
+                e.preventDefault();
             }
-        };
-
-        var rzp1 = new Razorpay(options);
-
-        rzp1.on('payment.failed', function (response){
-            console.error("Payment failed", response);
-            alert("Payment Failed");
-        });
-
-        document.getElementById('rzp-button1').onclick = function(e){
-            console.log("Opening Razorpay checkout");
-            rzp1.open();
-            e.preventDefault();
-        }
-    </script>
-</body>
+        </script>
+    </body>
+    
+    
 {% endblock body %}
 </html>
