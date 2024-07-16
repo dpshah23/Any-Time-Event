@@ -10,20 +10,36 @@
     <title>Past Transactions</title>
     </head>
     <body>
+<h1> Past Transactions</h1>
+
         <div class="post-container">
-          {% if request.session.email and request.session.role == "company" and request.session.email == event.company_email  %}
-            {% for t1 in history %}
-            <h4><strong>Payment Date :</strong> <span id="date">{{ p1.timestamp }}</span></h4>
-            <h4><strong>Event Date :</strong> <span id="date1">{{ p1.event_date }}</span></h4>
-            <h4><strong>Event Name :</strong> <span id="name">{{ p1.event_name }}</span></h4>
-            <h4><strong>Amount :</strong> <span id="amount">{{ p1.amount }}</span></h4>
-            <h4><strong>Payment Id:</strong> <span id="id">{{ p1.payment_id }}</span></h4>
-          {%else%}
-            {% for t1 in history1%}
-            <h4><strong>Payment Date :</strong> <span id="date">{{ p1.timestamp1 }}</span></h4>
-            <h4><strong>Email :</strong> <span id="email">{{ p1.vol_email }}</span></h4>
-            <h4><strong>Event Name :</strong> <span id="name">{{ p1.event_name }}</span></h4>
-            <h4><strong>Amount :</strong> <span id="amount">{{ p1.amount }}</span></h4>
-            <h4><strong>Mode :</strong> <span id="mode">{{ p1.mode }}</span></h4>
-          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Payment Date</th>
+                <th>Event Date</th>
+                <th>Event Name</th>
+                <th>Amount</th>
+                <th>Payment ID</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if request.session.email and request.session.role == "company" and request.session.email == event.company_email  %}
+              {% for t1 in history %}
+                 <td>{{ p1.timestamp }}</td>
+                 <td>{{ p1.event_date }}</td>
+                 <td>{{ p1.event_name }}</td>
+                 <td>{{ p1.amount }}</td>
+                 <td>{{ p1.payment_id }}</td>
+                {% endfor %}
+               {% else %}
+               {% for t1 in history1%}
+               <td>{{ t1.timestamp }}</td>
+               <td>{{ t1.event_date }}</td>
+               <td>{{ t1.event_name }}</td>
+               <td>{{ t1.amount }}</td>
+               <td>{{ t1.payment_id }}</td>
+            </tbody>
+               {% endif %}
+          </table>
     </body>
