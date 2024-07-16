@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import *
+from volunteers.views import *
 
 urlpatterns = [
 
@@ -12,6 +13,7 @@ urlpatterns = [
     path('privacy_policy/',privacy_policy,name="privacy"),
     path('our-team/',ourteam,name="ourteam"),
     path('terms-and-condition/',termsandcond,name="termsandcond"),
-    path('about-us/',aboutus,name="about")
+    path('about-us/',aboutus,name="about"),
+    path('transaction_history/' , history , name = 'history'),
 
 ]

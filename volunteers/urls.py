@@ -10,5 +10,4 @@ urlpatterns = [
     path('editprofile/<vol_id>/',editvol,name="editvol"),
     path('events/<id>',getevent,name='geteventvol'),
     path('unregister/<event_id>',unregister,name="unregister"),
-    path('transaction_history/' , history , name = 'history'),
 ]
