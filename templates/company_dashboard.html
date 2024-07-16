@@ -15,13 +15,14 @@
 <nav>
   <input type="checkbox" id="check" />
   <label for="check" class="checkbtn">
-    <img class="menu" src="../static/img/bars.svg" alt="Bars" />
+    <img class="menu" src="/static/img/bars.svg" alt="Bars" />
   </label>
   <label class="logo"><img src="/static/img/Any-Time-Event-Logo.png" alt="Logo"></label>
   <ul>
     <li><a href="/">Home</a></li>
     <li><a href="/company/add_event">Add Event</a></li>
     <li><a href="/company/profile/{{obj.comp_id}}">Profile</a></li>
+    <li><a href="/company/transaction_history">Transactions</a></li>
     <li><a href="/contact-us">Contact</a></li>
     {% if 'email' not in request.session %}
     <button class="log-butt"><a href="/auth/login">Login</a></button>

@@ -6,9 +6,12 @@ body {
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
     background-color: #f0ece2;
-
 }
 
+::selection {
+    background-color: #006989;
+    color: #fff;
+}
 
 .profile-container {
     width: 80%;
@@ -18,6 +21,7 @@ body {
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    margin-top: 10rem;
 }
 
 .profile-header {
@@ -35,7 +39,7 @@ body {
 .field button {
     height: 50px;
     width: 30%;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 400;
     border: none;
     border-radius: 6px;
@@ -43,15 +47,19 @@ body {
     color: #ffffff;
     transition: all 0.3s ease;
     cursor: pointer;
-  }
+}
 
-  .field button:hover {
+.field button:hover {
     background-color: #027da2;
-  }
+}
 
 .bio {
     color: #666;
     font-size: 16px;
+}
+
+strong {
+    font-size: 18px;
 }
 
 .profile-details {
@@ -59,7 +67,7 @@ body {
 }
 
 .profile-details h2 {
-    font-size: 20px;
+    font-size: 26px;
     border-bottom: 2px solid #eee;
     padding-bottom: 5px;
     margin-bottom: 10px;
@@ -82,3 +90,45 @@ body {
     border-radius: 5px;
 }
 
+@media (max-width: 768px) {
+    .profile-container {
+        width: 90%;
+        margin-top: 9rem;
+    }
+
+    .profile-details h2 {
+        font-size: 22px;
+    }
+
+    .profile-picture {
+        width: 120px;
+        height: 120px;
+    }
+
+    .field button {
+        width: 50%;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-container {
+        width: 88%;
+        margin-top: 10rem;
+        padding: 15px;
+    }
+
+    .profile-details h2 {
+        font-size: 20px;
+    }
+
+    .profile-picture {
+        width: 100px;
+        height: 100px;
+    }
+
+    .field button {
+        width: 100%;
+        font-size: 16px;
+    }
+}

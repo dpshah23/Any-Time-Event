@@ -1,0 +1,163 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0ece2;
+}
+
+.container-fluid {
+    max-width: 100%;
+}
+
+.post {
+    text-align: center;
+    color: black;
+}
+
+.post-container {
+    text-align: center;
+    margin: 5px;
+    border-radius: 10px;
+    border-width: 10px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px;
+}
+
+.container {
+    max-width: 100%;
+    max-height: 100rem;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.posts:hover {
+    transition: all 0.4s ease-in-out;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 2rem;
+    color: #006989;
+}
+
+p {
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+h4 {
+    margin: 10px;
+}
+
+.profile-details h2 {
+    font-size: 35px;
+    color: #006989;
+}
+
+strong {
+    font-size: 18px;
+}
+
+.profile-container {
+    width: 80%;
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 10rem;
+}
+
+.location-link {
+    display: inline-block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.field button {
+    color: #FFFFFF;
+    background-color: #006989;
+    height: 50px;
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 19px;
+    transition: all 0.3s ease;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.field button a {
+    color: #ffffff;
+    text-decoration: none;
+    width: 90%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.field button:hover {
+    background-color: #037fa4;
+}
+
+@media (min-width: 992px) {
+    .post-container {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .post-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    .profile-details h2 {
+        font-size: 30px;
+    }
+
+    .field button {
+        font-size: 17px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    .post-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .profile-details h2 {
+        font-size: 25px;
+    }
+
+    .field button {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 575px) {
+    .post-container {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-details h2 {
+        font-size: 20px;
+    }
+
+    .field button {
+        font-size: 19px;
+    }
+}
