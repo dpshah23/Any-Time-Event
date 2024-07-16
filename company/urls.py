@@ -14,6 +14,6 @@ urlpatterns = [
     path('present/<event_id>/<email>',markattendenceyes,name="present"),
     path('absent/<event_id>/<email>',markattendenceno,name="absent"),
     path('storedetails',storedetails,name="storedeatail"),
-    path('transaction_history ', payment_history , name = 'history'),
+    path('transaction_history/<comp_id>', payment_history , name = 'history'),
     path('payment_success',payment_success,name='payment_success'),
 ]

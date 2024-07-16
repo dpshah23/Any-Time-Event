@@ -25,20 +25,21 @@
             </thead>
             <tbody>
               {% if request.session.email and request.session.role == "company" and request.session.email == event.company_email  %}
-              {% for t1 in history %}
-                 <td>{{ p1.timestamp }}</td>
-                 <td>{{ p1.event_date }}</td>
-                 <td>{{ p1.event_name }}</td>
-                 <td>{{ p1.amount }}</td>
-                 <td>{{ p1.payment_id }}</td>
+                {% for p1 in history %}
+                  <td>{{ p1.timestamp }}</td>
+                  <td>{{ p1.event_date }}</td>
+                  <td>{{ p1.event_name }}</td>
+                  <td>{{ p1.amount }}</td>
+                  <td>{{ p1.payment_id }}</td>
                 {% endfor %}
-               {% else %}
+              {% else %}
                {% for t1 in history1%}
-               <td>{{ t1.timestamp }}</td>
-               <td>{{ t1.event_date }}</td>
-               <td>{{ t1.event_name }}</td>
-               <td>{{ t1.amount }}</td>
-               <td>{{ t1.payment_id }}</td>
+                <td>{{ t1.timestamp }}</td>
+                <td>{{ t1.event_date }}</td>
+                <td>{{ t1.event_name }}</td>
+                <td>{{ t1.amount }}</td>
+                <td>{{ t1.payment_id }}</td>
+               {% endfor %}
             </tbody>
                {% endif %}
           </table>

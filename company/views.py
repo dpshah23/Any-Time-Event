@@ -897,7 +897,7 @@ This function is intended to be used in a Django web application as a view for d
 '''
 
 @ratelimit(key='ip',rate='5/m')
-def payment_history(request ):
+def payment_history(request , comp_id):
     if 'email' and 'role' not in request.session:
         messages.error(request,"You are not logged in")
         return redirect('/')
@@ -906,8 +906,7 @@ def payment_history(request ):
         messages.error(request,"You Don't have permission to view this page")
     email = request.session['email']
     try :
-        company_id = company.objects.get(email = email).comp_id
-        history = company_payment.objects.filter(comp_id=company_id)
+        history = company_payment.objects.filter(company_id=comp_id)
     
     except company.DoesNotExist:
         messages.error(request,'company Does Not Exists')
@@ -916,7 +915,7 @@ def payment_history(request ):
         print(e)
         return redirect('/')
     
-    return render(request ,'transaction.html' , {'history' : history} )
+    return render(request ,'transcation.html' , {'history' : history} )
         
 
 def payment_success(request):
