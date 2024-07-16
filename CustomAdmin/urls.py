@@ -19,4 +19,5 @@ urlpatterns = [
     path('delete/<email>/<role>/',views.delete,name="delete"),
     path('sendmailbypass/<event_id>/',views.sendmailbypass,name="sendmailbypass"),
     # path('delete12/',views.delete,name="delete12")
+    path('warncomp/<event_id>/',views.warncomp,name="warncomp"),
 ]

@@ -169,7 +169,7 @@ def privacy_policy(request):
     return render(request,'privacy.html')
 
 def ourteam(request):
-    return render(request,"our-team.html")
+    return render(request,"Our_Team.html")
 
 def termsandcond(request):
     return render(request,"Terms & Conditions.html")

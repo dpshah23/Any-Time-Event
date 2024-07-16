@@ -291,15 +291,20 @@ def profile(request,id):
     try:
         email = volunteer.objects.get(vol_id = id ).email
         obj=volunteer.objects.get(vol_id=id)
-        if obj.email!=request.session['email']:
-            messages.error(request,"You Don't have permission to view this page")
+        # if obj.email!=request.session['email']:
+        #     messages.error(request,"You Don't have permission to view this page")
         print(obj)
+
+        totalattendence=len(RegVol.objects.filter(email=obj.email,attendence="present"))
+
+        print(totalattendence)
+
     except Exception as e:
         print("error")
         messages.error(request,"Volunteer Not Found")
         return redirect('/volunteer/')
     
-    return render(request,"profile.html",{'obj':obj , 'is_volunteer': True , 'volunteer':email})
+    return render(request,"profile_vol.html",{'obj':obj , 'is_volunteer': True , 'volunteer':email,'totalattendedevent':totalattendence})
     
 def getevent(request,id):
     if 'email' and 'role' not in request.session:

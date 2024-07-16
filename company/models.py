@@ -5,6 +5,7 @@ import datetime
 class Event(models.Model):
     creation_date=models.DateField(default=datetime.date.today)
     company_email = models.CharField(max_length=150 , null=True)
+    company_id=models.CharField(max_length=150,null=True)
     event_company = models.CharField(max_length=200,null=True)
     event_name = models.CharField(max_length=200)
     event_id = models.CharField(max_length=100,unique=True , default=False)

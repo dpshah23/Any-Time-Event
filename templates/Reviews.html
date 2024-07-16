@@ -19,7 +19,7 @@
       <h1>REVIEWS</h1>
     </div>
 <div class="review-container">
-    {% for review in reviews %}
+    {% for review in reviews|slice:6 %}
     <div class="review-card">
         <div class="review-header">
             <div class="avatar">
