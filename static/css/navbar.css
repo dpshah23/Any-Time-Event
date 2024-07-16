@@ -161,3 +161,49 @@ a:hover {
     background-color: #639bc6;
   }
 }
+
+@media (max-width: 1368px) {
+  .checkbtn {
+    display: block;
+  }
+
+  ul {
+    position: fixed;
+    width: 15rem;
+    height: 100vh;
+    background-color: #f0f0f0;
+    left: -100%;
+    text-align: center;
+    transition: 0.5s all;
+    z-index: 10;
+  }
+
+  nav ul li {
+    display: block;
+    margin: 50px 0;
+    line-height: 30px;
+  }
+
+  nav ul li a {
+    font-size: 20px;
+  }
+
+  a:hover,
+  a.check {
+    background: none;
+    color: black;
+  }
+
+  #check:checked ~ ul {
+    left: 0;
+  }
+
+  .log-butt {
+    margin-left: 0rem;
+    height: 3rem;
+    width: 6rem;
+    font-weight: bold;
+    font-size: 22px;
+    background-color: #639bc6;
+  }
+}
