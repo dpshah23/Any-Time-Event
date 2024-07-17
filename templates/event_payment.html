@@ -1,7 +1,9 @@
+<!--This is Custom Admin Page where Event Payments are tracked-->
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Event Payments </title>
+        <title>Event Payments </title><!--Title of page-->
+        <!--Embedded Styles for page-->
         <style>
             .field button {
                 color: #FFFFFF;
@@ -71,10 +73,13 @@
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     </head>
     <body>
+        <!--Displays Events which are completed but their payments are remaining-->
         <h2><strong>Event Completed but Payment UnDone</strong></h2>
+        <!--If no such events are found this text will be displayed-->
          {% if not unpaid_company %}
          <p><center>No Unpaid Events Found !!!</center></p>
          {% else %}
+         <!--If such events are found then Table will be displayed-->
         <table border="1">
             <thead>
             <th>Event ID</th>
@@ -85,7 +90,6 @@
             <th>Event Date</th>
             <th>Total Days</th>
             <th>Send Mail to Company</th>
-            <!-- <th class="field button-field">Status</th> -->
             </thead>
             <tbody>
                 {% for event,days in unpaid_company %}
@@ -98,20 +102,21 @@
             <td>{{event.event_date}}</td>
             <td>{{days}}</td>
             <td><button type="button"><a  class="field button-field" href="/admincustom/warncomp/{{event.event_id}}/">Send Mail</a></button></td>
-            <!-- <td><a  class="field button-field" href=""><button type="button">Pay Now</button></a></td> -->
             </tr>
             {% endfor %}
             {% endif %}
             </tbody>
         </table>
-
+<!--End of Table-->
         <br>
-
+<!--Displays events with Bypass Payment-->
         <h2><strong>Bypass Payment</strong></h2>
+      <!--If no such events are found this text will be displayed-->
         {% if not payment_bypass %}
         <p><center>No Bypass Payment Found !!!</center></p>
         {% else %}
-        <table border="1">
+         <!--If such events are found then Table will be displayed-->
+         <table border="1">
             <thead>
             <th>Event ID</th>
             <th>Event Name</th>
@@ -137,12 +142,15 @@
             </tr>
             {% endfor %}
             {% endif %}
+<!--End of Table-->
 
-
+<!--Displays events with Remaining Payment-->
         <h2><strong>Remaining Payment</strong></h2>
+    <!--If no such events are found this text will be displayed-->
         {% if not events_ex %}
         <p><center>No Expired Events Found !!!</center></p>
         {% else %}
+      <!--If such events are found then Table will be displayed-->
         <table border="1">
             <thead>
             <th>Event ID</th>
@@ -168,12 +176,15 @@
             {% endif %}
             </tbody>
         </table>
+        <!--End of Table-->
 <br>
+<!--Displays events with Completed Payments-->
 <h2><strong>Completed Payments</strong></h2>
-
+  <!--If no such events are found this text will be displayed-->
 {% if not complete_payment %}
 <p><center>No Completed Payments Found !!!</center></p>
 {% else %}
+    <!--If such events are found then Table will be displayed-->
         <table border="1">
             <thead>
                 <th>Event ID</th>
@@ -196,5 +207,7 @@
                 {% endif %}
                 </tbody>
         </table>
+        <!--End of Table-->
     </body>
 </html>
+<!--End of page-->
