@@ -225,7 +225,7 @@ a:hover {
 @media (max-width: 1105px) {
 
     .hero h1 {
-        font-size: 2.8em;
+        font-size: 3.8em;
     }
 
     .hero h2 {
@@ -239,7 +239,7 @@ a:hover {
     }
 
     .hero h1 {
-        font-size: 2.8em;
+        font-size: 3.8em;
     }
 
     .hero h2 {
@@ -269,6 +269,7 @@ a:hover {
 
     .hero h1 {
         font-size: 1.9em;
+        margin-top: 3rem;
     }
 
     .hero h2 {
@@ -282,7 +283,7 @@ a:hover {
     }
 
     .hero h1 {
-        font-size: 1.2em;
+        font-size: 1.8em;
     }
 
     .hero h2 {
