@@ -1,3 +1,4 @@
+<!--Alert Message will be displayed if any activity takes place -->
 {% block body %}
 {% if messages %}
   {% for message in messages %}
@@ -7,9 +8,8 @@
     </div>
   {% endfor %}
 {% endif %}
-
+<!--Linked necessary CSS files-->
 <link rel="stylesheet" href="/static/css/events.css">
-<link rel="stylesheet" href="../static/css/navbar.css" />
 <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css" />
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
@@ -267,14 +267,13 @@ h4 {
 }
 
 </style>
-<!-- <link rel="stylesheet" href="../static/css/event_history.css"> -->
 <script defer src="https://code.jquery.com/jquery-3.7.1.min.js"
   integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
-<title>{{event.event_name}} | Event history</title>
+<title>{{event.event_name}} | Event history</title><!--Title of page-->
 </head>
 
 <body>
+  <!-- Navbar -->
 <nav>
   <input type="checkbox" id="check" />
   <label for="check" class="checkbtn">
@@ -293,9 +292,12 @@ h4 {
     {% endif %}
   </ul>
 </nav>
-<div class="profile-container">
+<!--End of Navbar -->
 
+<!--Main Container -->
+<div class="profile-container">
     <div class="profile-details">
+      <!--Here all the details of Event will be displayed -->
         <h2>{{event.event_name}}</h2>
         <p><strong>Date :</strong> <span id="phone">{{event.event_date}} &nbsp;</span></p>
         <p><strong> Start Time :</strong> <span id="phone">{{event.event_time}}&nbsp;&nbsp;</span></p>
@@ -306,18 +308,9 @@ h4 {
         <p><strong>Rate:</strong> <span id="phone">{{event.actual_amount}}</span></p>
         <p><strong>Location Link:</strong> <span id="phone" class="text-break"><a  href="{{event.event_loc_link}}">{{event.event_loc_link}}</a></span></p>
         <p><strong>Skills:</strong> <span id="phone">{{event.event_skills}}</span></p>
-        <p><strong>Company Representative:</strong> <span id="phone">{{event.event_rep}}</span></p>
-        <!-- <iframe
-        width="600"
-         height="450"
-        frameborder="0" style="border:0"
-        src="https://www.google.com/maps/embed/v1/place?q={{event.event_loc_link}}q=bvcfertfdeftygfcxwxedcerxxexxeY"
-        allowfullscreen>
-        </iframe> -->
-
-        
+        <p><strong>Company Representative:</strong> <span id="phone">{{event.event_rep}}</span></p> 
+        <!--If company views the page they will be provided with option of Registered Volunteers and edit event details -->
         {% if request.session.email and request.session.role == "company" and request.session.email == event.company_email  %}
-        {% comment %} <p><strong>Number of Volunteers Registered:</strong></p> {% endcomment %}
         {% if not event1 %}
         <div class="field button-field">
             <a href="/company/get_volunteers/{{event.event_id}}"> <button type="button">Registered Volunteers</button></a>
@@ -325,11 +318,14 @@ h4 {
         </div>
         {% else %}
         <div class="field button-field">
+          <!--Else only registered volunteers can be viewed-->
             <a href="/company/get_volunteers/{{event.event_id}}"> <button type="button">Registered Volunteers</button></a>
         </div>
         {% endif %}
        
         {% endif %}
-        
+        <!--End of Container-->
     </div>
+
 {% endblock body %}
+<!--End of page-->

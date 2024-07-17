@@ -4,19 +4,21 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home | Any Time Event</title>
+    <title>Home | Any Time Event</title><!--Title of page-->
+    <!--Linked CSS and JavaScript files-->
     <link rel="stylesheet" href="../static/css/home.css" />
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!--linked Company Logo -->
     <link rel="icon" type="image/png" sizes="16x16" href="../static/img/Any-Time-Event-Logo.png">
 
 </head>
 
 <body>
 
-    <!-- Navbar -->
+    <!-- Navbar Added -->
 
     <nav>
         <input type="checkbox" id="check" />
@@ -76,7 +78,7 @@
                 </div>
             </center>
             <div class="event-details">
-                <h2><a href="" style="color:black" >{{ events.0.event_name }}</a></h2>
+                <h2>{{ events.0.event_name }}</h2>
                 <p>Date & Time: {{events.0.event_date}}, {{events.0.event_time}} - {{events.0.event_end_time}}</p>
                 <p>Location: {{events.0.event_location}}</p>
                 {% if 'email' in request.session and request.session.role == "volunteer" %}
@@ -110,7 +112,7 @@
                 
             </center>
             <div class="event-details">
-                <h2><a href="" style="color:black" >{{ events.1.event_name }}</a></h2>
+                <h2>{{ events.1.event_name }}</h2>
                 <p>Date & Time: {{events.1.event_date}}, {{events.1.event_time}} - {{events.1.event_end_time}}</p>
                 <p>Location: {{events.1.event_location}}</p>
                 {% if 'email' in request.session and request.session.role == "volunteer" %}
@@ -146,7 +148,7 @@
                 
             </center>
             <div class="event-details">
-                <h2><a href="" style="color:black" >{{ events.2.event_name }}</a></h2>
+                <h2>{{ events.2.event_name }}</h2>
                 <p>Date & Time: {{events.2.event_date}}, {{events.2.event_time}} - {{events.2.event_end_time}}</p>
                 <p>Location: {{events.2.event_location}}</p>
                 {% if 'email' in request.session and request.session.role == "volunteer" %}
@@ -180,7 +182,7 @@
                 </div>
             </center>
             <div class="event-details">
-                <h2><a href="" style="color:black" >{{ events.3.event_name }}</a></h2>
+                <h2>{{ events.3.event_name }}</h2>
                 <p>Date & Time: {{events.3.event_date}}, {{events.3.event_time}} - {{events.3.event_end_time}}</p>
                 <p>Location: {{events.3.event_location}}</p>
                 {% if 'email' in request.session and request.session.role == "volunteer" %}
@@ -216,7 +218,7 @@
                 
             </center>
             <div class="event-details">
-                <h2><a href="" style="color:black" >{{ events.4.event_name }}</a></h2>
+                <h2>{{ events.4.event_name }}</h2>
                 <p>Date & Time:{{events.4.event_date}}, {{events.4.event_time}} - {{events.4.event_end_time}}</p>
                 <p>Location: {{events.4.event_location}}</p>
                 {% if 'email' in request.session and request.session.role == "volunteer" %}
@@ -253,7 +255,7 @@
             
             </center>
             <div class="event-details">
-                <h2><a href="" style="color:black" >{{ events.5.event_name }}</a></h2>
+                <h2>{{ events.5.event_name }}</h2>
                 <p>Date & Time: {{events.5.event_date}}, {{events.5.event_time}} - {{events.5.event_end_time}}</p>
                 <p>Location: {{events.5.event_location}}</p>
                 {% if 'email' in request.session and request.session.role == "volunteer" %}

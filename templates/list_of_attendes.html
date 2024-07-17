@@ -1,18 +1,22 @@
+<!--Company Navbar Extended-->
 {% extends "company_dashboard.html" %}
 
-{% block title %}Volunteers List{% endblock %}
+{% block title %}Volunteers List{% endblock %}<!--Title of page-->
 {% block body %}
 <head>
+    <!--Linked CSS files-->
     <link rel="stylesheet" href="/static/css/volunteers_list.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 {% block content %}
+<!--This page will display the list of Registered volunteers-->
 <title>Volunteers List</title>
 <body>
     <div class="container">
         <h1>Total Volunteers: {{ length }} / {{ event.event_vol }}</h1>
         <h1>Volunteers List</h1>
         <table class="table">
+            <!--Table which displays Volunteer List-->
             <thead>
                 <tr>
                     <th>Profile</th>
@@ -35,6 +39,7 @@
                     <td>{{ volunteer.skills }}</td>
                     {% if volunteer.attendence != "present" and volunteer.attendence != "absent" %}  
                     <td class="field">
+                        <!--Mark attendence of volunteer Present if volunteer attended event else mark Absent-->
                         <button type="button" name="Present">
                             <a href="/company/present/{{volunteer.event_id_1}}/{{volunteer.email}}">Present</a>
                         </button>
@@ -51,7 +56,9 @@
                 {% endfor %}
             </tbody>
         </table>
+        <!--End of Table -->
     </div>
 </body>
 {% endblock content %}
 {% endblock body %}
+<!--End of page-->

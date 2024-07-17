@@ -1,6 +1,8 @@
+<!--Navbar Extended-->
 {% extends "base.html" %}
 {% block title %}Volunteer Data {% endblock title %}
 {% block body %}
+<!--Alert Message will be displayed if any activity takes place -->
 {% if messages %}
   {% for message in messages %}
     <div class="custom-alert custom-alert-{{ message.tags }}">
@@ -10,13 +12,14 @@
   {% endfor %}
 {% endif %}
 
-<link rel="stylesheet" href="/static/css/user_data.css">
+<link rel="stylesheet" href="/static/css/user_data.css"><!--Linked CSS file-->
 
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
+<!--Main Container-->
 <section class="container forms">
     <div class="form login">
         <div class="form-content">
+     <!--Here all fields are available for Volunteer details to be Edited -->
             <header>Edit Details of Volunteer</header>
             <form id="volunteerForm" action ='/volunteer/editprofile/{{volunteer.vol_id}}/' method = "post" enctype="multipart/form-data">
             {% csrf_token %}
@@ -76,12 +79,15 @@
             </div>              
 
             <div class="field button-field">
+        <!--After  the necessary updation,Submit button will send the updated details to Database-->
                 <button value="submit" name="submit">Update details</button>
             </div>
         </form>
+        <!--End of form-->
     </div>
 </div>
 </section>
 
-<script src="../static/js/user_data.js"></script>
+<script src="../static/js/user_data.js"></script><!--Linked JavaScript file-->
 {% endblock body %}
+<!--End of page-->
