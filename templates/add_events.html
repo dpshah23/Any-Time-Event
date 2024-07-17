@@ -1,6 +1,4 @@
-<!-- {% extends "base.html" %}
-{% block title %}Add Events {% endblock title %}
-{% block body %} -->
+<!--Alert Message will be displayed if any activity takes place -->
 {% if messages %}
   {% for message in messages %}
     <div class="custom-alert custom-alert-{{ message.tags }}">
@@ -10,13 +8,14 @@
   {% endfor %}
 {% endif %}
 
-
+<!--Linked CSS file of the page-->
 <link rel="stylesheet" href="../static/css/Add_Events.css">
 
-
+<!--Main form container-->
 <div class="form-container">
   <h3>Add Event</h3>
   <form id="eventForm" action ='{% url "add_event" %}' method = "post">
+    <!--Total 13 fields are used to get information for adding event on Company Dashboard-->
     {% csrf_token %}
       <div class="left-side">
           <label for="eventName">Event Name:</label>
@@ -63,11 +62,14 @@
           <input type="text" id="location_link" name="location_link" required>
       </div>
       <div class="full-width">
+        <!--Once all data is entered submit button will createe the event successfully-->
           <button type="submit">Submit</button>
       </div>
   </form>
+  <!--End of the form-->
 </div>
-
+<!--Link for JavaScript file of the page-->
 <script src="../static/js/Add_Events.js"></script>
 
 {% endblock body %}
+<!--End of the page-->

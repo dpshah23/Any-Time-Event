@@ -1,14 +1,18 @@
+<!--Extending Dashboard For the Company side-->
 {% extends "company_dashboard.html" %}
 
-{% block title %}{{company_name}}{% endblock title %}
-
+{% block title %}{{company_name}}{% endblock title %}<!--Title of the page-->
+<!--Start of page contents-->
 {% block body %}
+<!--Linked CSS file for page-->
 <link rel="stylesheet" href="/static/css/all_events.css" />
 <div>
+  <!--Welcome Text for the Company-->
   <p class="fs-1">Welcome, {{company_name}} !</p>
 </div>
 <br>
 <br>
+<!--Animations showing Upcoming Events, Number of Volunteers registered and Number of Events Completed-->
 <div class="flex-wrapper">
   <div class="single-chart">
     <svg viewBox="0 0 36 36" class="circular-chart blue">
@@ -47,8 +51,10 @@
   </div>
 </div>
 <br><br>
+<!--This section displays Upcoming Events of the Company-->
 <h1>Upcoming Events</h1>
 <div class="post-container">
+  <!--If no data is found then this text will be displayed-->
   {% if not events %}
   <p><center>No Upcoming Events Found !!!</center></p>
   {% endif %}
@@ -63,8 +69,9 @@
   {% endfor %}
 </div>
 <br><br>
+<!--This section displays Upcoming Events of the Company-->
 <h1>Expired Events</h1>
-
+<!--If no data is found then this text will be displayed-->
 {% if not events_ex %}
 <p><center>No Expired Events Found !!!</center></p>
 {% endif %}
@@ -87,6 +94,6 @@
   </div>
   {% endfor %}
 </div>
-
+<!--End of this section-->
 {% endblock body %}
-
+<!--End of the page-->
