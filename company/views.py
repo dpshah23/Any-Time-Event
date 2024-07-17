@@ -861,7 +861,7 @@ def payment_history(request , company_id):
         print(e)
         return redirect('/')
     
-    return render(request ,'transcation.html' , {'history' : history} )
+    return render(request ,'transaction_company.html' , {'history' : history} )
         
 
 def payment_success(request):
