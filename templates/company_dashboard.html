@@ -1,17 +1,19 @@
+<!--Main Navbar which is Extended in Company Page-->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% block title %}{% endblock title %} | Any Time Event </title>
+  <title>{% block title %}{% endblock title %} | Any Time Event </title><!--Title of page-->
   <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css" />
   <link rel="icon" type="image/png" sizes="16x16" href="../static/img/Any-Time-Event-Logo.png">
-  <link rel="stylesheet" href="/static/css/navbar_company.css" />
+  <link rel="stylesheet" href="/static/css/navbar_company.css" /><!--Linked CSS file-->
 
 </head>
 
 <body>
+  <!--Starting of Navbar-->
 <nav>
   <input type="checkbox" id="check" />
   <label for="check" class="checkbtn">
@@ -19,6 +21,7 @@
   </label>
   <label class="logo"><img src="/static/img/Any-Time-Event-Logo.png" alt="Logo"></label>
   <ul>
+    <!-- Functionalities for Company-->
     <li><a href="/">Home</a></li>
     <li><a href="/company/add_event">Add Event</a></li>
     <li><a href="/company/profile/{{obj.comp_id}}">Profile</a></li>
@@ -31,7 +34,8 @@
     {% endif %}
   </ul>
 </nav>
-
+<!--End of Navbar-->
 {% block body %}{% endblock body %}
 </body>
 </html>
+<!--End of page-->

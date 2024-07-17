@@ -1,6 +1,8 @@
+<!--Navbar extended-->
 {% extends "base.html" %}
-{% block title %}Company Data {% endblock title %}
+{% block title %}Company Data {% endblock title %}<!--Title of page-->
 {% block body %}
+<!--Alert Message will be displayed if any activity takes place -->
 {% if messages %}
     {% for message in messages %}
     <div class="alert alert-{{message.tags}} alert-dismissible fade show my-0 py-2" role="alert">
@@ -10,11 +12,12 @@
     {% endfor %}
 {% endif %}
 
-<link rel="stylesheet" href="../static/css/Company_Data.css">
-<link rel="stylesheet" href="../static/js/Company_Data.js">
-
+<link rel="stylesheet" href="../static/css/Company_Data.css"><!--Linked CSS file-->
+<link rel="stylesheet" href="../static/js/Company_Data.js"><!--Linked JavaScript file-->
+<!--Main Container-->
 <section class="container forms">
     <div class="form login">
+        <!--Total 6 fields are used to get information for Registering New Company -->
         <div class="form-content">
             <header>Company Data</header>
             <form action="{% url 'companyinfo' %}" method="post" enctype="multipart/form-data">
@@ -58,11 +61,14 @@
                 </div>
 
                 <div class="field button-field">
+            <!--Once all data is entered submit button will Register the Company successfully-->
                     <button>Sign Up</button>
                 </div>
             </form>
+            <!--End of form-->
         </div>
     </div>
 </section>
 
 {% endblock body %}
+<!--End of page-->
