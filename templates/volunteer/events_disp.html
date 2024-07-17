@@ -24,7 +24,7 @@ block body %} {% if messages %} {% for message in messages %}
             <p>Location: {{event.event_location}}</p>
             <button  class="field button-field" type="button"><a href='/volunteer/events/{{event.event_id}}'>View details</a></button><br>
            {% if event.event_id not in applied_events %}
-            <button  class="field button-field" type="button"><a href="/volunteer/apply/{{event.event_id}}">Apply Now</a></button>/,br>
+            <button  class="field button-field" type="button"><a href="/volunteer/apply/{{event.event_id}}">Apply Now</a></button><br>
             {% else %}
             
             <button  class="field button-field" type="button"><a href="/volunteer/unregister/{{event.event_id}}">Unregister</a></button><br>

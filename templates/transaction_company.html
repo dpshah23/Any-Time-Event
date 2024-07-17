@@ -1,4 +1,4 @@
-<!-- Transaction history page -->
+<!-- Transaction history page for company-->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -34,7 +34,14 @@
                  <td>{{ p1.event_name }}</td>
                  <td>{{ p1.amount }}</td>
                  <td>{{ p1.payment_id }}</td>
-                 <td>{{ p1.status }}</td>
+                 <td>
+                  {% if p1.status %}
+                  Success
+                  {% else %}
+
+                  Fail
+                  {% endif %}
+                 </td>
                  </tr>
                 {% endfor %}
                {% else %}

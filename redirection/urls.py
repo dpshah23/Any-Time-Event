@@ -14,6 +14,5 @@ urlpatterns = [
     path('our-team/',ourteam,name="ourteam"),
     path('terms-and-condition/',termsandcond,name="termsandcond"),
     path('about-us/',aboutus,name="about"),
-    path('transaction_history/' , history , name = 'history'),
 
 ]
