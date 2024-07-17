@@ -1,6 +1,4 @@
-<!-- {% extends "base.html" %}
-{% block title %}Add Events {% endblock title %}
-{% block body %} -->
+<!--Alert Message will be displayed if any activity takes place -->
 {% if messages %}
   {% for message in messages %}
     <div class="custom-alert custom-alert-{{ message.tags }}">
@@ -11,13 +9,13 @@
 {% endif %}
 
 
-<link rel="stylesheet" href="/static/css/Add_Events.css">
-
-
+<link rel="stylesheet" href="/static/css/Add_Events.css"><!--Linked CSS file-->
+<!--Main Container-->
 <div class="form-container">
   <h3>Edit Events</h3>
   <form id="eventForm" action ='/company/editevent/{{event.event_id}}' method = "post">
     {% csrf_token %}
+          <!--Here all fields are available for Company Events to be Edited -->
       <div class="left-side">
           <label for="eventName">Event Name:</label>
           <input type="text" id="eventName" value={{event.event_name}} name="eventName" required>
@@ -62,11 +60,14 @@
           <input type="text" id="location_link" value={{event.event_loc_link}} name="location_link" required>
       </div>
       <div class="full-width">
+          <!--After the necessary updation,Submit button will send the updated details to Database-->
           <button type="submit">Update Details</button>
       </div>
   </form>
+  <!--End of form-->
 </div>
 
-<script src="../static/js/Add_Events.js"></script>
+<script src="../static/js/Add_Events.js"></script><!--Linked JavaScript file-->
 
 {% endblock body %}
+<!--End of page-->

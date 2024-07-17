@@ -1,7 +1,9 @@
+<!--Navbar Extended-->
 {% extends "base.html" %}
 {% block title %}Edit Details {% endblock title %}
 {% block body %}
 {% if messages %}
+<!--Alert Message will be displayed if any activity takes place -->
 {% for message in messages %}
 <div class="custom-alert custom-alert-{{ message.tags }}">
   {{ message }}
@@ -10,12 +12,13 @@
 {% endfor %}
 {% endif %}
 
-<link rel="stylesheet" href="/static/css/edit_company_details.css">
-<link rel="stylesheet" href="/static/js/Company_Data.js">
-
+<link rel="stylesheet" href="/static/css/edit_company_details.css"><!--Linked CSS file-->
+<link rel="stylesheet" href="/static/js/Company_Data.js"><!--Linked JavaScript file-->
+<!--Main Container-->
 <section class="container forms">
   <div class="form login">
     <div class="form-content">
+      <!--Here all fields are available for Company details to be Edited -->
       <header>Edit Details</header>
       <form id="companyForm" action='/company/editprofile/{{company.comp_id}}' method="post"
         enctype="multipart/form-data">
@@ -54,11 +57,14 @@
     <p class="image-note">*Image should be of .png, .jpg, .jpeg only</p>
 
     <div class="field button-field">
+      <!--After the necessary updation,Submit button will send the updated details to Database-->
       <button type="submit">Update Details</button>
     </div>
     </form>
+    <!--End of form-->
   </div>
   </div>
 </section>
 
 {% endblock body %}
+<!--End of page-->
