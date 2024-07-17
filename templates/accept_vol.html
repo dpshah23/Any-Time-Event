@@ -1,7 +1,9 @@
+<!--Custom Admin Page to Accept or Reject New Users-->
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Accept Users</title>
+    <title>Accept Users</title><!--Title of the page-->
+    <!--CSS Styling of the page -->
     <style>
         .field button {
             color: #FFFFFF;
@@ -39,6 +41,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
+    <!--Table for New Volunteeers-->
     <h2><strong>Volunteers</strong></h2>
     {% if not volunteers %}
     <p><center>No New Volunteers Found !!!</center></p>
@@ -73,6 +76,7 @@
                 <td><img src="data:image/png;base64,{{volunteer.card}}" width="80px" height="80px"></td>
                 <td>{{volunteer.upi}}</td>
                 <td class="field button-field">
+                    <!--Accept or Reject user according to the accuracy of Data provided-->
                     <button type="button"><a href="/admincustom/acceptyes/{{volunteer.email}}">Yes</a></button>
                     <button type="button"><a href="/admincustom/acceptno/{{volunteer.email}}">No</a></button>
                 </td>
@@ -81,8 +85,10 @@
         {% endif %}
         </tbody>
     </table>
+    <!--End of the Volunteer Table-->
     <br>
     <h2><strong>Companys</strong></h2>
+    <!--Table for New Company-->
     {% if not companys %}
     <p><center>No New Companys Found !!!</center></p>
     {% else %}
@@ -112,6 +118,7 @@
                 <td><img src="data:image/png;base64,{{company.card}}" width="80px" height="80px"></td>
                 <td><img src="data:image/png;base64,{{company.logo}}" width="80px" height="80px"></td>
                 <td class="field button-field">
+                    <!--Accept or Reject user according to the accuracy of Data provided-->
                     <button type="button"><a href="/admincustom/acceptyes/{{company.email}}">Yes</a></button>
                     <button type="button"><a href="/admincustom/acceptno/{{company.email}}">No</a></button>
                 </td>
@@ -120,12 +127,12 @@
             {% endif %}
         </tbody>
     </table>
-
+<!--End of the Company Table -->
     
     <br>
     
     <h2><strong>Redundant Volunteers</strong></h2>
-
+<!--Table for Redudant Volunteers entry-->
     {% if volunteers_unwanted %}
     
     <table border="1">
@@ -158,6 +165,7 @@
                 <td><img src="data:image/png;base64,{{volunteer.card}}" width="80px" height="80px"></td>
                 <td>{{volunteer.upi}}</td>
                 <td class="field button-field">
+                    <!--Delete those volunteers-->
                     <button type="button"><a href="/admincustom/delete/{{volunteer.email}}/volunteer/">Delete</a></button>
                 </td>
             </tr>
@@ -165,12 +173,14 @@
         </tbody>
     </table>
     {% else %}
-
-    
+    <!--If no data is found then this text will be displayed-->
     <p><center>No Volunteers found with Redundant Data</center></p>
     
     {% endif %}
+    <!--End of Redudant Volunteers Table-->
+
 <br>
+<!--Table for Redudant Company entry-->
     <h2><strong>Redundant Companys</strong></h2>
 
     {% if companys_unwanted%}
@@ -200,6 +210,7 @@
                 <td><img src="data:image/png;base64,{{company1.card}}" width="80px" height="80px"></td>
                 <td><img src="data:image/png;base64,{{company1.logo}}" width="80px" height="80px"></td>
                 <td class="field button-field">
+                    <!--Delete those Companys-->
                     <button type="button"><a href="/admincustom/delete/{{company1.email}}/company/">Delete</a></button>
                     
                 </td>
@@ -208,12 +219,14 @@
         </tbody>
     </table>
     {% else %}
-
-    <p><center>No Companys found with Redundant Data</center></p>
+<!--If no data is found then this text will be displayed-->
+    <p><center>No Companys found with Redundant Data !!!</center></p>
 
     {% endif %}
+    <!--End of Redudant Company Table-->
 
 
     
 </body>
 </html>
+<!--End of the page-->
