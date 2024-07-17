@@ -1,17 +1,22 @@
+<!--Navbar Extended -->
 {% extends "base.html" %} 
-{% block title %}About Us {% endblock title %} {%
-block body %} {% if messages %} {% for message in messages %}
+{% block title %}About Us {% endblock title %}
+<!--Alert Message will be displayed if any activity takes place -->
+{% block body %} {% if messages %} {% for message in messages %}
 <div class="custom-alert custom-alert-{{ message.tags }}">
     {{ message }}
     <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
 </div>
 {% endfor %} {% endif %}
 {% block body %}
+<!--CSS file for the page -->
 <link rel="stylesheet" href="/static/css/About-Us.css" />
 
 <h1>About Us</h1>
+<!--Main container -->
 <div class="container">
     <div class="header">
+        <!--Company Logo -->
         <img src="/static/img/Any-Time-Event-Logo.png" alt="Logo" class="logo" />
     </div>
     <div class="content">
@@ -21,7 +26,7 @@ block body %} {% if messages %} {% for message in messages %}
             with dedicated <strong>Paid Volunteers</strong> and <strong>Freelancers</strong> eager to make a difference
             while earning an income.
         </p>
-
+<!--Description of The Company and it's Services -->
         <h3>Our Mission</h3>
         <p>
             At <b>AnyTimeEvent</b>, Our mission is to bridge the gap between Companies
@@ -75,6 +80,7 @@ block body %} {% if messages %} {% for message in messages %}
         <h3>Contact Us</h3>
         <p>Ready to plan your next event? Get in touch with us today!</p>
         <p>
+            <!--Company's Credentials -->
             <strong>Phone:</strong> +91 98765 43210<br />
             <strong>Email:</strong>
             <a href="mailto:info@anytimeevent.com">support@anytimeevents.com</a><br />
@@ -83,5 +89,5 @@ block body %} {% if messages %} {% for message in messages %}
         </p>
     </div>
 </div>
-
+<!--End of the page -->
 {% endblock body %}
