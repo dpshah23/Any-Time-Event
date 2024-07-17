@@ -26,9 +26,6 @@
         <label class="logo"><img src="../static/img/Any-Time-Event-Logo.png" alt="Logo" /></label>
         <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/about-us">About</a></li>
-            <li><a href="/review">Reviews</a></li>
-            <li><a href="/contact-us">Contact</a></li>
             {% if 'email' in request.session %}
             {% if request.session.role == "volunteer" %}
             <li><a href="volunteer/events">Dashboard</a></li>
@@ -36,6 +33,9 @@
             <li><a href="company/events">Dashboard</a></li>
             {% endif %}
             {% endif %}
+            <li><a href="/review">Reviews</a></li>
+            <li><a href="/about-us">About</a></li>
+            <li><a href="/contact-us">Contact</a></li>
             {% if 'email' not in request.session %}
             <button class="log-butt"><a href="/auth/login">Login</a></button>
             {% else %}
