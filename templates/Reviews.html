@@ -1,6 +1,63 @@
 {% extends "base.html" %}
 {% block title %}Reviews {% endblock title %}
 {% block body %}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const paginationElement = document.getElementById("pagination");
+        const totalPages = {{total_pages}}; // Change this value to the number of pages you have
+        const currentPage = {{cur_page}}; // Change this value to the current page
+    
+        function createPageLink(pageNumber) {
+            const pageLink = document.createElement("a");
+            pageLink.href = `?pg=${pageNumber}`;
+            pageLink.textContent = pageNumber;
+            if (pageNumber === currentPage) {
+                pageLink.classList.add("active");
+            }
+            pageLink.addEventListener("click", function(event) {
+                event.preventDefault();
+                document.querySelector(".pagination a.active").classList.remove("active");
+                pageLink.classList.add("active");
+                window.location.href=pageLink.href
+                // Logic to display the corresponding page content
+            });
+            return pageLink;
+        }
+    
+        const prevLink = document.createElement("a");
+        prevLink.href = "#";
+        prevLink.innerHTML = "&laquo;";
+        prevLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            if (currentPage > 1) {
+                document.querySelector(".pagination a.active").classList.remove("active");
+                paginationElement.childNodes[currentPage].classList.add("active");
+                // Logic to display the previous page content
+            }
+        });
+        paginationElement.appendChild(prevLink);
+    
+        for (let i = 1; i <= totalPages; i++) {
+            const pageLink = createPageLink(i);
+            paginationElement.appendChild(pageLink);
+        }
+    
+        const nextLink = document.createElement("a");
+        nextLink.href = "#";
+        nextLink.innerHTML = "&raquo;";
+        nextLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            if (currentPage < totalPages) {
+                document.querySelector(".pagination a.active").classList.remove("active");
+                paginationElement.childNodes[currentPage + 2].classList.add("active");
+                // Logic to display the next page content
+            }
+        });
+        paginationElement.appendChild(nextLink);
+    });
+    
+</script>
 {% if messages %}
 {% for message in messages %}
 <div class="custom-alert custom-alert-{{ message.tags }}">
@@ -19,7 +76,7 @@
       <h1>REVIEWS</h1>
     </div>
 <div class="review-container">
-    {% for review in reviews|slice:6 %}
+    {% for review in reviews %}
     <div class="review-card">
         <div class="review-header">
             <div class="avatar">
@@ -36,6 +93,8 @@
         {{ review.review|slice:":100" }}{% if review.review|length > 100 %}...{% endif %} <a href="#" class="read-more">Read more</a></p>
     </div>
     {% endfor %}
+
+    <div class="pagination" id="pagination"></div>
 </div>
 
 <div class="form-container">
@@ -55,6 +114,6 @@
     </form>
 </div>
 
-<script src="/static/js/Reviews.js"></script>
+<script src="/static/js/Reviews.js"></scrip>
 </body>
 {% endblock body %}

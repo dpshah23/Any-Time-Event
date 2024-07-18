@@ -174,7 +174,7 @@ def reviews(request):
     print(total_pages)
     page_obj_active = paginator.get_page(page_number)
 
-    return render(request,"reviews.html",{'reviews':page_obj_active,'total_pages':total_pages})
+    return render(request,"reviews.html",{'reviews':page_obj_active,'total_pages':total_pages,'cur_page':page_number})
 
 def privacy_policy(request):
     return render(request,'privacy.html')
