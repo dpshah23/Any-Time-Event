@@ -12,6 +12,7 @@ from auth1.models import company
 from .models import review
 from company.models import RegVol
 from datetime import date
+from django.core.paginator import Paginator
 
 # Create your views here.
 '''
@@ -163,7 +164,17 @@ def reviews(request):
 
 
     obj=review.objects.all().order_by('-date')
-    return render(request,"reviews.html",{'reviews':obj})
+
+    page_number=request.GET.get('pg',1)
+
+    paginator = Paginator(obj, 6)
+
+    total_pages = paginator.num_pages
+
+    print(total_pages)
+    page_obj_active = paginator.get_page(page_number)
+
+    return render(request,"reviews.html",{'reviews':page_obj_active,'total_pages':total_pages})
 
 def privacy_policy(request):
     return render(request,'privacy.html')
