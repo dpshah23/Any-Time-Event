@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: "Poppins",sans-serif;
+  font-family: "Poppins", sans-serif;
   background-color: #f0ece2;
 }
 
@@ -115,7 +115,7 @@ a:hover {
   }
 }
 
-@media (max-width: 858px) {
+@media (max-width: 1000px) {
   .checkbtn {
     display: block;
   }
@@ -161,7 +161,6 @@ a:hover {
     background-color: #639bc6;
   }
 }
-
 @media (max-width: 1368px) {
   .checkbtn {
     display: block;

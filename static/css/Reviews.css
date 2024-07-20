@@ -96,17 +96,19 @@ h1 {
 
     .review-container {
         gap: 15px;
+        margin:12px;
     }
 }
 
 @media (max-width: 768px) {
     .review-card {
-        width: 100%;
+        width: 75%;
     }
 
     .review-container {
         justify-content: center;
         gap: 10px;
+        margin:12px;
     }
 }
 
@@ -117,6 +119,7 @@ h1 {
 
     .review-container {
         gap: 20px;
+        margin:10px;
     }
 
     .review-header {

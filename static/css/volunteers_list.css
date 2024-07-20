@@ -40,7 +40,7 @@ table {
     background-color: #f0ece2;
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
+    margin: 20px 0 20px ;
     font-size: 1em;
     font-family: 'Poppins', sans-serif;
     min-width: 400px;
@@ -75,4 +75,8 @@ table tbody tr:last-of-type {
 table tbody tr.active-row {
     font-weight: bold;
     color: #009879;
+}
+h1{
+    display: center;
+    margin:20px;
 }
