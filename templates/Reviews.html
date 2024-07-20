@@ -88,14 +88,13 @@
             </div>
             <img src="/static/img/Any-Time-Event-Logo.png" alt="Logo" class="platform-icon">
         </div>
-        <p class="review-text"
-        data-full-text="{{review.review}}">
+        <p class="review-text" data-full-text="{{review.review}}">
         {{ review.review|slice:":100" }}{% if review.review|length > 100 %}...{% endif %} <a href="#" class="read-more">Read more</a></p>
     </div>
     {% endfor %}
-
-    <div class="pagination" id="pagination"></div>
 </div>
+
+<div class="pagination" id="pagination"></div>
 
 <div class="form-container">
     <h2>REVIEW</h2>

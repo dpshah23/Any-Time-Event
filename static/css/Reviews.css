@@ -22,6 +22,7 @@ h1 {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    gap: 25px; /* Added to handle the gap between items */
 }
 
 .review-card {
@@ -30,8 +31,6 @@ h1 {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: 29%;
-    margin-left: 25px;
-    margin-right: 25px;
     margin-bottom: 25px;
 }
 
@@ -240,14 +239,11 @@ h1 {
     }
 }
 
-body {
-    font-family: Arial, sans-serif;
-}
-
 .pagination {
     display: flex;
     justify-content: center;
     padding: 20px;
+    width: 100%;
 }
 
 .pagination a {
@@ -257,15 +253,15 @@ body {
     text-decoration: none;
     transition: background-color .3s;
     margin: 0 4px;
-    border: 1px solid #ddd;
 }
 
 .pagination a.active {
-    background-color: #4CAF50;
+    background-color: #006989;
     color: white;
-    border: 1px solid #4CAF50;
+    border-radius: 8px;
 }
 
 .pagination a:hover:not(.active) {
     background-color: #ddd;
+    border-radius: 8px;
 }
