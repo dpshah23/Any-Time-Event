@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
 
 body {
@@ -6,52 +5,47 @@ body {
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-    background-color: #639bc6;
-
+    background-color: #dfd3c3;
 }
 
-  .container-fluid {
+.container-fluid {
     max-width: 100%;
+}
 
-  }
-  
-  .post {
+.post {
     text-align: center;
     color: black;
-    /* background-color: white; */
-  }
-  
-  .post-container {
-    background-color: white;
+}
+
+.post-container {
+    background-color: #dfd3c3;
     text-align: center;
     max-width: 700px;
     border-radius: 10px;
     border-width: 10px;
     position: relative;
-    top: 4rem; /* Adjust the top value to control the overall position of the post-container */
-    margin-top: 5rem; /* Adjust the margin-top value to create space between navbar and post-container */
     left: 50%;
     transform: translateX(-50%);
-  }
-  
-  .container {
+}
+
+.container {
+    background-color: #dfd3c3;
     border: 1px solid black;
     margin: 5px;
     border-radius: 5px;
-    position: relative; /* Add position relative to allow positioning of individual posts */
-    /* top: -40px; */
+    position: relative;
+}
 
-  }
-  
-  .posts:hover {
+.posts:hover {
     transition: all 0.4s ease-in-out;
-  }
-  
-  h1 {
+}
+
+h1 {
     text-align: center;
     margin-top: 2rem;
-  }
-  table {
+}
+
+table {
     background-color: #f0ece2;
     width: 100%;
     border-collapse: collapse;

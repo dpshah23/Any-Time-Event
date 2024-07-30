@@ -10,7 +10,7 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #f0ece2;
+  background-color: #dfd3c3;
   overflow-x: hidden;
 }
 
@@ -21,7 +21,7 @@ body {
 
 nav {
   background: #dfd3c3;
-  height: 90px;
+  height: 100px;
   width: 100%;
   z-index: 10;
   position: relative;
@@ -162,5 +162,20 @@ a:hover {
     font-weight: bold;
     font-size: 21px;
     background-color: #639bc6;
+  }
+}
+@media (min-width: 850px) and (max-width: 1130px) {
+  .navbar {
+      flex-direction: row;
+      justify-content: space-evenly;
+      padding: 10px;
+  }
+
+  .navbar a {
+      margin: 0 10px;
+  }
+
+  .logout-btn {
+      margin-left: auto;
   }
 }

@@ -316,3 +316,115 @@ a:hover {
     margin-top: 2rem; 
   }
 }
+
+/* Media query for screen widths between 850px and 1130px */
+@media (min-width: 850px) and (max-width: 1130px) {
+  .navbar {
+      flex-direction: row;
+      justify-content: space-evenly;
+      padding: 10px;
+  }
+
+  .navbar a {
+      margin: 0 10px;
+  }
+
+  .logout-btn {
+      margin-left: auto;
+  }
+}
+
+/* Media query for screen dimensions 1099px x 500px */
+@media (max-width: 1099px) and (max-height: 500px) {
+  label.logo {
+      font-size: 28px; /* Adjust logo font size */
+      padding-left: 20px;
+  }
+
+  nav ul li a {
+      font-size: 16px; /* Adjust navbar link font size */
+  }
+
+  nav ul {
+      margin-right: 10px;
+  }
+
+  .log-butt {
+      height: 2rem; /* Adjust button size */
+      width: 4rem;
+      font-size: 16px;
+      margin-left: 0;
+  }
+
+  .checkbtn {
+      display: block; /* Show the menu button for small screens */
+      color: #006989;
+      margin-top: 0;
+  }
+
+  nav ul {
+      position: fixed;
+      width: 15rem;
+      height: 100vh;
+      background-color: #f0f0f0;
+      top: 80px;
+      left: -100%;
+      text-align: center;
+      transition: 0.5s all;
+  }
+
+  nav ul li {
+      display: block;
+      margin: 20px 0;
+      line-height: 30px;
+  }
+
+  nav ul li a {
+      font-size: 18px;
+  }
+
+  nav ul li a:hover,
+  .checkbtn:hover {
+      background: none;
+      color: black;
+  }
+
+  #check:checked~ul {
+      left: 0;
+      margin-top: 10px;
+  }
+
+  /* Adjust the profile-container margins and padding */
+  .profile-container {
+      width: 85%;
+      margin-top: 5rem;
+      padding: 15px;
+  }
+
+  .profile-header {
+      margin-bottom: 15px;
+  }
+
+  .profile-picture {
+      width: 100px;
+      height: 100px;
+  }
+
+  .field button {
+      width: 50%;
+      font-size: 16px;
+  }
+
+  .bio {
+      font-size: 14px;
+  }
+
+  strong {
+      font-size: 16px;
+  }
+
+  .profile-details h2 {
+      font-size: 20px;
+      border-bottom: 1px solid #eee;
+  }
+}

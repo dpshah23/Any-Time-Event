@@ -1,4 +1,15 @@
 <!-- Transaction history page for company-->
+ {% extends "company_dashboard.html" %}
+ {% block title %}Transactions{% endblock title %}
+{% block body %}
+{% if messages %}
+  {% for message in messages %}
+    <div class="custom-alert custom-alert-{{ message.tags }}">
+      {{ message }}
+      <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+    </div>
+  {% endfor %}
+{% endif %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,7 +21,8 @@
     <title>Past Transactions</title>
     </head>
     <body>
-<h1> Past Transactions</h1>
+      <br>
+     <h1><center>Past Transactions</center></h1>
 
         <div class="post-container">
           <table class="table">
@@ -68,4 +80,4 @@
                {% endif %}
           </table>
     </body>
-    
+    {% endblock body %}

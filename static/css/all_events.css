@@ -202,3 +202,80 @@ h4 {
     font-size: 0.6em;
   }
 }
+
+
+/* Media query for screen widths between 850px and 1130px */
+@media (min-width: 850px) and (max-width: 1130px) {
+  .navbar {
+      flex-direction: row;
+      justify-content: space-evenly;
+      padding: 10px;
+  }
+
+  .navbar a {
+      margin: 0 10px;
+  }
+
+  .logout-btn {
+      margin-left: auto;
+  }
+}
+
+/* Mobile devices (max-width: 600px) */
+@media (max-width: 600px) {
+  .fs-1 {
+      font-size: 1.5rem; 
+  }
+
+  .flex-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .single-chart {
+      width: 100%;
+      margin-bottom: 20px;
+  }
+
+  .circular-chart {
+      width: 90%;
+      height: auto;
+  }
+.container{
+  align-items: center;
+}
+  .percentage {
+      font-size: 1.5rem; 
+}
+
+/* Small mobile devices (max-width: 480px) */
+@media (max-width: 480px) {
+  .fs-1 {
+      font-size: 1.5rem; 
+  }
+
+  .circular-chart {
+      width: 90%;
+  }
+
+  .percentage {
+      font-size: 1.2rem; 
+  }
+}
+
+/* Extra small mobile devices (max-width: 360px) */
+@media (max-width: 360px) {
+  .fs-1 {
+      font-size: 1.3rem;
+    }
+
+  .circular-chart {
+      width: 100%;
+  }
+
+  .percentage {
+      font-size: 1rem; 
+    }
+  }
+}
