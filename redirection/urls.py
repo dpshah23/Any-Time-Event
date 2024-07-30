@@ -13,6 +13,6 @@ urlpatterns = [
     path('privacy_policy/',privacy_policy,name="privacy"),
     path('our-team/',ourteam,name="ourteam"),
     path('terms-and-condition/',termsandcond,name="termsandcond"),
-    path('templates/about-us/',aboutus,name="about"),
+    path('about-us/',aboutus,name="about"),
 
 ]

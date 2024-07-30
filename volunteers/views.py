@@ -452,7 +452,7 @@ def editvol(request,vol_id):
                     'city' : city,
                     'profile_pic':profile_pic
                     
-                }
+                }   
             )
             
 
