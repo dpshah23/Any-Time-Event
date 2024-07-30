@@ -85,3 +85,6 @@ table tbody tr.active-row {
     font-weight: bold;
     color: #009879;
 }
+.transactions{
+   background-color: #f0ece2;
+}
