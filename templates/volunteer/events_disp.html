@@ -1,16 +1,19 @@
+<!--Extending volunteer navbar-->
 {% extends "./basevol.html" %}
-{% block title %}Volunteer Dashboard {% endblock title %} {%
-block body %} {% if messages %} {% for message in messages %}
+{% block title %}Volunteer Dashboard {% endblock title %} 
+{%block body %} 
+<!--Alert Message will be displayed if any activity takes place -->
+{% if messages %} {% for message in messages %}
 <div class="custom-alert custom-alert-{{ message.tags }}">
     {{ message }}
     <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
 </div>
 {% endfor %} {% endif %}
-{% block body %}
+<!--Linked CSS file-->
 <link rel="stylesheet" href="/static/css/events_disp.css" />
-
+<!--This is pages hows upcoming and past events of volunteer-->
 <div>
-    <p class="fs-1">Welcome, </p>
+    <p class="fs-1">Welcome,{{vol_name}} ! </p>
 </div>
 <br>
 <br>
@@ -59,3 +62,4 @@ block body %} {% if messages %} {% for message in messages %}
 
 
 {% endblock body %}
+<!--End of page-->

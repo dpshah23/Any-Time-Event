@@ -1,6 +1,7 @@
-<!-- Transaction history page for company-->
-{% extends "company_dashboard.html" %}
+<!-- Extending volunteer navbar-->
+{% extends "./basevol.html" %}
 {% block title %}Transactions{% endblock title %}
+<!--Alert Message will be displayed if any activity takes place -->
 {% block body %}
 {% if messages %}
  {% for message in messages %}
@@ -10,21 +11,21 @@
    </div>
  {% endfor %}
 {% endif %}
-<!DOCTYPE html>
-<html lang="en">
+<!--Useful Meta tags-->
  <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <!--Linked necessary files-->
    <link rel="stylesheet" href="/static/css/event_history.css">
    <script defer src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
    <title>Past Transactions</title>
    </head>
-   <body>
+   <body style=" background-color: #dfd3c3 !important;">
      <div class="transactions">
        <br>
     <h1><center>Past Transactions</center></h1>
-
+      <!--This page displays all transactions of the volunteer with details like payment date, event name, payment amount etc with it's status-->
        <div class="post-container">
          <table class="table">
            
@@ -83,3 +84,4 @@
          </div>
    </body>
    {% endblock body %}
+   <!--End of page-->

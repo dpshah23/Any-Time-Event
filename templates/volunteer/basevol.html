@@ -1,3 +1,4 @@
+<!--Navbar for volunteer -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +11,6 @@
   <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css" />
 </head>
 
-<body>
   <nav>
     <input type="checkbox" id="check" />
     <label for="check" class="checkbtn">
@@ -18,17 +18,11 @@
     </label>
     <label class="logo"><img src="/static/img/Any-Time-Event-Logo.png" alt="Logo"></label>
     <ul>
+      <!--Basic functionalities for volunteer-->
       <li><a href="/">Home</a></li>
       <li><a href="/volunteer/profile/{{request.session.id}}/">Profile</a></li>
       <li><a href="/volunteer/transaction_history/">Transcations</a></li>
       <li><a href="/contact-us">Contact</a></li>
-      <!-- {% if 'email' in request.session %}
-      {% if request.session.role == "volunteer" %}
-      <li><a href="volunteer/">Dashboard</a></li>
-      {% else %}
-      <li><a href="company/">Dashboard</a></li>
-      {% endif %}
-      {% endif %} -->
       {% if 'email' not in request.session %}
       <button class="log-butt"><a href="/auth/login">Login</a></button>
       {% else %}
@@ -36,7 +30,11 @@
       {% endif %}
     </ul>
   </nav>
-  {% block body %}{% endblock body %}
-</body>
+  <body>
+    <div class="content">
+      {%block body %}{%endblock %}
+    </div>
+  </body>
 
+<!--End of page-->
 </html>

@@ -2,17 +2,19 @@
 
 body {
     margin: 0;
-    padding: 0;
+    padding-top: 80px;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-    background-color: #dfd3c3;
 }
 
 .container-fluid {
     max-width: 100%;
 }
-
+.nav{
+    text-decoration: none;
+}
 .post {
+    background-color: #dfd3c3;
     text-align: center;
     color: black;
 }
@@ -85,6 +87,11 @@ table tbody tr.active-row {
     font-weight: bold;
     color: #009879;
 }
-.transactions{
-   background-color: #f0ece2;
+
+.content {
+    background-color: #f0ece2; 
+    min-height: calc(100vh - 80px); 
 }
+/* .transactions{
+   background-color: #f0ece2;
+} */

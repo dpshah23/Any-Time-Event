@@ -1,6 +1,8 @@
+<!--Extending Base navbar-->
 {% extends "base.html" %}
 {% block title %}Terms & Conditions {% endblock title %}
 {% block body %}
+<!--Alert Message will be displayed if any activity takes place -->
 {% if messages %}
   {% for message in messages %}
     <div class="custom-alert custom-alert-{{ message.tags }}">
@@ -10,9 +12,9 @@
   {% endfor %}
 {% endif %}
 
-
+<!--Linked CSS file-->
 <link rel="stylesheet" href="../static/css/Terms & Conditons.css">
-
+<!--This page prompts Terms & Conditions of the platform with brief details -->
 <div class="container">
     <header>
         <center>
@@ -93,3 +95,4 @@
 
 <script src="../static/js/Terms & Conditions.js"></script>
 {% endblock body %}
+<!--End of page-->
