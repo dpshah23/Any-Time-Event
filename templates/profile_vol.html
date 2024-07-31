@@ -1,3 +1,4 @@
+<!--Extending volunteer navber-->
 {% extends "volunteer/basevol.html" %}
 {% block title %}Profile {% endblock title %}
 {% block body %}
@@ -5,8 +6,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Profile Page</title>
+<!--Linked CSS file-->
 <link rel="stylesheet" href="/static/css/profile.css">
 <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css" />
+<!--Alert Message will be displayed if any activity takes place -->
 {% if messages %}
 {% for message in messages %}
 <script>
@@ -20,6 +23,7 @@
         <img src="data:image/png;base64,{{obj.profile_pic}}" width="80px" heigth="80" alt="Profile Picture" class="profile-picture" id="profile-picture">
         </div>
         <div class="profile-details">
+            <!--volunteer details are displayed here-->
             <h2>Volunteer Information</h2>
             <p><strong>Name:</strong> <span id="phone">{{obj.name}}</span></p>
             <p><strong>Email:</strong> <span id="email">{{obj.email}}</span></p>
@@ -37,6 +41,7 @@
             {% endif %}
             <p><strong>City:</strong> <span id="city">{{obj.city}}</span></p>
         </div>
+              <!--If registering email id is same as viewing email id then user is allowed to change/update their details-->
         {% if request.session.email == obj.email %}
         <div class="field button-field">
             <a href="/volunteer/editprofile/{{obj.vol_id}}"> <button type="button">Edit Details </button></a>

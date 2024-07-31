@@ -1,10 +1,13 @@
+<!--Extending company navbar-->
 {% extends "company_dashboard.html" %}
 {% block title %}Payment {% endblock title %}
 {% block body %}
+<!--useful Meta tags-->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Payment | Any Time Event </title>
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css" />
+    <!--Styling of the page -->
     <style>
 
         .form-container {
@@ -152,7 +155,7 @@
     </style>
 <body>
     <div class="form-container">
-       
+       <!--First review is taken then the payment is allowed -->
         <h2>REVIEW</h2>
         <form action="/company/payment/{{ event_id }}/" method="post">
                 
@@ -176,7 +179,7 @@
 
             <center><h2>Payment Already Done</h2></center>
         {% endif %}
-
+<!--Javascript code to integrate Razorpay payment gateway -->
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
         var options = {

@@ -1,6 +1,8 @@
+<!--Extending company navbar-->
 {% extends "company_dashboard.html" %}
 {% block title %}Profile {% endblock title %}
 {% block body %}
+<!--Alert Message will be displayed if any activity takes place -->
 {% if messages %}
   {% for message in messages %}
     <div class="custom-alert custom-alert-{{ message.tags }}">
@@ -10,11 +12,12 @@
   {% endfor %}
 {% endif %}
 
-
+<!--Linked CSS file -->
 <link rel="stylesheet" href="/static/css/profile.css">
-
+<!-- Main Profile container-->
 <div class="profile-container">
   {% if request.session.role == "company" %}
+  <!--If role of the user is company then accordingly details are displayed otherwise  according to volunteer -->
   <div class="profile-header">
       <img src="data:image/png;base64,{{data.logo}}" width="80px" heigth="80" alt="Profile Picture" class="profile-picture" id="profile-picture">
   </div>
@@ -27,7 +30,7 @@
       <p><strong>Address:</strong> <span id="address">{{data.address}}</span></p>
       <p><strong>Bio:</strong> <span id="phone">{{data.description}}</span></p>
   </div>
-
+      <!--If registering email id is same as viewing email id then user is allowed to change/update their details-->
   {% if request.session.email == data.email %}
   <div class="field button-field">
     <a href="/company/editprofile/{{data.comp_id}}"> <button type="button">Edit Details </button></a>
@@ -55,6 +58,7 @@
           {% endif %}
           <p><strong>City:</strong> <span id="city">{{obj.city}}</span></p>
       </div>
+      <!--If registering email id is same as viewing email id then user is allowed to change/update their details-->
       {% if request.session.email == obj.email %}
       <div class="field button-field">
           <a href="/volunteer/editprofile/{{obj.vol_id}}"> <button type="button">Edit Details </button></a>
@@ -64,3 +68,4 @@
   {% endif %}
 
 {% endblock body %}
+<!--End of page -->

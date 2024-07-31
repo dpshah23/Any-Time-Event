@@ -1,6 +1,8 @@
+<!--Extending Base navbar -->
 {% extends "base.html" %}
 {% block title %}Privacy Policy {% endblock title %}
 {% block body %}
+<!--Alert Message will be displayed if any activity takes place -->
 {% if messages %}
   {% for message in messages %}
     <div class="custom-alert custom-alert-{{ message.tags }}">
@@ -10,9 +12,9 @@
   {% endfor %}
 {% endif %}
 
-
+<!--Linked CSS file -->
 <link rel="stylesheet" href="/static/css/Privacy Policy.css">
-
+<!--Main container -->
 <div class="container">
     <header>
         <center>
@@ -20,6 +22,7 @@
         </center>
     </header>
     <main>
+        <!--Here Privacy policy contents are displayed which are concered with user data and system usage-->
         <div class="content">
             <h2>Introduction</h2>
             <p>Welcome to <span>Any Time Event</span>. We value your privacy and are committed to protecting your personal
@@ -90,3 +93,4 @@
 
 <script src="../static/js/Privacy Policy.js"></script>
 {% endblock body %}
+<!--End of page-->
