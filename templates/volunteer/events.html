@@ -1,14 +1,17 @@
+<!--Extending volunteer navbar-->
 {% extends "./basevol.html" %}
-{% block title %}Event Details {% endblock title %} {%
-block body %} {% if messages %} {% for message in messages %}
+{% block title %}Event Details {% endblock title %} 
+{%block body %}
+<!--Alert Message will be displayed if any activity takes place -->
+{% if messages %} {% for message in messages %}
 <div class="custom-alert custom-alert-{{ message.tags }}">
     {{ message }}
     <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
 </div>
 {% endfor %} {% endif %}
-{% block body %}
+<!--Linked CSS file-->
 <link rel="stylesheet" href="/static/css/events_details_volunteer.css" />
-
+<!--This container displays profile details of volunteer-->
 <div class="profile-container">
   <div class="profile-details">
       <h2>{{event.event_name}}</h2>
@@ -24,6 +27,7 @@ block body %} {% if messages %} {% for message in messages %}
       <p><strong>Skills:</strong> <span id="phone">{{event.event_skills}}</span></p>
       <p><strong>Company Representative:</strong> <span id="phone">{{event.event_rep}}</span></p>
       {% if not unregistered %}
+      <!--If volunteer has not registered for the event it will allow them to or let them also unregister themselves-->
       <div class="field">
           <button type="button"><a href="/volunteer/apply/{{event.event_id}}">Apply Now</a></button>
       </div>
@@ -36,3 +40,4 @@ block body %} {% if messages %} {% for message in messages %}
 </div>
 
 {% endblock body %}
+<!--End of page-->

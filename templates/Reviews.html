@@ -1,7 +1,8 @@
-<
+<!--Extending Base navbar-->
 {% extends "base.html" %}
 {% block title %}Reviews {% endblock title %}
 {% block body %}
+<!--Javascript code for Pagination of reviews-->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const paginationElement = document.getElementById("pagination");
@@ -58,6 +59,7 @@
     });
     
 </script>
+<!--Alert Message will be displayed if any activity takes place -->
 {% if messages %}
 {% for message in messages %}
 <div class="custom-alert custom-alert-{{ message.tags }}">
@@ -68,6 +70,7 @@
 {% endif %}
 
 <head>
+    <!--Linked CSS file-->
 <link rel="stylesheet" href="/static/css/Reviews.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -75,6 +78,7 @@
     <div>
       <h1>REVIEWS</h1>
     </div>
+    <!--Here all the reviews are displayed which are posted by users-->
 <div class="review-container">
     {% for review in reviews %}
     <div class="review-card">
@@ -95,7 +99,7 @@
 </div>
 
 <div class="pagination" id="pagination"></div>
-
+<!--Here user can write a review by providing name , email and message and it will be displayed in reviews list-->
 <div class="form-container">
     <h2>REVIEW</h2>
     <form action="/review/" method="POST">
@@ -115,3 +119,4 @@
 
 <script src="/static/js/Reviews.js"></script>
 {%endblock body %}
+<!--End of page-->
