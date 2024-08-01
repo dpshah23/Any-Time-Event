@@ -7,8 +7,8 @@
 }
 
 ::selection {
-    background: #006989;
-    color: white;
+  background: #006989;
+  color: white;
 }
 
 body {
@@ -153,7 +153,7 @@ a:hover {
     color: black;
   }
 
-  #check:checked ~ ul {
+  #check:checked~ul {
     left: 0;
   }
 
@@ -166,16 +166,33 @@ a:hover {
     background-color: #639bc6;
   }
 }
-@media (max-width: 1368px) {
+
+@media (max-width: 992px) {
+  label.logo {
+    font-size: 30px;
+    padding-left: 50px;
+  }
+
+  nav ul li a {
+    font-size: 16px;
+  }
+
+  .log-butt {
+    height: 2rem;
+    width: 4.2rem;
+    font-size: 18px;
+  }
+
   .checkbtn {
     display: block;
   }
 
-  ul {
+  nav ul {
     position: fixed;
     width: 15rem;
     height: 100vh;
     background-color: #f0f0f0;
+    top: 80px;
     left: -100%;
     text-align: center;
     transition: 0.5s all;
@@ -198,12 +215,12 @@ a:hover {
     color: black;
   }
 
-  #check:checked ~ ul {
+  #check:checked~ul {
     left: 0;
   }
 
   .log-butt {
-    margin-left: 0rem;
+    margin-left: 0;
     height: 3rem;
     width: 6rem;
     font-weight: bold;
