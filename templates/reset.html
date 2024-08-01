@@ -12,10 +12,10 @@
   {% endfor %}
 {% endif %}
 
-<link rel="stylesheet" href="../static/css/Reset_Pass(Email).css">
+<link rel="stylesheet" href="/static/css/Reset_Pass(Email).css">
 <!--Main Container -->
 <div class="container">
-  <!--This allows users to set new wmail and set new password in case of forget email-->
+  <!--This allows users to set new email and set new password in case of forget email-->
     <h2>Reset Email</h2>
     <form id="resetForm" action="" method="post">
       {% csrf_token %}
