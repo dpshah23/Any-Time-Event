@@ -193,6 +193,7 @@ body {
 
   .contact .content h2 {
     font-size: 40px;
+    margin-top: 2rem;
   }
 
   .contact .content p {
@@ -222,7 +223,7 @@ body {
 
   .contact .content h2 {
     font-size: 36px;
-    margin-top: 15px;
+    margin-top: 2rem;
   }
 
   .contactForm h2 {
