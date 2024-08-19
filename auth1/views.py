@@ -18,6 +18,7 @@ import requests
 from datetime import timedelta
 import json
 import base64
+import re
 
 
 
@@ -579,6 +580,15 @@ def volunteerinfo(request):
 
     if request.method == 'POST':
         # Check if both images are uploaded
+
+        upi = request.POST.get('upi_id')
+
+        pattern = r"^(?P<username>[^@]+)@(?P<bankname>[^@]+)$"
+        if not re.match(pattern, upi):
+            print("Invalid UPI ID")
+            messages.error(request, 'Invalid UPI ID')
+            return render(request, 'user_data.html')
+
         if 'profile_picture' not in request.FILES or 'identity_proof' not in request.FILES:
             messages.error(request, 'Both profile picture and identity proof are required')
             return render(request, 'user_data.html')
