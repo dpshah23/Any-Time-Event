@@ -12,7 +12,7 @@
       {% endfor %}
 {% endif %}
 
-<link rel="stylesheet" href="../static/css/OTP.css"><!--Linked CSS file-->
+<link rel="stylesheet" href="/static/css/OTP.css"><!--Linked CSS file-->
 <!--Main Form -->
 <form class="form" action="" method="post">
     {% csrf_token %}
@@ -31,7 +31,7 @@
     <button type="submit" class="action">Verify</button>
 </form>
 <!--End of form-->
-<script src="../static/js/OTP.js"></script>
+<script src="/static/js/OTP.js"></script>
 
 {% endblock body %}
 <!--End of page-->
