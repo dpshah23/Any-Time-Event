@@ -6,7 +6,7 @@ class payout(models.Model):
     vol_id = models.CharField(max_length=100)
     vol_email = models.CharField(max_length=100)
     event_id = models.CharField(max_length=100)
-    event_name = models.CharField(null = True)
+    event_name = models.CharField(null = True,max_length=200)
     rz_id = models.TextField()
     entity = models.TextField()
     amount = models.TextField()
